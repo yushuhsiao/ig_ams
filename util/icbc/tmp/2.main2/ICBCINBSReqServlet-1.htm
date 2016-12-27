@@ -1,0 +1,2135 @@
+﻿<HTML><HEAD>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<SCRIPT language=JavaScript1.2>
+<!--
+var isshowtip='1';
+
+function setcolor(){
+		var topframe = parent.parent.topFrame||parent.parent.parent.topFrame;
+		var leftframe = parent.leftFrame||parent.parent.leftFrame;
+		try{
+			topframe.topColor('01');
+			//console.error("left state: "+parent.leftFrame.document.readyState);
+			if(leftframe.document.readyState=="complete"){
+				leftFrameColor();
+			}else{
+				setTimeout("leftFrameColor()",2000);
+			}
+		}catch(Exception){
+			window.setTimeout("leftFrameColor()",2000);
+		}
+}
+//特殊处理新栏目下的左测栏目是否隐藏显示
+function leftFrameColor(){
+	try{
+		var leftframe = parent.leftFrame||parent.parent.leftFrame;
+		leftframe.leftColor('0101','','','01');
+	}catch(Exception){}
+}
+function showdv1(){
+
+		try{tabletopmessage.style.display='none';}catch(exception){}
+		/*tdtopmessage.style.display='';
+		tdtopmessage1.style.display='';
+		tdtopmessage2.style.display='';*/
+		try{tdtopmessage.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage1.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage2.style.visibility='visible';}catch(exception){}
+	}
+	function showdv2(){
+		try{tabletopmessage.style.display='';}catch(exception){}
+		/*tdtopmessage.style.display='none';
+		tdtopmessage1.style.display='none';
+		tdtopmessage2.style.display='none';*/
+		try{tdtopmessage.style.visibility='hidden';}catch(exception){}
+		try{tdtopmessage1.style.visibility='hidden';}catch(exception){}
+		try{tdtopmessage2.style.visibility='hidden';}catch(exception){}
+	}
+	
+	try{
+		
+			window.parent.parent.frames[0].TB_remove1();
+			window.parent.parent.frames[0].uncoversub();
+		
+	}catch(excp){
+	}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/layer.js"></SCRIPT>
+
+<FORM method=post name=showTipForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId><INPUT type=hidden value=-1 name=dse_applicationId><INPUT type=hidden value=per_ServicePersonalizeCloseTipOp name=dse_operationName><INPUT type=hidden value=4 name=dse_pageId><INPUT type=hidden value=1 name=enrolflag><INPUT type=hidden name=closetip></FORM></HEAD>
+<BODY onresize=javascript:resize() onload=javascript:myonload() style="OVERFLOW-X: hidden" onbeforeunload=closealertwindow();>
+<OBJECT id=InfoSecNetSign1 style="HEIGHT: 0px; WIDTH: 0px; DISPLAY: none" codeBase="/icbc/ICBC_NetSign.dll#version=1,0,75,7" classid=clsid:B1FBC1AD-5644-4084-882A-0F8BA85E7506 data="data:application/x-oleobject;base64,rcH7sURWhECIKg+LqF51BgADAADYEwAA2BMAAA=="></OBJECT>
+<OBJECT id=CertCtrl style="HEIGHT: 0px; WIDTH: 0px; DISPLAY: none" codeBase="/icbc/icbc_mwusbkey.cab#version=1,0,0,26" classid=clsid:3B3FE354-548D-4DA2-BEC2-52960C31F8E7></OBJECT>
+<OBJECT id=CertDVCtrl style="HEIGHT: 0px; WIDTH: 0px; DISPLAY: none" codeBase="/icbc/icbc_mwdv.cab#version=1,0,0,6" classid=CLSID:E6C2DD02-CD38-41A1-9B69-3D7E3B64AF9A></OBJECT>
+<OBJECT id=IcbcAssistComm style="HEIGHT: 0px; WIDTH: 0px; DISPLAY: none" classid=clsid:84894428-B1F9-4C88-8A45-D6B8524E53B3></OBJECT>
+<SCRIPT language=JavaScript> 
+//pulginHasInstalledUSB 引用在ControlsId.js中
+//checkVersionIsOkUSB  引用在ControlsId.js中
+  
+//U盾签名统一入口
+function dataSignSubmit(theform,trandata,signdata,trandata_1v,pcdata_1v,trandata_2v,keydata_2v,cmfUMsg) {
+  
+	var signFlow = "3";
+	var sessionTypeUSB = "1";
+	var USPayState = "0";
+	var arrearsUseFlag = "0";
+	var lossStateFlag = "0"; 	
+	var Mediumurl = ""; 
+	var MediumFlag = "6"; 
+	var Certstatus = "3";
+	var IsIEFlagUSB = "1";
+	var AssistantType="3007";	
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistAlert = "0";
+	var algorithm = "RSA";
+	
+	var frameName
+	try{
+		frameName=window.name;
+	}catch(Exception){	
+	}	
+	
+	if(IsIEFlagUSB=="0"||IsIEFlagUSB=="4"){
+	    	if(!pulginHasInstalledUSB('','')){
+	    		AssistAlert = "1";	    	
+	    	}else{
+	    		if(!checkVersionIsOkUSB('','','')){
+	    			AssistAlert = "1";	
+	    		}	    	
+	    	}	    	 	
+			if(AssistAlert=="1"){
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,"","","","");			
+				return false;	
+			}    	
+	   }	
+	if(Mediumurl!=null&&Mediumurl!=""){
+		alert("");	
+		return false;
+	}
+	
+	if(lossStateFlag=="1"){
+		alert("您当前的安全认证介质处于挂失状态，无法完成此项交易，请到我行柜面申请解挂或者重新开立后再继续交易。如果您是我行网银双介质客户，可以切换至另一安全认证介质再继续交易。");
+		return false;
+	}
+	
+	if(USPayState=="3"&&arrearsUseFlag=="0"){
+		alert("您的U盾已过试用期，U盾工本费尚未缴纳，暂时无法继续使用，请前往“安全中心-U盾管理-U盾工本费缴纳”功能进行缴费操作。如果选择暂不缴费，您将不能使用U盾办理对外转账、电子商务、缴费等需进行安全认证的业务。");
+		return false;
+	}
+	
+	if(MediumFlag=="7"&&Certstatus==3){
+			alert("您U盾已经过期，请到“安全中心-U盾管理-U盾证书更新”交易进行证书更新。如果您是我行网银双介质客户，也可以切换至另一安全认证介质再继续交易。")
+			return false;
+	}	
+	
+	if(IsIEFlagUSB=="1"&&algorithm != "SM2"){
+		if (signFlow == "1") {
+			if (dataCertSignSubmit(theform,trandata,signdata,trandata_1v,pcdata_1v,Certstatus)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+		} else if (signFlow == "2") {
+			if (dataCertSignSubmit2VHH(theform,trandata,signdata,trandata_2v,keydata_2v,cmfUMsg,Certstatus)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+		} else if (signFlow == "3") {
+			if(dataCertSignSubmit2VICBC(theform,trandata,signdata,trandata_2v,keydata_2v,cmfUMsg,Certstatus)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+		 }
+	
+	
+	
+	}else{
+			if (dataCertSignSubmitComm(theform,trandata,signdata,trandata_2v,keydata_2v,cmfUMsg,Certstatus,signFlow)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+	}
+	
+	
+	}
+
+//证书更新验签
+function dataSignSubmitUpdate(theform,trandata,signdata,trandata_1v,pcdata_1v,trandata_2v,keydata_2v,cmfUMsg) {
+  
+	var signFlow = "3";
+	var sessionTypeUSB = "1";
+	var USPayState = "0";
+	var arrearsUseFlag = "0";
+	var lossStateFlag = "0"; 	
+	var Mediumurl = ""; 
+	var Certstatus = "3";
+	var IsIEFlagUSB = "1";
+	var AssistantType="3007";	
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistAlert = "0";
+	var algorithm = "RSA";
+	
+	if(IsIEFlagUSB=="0"||IsIEFlagUSB=="4"){
+	    	if(!pulginHasInstalledUSB('','')){
+	    		AssistAlert = "1";	    	
+	    	}else{
+	    		if(!checkVersionIsOkUSB('','','')){
+	    			AssistAlert = "1";	
+	    		}	    	
+	    	}	    	 	
+			if(AssistAlert=="1"){
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,"","","","");			
+				return false;	
+			}    	
+	  }	
+	
+		if(Mediumurl!=null&&Mediumurl!=""){
+			alert("");
+			return false;
+		}
+	
+	
+	if(lossStateFlag=="1"){
+		alert("您当前的安全认证介质处于挂失状态，无法完成此项交易，请到我行柜面申请解挂或者重新开立后再继续交易。如果您是我行网银双介质客户，可以切换至另一安全认证介质再继续交易。");
+		return false;
+	}
+	
+	if(USPayState=="3"&&arrearsUseFlag=="0"){
+		alert("您的U盾已过试用期，U盾工本费尚未缴纳，暂时无法继续使用，请前往“安全中心-U盾管理-U盾工本费缴纳”功能进行缴费操作。如果选择暂不缴费，您将不能使用U盾办理对外转账、电子商务、缴费等需进行安全认证的业务。");
+		return false;
+	}
+	
+	if(IsIEFlagUSB=="1"&&algorithm != "SM2"){
+		if (signFlow == "1") {
+			if (dataCertSignSubmit(theform,trandata,signdata,trandata_1v,pcdata_1v,Certstatus)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+		} else if (signFlow == "2") {
+			if (dataCertSignSubmit2VHH(theform,trandata,signdata,trandata_2v,keydata_2v,cmfUMsg,Certstatus)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+		} else if (signFlow == "3") {
+			if(dataCertSignSubmit2VICBC(theform,trandata,signdata,trandata_2v,keydata_2v,cmfUMsg,Certstatus)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+		 }
+	
+	
+	
+	}else{
+			if (dataCertSignSubmitComm(theform,trandata,signdata,trandata_2v,keydata_2v,cmfUMsg,Certstatus,signFlow)) {
+				return true;
+			} else {
+				return false;
+			}
+	
+	}
+}
+
+
+
+//针对华虹二代U盾的处理流程
+function dataCertSignSubmit2VHH(theform,trandata,signdata,trandataMsg,confirmMsg,cmfUMsg,Certstatus) {
+
+	var thisform = eval("document."+theform);
+	var XMLtext =eval("document." + theform+"."+ trandata);	
+	var cryptograph = eval("document." + theform+"."+ signdata);
+
+	var DownloadURL = "http://www.icbc.com.cn/icbc/html/download/dkq/icbc_netbank_client_controls.exe";
+	var UcmfmsgFlag = "1"; 
+	var catype = "0"; 
+	var IcbcAssistCommFlag = '1';
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistantType="3007";	
+	var Warningtext;	
+	var IsIEFlagUSB = "1";
+	
+	if(UcmfmsgFlag==0){
+		Warningtext =cmfUMsg;
+	}else if(UcmfmsgFlag==1){
+		Warningtext ="    请核对下列交易信息，同时将下列加粗显示的信息与U盾显示屏中的信息进行核对，若核对显示信息不一致，请将U盾拔出并终止交易。\r\n\r\n    若核对显示信息一致，请按U盾上的确认按钮（OK键）以确认交易；需要取消本次交易，请按U盾上的取消按钮（C键）以取消交易。";
+	}
+	
+	XMLtext.value = trandataMsg;
+	var Msgtext =confirmMsg;
+
+	var MediaId ;
+	var PublicKey ;
+	
+	try {
+		
+		MediaId = CertCtrl.GetMediaIDC();	
+	
+		if(MediaId<0){
+			judgeError(MediaId);
+			return false;
+		}
+		
+		
+		PublicKey = CertCtrl.GetPublicKeyC();
+		if(PublicKey<0){
+			judgeError(PublicKey);
+			return false;
+		}
+	} catch(Exception) {
+		if(IcbcAssistCommFlag!="1"){
+				alert(Exception.number + Exception.message);
+			if(confirm("您有控件没有成功下载到本地，是否要下载所有控件安装？安装后请您重新进入本功能进行操作。"))
+				window.open(DownloadURL,"") ;
+			return false;
+		}else{			
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,"","","","");		
+				return false;				
+			}			
+	}
+	var frameName
+	try{
+		frameName=window.name;
+	}catch(Exception){	
+	}
+	try {
+		if(Certstatus==1||Certstatus==2) {
+			if(frameName=="integratemainFrame"){
+				alert("您的U盾还未下载，若是网上银行U盾请在网上银行“U盾证书下载”交易中下载，终止此交易请点击右上角的“跳过”。");
+				return false;
+			}else{
+				if(confirm("您的U盾还未下载，请下载您的U盾。")){
+				
+					if(frameName!="mainFrame"&& frameName!="fileIframe"){
+						parent.location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+					}else{
+						location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+					}
+				
+				}
+				return false;
+			}
+		} else if(Certstatus==4) {
+			alert("您的U盾已作废，请与当地银行联系。");
+			return false;
+		} else if(Certstatus==5) {
+			alert("您的U盾已冻结，请与当地银行联系。");
+			return false;
+		} else {
+			var temp ="|"+MediaId+"|"+PublicKey;
+			var pos= (XMLtext.value).lastIndexOf(temp);
+		   	if(pos!=-1){
+				XMLtext.value = (XMLtext.value).substring(0,pos);
+			}
+		if(catype==0){			
+			InfoSecNetSign1.NSSetWarningMsg(Warningtext,-1); //警告
+			InfoSecNetSign1.NSSetCSPHashMsg(XMLtext.value,-1);//验签信息
+			InfoSecNetSign1.NSSetKeyHashMsg(Msgtext,-1);   			//key显	
+			cryptograph.value = InfoSecNetSign1.NSAdvUShieldAttachedSign("420000056428494"); 
+		}else{
+			var bSelectUserCerts = false;
+			bSelectUserCerts = InfoSecNetSign1.CFCA_InitCertAppContext(true,"420000056428494");			
+			InfoSecNetSign1.CFCA_SetSignInfo(Warningtext,0,0);
+			InfoSecNetSign1.CFCA_SetSignInfo(XMLtext.value,1,0);
+			InfoSecNetSign1.CFCA_SetSignInfo(Msgtext,2,0);
+			cryptograph.value = InfoSecNetSign1.CFCA_AUSign(0);	
+			}			
+		}
+	}catch(Exception){	    
+		if(IcbcAssistCommFlag!="1"){
+				alert(Exception.number + Exception.message);
+			if(confirm("您有控件没有成功下载到本地，是否要下载所有控件安装？安装后请您重新进入本功能进行操作。"))
+				window.open(DownloadURL,"") ;
+			return false;
+		}else{
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,"","","","");							
+				return false;				
+			}	
+		}
+
+	if (cryptograph.value!=null && cryptograph.value.length>0 && InfoSecNetSign1.errorNum==0 && catype==0){
+		XMLtext.value = XMLtext.value+"|"+MediaId+"|"+PublicKey;
+		return true;
+	}else if(cryptograph.value!=null&& catype==1){
+		XMLtext.value = XMLtext.value+"|"+MediaId+"|"+PublicKey;
+		return true;
+	}else{		
+		//签名失败
+		if(IsIEFlagUSB=="0"&&InfoSecNetSign1.errorNum==-333){
+			judgeError2(InfoSecNetSign1.errorNum,"other error");
+			return false;
+		}
+		//alert("您的数据签名有错误,请重新提交或联系当地"+'工行'+""+InfoSecNetSign1.errorNum);
+		
+		return false;
+	}
+}
+
+//针对二代U盾多语言版本
+function dataCertSignSubmit2VICBC(theform,trandata,signdata,trandataMsg,confirmMsg,cmfUMsg,Certstatus) {
+
+	var thisform = eval("document."+theform);
+	var XMLtext =eval("document." + theform+"."+ trandata);
+	var cryptograph = eval("document." + theform+"."+ signdata);
+
+	var DownloadURL = "http://www.icbc.com.cn/icbc/html/download/dkq/icbc_netbank_client_controls.exe";
+	var UcmfmsgFlag = "1";
+	var catype = "0"; 
+	var IcbcAssistCommFlag = '1';
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistantType="3007";
+	var Warningtext;		
+	var IsIEFlagUSB = "1";
+	
+	if(UcmfmsgFlag==0){
+		Warningtext =cmfUMsg;
+	} else if(UcmfmsgFlag==1) {
+		Warningtext ="    请核对下列交易信息，同时将下列加粗显示的信息与U盾显示屏中的信息进行核对，若核对显示信息不一致，请将U盾拔出并终止交易。\r\n\r\n    若核对显示信息一致，请按U盾上的确认按钮（OK键）以确认交易；需要取消本次交易，请按U盾上的取消按钮（C键）以取消交易。";
+	}
+
+	XMLtext.value = trandataMsg;
+	var Msgtext = confirmMsg;
+
+	var MediaId;
+	var PublicKey;
+	var result;
+	
+	try {
+		result = CertCtrl.SetCharset("GBK");//设置U盾字符集
+		if(result != 0){
+			judgeError2(result,"other error");
+			return false;
+		}
+		result = CertCtrl.SetLanguage("zh_CN");//设置U盾语言
+		if(result != 0){
+			judgeError2(result,"other error");
+			return false;
+		}
+		result = CertCtrl.SetWarningMsg(Warningtext);//设置PC警告语
+		if(result != 0){
+			judgeError2(result,"other error");
+			return false;
+		}
+		MediaId = CertCtrl.GetMediaID();
+		if(MediaId<0){
+				judgeError2(MediaId,"other error");
+			return false;
+		}
+		
+		PublicKey = CertCtrl.GetPublicKeyC();			
+		if(PublicKey<0){
+				judgeError2(PublicKey,"other error");
+			return false;
+		}
+	} catch(Exception) {
+		   	if (Exception.number== -10051) {
+		   		return false;
+		   	}else{
+			   		judgeError2(Exception.number,Exception.message);
+				return false;
+			}	
+	}
+	
+	try{
+		CertCtrl.RegisterCert();//注册证书
+	} catch(Exception) {
+	}
+	var frameName
+	try{
+		frameName=window.name;
+	}catch(Exception){	
+	}
+	try {
+		if(Certstatus==1 || Certstatus==2) {
+			if(frameName=="integratemainFrame"){
+				alert("您的U盾还未下载，若是网上银行U盾请在网上银行“U盾证书下载”交易中下载，终止此交易请点击右上角的“跳过”。");
+				return false;
+			}else{
+				if(confirm("您的U盾还未下载，请下载您的U盾。")){
+	
+				
+				if(frameName!="mainFrame"&& frameName!="fileIframe"){
+					parent.location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+				}else{
+					location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+				}
+				
+				}
+			  	return false;
+			 }
+		} else if(Certstatus==4) {
+			alert("您的U盾已作废，请与当地银行联系。");
+			return false;
+		} else if(Certstatus==5) {
+			alert("您的U盾已冻结，请与当地银行联系。");
+			return false;
+		} else {
+			var temp ="|"+MediaId+"|"+PublicKey;
+			var pos= (XMLtext.value).lastIndexOf(temp);
+		   	if(pos!=-1){
+				XMLtext.value = (XMLtext.value).substring(0,pos);
+			}
+		   	var xmltlv = getTLV("21", XMLtext.value);
+			var keytlv = getTLV("22", Msgtext);
+			var filetlv = getTLV("23", "");
+			var plaintext = getTLV("11",  xmltlv + keytlv + filetlv);
+		   	if(catype==0){
+				InfoSecNetSign1.NSAdvUKeySetPlainText(plaintext); 				
+				cryptograph.value = InfoSecNetSign1.NSAdvUKeySingleSign("420000056428494"); 
+		   	}else{
+		   		var bSelectUserCerts = false;
+				bSelectUserCerts = InfoSecNetSign1.CFCA_InitCertAppContext(true,"420000056428494");	
+		   		InfoSecNetSign1.CFCA_SetSignInfo_2HASH(plaintext,1,0);
+		   		cryptograph.value = InfoSecNetSign1.CFCA_AUSign_2HASH(0); 
+			}			
+		}
+	}catch(Exception){
+			  if (Exception.number== -10051) {
+		   		return false;
+		   	}else{
+				judgeError2(Exception.number,Exception.message);
+				return false;
+				}		
+	}
+	if (cryptograph.value!=null && cryptograph.value.length>0 && InfoSecNetSign1.errorNum==0 && catype==0){
+		XMLtext.value = XMLtext.value+"|"+MediaId+"|"+PublicKey;
+		return true;
+	}else if(cryptograph.value!=null&& catype==1){
+		XMLtext.value = XMLtext.value+"|"+MediaId+"|"+PublicKey;
+		return true;
+	}else{
+		if(catype==0){
+			if(InfoSecNetSign1.errorNum=="-10051"||InfoSecNetSign1.errorNum=="-10005"){//屏蔽对密码框和选择证书框选取消的报错情况
+			}else{
+			//签名失败
+			if(IsIEFlagUSB=="0"){
+				judgeError2(InfoSecNetSign1.errorNum,"other error");
+				return false;
+			}
+			alert("您的数据签名有错误,请重新提交或联系当地"+'工行'+""+InfoSecNetSign1.errorNum);
+			}
+		}
+		return false;
+	}
+}
+
+
+
+//通用方法
+function dataCertSignSubmitComm(theform,trandata,signdata,trandataMsg,confirmMsg,cmfUMsg,Certstatus,signFlow) {
+	var CHARSETFUN = "";//设置字符集方法名
+	var LANGUAGEFUN = "";//设置语言方法名
+	var WARNINGMSGFUN = "";//设置警告语方法名
+	var MEDIAIDFUN = "";//获取介质号方法名
+	var PUBLICKEYFUN = "";//获取公钥方法名
+	var REGISTERFUN = "";//注册证书方法名
+	var SIGNFUNNAME = "";//签名方法集合
+	var NETSIGNCTRLNAME = "";//信安签名控件名（safari没有）
+	var ASSISTSIGNNAME = "";//信安控件网银助手展现名字（chrome、firefox有）
+	var FACTORYCTRLNAME = "";//厂商控件名
+	var ASSISTCTRNAME = "";//厂商控件网银助手展现控件名（chrome、firefox有）
+	var SIGNVERSION = "";//签名控件版本号
+	var FACTORYVERSION = "";//厂商控件版本号
+	var FACTORYCLASSID = "";//厂商控件classid名字
+	var FACTORYCODEBASE = "";//厂商控件codebase名字
+	var SIGNCLASSID = "";//信安控件classid名字
+	var SIGNCODEBASE = "";//信安控件codebase名字
+
+	var thisform = eval("document."+theform);
+	var XMLtext =eval("document." + theform+"."+ trandata);
+	var cryptograph = eval("document." + theform+"."+ signdata);
+
+	var DownloadURL = "http://www.icbc.com.cn/icbc/html/download/dkq/icbc_netbank_client_controls.exe";
+	var UcmfmsgFlag = "1";
+	var catype = "0"; 
+	var IcbcAssistCommFlag = '1';
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistantType="3007";
+	var Warningtext;		
+	var IsIEFlagUSB = "1";
+	
+	if(UcmfmsgFlag==0){
+		Warningtext =cmfUMsg;
+	} else if(UcmfmsgFlag==1) {
+		Warningtext ="    请核对下列交易信息，同时将下列加粗显示的信息与U盾显示屏中的信息进行核对，若核对显示信息不一致，请将U盾拔出并终止交易。\r\n\r\n    若核对显示信息一致，请按U盾上的确认按钮（OK键）以确认交易；需要取消本次交易，请按U盾上的取消按钮（C键）以取消交易。";
+	}
+
+	XMLtext.value = trandataMsg;
+	var Msgtext = confirmMsg;
+
+	var MediaId;
+	var PublicKey;
+	var result;
+	try {
+		if(CHARSETFUN!=""){
+			result = eval("CertCtrl."+ CHARSETFUN +"("+"'GBK'"+");");//设置U盾字符集
+			if(result != 0){
+			judgeErrorComm(result,"other error");
+			return false;
+			}
+		}	
+		
+		
+		if(LANGUAGEFUN!=""){		
+			result = eval("CertCtrl."+ LANGUAGEFUN +"("+"'zh_CN'"+");");//设置U盾语言
+			if(result != 0){
+				judgeErrorComm(result,"other error");
+				return false;
+			}		
+		}
+		
+		
+		
+		if(signFlow != "2"){
+			if(WARNINGMSGFUN!=""){	
+				result = eval("CertCtrl."+ WARNINGMSGFUN +"(Warningtext);");//设置PC警告语
+				if(result != 0){
+					judgeErrorComm(result,"other error");
+					return false;
+				}
+			}
+		}
+		
+		if(MEDIAIDFUN!=""){
+			MediaId = eval("CertCtrl."+ MEDIAIDFUN +"();");//获取U盾介质号		
+			if(MediaId<0){
+					judgeErrorComm(MediaId,"other error");
+				return false;
+			}
+		}
+		if(PUBLICKEYFUN!=""){
+			PublicKey = eval("CertCtrl."+ PUBLICKEYFUN +"();");//获取U盾公钥	
+			if(PublicKey<0){
+					judgeErrorComm(PublicKey,"other error");
+				return false;
+			}
+		}
+		
+		
+	} catch(Exception) {
+	
+			   		judgeErrorComm(Exception.number,Exception.message);
+				return false;
+	}
+	
+	try{
+		if(REGISTERFUN!=""){
+			eval("CertCtrl."+ REGISTERFUN +"();");//注册证书	
+		}	
+	} catch(Exception) {
+	}
+	var frameName
+	try{
+		frameName=window.name;
+	}catch(Exception){	
+	}
+	try {
+		if(Certstatus=='1'|| Certstatus=='2') {
+			
+			if(frameName=="integratemainFrame"){
+				alert("您的U盾还未下载，若是网上银行U盾请在网上银行“U盾证书下载”交易中下载，终止此交易请点击右上角的“跳过”。");
+				return false;
+			}else{
+
+				if(confirm("您的U盾还未下载，请下载您的U盾。")){
+	
+				
+				if(frameName!="mainFrame"&& frameName!="fileIframe"){
+					parent.location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+				}else{
+					location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+				}
+				
+				}
+			  	return false;
+			}
+		  
+		  
+		} else if(Certstatus=='4') {
+			alert("您的U盾已作废，请与当地银行联系。");
+			return false;
+		} else if(Certstatus=='5') {
+			alert("您的U盾已冻结，请与当地银行联系。");
+			return false;
+		} else {
+			var temp ="|"+MediaId+"|"+PublicKey;
+			var pos= (XMLtext.value).lastIndexOf(temp);
+		   	if(pos!=-1){
+				XMLtext.value = (XMLtext.value).substring(0,pos);
+			}	
+			
+			var xmltlv = getTLV("21", XMLtext.value);
+			var keytlv = getTLV("22", Msgtext);
+			var filetlv = getTLV("23", "");
+			var plaintext = getTLV("11",  xmltlv + keytlv + filetlv);
+			var defaultDN = "420000056428494";	
+			var ret;		
+						
+			//特殊值定义
+			var nullstr = '';
+			
+			
+			// -----签名方法合集，用funname1|para11#para12#...&funname2|para21#para22....
+			//------特殊参数说明：1、''--------------nullstr;  
+			//------          2、常量------------如-1：cst_-1，如2：cst_2
+			
+			var funcs =  SIGNFUNNAME.split('&');
+			
+			for(i=0;i<funcs.length;i++){
+				var funcinfo = funcs[i].split('|');
+				var parainfo = funcinfo[1];
+				if(parainfo == 'nopara'){
+					if(i==funcs.length-1){
+						ret = eval(funcinfo[0]+"();");
+					}else{
+						eval(funcinfo[0]+"();");
+					}
+				}else{
+					var paras = parainfo.split('#');
+					var code = "";
+					for(j=0;j<paras.length;j++){
+						var para = paras[j];
+						if(para.indexOf('cst_')!=-1){
+							para = para.substring(4,para.length);
+						}
+						code = code + para +",";
+					}
+					if(code!=''){
+						code = code.substring(0,code.length-1);
+					}
+					if(i==funcs.length-1){
+						ret = eval(funcinfo[0]+"("+code+");");
+					}else{
+						eval(funcinfo[0]+"("+code+");");
+					}					
+				}
+			}			
+		}
+	}catch(Exception){
+			judgeErrorComm(Exception.number,Exception.message);
+			return false;	
+	}
+	
+	if(ret==null||ret==""||ret<0){
+		if(SIGNCLASSID!=""||NETSIGNCTRLNAME!=""){
+			ret = InfoSecNetSign1.errorNum;
+		}
+		
+		if(ret!="-10051"||ret!="-10005"){		
+			judgeErrorComm(ret,"other error");
+			return false;		
+		}
+			return false;		
+	
+	}else{
+		cryptograph.value = ret;
+	}
+	
+	
+	
+	if (cryptograph.value!=null && cryptograph.value.length>0){
+		XMLtext.value = XMLtext.value+"|"+MediaId+"|"+PublicKey;
+		return true;
+	}else{	
+		judgeErrorComm(ret,"other error");
+		return false;
+	
+	}
+}
+
+
+
+//一代U盾签名
+function dataCertSignSubmit(theform,trandata,signdata,trandata_1v,confirmMsg,Certstatus) {
+	var thisform=eval("document."+theform);
+	var plaintext =eval("document." + theform+"."+ trandata);
+	var cryptograph =eval("document." + theform+"."+ signdata);
+	var DownloadURL="http://www.icbc.com.cn/icbc/html/download/dkq/icbc_netbank_client_controls.exe";
+	var catype = "0"; 
+	var MediaId ;
+	var PublicKey ;
+	var IcbcAssistCommFlag = '1'; 
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistantType="3007";	
+	plaintext.value = trandata_1v;
+	var IsIEFlagUSB = "1";
+	
+	try{
+		MediaId = CertCtrl.GetMediaID();
+		if(MediaId<0){
+			judgeError(MediaId);
+			return false;
+		}
+		PublicKey = CertCtrl.GetPublicKey();
+		if(PublicKey<0){
+			judgeError(PublicKey);
+			return false;
+		}
+	} catch(Exception) {	
+		if(IcbcAssistCommFlag!="1"){
+			if(confirm("您有控件没有成功下载到本地，是否要下载所有控件安装？安装后请您重新进入本功能进行操作。"))
+				window.open(DownloadURL,"") ;
+			return false;
+		}else{			
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,"","","","");						
+				return false;				
+			}		
+	}
+	var frameName
+	try{
+		frameName=window.name;
+	}catch(Exception){	
+	}
+	try{
+		if(Certstatus==1||Certstatus==2) {
+			if(frameName=="integratemainFrame"){
+				alert("您的U盾还未下载，若是网上银行U盾请在网上银行“U盾证书下载”交易中下载，终止此交易请点击右上角的“跳过”。");
+				return false;
+			}else{
+				if(confirm("您的U盾还未下载，请下载您的U盾。")){
+	
+				
+					if(frameName!="mainFrame"&& frameName!="fileIframe"){
+							parent.location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+					}else{
+							location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310401&ActionUrl=/icbc/newperbank/service/service_cert_index1.jsp";
+					}
+				
+				}
+				return false;
+			}
+		} else if(Certstatus==4) {
+			alert("您的U盾已作废，请与当地银行联系。");
+			return false;
+		} else if(Certstatus==5) {
+			alert("您的U盾已冻结，请与当地银行联系。");
+			return false;
+		} else {
+			var temp ="|"+MediaId+"|"+PublicKey;
+			var pos= (plaintext.value).lastIndexOf(temp);
+			if(pos!=-1){
+				plaintext.value = (plaintext.value).substring(0,pos);
+			}
+			if(catype==0){			
+				InfoSecNetSign1.addFormItem(plaintext.value);
+				InfoSecNetSign1.defaultDN = "420000056428494";
+				InfoSecNetSign1.MaxCompSize = 1*1024*1024*1024;
+				InfoSecNetSign1.makeAttachedSign();
+				cryptograph.value = InfoSecNetSign1.attachedSign;
+			}else{	
+				  try{
+					var bSelectUserCerts = false;
+					bSelectUserCerts = InfoSecNetSign1.CFCA_InitCertAppContext(true,"420000056428494");	
+					cryptograph.value = InfoSecNetSign1.CFCA_SignData(plaintext.value);
+					}catch(e){
+						alert("错误:" + e.number + "\n错误信息:" + e.message);
+						return false;
+					}
+				}
+		}
+	}catch(Exception){	
+		if(IcbcAssistCommFlag!="1"){
+			if(confirm("您有控件没有成功下载到本地，是否要下载所有控件安装？安装后请重新进入本功能进行操作。"))
+				window.open(DownloadURL,"") ;
+			return false;
+		}else{			
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,"","","","");					
+				return false;				
+			}	
+	}
+	if (cryptograph.value!=""&& cryptograph.value!=null&&cryptograph.value.length>0){
+		plaintext.value = plaintext.value+"|"+MediaId+"|"+PublicKey;
+		if(confirm(confirmMsg))
+			return true;
+	}else{
+		
+		//签名失败
+		
+		if(IsIEFlagUSB=="0"&&InfoSecNetSign1.errorNum==-333){
+				judgeError2(InfoSecNetSign1.errorNum,"other error");
+				return false;
+		}
+		//alert("您的数据签名有错误,请重新提交或联系当地"+'工行'+"");		
+		return false;
+	}
+}
+
+//根据控件返回的错误进行相关提示
+function judgeError(retVal) {
+	var IcbcAssistCommFlag = '1';
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi";
+	var AssistantType="3007";
+	var InstallPageURL = "http://www.icbc.com.cn/ICBC/%e7%94%b5%e5%ad%90%e9%93%b6%e8%a1%8c/%e8%bd%af%e4%bb%b6%e4%b8%8b%e8%bd%bd/";
+	var IsIEFlagUSB = "1";
+	
+		if(retVal == -1){
+		if(IcbcAssistCommFlag!="1"){
+			if(confirm("控件没有在您的机器上检测到U盾相应的驱动软件，请您下载驱动程序。"))
+				window.open(InstallPageURL,"");
+		}else{
+					AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,retVal,"","","");						
+				}		
+		} else if(retVal == -2) {
+			alert("控件没有在您的机器上检测到U盾，请您检查U盾是否插入计算机。");
+		} else if(retVal == -3) {
+			alert("未找到已初始化"+'工行'+"证书介质");
+		} else if(retVal == -4) {
+			alert("连接"+'工行'+"证书介质失败");
+		} else if(retVal == -5) {
+			alert("未找到证书公钥");
+		} else if(retVal == -6) {
+			alert("您的计算机上连接着多个USB Key或智能卡");
+		} else if(retVal == -104) {
+			alert("初始化证书失败");
+		} else if(retVal == -105) {
+			alert("您的计算机上连接着多个USB Key或智能卡");
+		} else {
+			alert("其他错误"+retVal);
+		}
+		
+}
+
+//根据控件返回的错误进行相关提示
+function judgeError2(retVal,retMsg) {
+	var IcbcAssistCommFlag = '1';
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi"; 
+	var AssistantType="3007";
+	var InstallPageURL = "http://www.icbc.com.cn/ICBC/%e7%94%b5%e5%ad%90%e9%93%b6%e8%a1%8c/%e8%bd%af%e4%bb%b6%e4%b8%8b%e8%bd%bd/";	
+	var IsIEFlagUSB = "1";	
+	if(retVal == -101){
+		if(IcbcAssistCommFlag!="1"){
+			if(confirm("控件没有在您的机器上检测到U盾相应的驱动软件，请您下载驱动程序。"))
+				window.open(InstallPageURL,"");
+		}else{		
+					AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,retVal,"","","");											
+		}	
+	} else if(retVal == -102) {
+		alert("控件没有在您的机器上检测到U盾，请您检查U盾是否插入计算机。");
+	} else if(retVal == -103) {
+		alert("连接"+'工行'+"证书介质失败");
+	} else if(retVal == -104) {
+		alert("您的计算机上连接着多个USB Key或智能卡");
+	} else if(retVal == -221) {
+		alert(""+'工行'+"证书介质已被锁定");
+	} else if(retVal == -301) {
+		alert("未找到已初始化"+'工行'+"证书介质");
+	} else if(retVal == -302) {
+		alert("读取"+'工行'+"证书介质失败");
+	} else if(retVal == -10052) {
+		alert("您的数据签名失败，请重新提交或联系当地"+'工行'+""+retVal);
+	} else {
+		if(IcbcAssistCommFlag!="1"){
+		   alert(retVal+" "+retMsg);
+		}else{
+			if(retVal==-100){
+			}else{			
+				AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,retVal,"","","");			
+			}		
+		}
+	}
+}
+
+//通用报错方法
+function judgeErrorComm(retVal,retMsg) {
+	var IcbcAssistCommFlag = '1';
+	var netAssistantTollsurl="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi"; 
+	var AssistantType="3007";
+	var InstallPageURL = "http://www.icbc.com.cn/ICBC/%e7%94%b5%e5%ad%90%e9%93%b6%e8%a1%8c/%e8%bd%af%e4%bb%b6%e4%b8%8b%e8%bd%bd/";	
+	var IsIEFlagUSB = "1";	
+	if(retVal == -100||retVal == -10051||retVal == -10005){
+	}else if(retVal == -101){
+		AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,retVal,"","","");								
+	} else if(retVal == -102) {
+		alert("控件没有在您的机器上检测到U盾，请您检查U盾是否插入计算机。");
+	} else if(retVal == -103) {
+		alert("连接"+'工行'+"证书介质失败");
+	} else if(retVal == -104) {
+		alert("您的计算机上连接着多个USB Key或智能卡");
+	} else if(retVal == -221) {
+		alert(""+'工行'+"证书介质已被锁定");
+	} else if(retVal == -301) {
+		alert("未找到已初始化"+'工行'+"证书介质");
+	} else if(retVal == -302) {
+		alert("读取"+'工行'+"证书介质失败");
+	}else if(retVal==-205){	
+		alert("原U盾密码输入错误，您还有5次机会，请重试！");			
+	}else if(retVal==-204){
+		alert("原U盾密码输入错误，您还有4次机会，请重试！");
+	}else if(retVal==-203){
+		alert("原U盾密码输入错误，您还有3次机会，请重试！");
+	}else if(retVal==-202){
+		alert("原U盾密码输入错误，您还有2次机会，请重试！");
+	}else if(retVal==-201){
+		alert("原U盾密码输入错误，您还有1次机会，请重试！");
+	}else if(retVal==-333&&IsIEFlagUSB=="0"){
+		AssistMessage(IsIEFlagUSB,netAssistantTollsurl,AssistantType,retVal,"","","");			
+	}else if(IsIEFlagUSB=="4"){
+		if(confirm("交易异常"+retVal+"，请点击“确定”按钮进行重新安装，如仍有问题请联系我行95588客服。"));
+			window.open("","");		
+	}else{
+		alert("交易异常"+retVal+"，请启动网银助手进行恢复。");	
+	} 	
+}
+
+
+
+function getTLV(tag, content) {
+	var len = ""+content.replace(/[^\x00-\xff]|[\xa4\xa7\xa8\xb0\xb1\xb7\xd7\xe0\xe1\xe8\xe9\xea\xec\xed\xf2\xf3\xf7\xf9\xfa\xfc]/g, "**").length;
+	var size = len.length;
+	for(var i=0; i<10-size; i++) {
+		len = "0" + len;
+	}
+	var tlv = tag + len + content;
+	return(tlv);
+}
+
+
+//judgeKeyConnect()判断U盾是否插在计算机上，引用"+'工行'+"现有所有的支持U盾控件，用获取介质号方法判定是否U盾插在计算机上。
+function judgeKeyConnect() {
+	var signFlow = "3";
+	var certype="3";	
+	var MEDIAIDFUN = "";//获取介质号方法名
+	var result = "-1";
+	try {
+		if(certype != 1&&certype != 3) {
+			return false;
+		}
+		
+		if(IsIEFlagUSB=="1"&&algorithm != "SM2"){
+			if (signFlow == "2") {
+						result = CertCtrl.GetMediaIDC();						
+				} else if (signFlow == "1" || signFlow == "3") {
+						result = CertCtrl.GetMediaID();
+				}
+		}else{
+			if(MEDIAIDFUN!=""){
+					result = eval("CertCtrl."+ MEDIAIDFUN +"();");//获取U盾介质号		
+			   }			
+		}
+		
+		try{
+			CertCtrl.UnRegisterCert();
+		} catch(Exception) {
+		}
+	
+		if(result < 0) {
+			return false;
+		} else {
+			return true;
+		}
+	} catch(Exception) {
+		return false;
+	}
+}
+
+
+//返回:0 正常  1需要下载  2需要更新
+function judgeKeyVersion(){
+	var certype = '3';
+	var signFlow = '3';
+	var algorithm = "RSA";
+	var certVersion;
+	var IsIEFlagUSB = "1";
+	var GETCSPVFUN = "";
+	try {
+		if(certype != 1&&certype != 3) {
+			return 0;
+		}
+				try{
+					if(IsIEFlagUSB=="1"&&algorithm != "SM2"){
+						certVersion = CertDVCtrl.getVersion();					
+					}else{
+						certVersion = eval("CertCtrl."+ GETCSPVFUN +"();");//获取驱动版本号
+					}
+				}catch(e)
+				{
+					   if(e.number==undefined){
+					   		certVersion = "";
+					   }else{
+							certVersion=e.number;
+						}
+				}
+					judgeVerCer=certVersion;
+					
+				
+					if('nothing'=='nothing'){
+						return 0;
+					}
+					if (certVersion=='-100'||certVersion=='-101'||certVersion == "") return 1;//未安装
+					if(compareVersion(certVersion,'nothing')){								
+						return 2;
+					}
+				
+		return 0;
+	} catch(Exception) {
+		return 0;
+	}
+}
+
+
+
+</SCRIPT>
+
+<SCRIPT language=javascript>
+	var eBankCertNoString= '6202429012';
+	var alarmKeyConnectMess = "";
+	var IsIEFlagUSB = "1";
+	try{
+	    alarmKeyConnectMess ="请插入序号后4位为"+eBankCertNoString.substring(eBankCertNoString.length-4)+"的U盾！";
+	}catch(Exception){
+	}
+function alarmKeyConnect(){
+
+if(IsIEFlagUSB=="0"){
+		if(document.readyState=='complete')
+ 			alarmKeyConnectTimeout();
+ 		else
+ 			window.addEventListener("load",function(){alarmKeyConnectTimeout()},false); 		
+ 	}else{
+ 		alarmKeyConnectTimeout();
+ 	}
+}
+function alarmKeyConnectTimeout(){
+	var SystemIEString = "";
+	var Mediumurl = "";
+	var algorithm = "RSA";
+	
+	if(Mediumurl!=null&&Mediumurl!=""){
+		alert("");
+	   return;
+	}
+	
+	if(SystemIEString==null||SystemIEString==""){
+	
+	var sessionTypeUSB = "1";
+	var USPayState = "0";
+	var arrearsUseFlag = "0";
+	var frameName
+	try{
+		frameName=window.name;
+	}catch(Exception){	
+	}	
+	
+	
+	var lossStateFlag = "0"; 	
+	if(lossStateFlag=="1"){
+		alert("您当前的安全认证介质处于挂失状态，建议您前往我行柜面申请解挂或者重新开立。");
+		return;
+	}
+	
+	if(USPayState=="3"&&arrearsUseFlag=="0"){
+		if(sessionTypeUSB=="1"){
+			if(frameName=="integratemainFrame"){
+				alert("您的U盾已过试用期，U盾工本费尚未缴纳，需缴纳后才能使用。若是网上银行U盾请在网上银行“U盾工本费缴纳”交易中缴纳，终止此交易请点击右上角的“跳过”。");
+				return ;
+			}else{
+				if(confirm("您的U盾已过试用期，U盾工本费尚未缴纳，如需继续使用，请点击“确定”进行缴费。如果选择暂不缴费，您将不能使用U盾办理对外转账、电子商务、缴费等需进行安全认证的业务。是否确定立即缴费？"))
+				{
+					if(frameName!="mainFrame"&& frameName!="fileIframe"){
+						parent.location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310406&ActionUrl=/icbc/newperbank/service/service_usbcost_index.jsp";
+					}else{
+						location.href="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id=310406&ActionUrl=/icbc/newperbank/service/service_usbcost_index.jsp";
+					}
+				}
+			}
+		}else{
+			if(confirm("您的U盾已过试用期，U盾工本费尚未缴纳，如需继续使用，请点击“确定”进行缴费。如果选择暂不缴费，您将不能使用U盾办理对外转账、电子商务、缴费等需进行安全认证的业务。是否确定立即缴费？"))
+			location.href= "https://mybank.icbc.com.cn/icbc/perbank/index.jsp?injectTranName=U2VydmljZVVzYkNvc3RPcA==&injectTranData=&injectSignStr=iOVQgG8GXWHDGQASq7alg/URXII=";
+		}
+		return;
+	}else{
+		try{
+		var signFlow = "3";		
+		var MEDIAIDFUN = "";//获取介质号方法名
+		var MediaID;
+		
+		try{
+			if(IsIEFlagUSB=="1"&&algorithm != "SM2"){
+				if (signFlow == "2") {
+						MediaID = CertCtrl.GetMediaIDC();						
+					} else if (signFlow == "1" || signFlow == "3") {
+						MediaID = CertCtrl.GetMediaID();
+					}
+			}else{
+				if(MEDIAIDFUN!=""){
+					MediaID = eval("CertCtrl."+ MEDIAIDFUN +"();");//获取U盾介质号		
+			    }			
+		    }				
+				
+		}catch(Exception){
+			MediaID="";
+		}	
+			
+		if(MediaID!=eBankCertNoString){		
+			if(IsIEFlagUSB=="1"){
+				window.setTimeout("alarmKeyConnectMess1()",10); 
+			}else{
+				alarmKeyConnectMess1();
+			}	
+			return;
+		}	
+		}catch(Exception){}	
+	}
+	
+	}else{
+	alert("对不起，您当前使用的U盾与您的"+SystemIEString+"不兼容，建议您到附近的"+'工行'+"网点更换最新U盾。");
+	return;
+	}
+}
+
+function alarmKeyConnectMess1()
+		{
+			alert(alarmKeyConnectMess);
+}
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var downloadflag="0"; //0 ????  1?è??????  2?è???ü??
+var downloadtype ='6'; //1:???? 2:??°?????°? 3:??°???2006 4:???? 5:·??ì 6:?÷??  7:?ì????  //??????~
+var downloadVV ='3'; //1:???úU??   2:???ú????????U??   3:???ú?à????U??   //??????~
+var needfordownload = "0"; //0-???è???????¤?é  1-?è???????¤?é
+var judgeVerCer="0";  //°?±???
+var judgeExpireMark = "0";//0-???è???ü???¤?é 1?è???ü???¤?é
+var judgeUSBLevel = "0";//0????????1??chrome??firefox???????úU?????á??  2??safari?????á??
+
+	
+
+	
+
+	try{
+		downloadflag=judgeKeyVersion();
+	}
+	catch(Exception){
+		downloadflag = "0";
+	}
+
+	
+
+
+	
+</SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/includes/onlineServiceCheck.js"></SCRIPT>
+
+<STYLE type=text/css>
+
+#floatdiv{ width:100px; border:0px solid #9CF; font-size:12px; position:absolute; z-index:90;cursor:crosshair}
+#floatclosediv{ margin:0px; padding-left:0px; height:20px; line-height:20px; font-size:12px; color:#0066CC; font-weight:100; background:#FFFFFF;cursor:crosshair}
+.floatcontent{ padding:0px 0px; line-height:100px;background-color:#F7F7F7;}
+
+</STYLE>
+
+<SCRIPT type=text/javascript>
+//在线客户服务
+			function floatserviceSubmit()
+			{
+				
+				
+				document.floatonLineServiceForm.submit();
+				
+				
+			}			
+var floatdivtopnum = 0;
+var floatdivtopnum2 = 0;
+var floatParentObj;
+var contentPageHeigh;
+
+try{                    
+		floatParentObj = parent.parent.parent;  
+		floatParentObj.topFrame.getFloatShowFlag(); 
+	}catch(E){
+		floatParentObj = parent.parent; 	
+	}            
+
+try{
+	floatdivtopnum = 0;                           
+	floatdivtopnum2 = 0;      
+	
+	contentPageHeigh = document.body.clientHeight;
+
+}catch(E){}
+
+var nextYear = new Date();
+					nextYear.setFullYear(nextYear.getFullYear()+1);
+					var expires = nextYear.toGMTString();	
+function floatdrag(obj,e){
+	var e=e ? e : event;
+	var mouse_left=e.clientX-obj.offsetLeft;
+	var mouse_top=e.clientY-obj.offsetTop;
+	var docmousemove=obj.onmousemove;
+	var docmouseup=obj.onmouseup;
+	var docmousedown=obj.onmousedown;
+	obj.onselectstar=function(e){return false}
+	obj.onmousedown=function(e){
+		if(e==null)e=window.event;
+		if(obj.setCapture)
+			obj.setCapture();	
+	}
+	obj.onmouseup=function(){
+		obj.releaseCapture();
+		obj.onmousemove=docmousemove;
+		obj.onmouseup=docmouseup;
+		obj.onselectstar=function(e){return true}
+		floatParentObj.topFrame.setFloatPos(obj.style.left,obj.style.top);
+		document.cookie = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosLeft="+obj.style.left+";expires="+expires;	
+		document.cookie = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosTop="+obj.style.top+";expires="+expires;	
+		floatdivtopnum2 = parseInt(obj.style.top,10);
+		
+	}
+	
+	obj.onmousemove=function(ev){
+		
+		
+		var ev=ev ? ev : event;
+		//document.getElementById('text').innerHTML=ev.clientX-mouse_left+"<br>"+(document.documentElement.clientWidth-(ev.clientX-mouse_left)-obj.offsetWidth+document.documentElement.scrollLeft)
+		
+		if(e.clientX<0||e.clientY<0||e.clientX>document.body.clientWidth-10||e.clientY>document.body.clientHeight-10){
+			obj.releaseCapture();
+			if(obj.setCapture)
+			obj.setCapture();	
+		}
+		
+			
+		if(ev.clientX-mouse_left>0&&obj.offsetLeft<=document.body.clientWidth-100){
+			if(obj.setCapture)
+				obj.setCapture();	
+			obj.style.left=(ev.clientX-mouse_left)+"px";
+			if(obj.offsetLeft>document.body.clientWidth-120)
+			obj.style.left=(document.body.clientWidth-120)+"px";
+			
+			
+		}
+		if(ev.clientY-mouse_top>0&&obj.offsetTop<=(parseInt(document.body.scrollTop,10)+contentPageHeigh-100)&&obj.offsetTop>=parseInt(document.body.scrollTop,10)){
+			if(obj.setCapture)
+				obj.setCapture();	
+			obj.style.top=(ev.clientY-mouse_top)+"px";
+			floatdivtopnum = ev.clientY-mouse_top - parseInt(document.body.scrollTop,10);
+			if(obj.offsetTop>(parseInt(document.body.scrollTop,10)+contentPageHeigh-140)){
+				obj.style.top=(parseInt(document.body.scrollTop,10)+contentPageHeigh-140)+"px";
+				floatdivtopnum = contentPageHeigh-140;
+			}
+			if(obj.offsetTop<parseInt(document.body.scrollTop,10)){
+				obj.style.top=document.body.scrollTop+"px";
+				floatdivtopnum = 0;
+			}
+		}
+		
+		
+		ev.cancelBubble = true;
+		ev.returnValue=false;
+		
+		
+	}
+	
+}
+
+function getcookieTop(){
+	
+ 				var cTop = '-1';
+				var cookieStr = document.cookie;
+				
+				if(cookieStr==""){
+					
+					return cTop
+				}
+				//alert(cookieStr);
+				var cookieValue = cookieStr.split("; ");
+				//alert(cookieValue);
+				var varName = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosTop=";
+				
+				var startPos = -1;
+				var endPos = -1;
+				//alert(varName);
+				for(var i=0;i<cookieValue.length;i++){
+					startPos = cookieValue[i].indexOf(varName);
+					//alert(startPos);
+					if(startPos!=0){
+						continue;	
+					}
+					startPos += varName.length;
+					endPos = cookieValue[i].length;
+					var cookieText = unescape(cookieValue[i].substring(startPos,endPos));
+					
+					//alert(logonTime);
+					
+					cTop = cookieText;
+					//alert("top:"+cTop);
+					return cTop;	
+				}
+				return "-1";
+			}                 
+			
+	function getcookieLeft(){
+		
+ 				var cLeft = '-1';
+				var cookieStr = document.cookie;
+				
+				if(cookieStr==""){
+					
+					return cLeft
+				}
+				
+				var cookieValue = cookieStr.split("; ");
+				//alert(cookieValue);
+				var varName = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosLeft=";
+				
+				var startPos = -1;
+				var endPos = -1;
+				//alert(varName);
+				for(var i=0;i<cookieValue.length;i++){
+					startPos = cookieValue[i].indexOf(varName);
+					
+					if(startPos!=0){
+						continue;	
+					}
+					startPos += varName.length;
+					endPos = cookieValue[i].length;
+					var cookieText = unescape(cookieValue[i].substring(startPos,endPos));
+					
+					//alert("left:"+cookieText);
+					
+					cLeft = cookieText;
+					
+					return cLeft;	
+				}
+				return "-1";
+			}                 		
+</SCRIPT>
+
+<FORM method=post name=floatonLineServiceForm action=/servlet/ICBCINBSReqServlet target=null><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_OnLineCustomerServiceOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=0 name=queryprocflag> <INPUT type=hidden value=0 name=salesFlag> </FORM>
+<FORM method=post name=floatWindowForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_ajaxCloseFloatWindowOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT id=TipOpenFlagTemp type=hidden> <INPUT id=opflag type=hidden value=0> 
+<DIV id=floatdiv style="DISPLAY: none">
+<DIV onmousedown=floatdrag(this.parentNode,event) class=floatcontent>
+<DIV id=float_service style="TEXT-ALIGN: center"><A class=link_top href="javascript:floatserviceSubmit()"><IMG border=0 src="https://mybank.icbc.com.cn/icbc/newperbank/images/xuanting_1.gif" width=81 height=90></A></DIV>
+<DIV style="TEXT-ALIGN: center"><INPUT id=noshow type=checkbox );?> 不再显示 </DIV>
+<DIV id=floatclosediv style="TEXT-ALIGN: center"><A onclick=closefloat() class=close href="javascript:closefloat()"><IMG onmousedown=floatdrag(this.parentNode,event) border=0 src="/icbc/newperbank/images/floatclose.png" width=60 height=20></A> </DIV></DIV></DIV></FORM>
+<SCRIPT language=javascript> 
+    		var float_div_msg1="<a href=\"javascript:floatserviceSubmit()\" class=\"link_top\"><img src=\"/icbc/newperbank/images/xuanting_1.gif\"  WIDTH=\"81\" HEIGHT=\"90\"  border=\"0\"></a>";
+
+    		try{
+    			    			float_service.innerHTML=float_div_msg1;
+    		}catch(e){
+    			jQuery("#float_service").html(float_div_msg1);
+    		}
+
+        	    	</SCRIPT>
+
+<SCRIPT>
+	var floatshowFlag = 0;
+	
+	var float_desktopflag = '10';
+	var floatTipOpenFlag1 = '1111211111111111121111111111111111111111';
+	var floatMacFlag = '6432';
+	var commonCustFloatOpenFlag = '1';
+	var vipCustFloatFlag = '2';
+	var serviceLevelInt_float = '1';
+	var servicelowestLevelInt_float = '2';
+	var floatVipopenRegSign = '1111212112211211212211211111111222112222221222111112112121111112211222111122221111121111111122121111112222222111212221121112222211112211112121112121112111221211122111112122122211211111111221112221222221111112112111211122222222112211111222221112222221221122222221111122221112121112112121111211212211221122121112222211121211112112111111222122112221121111221111111111212121112111111211111122121111211221211111112221112222111112222112222111112111211111211121112211111122112111121112111112211122121211111222111221121222112221111111122211112222222222211111211111111212211122221112111111222212212211111222122222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+	var floatVipopenFlag = '1';
+
+	if('12'!=float_desktopflag&&floatMacFlag!="MACOS-SAFARI-0"&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag){	
+		try{
+			floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+		}catch(Exception){
+			//alert(Exception)
+			floatParentObj = parent.parent.parent;
+			try{
+				floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+			}catch(Exception){
+				//alert(Exception)
+				floatParentObj = parent.parent.parent.parent;
+				try{
+					floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+				}catch(Exception){
+					//alert(Exception)
+					floatshowFlag=0;
+				
+				}
+				
+			}
+			//floatshowFlag=0;
+		}
+		
+	}
+
+
+	
+		floatTipOpenFlag1=floatTipOpenFlag1.substring(0,4)+"2"+floatTipOpenFlag1.substr(5);
+	if(0==floatshowFlag&&'12'!=float_desktopflag&&'14'!=float_desktopflag&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag){
+		try{
+			floatParentObj.topFrame.setFloatShowFlag('2');	
+			floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+		}catch(Exception){}	 
+		
+	}
+	
+	if(2==floatshowFlag||'12'==float_desktopflag||floatMacFlag=="MACOS-SAFARI-0"||'16'==float_desktopflag||'17'==float_desktopflag||'18'==float_desktopflag||'19'==float_desktopflag){
+		try{
+			document.getElementById('floatdiv').style.display='none';
+		}catch(Exception){}	 
+	}
+	
+	if((1==floatshowFlag&&'12'!=float_desktopflag&&floatMacFlag!="MACOS-SAFARI-0"&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag)&&(("1"!=vipCustFloatFlag && "1"==commonCustFloatOpenFlag) || ("1"==floatVipopenFlag && serviceLevelInt_float>=servicelowestLevelInt_float))){
+		
+		var floattempx = floatParentObj.topFrame.getFloatObjx();
+		var floattempy = floatParentObj.topFrame.getFloatObjy();
+		
+		var cTop = getcookieTop();
+		var cLeft = getcookieLeft();
+		//alert(floattempx+","+floattempy);
+		if(floattempx!=-1&&floattempy!=-1&&floattempx!=""&&floattempy!=""){
+			if(parseInt(floattempy,10)>document.body.clientHeight-140)
+				floattempy = document.body.clientHeight-140 + "px";
+			if(parseInt(floattempx,10)>document.body.clientWidth-20)
+				floattempx = document.body.clientWidth-20 + "px";	
+			document.getElementById("floatdiv").style.left=floattempx;
+			document.getElementById("floatdiv").style.top=floattempy;
+			document.getElementById('floatdiv').style.display=""
+			
+		}	else{
+			if(cTop=='-1'||cLeft=='-1'){
+				document.getElementById("floatdiv").style.right="20px";
+				document.getElementById("floatdiv").style.top="100px";
+			}else{
+				if(parseInt(cTop,10)>document.body.clientHeight-140)
+					cTop = document.body.clientHeight-140 + "px";
+				if(parseInt(cLeft,10)>document.body.clientWidth-20)
+					cLeft = document.body.clientWidth-20 + "px";	
+				document.getElementById("floatdiv").style.left=cLeft;
+				document.getElementById("floatdiv").style.top=cTop;
+			}
+			document.getElementById('floatdiv').style.display=""
+		}
+		var floatwindowdiv = document.getElementById("floatdiv");
+		floatdivtopnum = parseInt(floatwindowdiv.style.top,10);
+		floatdivtopnum2 = parseInt(floatwindowdiv.style.top,10);
+		window.onscroll=function(){
+			
+	
+	var scrolltopnum = parseInt(document.body.scrollTop,10);
+	
+	var floatscrolldivtopnum = scrolltopnum +floatdivtopnum;
+	floatwindowdiv.style.top = floatscrolldivtopnum +"px";
+	
+};
+//window.onresize=window.onscroll;
+window.attachEvent('resize',window.onscroll);
+window.onscroll();
+	}
+	
+	function closefloat(){
+		document.getElementById('floatdiv').style.display='none';
+		floatParentObj.topFrame.setFloatShowFlag('2');	
+		
+		
+	if(document.floatWindowForm.noshow.checked){
+		
+	
+		
+		document.floatWindowForm.TipOpenFlagTemp.value=floatTipOpenFlag1;
+		document.floatWindowForm.opflag.value=1;
+		floatParentObj.topFrame.floatChangeTip(floatTipOpenFlag1,1);	
+	}
+  
+ }
+ 
+ 
+  
+</SCRIPT>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css"><LINK rel=stylesheet type=text/css href="/icbc/newperbank/newmenu/css/ebank_new/welcomePage.css">
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/accountlist.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/includes/relatedTran.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/service/service_mycommand.js"></SCRIPT>
+
+<DIV onmouseout=removeevent2();removeevent_ltb() id=object1 style="POSITION: absolute; LEFT: 765px; Z-INDEX: 2; TOP: 0px; VISIBILITY: visible"><LAYER name="layertip" bgcolor="#ffffff" visibility="hide">
+<SCRIPT language=JavaScript1.2>
+var langlayer='zh_CN';
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/layernew.js"></SCRIPT>
+
+<TABLE cellSpacing=1 cellPadding=0 width=225 border=0>
+<TBODY>
+<TR>
+<TD id=tab1 vAlign=top align=left><IMG onmouseover=getevent2() id=layerimg src="/icbc/newperbank/images/menu_recently.png" width=21 height=87> </TD>
+<TD onmouseover=getevent2() id=rightbig style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width=206 border=0>
+<TBODY>
+<TR>
+<TD background=/icbc/newperbank/images/dot_gray2.gif width=1></TD>
+<TD id=右侧大td bgColor=#f3f3f3 vAlign=top>
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/greenwayMessage.js"></SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 valign="bottom">
+<FORM method=post name=formChannel action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden name=id> </FORM>
+<TBODY></TBODY></TABLE>
+<TABLE id=最近使用 class=td_L_green cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('060298')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款查询-境内汇款查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('060299')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款查询-注册账户转账查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020205')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">账务查询-明细查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020102')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">我的账户-注册账户列表</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020402')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款-工行转账汇款</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('2801')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">e卡服务-申请e卡</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020203')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">账务查询-余额查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('310601')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">网上挂失-注册账户挂失</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TABLE></LAYER></DIV><!--客户信息-->
+<TABLE id=custInfo_table class=div_table cellSpacing=0 cellPadding=0 width="95%"><!--上边框-->
+<TBODY>
+<TR>
+<TD class=top_left_td>&nbsp;</TD>
+<TD class=top_td>&nbsp;</TD>
+<TD class=top_right_td>&nbsp;</TD></TR><!--中-->
+<TR><!--左-->
+<TD class=left_td></TD><!--中-->
+<TD class=main_td><!--================================== 欢迎语左半部分begin ====================================== -->
+<DIV id=custInfoLeft class=middle_div>
+<DIV id=custInfo><SPAN class=font_bigpx>周天一，</SPAN>欢迎您！ <BR>您是我行的<A href="javascript:goto('3214')"><FONT color=blue><U>三星客户</U></FONT></A>。<BR><A title=星级服务是我行为回馈客户厚爱推出的创新服务，您在我行办理业务可根据业务量获评星级并享受相应服务。><IMG src="/icbc/newperbank/newmenu/images/welcomepage/stars.png"><IMG src="/icbc/newperbank/newmenu/images/welcomepage/stars.png"><IMG src="/icbc/newperbank/newmenu/images/welcomepage/stars.png"></A> </DIV>
+<TABLE cellSpacing=0 cellPadding=0 width="96%" align=center border=0>
+<TBODY></TBODY></TABLE></DIV><!--================================== 欢迎语左半部分end ====================================== --><!--================================== 欢迎语右半部分begin ====================================== -->
+<STYLE>
+ul.mulitline{
+	top:0px;
+	color:black;
+	overflow:hidden;
+}
+#scrollLogonInfo li{
+	text-indent:15px;
+	font-size:15px;
+	line-height:30px;
+	list-style:none;
+}
+</STYLE>
+<!--================================== 欢迎语右半部分begin ====================================== -->
+<DIV id=custInfoRight class="middle_div  border_left">
+<UL id=scrollLogonInfo class=mulitline style="HEIGHT: 112px" jQuery1434821183749="2">
+<LI style="MARGIN-TOP: 0px" jQuery1434821183749="3">上一次登录时间：2015年06月21日01时18分44秒。如果您在登录后连续15分钟内未操作，系统将自动超时退出。 
+<LI style="MARGIN-TOP: 0px" jQuery1434821183749="4">您在我行的预留验证信息是：<SPAN><B><FONT color=#bd0021>卡卡</FONT></B></SPAN>。 
+<LI style="MARGIN-TOP: 0px" jQuery1434821183749="5">本次登录是您本日第2次访问我行网银。 
+<LI style="MARGIN-TOP: 0px" jQuery1434821183749="6">如果该回显的信息与您预留的不一致时，请立即停止交易，并尽快与我行客服电话95588联系。 
+<LI id=downloadAssistComm style="MARGIN-TOP: 0px" jQuery1434821183749="7"><FONT color=#bd0021><B>“工行网银助手”</B></FONT>助您一键安装更新网银安全控件及工具，建议<A href="http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi" target=_blank><FONT color=blue><U><B>安装</B></U></FONT></A>。 </LI></UL></DIV><!--================================== 欢迎语右半部分end ====================================== --></TD><!--右-->
+<TD class=right_td></TD>
+<SCRIPT>
+function myonload(){
+//alert("custInfoLeft="+jQuery("#custInfoLeft").height()+",scrollLogonInfo="+jQuery("#scrollLogonInfo").height());
+//alert(""+(jQuery("#custInfoLeft").height()-30));
+if((jQuery("#custInfoLeft").height()-30)>112){
+	document.getElementById("scrollLogonInfo").style.height = (jQuery("#custInfoLeft").height()-30)+"px";
+}else{
+	document.getElementById("scrollLogonInfo").style.height = "112px";
+}
+//alert("custInfoLeft="+jQuery("#custInfoLeft").height()+",scrollLogonInfo="+jQuery("#scrollLogonInfo").height());
+jQuery(function(){
+	var _wrap=jQuery('ul.mulitline');//定义滚动区域
+	var _interval=3000;//定义滚动间隙时间
+	var _moving;//需要清除的动画
+	_wrap.hover(
+		function(){
+			clearInterval(_moving);//当鼠标在滚动区域中时,停止滚动
+		},
+		function(){
+			_moving=setInterval(function(){
+				var _field=_wrap.find('li:first');//此变量不可放置于函数起始处，li:first取值是变化的
+				var _h=_field.height();//取得每次滚动高度
+				_field.animate({marginTop:-_h+'px'},600,function(){//通过取负margin值，隐藏第一行
+					_field.css('marginTop',0).appendTo(_wrap);//隐藏后，将该行的margin值置零，并插入到最后，实现无缝滚动
+				})
+			},_interval)//滚动间隔时间取决于_interval
+		}
+		).trigger('mouseleave');//函数载入时，模拟执行mouseleave，即自动滚动
+});
+}
+</SCRIPT>
+</TR><!--下-->
+<TR>
+<TD class=bottom_left_td>&nbsp;</TD>
+<TD class=bottom_td>&nbsp;</TD>
+<TD class=bottom_right_td>&nbsp;</TD></TR></TBODY></TABLE>
+<SCRIPT>
+var date = new Date();
+date.setFullYear(2020);
+function floatPagetoMall() {
+	document.cookie="gotomall=1;expires=" + date.toGMTString();
+	window.parent.parent.frames[0].gotoMall();
+}
+</SCRIPT>
+
+<TABLE id=emallInfo_table class=div_table cellSpacing=0 cellPadding=0 width="95%">
+<TBODY>
+<TR>
+<TD style="WIDTH: 5px"></TD>
+<TD align=center><A onmouseover="this.style.textDecoration='none';" href="javascript:floatPagetoMall();">
+<DIV style="POSITION: relative"><IMG onerror="this.src='/icbc/newperbank/images/EmallBackground.JPG'" border=0 src="https://image.mybank.icbc.com.cn//picture/tradeadvertisement/16.gif" width="100%"> </DIV></A></TD>
+<TD style="WIDTH: 5px"></TD></TR></TBODY></TABLE>
+<STYLE>
+.blink1{
+	color:rgb(255,188,188);
+}
+.blink2{
+	color:rgb(255,40,40);
+}
+</STYLE>
+
+<SCRIPT>
+function blinklink(){
+	jQuery(".blink").each(function(i){
+		if(jQuery(this).hasClass('blink1')){
+			jQuery(this).removeClass('blink1').addClass('blink2');
+		}else{
+			jQuery(this).removeClass('blink2').addClass('blink1');
+		}
+	});	
+}
+setInterval("blinklink()",300);
+</SCRIPT>
+<!--温馨提醒-->
+<TABLE id=tranInfo_table class=div_table cellSpacing=0 cellPadding=0 width="95%"><!--上边框-->
+<TBODY>
+<TR>
+<TD class=top_left_td>&nbsp;</TD>
+<TD class=top_td>&nbsp;</TD>
+<TD class=top_right_td>&nbsp;</TD></TR><!--中-->
+<TR><!--左-->
+<TD class=left_td></TD><!--中-->
+<TD class=main_td>
+<DIV class=h1_title>温馨提醒</DIV>
+<UL id=tranInfo_ class=noteInfo_ul><!-- ============================安全提示部分 begin============================ --><!-- ============================安全提示部分 end============================ --><!-- 贵宾和非贵宾都显示的置顶提醒 begin -->
+<LI>
+<DIV><B>我行手机银行推出账户类交易产品电子礼包，欢迎体验！</B> <IMG src="/icbc/newperbank/images/n1.gif"> </DIV><!-- 贵宾和非贵宾都显示的置顶提醒 end --><!-- ===================================区分是否贵宾展示相应温馨提醒 begin=================================== --><!-- *********************************************非贵宾客户温馨提醒 begin**************************************--></LI>
+<LI>
+<DIV><B>我行推出交易型产品客户交易终端，欢迎<A href="http://www.icbc.com.cn/icbc/html/download/dkq/ICBC_E_Investment_setup.exe"><FONT color=blue><U>下载</U></FONT></A>使用。</B> </DIV></LI>
+<LI>
+<DIV>您可以点击<A href="javascript:querywaitinglist()"><FONT color=blue><U>这里</U></FONT></A>查看<B>待办事项</B>情况。 </DIV></LI>
+<LI>
+<DIV>您可以点击<A href="javascript:TELIncreaseForm.submit()" target=_self><FONT color=blue><U>这里</U></FONT></A>查看电话银行待确认交易情况。 </DIV><!-- *********************************************非贵宾客户温馨提醒 end**************************************--><!-- *********************************************贵宾和非贵宾都显示的放在最后提醒 begin************************************** --><!-- *********************************************贵宾和非贵宾都显示的放在最后提醒 end************************************** --></LI>
+<LI id=tranMore class=moreli style="DISPLAY: none" jQuery1434821183749="1">
+<DIV class=more><A href="javascript:tranMoreClick()"><FONT color=blue><U>更多</U></FONT></A> </DIV></LI></UL></TD><!--右-->
+<TD class=right_td></TD></TR><!--下-->
+<TR>
+<TD class=bottom_left_td>&nbsp;</TD>
+<TD class=bottom_td>&nbsp;</TD>
+<TD class=bottom_right_td>&nbsp;</TD></TR></TBODY></TABLE><!--银行留言-->
+<TABLE id=noteInfo_table class=div_table cellSpacing=0 cellPadding=0 width="95%"><!--上边框-->
+<TBODY>
+<TR>
+<TD class=top_left_td>&nbsp;</TD>
+<TD class=top_td>&nbsp;</TD>
+<TD class=top_right_td>&nbsp;</TD></TR><!--中-->
+<TR><!--左-->
+<TD class=left_td></TD><!--中-->
+<TD class=main_td>
+<DIV class=h1_title>银行留言</DIV>
+<UL id=noteInfo_ class=noteInfo_ul>
+<LI id=relatedTranLi style="DISPLAY: none">
+<DIV id=relatedTranNote><!-- 客户经理推荐产品 --></DIV></LI>
+<LI id=relatedTranBankLi style="DISPLAY: none">
+<DIV id=relatedTranBankNote><!-- 银行推荐产品 --></DIV></LI>
+<LI>
+<DIV>我行推出短信银行服务，如需体验请点击<A href="javascript:mySmsBank.submit()" target=_self><FONT color=blue><U>这里</U></FONT></A>。 </DIV></LI>
+<LI style="DISPLAY: none">
+<DIV>开通<A href="javascript:goto('310501')"><FONT color=blue><U>手机短信认证</U></FONT></A>，交易双保险。 </DIV></LI>
+<LI id=stillShowNote_1>
+<DIV><A href="javascript:goto('060801')"><FONT color=blue><U>绑定手机号收款</U></FONT></A>、<A href="javascript:goto('060802')"><FONT color=blue><U>绑定E-mail收款</U></FONT></A>使您收款更加方便、私密。 </DIV></LI>
+<LI id=stillShowNote_2>
+<DIV>如需了解试用的活动信息，请点击<A href="javascript:goto('3218')"><FONT color=blue><U>这里</U></FONT></A>。 </DIV></LI>
+<LI id=noteMore class=moreli>
+<DIV class=more><A href="javascript:NoteForm.submit()"><FONT color=blue><U>更多</U></FONT></A> </DIV></LI></UL></TD><!--右-->
+<TD class=right_td></TD></TR><!--下-->
+<TR>
+<TD class=bottom_left_td>&nbsp;</TD>
+<TD class=bottom_td>&nbsp;</TD>
+<TD class=bottom_right_td>&nbsp;</TD></TR></TBODY></TABLE>
+<SCRIPT>
+			//温馨提醒，抽奖活动，银行留言 条数提示控制 
+				jQuery("#tranInfo_ li:visible").each(function(i){
+					if(i+1>5){
+						jQuery(this).hide();
+					}
+				});	
+				jQuery("#drawInfo_ li:visible").each(function(j){
+					if(j+1>5){
+						jQuery(this).hide();
+					}
+				});
+			if(((jQuery("#tranInfo_ li").length)-1) > 5){
+				jQuery("#tranMore").show();
+			}else{
+				jQuery("#tranMore").hide();
+			}
+			if(((jQuery("#drawInfo_ li").length)-1) > 5){
+				jQuery("#drawMore").show();
+			}else{
+				jQuery("#drawMore").hide();
+			}
+			function tranMoreClick(){
+				jQuery("#tranInfo_ li").each(function(m){
+					jQuery(this).show();
+					});
+				jQuery("#tranMore").hide();
+				
+				jQuery("#noteInfo_table").hide();
+			}
+			function drawMoreClick(){
+				jQuery("#drawInfo_ li").each(function(m){
+					jQuery(this).show();
+					});
+				jQuery("#drawMore").hide();
+				
+				jQuery("#noteInfo_table").hide();
+			}
+			</SCRIPT>
+
+<SCRIPT language=javascript>
+function onDetail(notifyData){
+  window.open("/icbc/newperbank/includes/welcomepage_notify.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&notifyData="+notifyData,"抽奖活动介绍页面","width=450,height=300,top=300,left=350");
+}
+function goto(id,pam){
+	window.location="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&id="+id+"&"+pam;
+}
+function show_note(){
+	jQuery("#noteInfo_ li").each(function(m){
+		jQuery(this).show();
+	});
+	jQuery("#noteMore").hide();
+	
+	jQuery("#tranInfo_table").hide();
+	try{
+	document.getElementById("Probationip1").style.display="none";
+	document.getElementById("Probationip2").style.display="none";
+	}catch(Exception){}
+  resize();
+}
+
+function show_trade(){
+	for(var i=1;i<=0;i++){
+		try{document.getElementById("trt"+i).style.display="";}catch(Exception){}
+	}
+	document.getElementById("safetip1").style.display="none";
+	document.getElementById("safetip2").style.display="none";
+	document.getElementById("notetip1").style.display="none";
+	document.getElementById("notetip2").style.display="none";
+
+	try{
+	document.getElementById("Probationip1").style.display="none";
+	document.getElementById("Probationip2").style.display="none";
+	}catch(Exception){}
+	document.getElementById("MoreTips").style.display="none";
+	resize();
+}
+function show_saleMassage(){
+	for(var i=1;i<=0;i++){
+		try{document.getElementById("slm"+i).style.display="";}catch(Exception){}
+	}
+
+	document.getElementById("notetip1").style.display="none";
+	document.getElementById("notetip2").style.display="none";
+	document.getElementById("tradetip1").style.display="none";
+	document.getElementById("tradetip2").style.display="none";
+	try{
+	document.getElementById("Probationip1").style.display="none";
+	document.getElementById("Probationip2").style.display="none";
+	}catch(Exception){}
+	resize();
+}
+
+function querylist(){
+	QryForm.submit();
+
+}
+function querywaitinglist(){
+	waitingForm.submit();
+
+}
+
+var issubmitsign=false;
+function goTODraw(actionFlag,FestivalID){
+	if(issubmitsign)
+	{
+		alert("请勿重复提交，如果对交易处理结果存在疑问，请查询账户当前余额或账户明细，或者查询交易账户/交易指令的最新状态，以确认交易是否已处理成功。");
+		return ;
+	}
+	var actionFlag=actionFlag;
+  var FestivalID=FestivalID;
+	if(actionFlag=='0'){
+	 document.formForDraw.DrawType.value="0";
+	 document.formForDraw.input_SERIALNO.value=FestivalID;
+  }	else if(actionFlag=='1'){
+	 document.formForDraw.DrawType.value="1";
+	 document.formForDraw.input_SERIALNO.value="";
+  }else if(actionFlag=='2'){
+	 document.formForDraw.DrawType.value="2";
+	 document.formForDraw.input_SERIALNO.value="";
+  }else{
+	 document.formForDraw.DrawType.value="3";
+	 document.formForDraw.input_SERIALNO.value="";
+  }
+
+	  issubmitsign=true;
+	  document.formForDraw.cmd.value="4";
+    document.formForDraw.submit();
+}
+
+function fillmobile(formname)
+{
+	var formobj = eval("document." + formname);
+	if(!/^\d{11}$/g.test(formobj.mobile.value))
+	{
+		alert('请输入正确格式的移动电话号码');
+		formobj.mobile.focus();
+		return;
+	}
+	
+	if(confirm("提示客户：您输入的手机号为："+formobj.mobile.value+"，请确认"))
+		formobj.submit();
+	else
+		return ;
+}
+
+
+
+	relatedTran._ajax_icommandList('GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI','20150621','0');
+	function showIcon(_icommadList){
+		var commandNum = _icommadList.length;
+		//推荐交易
+		if(commandNum>0){ //修改desktop-window.js
+			var Template= "您的客户经理向您推荐以下产品：";		//客户经理推荐
+			var Template_bank= "我们向您推荐以下产品：";	//银行推荐
+			var Template_flag = false;
+			var Template_bank_flag = false;
+			//推荐产品添加
+			for(var i=0;i<commandNum;i++){ //realNum
+				  	  var displayDescDstTmp=_icommadList[i].proName;
+				  	  
+				  	  if(displayDescDstTmp == undefined)
+				  	  {
+				  	  	displayDescDstTmp="交易名称解析异常";
+				  	  }
+		  	  
+				  	var command_id = "command_icon1" + i;
+					if(_icommadList[i].prosource1=="2"){	//客户经理推荐
+						Template = Template + "<a id=\""+command_id+"\" tabIndex=\"-1\" " +" href=\""+_icommadList[i].url+";if(event.stopPropagation){event.stopPropagation();} else{event.cancelBubble=true;}\"><font color=\"blue\"><u>" +
+									displayDescDstTmp+
+									"</u></font></a>、";	
+						Template_flag = true;
+					}else if(_icommadList[i].prosource1=="1"){			//银行推荐
+						Template_bank = Template_bank + "<a id=\""+command_id+"\" tabIndex=\"-1\" " +" href=\""+_icommadList[i].url+";if(event.stopPropagation){event.stopPropagation();} else{event.cancelBubble=true;}\"><font color=\"blue\"><u>" +
+									displayDescDstTmp+
+									"</u></font></a>、";	
+						Template_bank_flag = true;
+					}
+			}
+			try{
+			if(Template_flag){
+				Template = Template.substr(0,Template.length-1)+"。";
+				jQuery("#relatedTranLi").show();
+				jQuery("#relatedTranNote").append(Template);				
+			}
+			if(Template_bank_flag){
+				Template_bank = Template_bank.substr(0,Template_bank.length-1)+"。";
+				jQuery("#relatedTranBankLi").show();
+				jQuery("#relatedTranBankNote").append(Template_bank);			
+			}
+			}catch(e){}
+		}
+		
+		try{
+		//刷新银行留言个数
+		jQuery("#noteInfo_ li:visible").each(function(k){
+			if(k+1>5){
+				jQuery(this).hide();
+			}
+		});
+		document.getElementById("stillShowNote_1").style.display="";
+		document.getElementById("stillShowNote_2").style.display="";
+		document.getElementById("noteMore").style.display="";
+		}catch(e){}
+		
+	}
+function formForCase41Submit(billNo_in,billSubseq_in)
+{
+	document.formForCase41.billNo.value = billNo_in;
+	document.formForCase41.billSubseq.value = billSubseq_in;
+	document.formForCase41.submit();
+}
+
+</SCRIPT>
+
+<FORM method=post name=formForCase41 action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_ReckoningPaymentOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=12 name=cmdFlag> <INPUT type=hidden name=billNo> <INPUT type=hidden name=billSubseq> <INPUT type=hidden value=4002 name=id> <INPUT type=hidden value=4002 name=MenuID> </FORM>
+<FORM onsubmit="return false;" method=post name=formForDraw action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_DisplayCommonInfoOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=0 name=cmd> <INPUT type=hidden name=DrawType> <INPUT type=hidden name=input_SERIALNO> </FORM>
+<FORM method=post name=QryForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_DisplayCommonInfoOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=2 name=cmd> <INPUT type=hidden value=newperbank/includes/welcomepage_tipdetail.jsp name=zh_CNreplyPage> </FORM>
+<FORM method=post name=waitingForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_DisplayCommonInfoOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=6 name=cmd> <INPUT type=hidden value=newperbank/includes/welcomepage_waitingdetail.jsp name=zh_CNreplyPage> </FORM>
+<FORM method=post name=NoteForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_DisplayCommonInfoOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=3 name=cmd> <INPUT type=hidden value=newperbank/includes/welcomepage_new.jsp name=zh_CNreplyPage> </FORM>
+<FORM method=post name=TELIncreaseForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_PerbankConfirmOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> </FORM>
+<FORM method=post name=CancelStatement action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_CancePaperStatementOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=5 name=tranFlag> </FORM>
+<FORM method=post name=forwardform action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden value=ee name=id> <INPUT type=hidden name=ActionUrl> </FORM>
+<FORM onsubmit="return false;" method=post name=mySmsBank action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_DisplayCommonInfoOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=7 name=cmd> </FORM>
+<FORM method=post name=productForm action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden value=430301 name=id> </FORM>
+<FORM method=post name=activityForm action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden value=430601 name=id> </FORM>
+<FORM onsubmit="javascript:return false;" method=post name=custMobileExpireForm action=/servlet/ICBCINBSCenterServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_ServiceModifyMobileInfoOp name=dse_operationName> <INPUT type=hidden value=4 name=dse_pageId> <INPUT type=hidden value=/servlet/ICBCINBSReqServlet? name=ActionUrl> <INPUT type=hidden value=15 name=jspTag> <INPUT type=hidden value=320103 name=id> <INPUT type=hidden value=320103 name=MenuID> </FORM>
+<SCRIPT language=JavaScript1.2>
+//特殊处理新栏目下的左测栏目是否隐藏显示
+function leftFramehide(){
+	try{
+		parent.hideLeftMenu();
+		parent.hideSwitchBar();
+	}catch(e){
+		parent.parent.hideLeftMenu();
+		parent.parent.hideSwitchBar();	
+	}
+}
+<!--
+			
+	setcolor();
+	
+ 	init();
+
+//-->
+</SCRIPT>
+
+<SCRIPT>
+
+</SCRIPT>
+<FONT color=#ffffff>
+<SCRIPT language=javascript>
+	try{document.write(""+downloadflag+downloadtype+downloadVV+needfordownload+"	"+judgeVerCer);}catch(Exception){}
+</SCRIPT>
+0630 -100 </FONT>
+<SCRIPT language=javascript>
+function closealertwindow(){
+	try{alw.close();}catch(exception){}
+}
+
+//个人网银体验版功能提升项目 1211 add by kfzx-heq01 个性版增加判断是否登录后默认展现欢迎页
+
+function isShowWelPageSafari(){//特殊处理safari个性版，safari不支持unload方法中的ajax调用，改用form提交
+		if(this.hasExecuted==true){//防止IE，CHROME等浏览器可能将onunload事件执行两次
+			return;
+		}
+		var isShowPage = document.showForm.showPage;
+		var isShow = "";
+		if(isShowPage.checked){//送接口第十二位，1是2否
+			isShow = "1";
+		}else{
+			isShow = "2";
+		}
+		var lastFlag = '1111211111111111121111111111111111111111';
+		isShow = "11112111111"+isShow+"1111121111111111111111111111";//拼40位串送接口
+		if(lastFlag != isShow){
+			xmlhttp=new XMLHttpRequest();
+			xmlhttp.open("GET","/servlet/ICBCINBSReqServlet?dse_operationName=per_AjaxDisplayCommonInfoOp&dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&dse_applicationId=-1&isAjax=1&isShow="+isShow,false);
+			xmlhttp.send();
+		}
+		this.hasExecuted = true;
+}
+function isShowWelPage(){
+		if(this.hasExecuted==true){//防止IE，CHROME等浏览器可能将onunload事件执行两次
+			return;
+		}
+		var isShowPage = document.showForm.showPage;
+		var isShow = "";
+		if(isShowPage.checked){//送接口第十二位，1是2否
+			isShow = "1";
+		}else{
+			isShow = "2";
+		}
+		var lastFlag = '1111211111111111121111111111111111111111';
+		isShow = "11112111111"+isShow+"1111121111111111111111111111";//拼40位串送接口
+		if(lastFlag != isShow){
+			var sendParam = {};
+		  	sendParam["SessionId"]="GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI";
+		  	sendParam["isShow"]=isShow;
+		  	sendParam["isAjax"]="0";
+		  	sendParam["tranCode"]="A00168";
+		  	EBDataStruct.sendAjax({
+		  						data: sendParam,
+		  						dataType: "json",
+		  						url: "AsynGetDataServlet",
+		  						isDisplay: false,
+		  						displayArea: "pselected"
+		  	});
+		}
+	  	this.hasExecuted = true;
+}
+
+function openOther(formname,toid,cardnum,regCardFlag,acctNum,currType,cardType,cardArea,isMainFlag,cardState,isRegist,currFlag,foreignCurr)
+{
+	var forobj = eval("document." + formname);
+	var str="&CardNum=" + cardnum + "&cardFlag="+regCardFlag+"&parsentAcct="+acctNum+"&currType="+currType+"&cardType=" + cardType + "&cardArea=" + cardArea + "&isMainFlag=" + isMainFlag + "&cardState=" + cardState + "&isRegist=" + isRegist + "&currFlag=" + currFlag + "&foreignCurr=" + foreignCurr;
+	forobj.id.value=toid;
+	forobj.action="/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI" + str;
+	forobj.submit();
+}
+
+
+setTimeout("try {getevent_ltb()} catch(e) {}",200);//add by mk 2013/12/3 14:26 欢迎页自动显示灵通宝layer
+</SCRIPT>
+</BODY></HTML>

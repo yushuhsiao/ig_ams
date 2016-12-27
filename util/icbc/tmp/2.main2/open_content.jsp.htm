@@ -1,0 +1,93 @@
+﻿<HTML><HEAD><TITLE>中国工商银行新一代网上银行</TITLE>
+<META content="text/html; charset=GBK" http-equiv=Content-Type><LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style.css">
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript>
+		<!--
+		var pageBackFlag = 0;//js回退状态位，在goback时，将此标志位置为1。使用后需将值再置回为0 by Greene
+			var middleLineFlag=0;
+				function switchSysBar(){
+				if (middleLineFlag==0)
+				{
+						hideLeftMenu(false);
+				}
+				else
+				{
+						showLeftMenu();
+				}
+			}
+			function hideLeftMenu(inittop){
+					var inittop_temp = inittop==undefined?true:inittop;
+						middleLineFlag=1;
+					switchPoint.innerHTML='&#9658;';
+					document.all("frmTitle").style.display="none";
+					try{
+						
+					mainFrame.object1.style.left = mainFrame.document.body.clientWidth -20;
+					mainFrame.init();}catch(exception){}	
+						
+			}
+			function showLeftMenu(){
+					middleLineFlag=0;
+					switchPoint.innerHTML='&#9668;';
+					document.all("frmTitle").style.display="";
+					document.getElementById("leftFrame").style.display="";	
+					document.getElementById("leftFrame").style.visibility="";										
+					try{
+					mainFrame.object1.style.left = mainFrame.document.body.clientWidth -20;
+					mainFrame.init();}catch(exception){}				
+						
+			}
+			function showSwitchBar(){
+				var frame_bar =document.getElementById("frame_bar");
+				frame_bar.style.display ="";
+				frame_bar.style.visibility ="";				
+				var switchPoint =document.getElementById("switchPoint");
+				switchPoint.style.display ="";
+				switchPoint.style.visibility ="";					
+			}	
+			function hideSwitchBar(){
+				var frame_bar =document.getElementById("frame_bar");
+				frame_bar.style.display ="none";				
+			}	
+			function show(){
+				var frame_bar =document.getElementById("frame_bar");
+				frame_bar.style.display ="";
+			}	
+			function hideSwitchBar(){
+				var frame_bar =document.getElementById("frame_bar");
+				frame_bar.style.display ="none";				
+			}						
+		//-->
+		</SCRIPT>
+</HEAD>
+<BODY onload="setTimeout('setmainFrame()',0);" style="MARGIN: 0px" scroll=no>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD id=frmTitle vAlign=middle noWrap align=center><IFRAME id=leftFrame style="HEIGHT: 100%; WIDTH: 190px; Z-INDEX: 2; VISIBILITY: inherit" src="/icbc/newperbank/includes/leftframejs.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI" frameBorder=0 name=leftFrame></IFRAME></TD>
+<TD id=frame_bar bgColor=#999999 background=/icbc/newperbank/images/bg_3.gif>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 border=0>
+<TBODY>
+<TR>
+<TD onclick=switchSysBar() style="HEIGHT: 100%"><FONT style="CURSOR: pointer; FONT-SIZE: 16px; COLOR: black"><SPAN id=switchPoint style="FONT-FAMILY: Helvetica; WIDTH: 16px; COLOR: #000000">◄</SPAN> </FONT></TD></TR></TBODY></TABLE></TD>
+<TD style="WIDTH: 100%"><IFRAME style="HEIGHT: 100%; WIDTH: 100%; Z-INDEX: 1; VISIBILITY: inherit" src="" frameBorder=0 name=mainFrame></IFRAME></TD></TR>
+<TR>
+<TD height=30 colSpan=3><IFRAME style="HEIGHT: 30px; WIDTH: 100%; Z-INDEX: 1; VISIBILITY: inherit" src="/icbc/newperbank/includes/bottomservice.jsp?languagebot=zh_CN&amp;dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI" frameBorder=0 name=bottomserverice scrolling=no></IFRAME>
+<TD></TD></TR></TBODY></TABLE>
+<SCRIPT>
+function setmainFrame(){
+	window.mainFrame.location.replace("/servlet/ICBCINBSCenterServlet?ActionUrl=/icbc/newperbank/account/account_query_acctlist.jsp&dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI");
+	}
+</SCRIPT>
+
+<DIV id=TB_overlayemall style="DISPLAY: none"></DIV>
+<DIV id=TB_loadEmall style="LEFT: 163px; DISPLAY: none; TOP: 0px">
+<DIV style="MARGIN: 3px 3px 0px" align=right><A id=emall_closebtn href="javascript:parent.frames[0].TB_removeEmall()"><IMG border=0 src="https://mybank.icbc.com.cn/icbc/newperbank/images/Xclose.GIF" width=21 height=20></A></DIV>
+<DIV style="POSITION: relative; MARGIN: 0px 3px"><A onmouseover="this.style.textDecoration='none';" style="TEXT-DECORATION: none" href="javascript:parent.frames[0].floatPagetoMall()"><IMG onerror="this.onerror=null;this.src='/icbc/newperbank/images/floatTip/emall_float_background.png'" border=0 src="https://image.mybank.icbc.com.cn//picture/tradeadvertisement/18.gif" width=675 height=315> </A></DIV><!-- 4月版需求变更 固定显示
+		<div style="font-family:宋体;font-size:12pt;font-weight:bold;margin:0px 3px 3px 3px;"><input type="checkbox" style="vertical-align:baseline" onClick="javascript:parent.frames[0].changeflag_emall()" id="noTipAgain_emall" checked name="noTipAgain_emall"><label style="cursor:auto" id="label_noTipAgain_emall" for="noTipAgain_emall">下次不再提示</label></div>
+		 --></DIV><IFRAME id=TB_overlayemallbg style="DISPLAY: none" src="/icbc/newperbank/1.html"></IFRAME></BODY></HTML>

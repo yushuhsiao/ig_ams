@@ -1,0 +1,54 @@
+﻿<HTML><HEAD><TITLE>个人网上银行</TITLE>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<META content="text/html; charset=GBK" http-equiv=Content-Type><LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css"></HEAD>
+<BODY onload=myReload();>
+<TABLE id=ebankareatable height="100%" cellSpacing=0 cellPadding=5 width="100%" align=center border=0>
+<TBODY>
+<TR>
+<TD style="BACKGROUND: url(/icbc/newperbank/newmenu/images/fenge_bg.png) right 50%; COLOR: white" vAlign=middle noWrap align=left>用户： 周天一 &nbsp; 地区： 长春 </TD></TR></TBODY></TABLE>
+<FORM method=post name=form1 action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_ChangeUserOp name=dse_operationName> <INPUT type=hidden value=1 name=dse_pageId> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=ids> </FORM>
+<SCRIPT language=JavaScript>
+//MC:420000056428494
+//CN:420000056428494
+//MI:420020210000100139269605
+//CI:420000056428494
+//VL:1
+function mySubmit(obj){
+	document.form1.cardNum.value = obj.value;
+	document.form1.ids.value = "myReload";
+	document.form1.submit();
+}
+function myReload(){
+	if(document.form1.ids.value == "myReload"){
+		//固定进入当前所选栏目
+		if(true||window.parent.id_changerUser){
+			//window.parent.onSubtopForm(window.parent.id_changerUser, 1);
+			window.parent.parent.downFrame.mainFrame.location.href = "/servlet/ICBCINBSCenterServlet?id=01&dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI";
+		}else{
+			window.parent.parent.frames[1].frames[1].location.href = "/icbc/newperbank/account/forward.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI";
+		}
+
+	}
+}
+
+var service = parent.document.getElementById("custservice");
+
+</SCRIPT>
+</BODY></HTML>

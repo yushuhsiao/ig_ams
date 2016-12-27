@@ -1,0 +1,80 @@
+﻿<HTML><HEAD><TITLE>个人网上银行</TITLE>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<META content="text/html; charset=GBK" http-equiv=Content-Type><LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css">
+<SCRIPT>
+var marqueeContent=new Array(); //定义一个数组，用来存放显示内容
+//marqueeContent[0]='滚动字幕一';
+//marqueeContent[1]='滚动字幕二';
+marqueeContent[0]="";
+
+var marqueeInterval=new Array(); //定义一些常用而且要经常用到的变量
+var marqueeId=0;
+var marqueeDelay=3000;
+var marqueeHeight=17;
+
+
+function initMarquee() {
+
+var str=marqueeContent[marqueeId];
+document.write('<div id=marqueeBox style="overflow:hidden;height:'+marqueeHeight+'px" onmouseover="clearInterval(marqueeInterval[0])" onmouseout="marqueeInterval[0]=setInterval(\'startMarquee()\',marqueeDelay)"><div>'+str+'</div></div>');
+marqueeInterval[0]=setInterval("startMarquee()",marqueeDelay);
+}
+
+function startMarquee() {
+var str='';
+
+/************以下是mk修改过的部分**************/
+var l = marqueeContent.length; 
+marqueeId = ++marqueeId % l;
+str=marqueeContent[marqueeId];
+
+/************以上mk是修改过的部分**************/
+if(marqueeBox.childNodes.length==1) {
+var nextLine=document.createElement('DIV');
+nextLine.innerHTML=str;
+marqueeBox.appendChild(nextLine);
+}
+else {
+marqueeBox.childNodes[0].innerHTML=str;
+marqueeBox.appendChild(marqueeBox.childNodes[0]);
+marqueeBox.scrollTop=0;
+}
+clearInterval(marqueeInterval[1]);
+marqueeInterval[1]=setInterval("scrollMarquee()",20);
+}
+function scrollMarquee() {
+marqueeBox.scrollTop++;
+if(marqueeBox.scrollTop==(marqueeHeight+1)){
+clearInterval(marqueeInterval[1]);
+}
+}
+
+</SCRIPT>
+</HEAD>
+<BODY>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD vAlign=top align=left>
+<SCRIPT language=javascript>initMarquee();</SCRIPT>
+
+<DIV onmouseover=clearInterval(marqueeInterval[0]) onmouseout="marqueeInterval[0]=setInterval('startMarquee()',marqueeDelay)" id=marqueeBox style="OVERFLOW: hidden; HEIGHT: 17px">
+<DIV></DIV>
+<DIV></DIV></DIV></TD></TR></TBODY></TABLE></BODY></HTML>

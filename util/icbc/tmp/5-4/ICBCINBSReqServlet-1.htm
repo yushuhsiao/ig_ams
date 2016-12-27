@@ -1,0 +1,1015 @@
+﻿<HTML><HEAD><TITLE>欢迎您登陆工商银行网上银行</TITLE>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<SCRIPT language=JavaScript1.2>
+<!--
+var isshowtip='1';
+
+function setcolor(){
+		var topframe = parent.parent.topFrame||parent.parent.parent.topFrame;
+		var leftframe = parent.leftFrame||parent.parent.leftFrame;
+		try{
+			topframe.topColor('06');
+			//console.error("left state: "+parent.leftFrame.document.readyState);
+			if(leftframe.document.readyState=="complete"){
+				leftFrameColor();
+			}else{
+				setTimeout("leftFrameColor()",2000);
+			}
+		}catch(Exception){
+			window.setTimeout("leftFrameColor()",2000);
+		}
+}
+//特殊处理新栏目下的左测栏目是否隐藏显示
+function leftFrameColor(){
+	try{
+		var leftframe = parent.leftFrame||parent.parent.leftFrame;
+		leftframe.leftColor('0602','060298','','06');
+	}catch(Exception){}
+}
+function showdv1(){
+
+		try{tabletopmessage.style.display='none';}catch(exception){}
+		/*tdtopmessage.style.display='';
+		tdtopmessage1.style.display='';
+		tdtopmessage2.style.display='';*/
+		try{tdtopmessage.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage1.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage2.style.visibility='visible';}catch(exception){}
+	}
+	function showdv2(){
+		try{tabletopmessage.style.display='';}catch(exception){}
+		/*tdtopmessage.style.display='none';
+		tdtopmessage1.style.display='none';
+		tdtopmessage2.style.display='none';*/
+		try{tdtopmessage.style.visibility='hidden';}catch(exception){}
+		try{tdtopmessage1.style.visibility='hidden';}catch(exception){}
+		try{tdtopmessage2.style.visibility='hidden';}catch(exception){}
+	}
+	
+	try{
+		
+			window.parent.parent.frames[0].TB_remove1();
+			window.parent.parent.frames[0].uncoversub();
+		
+	}catch(excp){
+	}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/layer.js"></SCRIPT>
+
+<FORM method=post name=showTipForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId><INPUT type=hidden value=-1 name=dse_applicationId><INPUT type=hidden value=per_ServicePersonalizeCloseTipOp name=dse_operationName><INPUT type=hidden value=11 name=dse_pageId><INPUT type=hidden value=1 name=enrolflag><INPUT type=hidden name=closetip></FORM><LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css">
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/swapimage.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2 type=text/javascript src="/icbc/newperbank/js/stm31.js"></SCRIPT>
+
+<STYLE>
+.st_tbcss{border:none;padding:0px;margin:0px;}
+.st_tdcss{border:none;padding:0px;margin:0px;}
+.st_divcss{border:none;padding:0px;margin:0px;}
+.st_ftcss{border:none;padding:0px;margin:0px;}
+</STYLE>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ebdp-cardnumberdivide.js"></SCRIPT>
+
+<SCRIPT language=Javascript1.1 src="/icbc/newperbank/js/floatTip1.js"></SCRIPT>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/includes/myAdinfo.css"></HEAD>
+<BODY onresize=javascript:resize() style="OVERFLOW-X: hidden" name="mainbody"><FONT id=st_global0></FONT><FONT id=st_global1></FONT><FONT id=st_global2></FONT><FONT id=st_global3></FONT><FONT id=st_global4></FONT><FONT id=st_global5></FONT><FONT id=st_global6></FONT><FONT id=st_global7></FONT><FONT id=st_global8></FONT><FONT id=st_global9></FONT>
+<DIV id=tooltip2 style="CLIP: rect(0px 240px 240px 0px); HEIGHT: 20px; WIDTH: 116px; POSITION: absolute; VISIBILITY: hidden; BACKGROUND-COLOR: #ffffff"><LAYER bgColor="#FF0000" width="1000px" name="nstip"></LAYER></DIV>
+<DIV onmouseout=removeevent2();removeevent_ltb() id=object1 style="POSITION: absolute; LEFT: 889px; Z-INDEX: 2; TOP: 0px; VISIBILITY: visible"><LAYER name="layertip" bgcolor="#ffffff" visibility="hide">
+<SCRIPT language=JavaScript1.2>
+var langlayer='zh_CN';
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/layernew.js"></SCRIPT>
+
+<TABLE cellSpacing=1 cellPadding=0 width=225 border=0>
+<TBODY>
+<TR>
+<TD id=tab1 vAlign=top align=left><IMG onmouseover=getevent2() id=layerimg src="/icbc/newperbank/images/menu_recently.png" width=21 height=87> </TD>
+<TD onmouseover=getevent2() id=rightbig style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width=206 border=0>
+<TBODY>
+<TR>
+<TD background=/icbc/newperbank/images/dot_gray2.gif width=1></TD>
+<TD id=右侧大td bgColor=#f3f3f3 vAlign=top>
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/greenwayMessage.js"></SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 valign="bottom">
+<FORM method=post name=formChannel action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden name=id> </FORM>
+<TBODY></TBODY></TABLE>
+<TABLE id=最近使用 class=td_L_green cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('060298')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款查询-境内汇款查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('060299')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款查询-注册账户转账查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020205')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">账务查询-明细查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020102')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">我的账户-注册账户列表</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020402')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款-工行转账汇款</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('2801')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">e卡服务-申请e卡</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020203')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">账务查询-余额查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('310601')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">网上挂失-注册账户挂失</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TABLE></LAYER></DIV>
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/includes/onlineServiceCheck.js"></SCRIPT>
+
+<STYLE type=text/css>
+
+#floatdiv{ width:100px; border:0px solid #9CF; font-size:12px; position:absolute; z-index:90;cursor:crosshair}
+#floatclosediv{ margin:0px; padding-left:0px; height:20px; line-height:20px; font-size:12px; color:#0066CC; font-weight:100; background:#FFFFFF;cursor:crosshair}
+.floatcontent{ padding:0px 0px; line-height:100px;background-color:#F7F7F7;}
+
+</STYLE>
+
+<SCRIPT type=text/javascript>
+//在线客户服务
+			function floatserviceSubmit()
+			{
+				
+				
+				document.floatonLineServiceForm.submit();
+				
+				
+			}			
+var floatdivtopnum = 0;
+var floatdivtopnum2 = 0;
+var floatParentObj;
+var contentPageHeigh;
+
+try{                    
+		floatParentObj = parent.parent.parent;  
+		floatParentObj.topFrame.getFloatShowFlag(); 
+	}catch(E){
+		floatParentObj = parent.parent; 	
+	}            
+
+try{
+	floatdivtopnum = 0;                           
+	floatdivtopnum2 = 0;      
+	
+	contentPageHeigh = document.body.clientHeight;
+
+}catch(E){}
+
+var nextYear = new Date();
+					nextYear.setFullYear(nextYear.getFullYear()+1);
+					var expires = nextYear.toGMTString();	
+function floatdrag(obj,e){
+	var e=e ? e : event;
+	var mouse_left=e.clientX-obj.offsetLeft;
+	var mouse_top=e.clientY-obj.offsetTop;
+	var docmousemove=obj.onmousemove;
+	var docmouseup=obj.onmouseup;
+	var docmousedown=obj.onmousedown;
+	obj.onselectstar=function(e){return false}
+	obj.onmousedown=function(e){
+		if(e==null)e=window.event;
+		if(obj.setCapture)
+			obj.setCapture();	
+	}
+	obj.onmouseup=function(){
+		obj.releaseCapture();
+		obj.onmousemove=docmousemove;
+		obj.onmouseup=docmouseup;
+		obj.onselectstar=function(e){return true}
+		floatParentObj.topFrame.setFloatPos(obj.style.left,obj.style.top);
+		document.cookie = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosLeft="+obj.style.left+";expires="+expires;	
+		document.cookie = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosTop="+obj.style.top+";expires="+expires;	
+		floatdivtopnum2 = parseInt(obj.style.top,10);
+		
+	}
+	
+	obj.onmousemove=function(ev){
+		
+		
+		var ev=ev ? ev : event;
+		//document.getElementById('text').innerHTML=ev.clientX-mouse_left+"<br>"+(document.documentElement.clientWidth-(ev.clientX-mouse_left)-obj.offsetWidth+document.documentElement.scrollLeft)
+		
+		if(e.clientX<0||e.clientY<0||e.clientX>document.body.clientWidth-10||e.clientY>document.body.clientHeight-10){
+			obj.releaseCapture();
+			if(obj.setCapture)
+			obj.setCapture();	
+		}
+		
+			
+		if(ev.clientX-mouse_left>0&&obj.offsetLeft<=document.body.clientWidth-100){
+			if(obj.setCapture)
+				obj.setCapture();	
+			obj.style.left=(ev.clientX-mouse_left)+"px";
+			if(obj.offsetLeft>document.body.clientWidth-120)
+			obj.style.left=(document.body.clientWidth-120)+"px";
+			
+			
+		}
+		if(ev.clientY-mouse_top>0&&obj.offsetTop<=(parseInt(document.body.scrollTop,10)+contentPageHeigh-100)&&obj.offsetTop>=parseInt(document.body.scrollTop,10)){
+			if(obj.setCapture)
+				obj.setCapture();	
+			obj.style.top=(ev.clientY-mouse_top)+"px";
+			floatdivtopnum = ev.clientY-mouse_top - parseInt(document.body.scrollTop,10);
+			if(obj.offsetTop>(parseInt(document.body.scrollTop,10)+contentPageHeigh-140)){
+				obj.style.top=(parseInt(document.body.scrollTop,10)+contentPageHeigh-140)+"px";
+				floatdivtopnum = contentPageHeigh-140;
+			}
+			if(obj.offsetTop<parseInt(document.body.scrollTop,10)){
+				obj.style.top=document.body.scrollTop+"px";
+				floatdivtopnum = 0;
+			}
+		}
+		
+		
+		ev.cancelBubble = true;
+		ev.returnValue=false;
+		
+		
+	}
+	
+}
+
+function getcookieTop(){
+	
+ 				var cTop = '-1';
+				var cookieStr = document.cookie;
+				
+				if(cookieStr==""){
+					
+					return cTop
+				}
+				//alert(cookieStr);
+				var cookieValue = cookieStr.split("; ");
+				//alert(cookieValue);
+				var varName = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosTop=";
+				
+				var startPos = -1;
+				var endPos = -1;
+				//alert(varName);
+				for(var i=0;i<cookieValue.length;i++){
+					startPos = cookieValue[i].indexOf(varName);
+					//alert(startPos);
+					if(startPos!=0){
+						continue;	
+					}
+					startPos += varName.length;
+					endPos = cookieValue[i].length;
+					var cookieText = unescape(cookieValue[i].substring(startPos,endPos));
+					
+					//alert(logonTime);
+					
+					cTop = cookieText;
+					//alert("top:"+cTop);
+					return cTop;	
+				}
+				return "-1";
+			}                 
+			
+	function getcookieLeft(){
+		
+ 				var cLeft = '-1';
+				var cookieStr = document.cookie;
+				
+				if(cookieStr==""){
+					
+					return cLeft
+				}
+				
+				var cookieValue = cookieStr.split("; ");
+				//alert(cookieValue);
+				var varName = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosLeft=";
+				
+				var startPos = -1;
+				var endPos = -1;
+				//alert(varName);
+				for(var i=0;i<cookieValue.length;i++){
+					startPos = cookieValue[i].indexOf(varName);
+					
+					if(startPos!=0){
+						continue;	
+					}
+					startPos += varName.length;
+					endPos = cookieValue[i].length;
+					var cookieText = unescape(cookieValue[i].substring(startPos,endPos));
+					
+					//alert("left:"+cookieText);
+					
+					cLeft = cookieText;
+					
+					return cLeft;	
+				}
+				return "-1";
+			}                 		
+</SCRIPT>
+
+<FORM method=post name=floatonLineServiceForm action=/servlet/ICBCINBSReqServlet target=null><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_OnLineCustomerServiceOp name=dse_operationName> <INPUT type=hidden value=11 name=dse_pageId> <INPUT type=hidden value=0 name=queryprocflag> <INPUT type=hidden value=0 name=salesFlag> </FORM>
+<FORM method=post name=floatWindowForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_ajaxCloseFloatWindowOp name=dse_operationName> <INPUT type=hidden value=11 name=dse_pageId> <INPUT id=TipOpenFlagTemp type=hidden> <INPUT id=opflag type=hidden value=0> 
+<DIV id=floatdiv style="DISPLAY: none">
+<DIV onmousedown=floatdrag(this.parentNode,event) class=floatcontent>
+<DIV id=float_service style="TEXT-ALIGN: center"><A class=link_top href="javascript:floatserviceSubmit()"><IMG border=0 src="https://mybank.icbc.com.cn/icbc/newperbank/images/xuanting_1.gif" width=81 height=90></A></DIV>
+<DIV style="TEXT-ALIGN: center"><INPUT id=noshow type=checkbox );?> 不再显示 </DIV>
+<DIV id=floatclosediv style="TEXT-ALIGN: center"><A onclick=closefloat() class=close href="javascript:closefloat()"><IMG onmousedown=floatdrag(this.parentNode,event) border=0 src="/icbc/newperbank/images/floatclose.png" width=60 height=20></A> </DIV></DIV></DIV></FORM>
+<SCRIPT language=javascript> 
+    		var float_div_msg1="<a href=\"javascript:floatserviceSubmit()\" class=\"link_top\"><img src=\"/icbc/newperbank/images/xuanting_1.gif\"  WIDTH=\"81\" HEIGHT=\"90\"  border=\"0\"></a>";
+
+    		try{
+    			    			float_service.innerHTML=float_div_msg1;
+    		}catch(e){
+    			jQuery("#float_service").html(float_div_msg1);
+    		}
+
+        	    	</SCRIPT>
+
+<SCRIPT>
+	var floatshowFlag = 0;
+	
+	var float_desktopflag = '10';
+	var floatTipOpenFlag1 = '1111211111111111121111111111111111111111';
+	var floatMacFlag = '6432';
+	var commonCustFloatOpenFlag = '1';
+	var vipCustFloatFlag = '2';
+	var serviceLevelInt_float = '1';
+	var servicelowestLevelInt_float = '2';
+	var floatVipopenRegSign = '1111212112211211212211211111111222112222221222111112112121111112211222111122221111121111111122121111112222222111212221121112222211112211112121112121112111221211122111112122122211211111111221112221222221111112112111211122222222112211111222221112222221221122222221111122221112121112112121111211212211221122121112222211121211112112111111222122112221121111221111111111212121112111111211111122121111211221211111112221112222111112222112222111112111211111211121112211111122112111121112111112211122121211111222111221121222112221111111122211112222222222211111211111111212211122221112111111222212212211111222122222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+	var floatVipopenFlag = '1';
+
+	if('12'!=float_desktopflag&&floatMacFlag!="MACOS-SAFARI-0"&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag){	
+		try{
+			floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+		}catch(Exception){
+			//alert(Exception)
+			floatParentObj = parent.parent.parent;
+			try{
+				floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+			}catch(Exception){
+				//alert(Exception)
+				floatParentObj = parent.parent.parent.parent;
+				try{
+					floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+				}catch(Exception){
+					//alert(Exception)
+					floatshowFlag=0;
+				
+				}
+				
+			}
+			//floatshowFlag=0;
+		}
+		
+	}
+
+
+	
+		floatTipOpenFlag1=floatTipOpenFlag1.substring(0,4)+"2"+floatTipOpenFlag1.substr(5);
+	if(0==floatshowFlag&&'12'!=float_desktopflag&&'14'!=float_desktopflag&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag){
+		try{
+			floatParentObj.topFrame.setFloatShowFlag('2');	
+			floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+		}catch(Exception){}	 
+		
+	}
+	
+	if(2==floatshowFlag||'12'==float_desktopflag||floatMacFlag=="MACOS-SAFARI-0"||'16'==float_desktopflag||'17'==float_desktopflag||'18'==float_desktopflag||'19'==float_desktopflag){
+		try{
+			document.getElementById('floatdiv').style.display='none';
+		}catch(Exception){}	 
+	}
+	
+	if((1==floatshowFlag&&'12'!=float_desktopflag&&floatMacFlag!="MACOS-SAFARI-0"&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag)&&(("1"!=vipCustFloatFlag && "1"==commonCustFloatOpenFlag) || ("1"==floatVipopenFlag && serviceLevelInt_float>=servicelowestLevelInt_float))){
+		
+		var floattempx = floatParentObj.topFrame.getFloatObjx();
+		var floattempy = floatParentObj.topFrame.getFloatObjy();
+		
+		var cTop = getcookieTop();
+		var cLeft = getcookieLeft();
+		//alert(floattempx+","+floattempy);
+		if(floattempx!=-1&&floattempy!=-1&&floattempx!=""&&floattempy!=""){
+			if(parseInt(floattempy,10)>document.body.clientHeight-140)
+				floattempy = document.body.clientHeight-140 + "px";
+			if(parseInt(floattempx,10)>document.body.clientWidth-20)
+				floattempx = document.body.clientWidth-20 + "px";	
+			document.getElementById("floatdiv").style.left=floattempx;
+			document.getElementById("floatdiv").style.top=floattempy;
+			document.getElementById('floatdiv').style.display=""
+			
+		}	else{
+			if(cTop=='-1'||cLeft=='-1'){
+				document.getElementById("floatdiv").style.right="20px";
+				document.getElementById("floatdiv").style.top="100px";
+			}else{
+				if(parseInt(cTop,10)>document.body.clientHeight-140)
+					cTop = document.body.clientHeight-140 + "px";
+				if(parseInt(cLeft,10)>document.body.clientWidth-20)
+					cLeft = document.body.clientWidth-20 + "px";	
+				document.getElementById("floatdiv").style.left=cLeft;
+				document.getElementById("floatdiv").style.top=cTop;
+			}
+			document.getElementById('floatdiv').style.display=""
+		}
+		var floatwindowdiv = document.getElementById("floatdiv");
+		floatdivtopnum = parseInt(floatwindowdiv.style.top,10);
+		floatdivtopnum2 = parseInt(floatwindowdiv.style.top,10);
+		window.onscroll=function(){
+			
+	
+	var scrolltopnum = parseInt(document.body.scrollTop,10);
+	
+	var floatscrolldivtopnum = scrolltopnum +floatdivtopnum;
+	floatwindowdiv.style.top = floatscrolldivtopnum +"px";
+	
+};
+//window.onresize=window.onscroll;
+window.attachEvent('resize',window.onscroll);
+window.onscroll();
+	}
+	
+	function closefloat(){
+		document.getElementById('floatdiv').style.display='none';
+		floatParentObj.topFrame.setFloatShowFlag('2');	
+		
+		
+	if(document.floatWindowForm.noshow.checked){
+		
+	
+		
+		document.floatWindowForm.TipOpenFlagTemp.value=floatTipOpenFlag1;
+		document.floatWindowForm.opflag.value=1;
+		floatParentObj.topFrame.floatChangeTip(floatTipOpenFlag1,1);	
+	}
+  
+ }
+ 
+ 
+  
+</SCRIPT>
+
+<TABLE class=leftAndMainFirstLineShowPic height=40 cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD class=tdspace></TD>
+<TD vAlign=bottom width="96%">
+<TABLE height=30 cellSpacing=0 cellPadding=0 width="96%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=mainfont1>&gt; &gt; 转账汇款 &gt; 转账汇款查询 &gt; 境内汇款查询 </TD></TR>
+<TR>
+<TD><IMG src="/icbc/newperbank/images/line2.gif" width="100%" height=1></TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE id=tabletopmessage style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD width=67 noWrap align=right></TD>
+<TD align=right>
+<FORM method=post name=ideaSubmit_form1 action=/servlet/ICBCINBSReqServlet target=_blank><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_IdeaSubmitOp name=dse_operationName> <INPUT type=hidden value=11 name=dse_pageId> <INPUT type=hidden value=100 name=doFlag> </FORM><A href="javascript:ideaSubmit();"><FONT color=#0000ff><U>体验评价</U></FONT></A> <A title=获得更多使用帮助 class=hot_red href="/icbc/newperbank/account/message_useguide.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&amp;menuid=060298" target=_blank>&gt;&gt;更多帮助</A> </TD>
+<TD width="15%">
+<P onclick=javascript:showdv1() align=left><IMG title=关闭栏目提示信息 class=subMenuHot src="/icbc/newperbank/images/bq_x.gif" align=top></P></TD></TR>
+<TR>
+<TD align=left><IMG title=栏目提示信息 class=subMenuHot src="/icbc/newperbank/images/rp_13.gif" width=67 height=47> </TD>
+<TD height=21 align=left><BR>转账汇款查询：您可以查询到您操作过的汇款明细信息。 <BR></TD></TR></TBODY></TABLE></TD></TR>
+<TR height=3>
+<TD colSpan=2></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+	function ideaSubmit(){
+			//var ideaUrl="
+			//window.open(ideaUrl,"","toolbar=yes,location=no,directories=no,status=yes,menubar=yes,scrollbars=no,resizable=yes,width=800,height=480");
+			pebankBrowserCompatible.action_blankformSubmit(document.ideaSubmit_form1);
+			return;
+		}
+
+</SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+<SCRIPT language=JavaScript1.2 type=text/javascript src="/icbc/newperbank/js/main.js"></SCRIPT>
+
+<DIV id=TipLayer style="POSITION: absolute; Z-INDEX: 1000; TOP: -100px; VISIBILITY: hidden"></DIV>
+<SCRIPT language=JavaScript1.2 type=text/javascript src="/icbc/newperbank/js/style.js"></SCRIPT>
+
+<TBODY>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD>
+<TABLE id=三级栏目标题图片 cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=leftfirstbgandfont1 width=125 noWrap align=left>&nbsp;境内汇款查询</TD>
+<TD class=maintitlebg1 height=23 width=18 noWrap></TD>
+<TD width=320 noWrap align=right></TD>
+<TD id=tdtopmessage1 style="VISIBILITY: visible" noWrap align=right><A href="javascript:ideaSubmit();"><FONT color=#0000ff>&gt;&gt;<U>体验评价</U></FONT></A>&nbsp;</TD>
+<TD id=tdtopmessage2 style="VISIBILITY: visible" noWrap align=right>&nbsp;</TD>
+<TD id=tdtopmessage style="VISIBILITY: visible" noWrap align=right><!-- 帮助信息显示的链接 --><A onmouseover=stm(Text[15],Style[12],1) onmouseout=htm() class=link_blue href="javascript:showdv2()"><FONT color=#0000ff>&gt;&gt;<U>查看栏目信息</U></FONT></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=JavaScript1.2>
+<!--
+if (isshowtip==0){
+	showdv2();
+}else{
+		try{tabletopmessage.style.display='none';}catch(exception){}
+		try{tdtopmessage.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage1.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage2.style.visibility='visible';}catch(exception){}
+	}
+
+	//-->
+</SCRIPT>
+</TD></TR>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE id=主交易区 class=td_L_main cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR align=center>
+<FORM name=form1>
+<TD>
+<TABLE cellSpacing=1 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR class=bc2 align=center>
+<TD><B><BR>此笔转账汇款指令的详细信息如下： </B><BR><BR>
+<TABLE cellSpacing=0 cellPadding=0 width="97%" align=center border=0>
+<TBODY>
+<TR>
+<TD height=26 width="20%" align=right>付款人：&nbsp; </TD>
+<TD height=26 width="20%">王大鹏 </TD>
+<TD height=26 width="22%" align=right>收款人：&nbsp; </TD>
+<TD height=26 width="20%" align=left>周天一 </TD></TR>
+<TR>
+<TD height=26 align=right>付款卡(账)号：&nbsp; </TD>
+<TD class=cardNumberDivide style="WHITE-SPACE: nowrap" height=26 width="15%"></TD>
+<TD height=26 align=right>收款人卡(账)号 ：&nbsp; </TD>
+<TD class=cardNumberDivide style="WHITE-SPACE: nowrap" height=26>622202 4200019701731</TD></TR>
+<TR>
+<TD height=26 align=right>付款地区：&nbsp; </TD>
+<TD height=26>长春 </TD>
+<TD height=26 align=right>收款地区：&nbsp; </TD>
+<TD height=26>长春 </TD></TR>
+<TR>
+<TD height=26 align=right>交易网点：&nbsp; </TD>
+<TD height=26>吉林分行营业部账务管理中心 </TD>
+<TD height=26 align=right>收款网点：&nbsp; </TD>
+<TD height=26>吉林分行营业部账务管理中心 </TD></TR>
+<TR>
+<TD align=right>交易渠道：&nbsp; </TD>
+<TD height=26 colSpan=3>网上银行</TD></TR>
+<TR>
+<TD height=26 colSpan=4>
+<HR color=#c00000 SIZE=1 width="100%">
+</TD></TR>
+<TR>
+<TD height=26 align=right>付款金额：&nbsp; </TD>
+<TD height=26>50,000.00 人民币 </TD>
+<TD height=26 align=right>钞汇标志：&nbsp; </TD>
+<TD height=26>钞 </TD></TR>
+<TR>
+<TR>
+<TD height=26 align=right>给收款人附言：&nbsp; </TD>
+<TD height=26></TD>
+<TD colSpan=2></TD></TR>
+<TR></TR>
+<TR>
+<TR>
+<TD height=26 align=right>交易日期：&nbsp; </TD>
+<TD height=26>2014年07月31日 </TD>
+<TD height=26 align=right>交易时间：&nbsp; </TD>
+<TD height=26>15时33分56秒 </TD></TR>
+<TR>
+<TD height=26 align=right>交易结果：&nbsp; </TD>
+<TD height=26>交易成功 </TD></TR>
+<TR>
+<TD class=newButtonTdStyle colSpan=4><A href="javascript:window.print();"><IMG border=0 src="/icbc/newperbank/nbt/dayin.gif"></A> <A href="javascript:history.go(-1);"><IMG border=0 src="/icbc/newperbank/nbt/fanhui.gif"></A> </TD></TR>
+<TR></TR><IFRAME id=download style="HEIGHT: 0px; WIDTH: 0px; Z-INDEX: 2; VISIBILITY: inherit" src="/icbc/newperbank/1.html" frameBorder=0 name=download>
+								</IFRAME></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></FORM></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/includes/relatedTran.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/service/service_mycommand.js"></SCRIPT>
+
+<SCRIPT>
+ 
+
+  		</SCRIPT>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/desktop/style1/css/desktop-relatedtran.css">
+<TABLE id=relatedTran_table style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR height=45>
+<TD class=tdspace></TD>
+<TD>&nbsp;</TD></TR>
+<TR>
+<TD>&nbsp;</TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=font_tblack background=/icbc/newperbank/images/wel_r1.gif width=250 noWrap>&nbsp;您可能还会对以下产品或功能感兴趣：</TD>
+<TD width=61><IMG src="/icbc/newperbank/images/jiao.gif" width=20 height=23></TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD>
+<TABLE class=td_L_R2 cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR style="BACKGROUND-COLOR: #f2f2f2" height=70>
+<TD onclick=deactiveIcon(); style="PADDING-LEFT: 20px" colSpan=3>
+<DIV id=relatedTrade></DIV></TD></TR></TBODY></TABLE></TD></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=JavaScript1.2>
+	var realNum = 0;
+	var commandNum;
+	function gotoDetail(url){
+		window.location=url;
+	}
+	function rel_changeJsp(id1){
+	var cform=eval("document.forwardformaaa");
+	cform.id.value=id1;
+	//alert(id);
+	cform.ActionUrl.value="";
+	try{
+		singleProcess();
+	}catch(err){}
+	cform.submit();
+	}
+	function activeIcon(id){
+		//清空所有选中后再高亮
+		deactiveIcon("#related_icon1",realNum);
+		deactiveIcon("#command_icon1",commandNum);
+		jQuery("#" + id).addClass("active");
+	}
+	
+	function deactiveIcon(str,num){
+		for(var i=0;i<num;i++){ //realNum
+			if(jQuery(str +i).hasClass("active"))
+				jQuery(str +i).removeClass("active");
+		}
+	}	
+	function showIcon(_icommadList){
+	commandNum = _icommadList.length > 10?10:_icommadList.length;
+	var realNum1 = 10 - commandNum < 0 ? 0:10 - commandNum;
+	realNum = realNum < realNum1?realNum:realNum1;
+	//推荐和相关交易需要同时考虑
+	if(realNum>0||commandNum>0){//修改desktop-window.js
+		jQuery("#relatedTran_table").show();
+		//构建相关交易
+		var DstList = new Array();	
+  		var menuIdDst_str = '';
+  		var displayDescDst_str = '';  		
+  		var openURLDst_str = '';
+ 
+		var menuIdDst = menuIdDst_str.split("&");
+		var displayDescDst = displayDescDst_str.split("&@#$%");	//交易名称使用GBK编码，会出现&；比如“开通VISA/万事达卡SecureCode&#153验证服务”
+		var openUrlDst = openURLDst_str.split("&");
+	
+		var Template= "";
+		var stylePath = 'style1';
+		//推荐产品添加
+		for(var i=0;i<commandNum;i++){ //realNum
+	  		var displayImg = "/icbc/newperbank/desktop/"+stylePath+"/images/menu/"+_icommadList[i].id+"_big.png";	  		
+	  		if(""!=openUrlDst[i]){
+				 openUrlDst[i] =_icommadList[i].url;
+			}
+	  		else{
+	  			openUrlDst[i] = null;
+	  	  	}
+	  	  var displayDescDstTmp=_icommadList[i].proName;
+	  	  
+	  	  var NameLength;
+	  	  if(displayDescDstTmp != undefined)
+	  	  {
+	  	  	NameLength= displayDescDstTmp.length;
+	  	  }else{
+	  	  	NameLength=0;	  	  	
+	  	  	displayDescDstTmp="交易名称解析异常";
+	  	  }
+	  	  
+	  	if(NameLength>10){	  		
+	  		displayDescDstTmp=displayDescDstTmp.substring(0,10)+"…";
+	  	}	
+	  	var command_id = "command_icon1" + i;
+		Template = Template + "<div class=\"related_icon1\" id=\""+command_id+"\" tabIndex=\"-1\" ondblclick = \""+_icommadList[i].url +"\" onclick=\"activeIcon('"+command_id+"');if(event.stopPropagation){event.stopPropagation();} else{event.cancelBubble=true;}\">" +
+							"<image  class=\"displayImgBottom\" src=\""+ displayImg +"\")>" +
+							"<image style=\"position:relative;\" src=\"/icbc/newperbank/images/jian.png\"/></image>" +
+							"<div style='font-size:12px;'  class=\"displayDescBottom\">"+displayDescDstTmp+"</div>" + 
+							"</div>";	
+		}		
+  	  	//相关交易添加
+		for(var i=0;i<realNum;i++){ //realNum
+	  		var displayImg = "/icbc/newperbank/desktop/"+stylePath+"/images/menu/"+menuIdDst[i]+"_big.png";	  		
+	  		if(""!=openUrlDst[i]){
+				 openUrlDst[i] ="/servlet/ICBCINBSCenterServlet?"+ "dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI"+"&id="+openUrlDst[i];
+			}
+	  		else{
+	  			openUrlDst[i] = null;
+	  	  	}
+	  	  var displayDescDstTmp=displayDescDst[i];
+	  	  
+	  	  var NameLength;
+	  	  if(displayDescDstTmp != undefined)
+	  	  {
+	  	  	NameLength= displayDescDstTmp.length;
+	  	  }else{
+	  	  	NameLength=0;	  	  	
+	  	  	displayDescDstTmp="交易名称解析异常";
+	  	  }
+	  	var related_id = "related_icon1" + i;	  	  
+	  	if(NameLength>10){	  		
+	  		displayDescDstTmp=displayDescDstTmp.substring(0,10)+"…";
+	  	}	
+		Template = Template + "<div class=\"related_icon1\" id=\""+related_id+"\" tabIndex=\"-1\" ondblclick = \"rel_changeJsp('"+menuIdDst[i]+"')\" onclick=\"activeIcon('"+related_id+"');if(event.stopPropagation){event.stopPropagation();} else{event.cancelBubble=true;}\">" +
+							"<div class=\"displayImgBottom\"><img src=\""+displayImg+"\"></img></div>" +
+							"<div style='font-size:12px;' class=\"displayDescBottom\">"+displayDescDstTmp+"</div>" + 
+							"</div>";	
+		}	
+		jQuery("#relatedTrade").append(Template);		
+		jQuery("#relatedTrade").show();	
+	}
+	}
+	
+		//ajax 查询推荐产品
+ 		relatedTran._ajax_icommandList('GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI','20150621');
+ 	
+</SCRIPT>
+
+<FORM method=post name=forwardformaaa action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden value=ee name=id> <INPUT type=hidden name=ActionUrl> </FORM>
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/includes/MyAdInfo.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/util/ebank_util.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/service/service_mycommand.js"></SCRIPT>
+
+<TABLE id=myadinfo_table style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR height=45>
+<TD class=tdspace></TD>
+<TD>&nbsp;</TD></TR>
+<TR>
+<TD>&nbsp;</TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD align=center>
+<DIV id=banner>
+<DIV id=banner_bg></DIV>
+<DIV id=banner_info></DIV>
+<UL id=banner_ul></UL>
+<DIV id=banner_list></DIV></DIV></TD></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT>
+ebank_util.getInstance().addCSS("/icbc/newperbank/css/includes/myAdinfo.css");
+var tttttt = nnnnnnn = 0, countAd;
+	jQuery(document).ready(function(){	
+		//dodemo();
+		var utb_isEmallLogin = '0';
+		var mainob_intheMenuList = '1'
+		if(utb_isEmallLogin != '1' && mainob_intheMenuList == '1'){
+			_ajax_getADPic('GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI','20150621');
+		}
+	})
+
+function showAuto()
+{
+	nnnnnnn = nnnnnnn >=(countAd - 1) ? 0 : ++nnnnnnn;
+	jQuery("#banner li").eq(nnnnnnn).trigger('click');
+}	
+function dodemo(){
+	var pic1 = new MyAdInfo();
+	pic1.pic_url = "/icbc/newperbank/images/106.jpg";	
+	pic1.href_url = "#";	
+	pic1.id = "0";	
+	jQuery("#banner_ul").append(pic1.toLiHtml());
+	jQuery("#banner_list").append(pic1.toDivHtml());	
+		var pic2 = new MyAdInfo();
+	pic2.pic_url = "/icbc/newperbank/images/107.jpg";	
+	pic2.href_url = "#";	
+	pic2.id = "1";	
+	jQuery("#banner_ul").append(pic2.toLiHtml());
+	jQuery("#banner_list").append(pic2.toDivHtml());		
+		var pic3 = new MyAdInfo();
+	pic3.pic_url = "/icbc/newperbank/108.jpg";	
+	pic3.href_url = "#";	
+	pic3.id = "2";	
+	jQuery("#banner_ul").append(pic3.toLiHtml());
+	jQuery("#banner_list").append(pic3.toDivHtml());				
+	};
+function _ajax_getADPic(sessionId,nowDate){
+		var sendParam = {};
+		sendParam["SessionId"] = sessionId;	
+		sendParam["tranCode"] = "A00338";
+		EBDataStruct.sendAjax( {
+			data :sendParam,
+			dataType :"json",
+			url :"AsynGetDataServlet",
+			failCallBack : function() {		
+				_qeuryOver = "1";
+				//showIcon(_icommadList);
+			
+			},
+			successCallBack : function(kc) {
+			
+				getADPic_deal(kc,sessionId,nowDate);
+			},
+			isDisplay :false,
+			displayArea :"pselected"
+		});		
+		
+	}
+	function getADPic_deal(KColl,sessionId,nowDate){
+
+		var TranErrorCode = KColl.getValueAt("TranErrorCode");
+		var TranErrorDisplayMsg = KColl.getValueAt("TranErrorDisplayMsg");	
+		var MAX_ADCount = KColl.getValueAt("MAX_ADCount");
+		var ik = KColl.getIndexedCollection("rd");	
+		var rownum = ik.size();
+		if(rownum == 0) return;
+		var adcount = 0;
+		if (TranErrorCode == "0") {
+			for(var i=0; i<rownum && adcount < MAX_ADCount;i++){
+			
+			var koll = ik.getElementAt(i);
+	  		var showFlag = koll.getValueAt("isavilable")==null?"":koll.getValueAt("isavilable");
+	  		if(showFlag == "0"){
+	  			//i--;
+	  			continue;
+	  		}
+	  			
+				var pic3 = new MyAdInfo();
+				pic3.pic_url = koll.getValueAt("AD_PIC");	
+				pic3.id = adcount++;					
+				var skip_link =  formatStr(koll.getValueAt("SKIP_LINK"));
+				var Data_Dt = koll.getValueAt("Data_Dt");
+				var campeventid1 = koll.getValueAt("EXEC_ID");
+				var ADV_SEQ = koll.getValueAt("ADV_SEQ");				
+  			var url = "javascript:AD_goto('" + skip_link + "','" +
+ 						campeventid1 + "','','','','','" + 		
+ 						ADV_SEQ + "','" +  						
+ 						Data_Dt + "','" +  
+ 						sessionId + "','" + 
+ 						nowDate + "','" +  						
+ 					  "');";
+ 				pic3.href_url = url;					
+				jQuery("#banner_ul").append(pic3.toLiHtml());
+				jQuery("#banner_list").append(pic3.toDivHtml());	  		
+		}
+		if(adcount != 0){show_adDom();}
+
+		}
+	}	
+	function show_adDom(){
+		count=jQuery("#banner_list img").length;
+		countAd=count;
+		jQuery("#banner_list img:not(:first-child)").hide();
+		jQuery("#banner_info").html(jQuery("#banner_list div:first-child").attr('alt'));
+		if(countAd!=1){
+			jQuery("#banner li").click(function() {
+				var i = parseInt(jQuery(this).attr("id"),10) - 1;
+				n = i;
+				if (i >= count) return;
+				jQuery("#banner_info").html(jQuery("#banner_list img").eq(i).attr('alt'));
+				//$("#banner_info").unbind().click(function(){window.open($("#banner_list a").eq(i).attr('href'), "_blank")})
+				jQuery("#banner_list img").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(500);
+				document.getElementById("banner").style.background="";
+				if(!jQuery(this).hasClass("on")){
+					jQuery(this).toggleClass("on");
+				}
+				jQuery(this).siblings().removeAttr("class");
+			});
+			t = setInterval("showAuto()", 4000);
+			jQuery("#banner").hover(function(){clearInterval(t)}, function(){t = setInterval("showAuto()", 4000);});
+		}
+		jQuery("#myadinfo_table").show();	
+	}
+		function formatStr(s){
+		return decodeURIComponent(s);
+	}
+</SCRIPT>
+<BR><BR>
+<TABLE class=leftAndMainLastLineShowPic cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD width="10%"><FONT color=#ffffff>01040403</FONT></TD></TR>
+<TR>
+<TD class=font_tblack background=/icbc/newperbank/images/wel_r1.gif width=75 noWrap>&nbsp;交易提示</TD>
+<TD width=61><IMG src="/icbc/newperbank/images/jiao.gif" width=20 height=23></TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD>
+<TABLE id=交易提示区 class=td_L_R2 cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD vAlign=top width="10%" align=left><IMG title=交易提示信息 src="/icbc/newperbank/images/rp_29.png" width=47 height=42></TD>
+<TD vAlign=top width="90%" align=left>1、本查询功能针对在网上银行办理的转账汇款业务，暂不能查询在柜面、ATM、POS、电话银行、多媒体自助终端等其他途径完成的转账汇款业务。<BR>2、如付款人在转账汇款时选择不显示付款账号信息给收款人，收款人在查询收款信息时，将看不到付款人账号信息。</TD></TR></TBODY></TABLE></TD></TD></TR></TBODY></TABLE></TD></TR>
+<TR height=1>
+<TD></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>	
+	//modify by xuwx,芯片卡服务交易区引用了iframe
+	try{
+		parent.leftFrame.idtmp = "060298";
+	}catch(e){
+		try{
+			parent.parent.leftFrame.idtmp = "060298";
+		}catch(e1){
+			
+		}
+	}
+</SCRIPT>
+
+<SCRIPT src="/ebdpui/pc4ebankp/ebdp-pc4ebankp-core.js"></SCRIPT>
+<LINK rel=stylesheet type=text/css href="/ebdpui/pc4ebankp/style/default/floatmessage/ebdp-pc4ebankp-floatmessage.css">
+<SCRIPT src="/ebdpui/pc4ebankp/ebdp-pc4ebankp-floatmessage.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+var objectArray = {};
+initFloatMessage(objectArray);
+var dateSelector_json = {};
+var dateSelector_datenow = "20150621";
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+//特殊处理新栏目下的左测栏目是否隐藏显示
+function leftFramehide(){
+	try{
+		parent.hideLeftMenu();
+		parent.hideSwitchBar();
+	}catch(e){
+		parent.parent.hideLeftMenu();
+		parent.parent.hideSwitchBar();	
+	}
+}
+<!--
+			
+	setcolor();
+	
+ 	init();
+
+//-->
+</SCRIPT>
+</BODY></HTML>

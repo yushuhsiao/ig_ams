@@ -1,0 +1,43 @@
+﻿<HTML><HEAD><TITLE>中国工商银行个人网上银行</TITLE>
+<SCRIPT>
+	//将当前业务地存储至cookie
+	try{
+		var str = "Area_code" + "="+ escape("4200");
+		var nextYear = new Date();
+		nextYear.setFullYear(nextYear.getFullYear()+1);
+		str += "; expires=" + nextYear.toGMTString()+";path=/";
+		document.cookie = str;
+	}catch(e){}
+</SCRIPT>
+
+<SCRIPT>
+	function setmainFrame(){
+		window.downFrame.location.href="/icbc/newperbank/includes/open_content.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&acctQueryed=1";
+	}
+	function addCookie(name,value){
+		var str = name + "=" + escape(value);
+		    
+		var nextYear = new Date();
+		nextYear.setFullYear(nextYear.getFullYear()+1);
+		var expires = nextYear.toGMTString();
+			
+		str += "; expires=" + expires+";path=/";
+		document.cookie = str;
+	}
+</SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/newmenu/js/loginCustInfo.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+	
+		loginCustInfo('GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI',0);
+	
+</SCRIPT>
+</HEAD><FRAMESET frameSpacing=0 border=0 frameBorder=NO rows=145,* cols=*><FRAME src="/icbc/newperbank/includes/EBANKPtop.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&amp;swichflag=" name=topFrame scrolling=no><FRAME noResize marginHeight=0 src="/icbc/newperbank/includes/open_content.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&amp;acctQueryed=1" name=downFrame marginWidth=0><NOFRAMES></NOFRAMES></FRAMESET>
+<BODY></BODY></HTML>

@@ -1,0 +1,276 @@
+﻿<HTML><HEAD><TITLE></TITLE>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<SCRIPT language=javascript src="/icbc/newperbank/js/Menulist.js">
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//阻止左侧菜单区回车事件
+function preventKey13(event) {
+	var pressKey = pebankBrowserCompatible.getKeycode(event);
+	if(pressKey == 13){
+	 	pebankBrowserCompatible.eventPreventDefault(event); 
+	}
+}
+function blockmenu()
+{
+	try{
+		document.getElementById("TB_leftoverlay1").style.display = "block";
+		document.getElementById("TB_leftoverlaybg1").style.display = "block";
+	}catch(excp){
+	}
+}
+function unblockmenu()
+{
+	try{
+		document.getElementById("TB_leftoverlay1").style.display = "none";
+		document.getElementById("TB_leftoverlaybg1").style.display = "none";
+	}catch(excp){
+	}
+}
+</SCRIPT>
+
+<STYLE type=text/css media=screen>
+#TB_leftoverlay1 {
+	position: absolute;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 120%;
+	min-height:100%;
+	background-color:#000;
+	display:none;
+	filter:alpha(opacity=20);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+}
+#TB_leftoverlaybg1 {
+	position: absolute;
+	z-index:0;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	display:none;
+	border:0px;
+	filter:alpha(opacity=0);
+}
+</STYLE>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css">
+<SCRIPT language=javascript>
+	<!--
+	var firstoldNum = '01';
+	var secidold = '';
+	var thridold = '';
+	var foridold = '';
+	var idtmp='01';
+	var subtimes = '';
+	//console.error('这里是leftframe的参数' + secidold + ","+thridold + ","+ foridold + ","+ firstoldNum+ ","+ subtimes);
+	try{parent.parent.topFrame.topColor(firstoldNum);}catch(exception){}
+	//-->
+	</SCRIPT>
+</HEAD>
+<BODY onkeydown=preventKey13(event) style="OVERFLOW-X: hidden"><IFRAME id=TB_leftoverlaybg1 src="/icbc/newperbank/1.html"></IFRAME>
+<DIV id=TB_leftoverlay1></DIV>
+<TABLE class=leftAndMainFirstLineShowPic height=40 cellSpacing=0 cellPadding=0 width=190 border=0>
+<TBODY>
+<TR>
+<TD vAlign=bottom width=180>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD class=leftfirstbgandfont1 width=75>&nbsp;欢迎页面</TD>
+<TD class=leftfirstbg1 height=23 width=18></TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+var mlt ;var mt ;var mlt2 ;var mt2 ; mlt = new Menulist();
+ mt = new menu("0101","我的欢迎页面","My Welcome Page","0","0","1","1","2","1","","1","0101|0102|","0|0|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mt = new menu("0102","网银搜索","Search","0","0","1","1","2","1","","2","0101|0102|","0|0|");
+mt.add(mlt);
+menulist.add(mt);
+
+
+</SCRIPT>
+
+<DIV id=navtable>
+<TABLE id=maintable class=td_L_R3 cellSpacing=0 cellPadding=0 width=173 border=0>
+<TBODY>
+<TR id=tr0101 class=leftsecondbgandfont1 name="tr0101" nowrap><A name=#results0101></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0101 src="/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0101 class=left_link1 href="javascript:onSubleftForm('0101','1')" name=sa_0101>我的欢迎页面</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0101 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR id=tr0102 class=leftsecondbgandfontold1 name="tr0102" nowrap><A name=#results0102></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0102 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0102 class=left_link1 href="javascript:onSubleftForm('0102','1')" name=sa_0102>网银搜索</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0102 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=173 border=0>
+<TBODY>
+<TR>
+<TD id=右侧大td vAlign=top>
+<TABLE class=td_L_green height=170 cellSpacing=0 cellPadding=0 width="100%" border=0 vlign="top">
+<TBODY></TBODY></TABLE><BR><BR>
+<TABLE class=td_L_green height=170 cellSpacing=0 cellPadding=0 width="100%" border=0 vlign="top">
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TABLE>
+<FORM method=get name=leftform action=/icbc/newperbank/includes/leftframejs.jsp><INPUT type=hidden name=id> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> </FORM>
+<FORM method=get name=leftformfirefox action=/icbc/newperbank/includes/leftframejs.jsp><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden name=id> <INPUT type=hidden value=0 name=subtimes> </FORM>
+<FORM name=formtocenter action=/servlet/ICBCINBSCenterServlet target=mainFrame><INPUT type=hidden name=id> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> </FORM>
+<SCRIPT language=javascript>
+
+	function leftColor(secNum,thirdNum,fourNum,firstNum,e)
+{	
+		
+	var _toIDnum = "";
+	_toIDnum = firstNum == ""?_toIDnum:firstNum;
+	_toIDnum = secNum == ""?_toIDnum:secNum;
+	_toIDnum = thirdNum == ""?_toIDnum:thirdNum;
+	_toIDnum = fourNum == ""?_toIDnum:fourNum;			
+	if(firstoldNum != firstNum)
+	{
+ 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+ 	 		leftformfirefox.id.value=_toIDnum;
+ 	 		leftformfirefox.subtimes.value="1";
+ 	 		leftformfirefox.submit(); 
+ 		}else{
+ 	 	leftform.submit(); 
+ 	}
+	return;}
+	var leftsecid ;
+	var leftthrid ;
+	var leftforid ;
+	var divn;var img;
+	if(secNum != thirdNum){
+	img = 'img'+secNum;
+	divn = 'table'+secNum;
+	divn = eval(divn);
+	try{
+		if(divn.style.display!='')
+			{
+				img = eval(img);
+				divn.style.display='';
+				img.src="/icbc/newperbank/images/jian01.gif";
+				
+			}
+	}catch(Exception){}
+	var leftsecidold = eval("document.all.tr"+secidold);	
+ 	var leftsecid = eval("document.all.tr"+secNum); 
+	
+ 	if(leftsecidold!=null){
+ 	leftsecidold.className="leftsecondbgandfontold1";}
+ 	leftsecid.className="leftsecondbgandfont1";
+ 	try{
+ 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+ 	 eval("document.all.sa_"+secNum).focus();
+ 	 	}
+ 	}catch(e){}
+ 	location.hash="#results"+secNum;
+	
+ 	var leftthridold = eval("document.all.ltr"+thridold);
+	var leftforidold = eval("document.all.ltr"+foridold);
+ 	var leftthrid = eval("document.all.ltr"+thirdNum);
+	var leftforid = eval("document.all.ltr"+fourNum);
+	
+ 	if(leftthridold!=null&&leftthridold!=leftsecidold){
+
+ 		leftthridold.className="leftthirdbgandfontold1";
+		if(leftforidold!=null){ 
+			leftforidold.className ="leftthirdbgandfontold1";		
+			
+			try{
+			divn='table'+thirdNum; 
+			img = 'img'+thirdNum;
+			divn=eval(divn); 
+						
+			if(divn.style.display!=''){
+					img = eval(img);
+					divn.style.display='';
+					img.src="/icbc/newperbank/images/jian01.gif";					
+				}
+			}catch(Exception){}
+			}
+
+			
+	}
+
+	if(leftthrid!=null){
+		leftthrid.className="leftthirdbgandfont1";
+	 	try{
+	 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+	 	 	 eval("document.all.ta_"+thirdNum).focus();
+	 	 	}
+	 	 	}catch(e){}
+	}
+	if(leftforid!=null){
+                        leftforid.className="leftthirdbgandfont1";
+                	 	try{
+                	 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+               	 	 	 eval("document.all.fa_"+fourNum).focus();
+                	 	 	}
+               	 	 	}catch(e){}
+                        divn='table'+thirdNum; 
+                                img = 'img'+thirdNum;
+                                img = eval(img);
+                                divn=eval(divn); 
+                                if(divn.style.display!=''){
+                                                divn.style.display='';
+                                                img.src="/icbc/newperbank/images/jian01.gif";                                   
+                                        }
+                }
+ 	secidold = secNum;
+ 	thridold = thirdNum;
+	foridold = fourNum;
+	
+	}
+	try{
+		if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+			focusMainFrame();//将焦点从leftframe转移到mainFrame
+		}
+	}catch(ep){}
+}
+function focusMainFrame(){
+	var focusElem =  parent.mainFrame.document.activeElement;
+	//console.error("main state: "+ parent.mainFrame.document.readyState +"  focusElem:" + focusElem.id);
+	if( parent.mainFrame.document.readyState=="complete"){
+		focusElem.focus();
+	}else{
+		parent.mainFrame.window.focus();
+	}
+}
+	
+if(subtimes == "1"&& (pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome() )){
+ 		    leftformfirefox.id.value=idtmp;
+	 		leftformfirefox.subtimes.value="2";
+	 		leftformfirefox.submit(); 
+}else{	
+//console.error('这里是leftColor的参数' + '' + ","+'' + ","+ '' + ","+ '01');
+leftColor('','','','01');
+}
+</SCRIPT>
+</BODY></HTML>

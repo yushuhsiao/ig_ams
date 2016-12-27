@@ -1,0 +1,1221 @@
+﻿<HTML style="DISPLAY: block" sizcache="0" sizset="1"><HEAD><TITLE>Insert title here</TITLE>
+<META content=requiresActiveX=true http-equiv=X-UA-Compatible>
+<META content="text/html; charset=GBK" http-equiv=Content-Type></HEAD>
+<BODY onload=javascript:logonform.logonCardNum.focus(); sizcache="0" sizset="1">
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+
+<OBJECT id=IcbcAssistComm style="HEIGHT: 0px; WIDTH: 0px" classid=clsid:84894428-B1F9-4C88-8A45-D6B8524E53B3></OBJECT>
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT>
+	//防止恶意网站iframe钓鱼
+	if(self.location.host == top.location.host){ 
+		document.documentElement.style.display = 'block' ; 
+	}else{ 
+		top.location = self.location ; 
+   	}
+	 
+</SCRIPT>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_login_new.css?ver=10.8">
+<SCRIPT language=JavaScript src="/icbc/newperbank/js/swapimage.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="/icbc/newperbank/js/checkacct.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/floatTip.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/floatTip1.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/getcardbinfo.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1>
+cardBinList.add(new CardBin('543846','008','U','16','10000001000100000110000000000000','|013|001|','null'));
+cardBinList.add(new CardBin('489734','007','H','16','10000000001010000110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('513685','007','H','16','10000000000101000110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('427020','007','H','16','10000000001010000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('427028','008','H','16','10000000001000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('427029','007','H','16','10000000001010000110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('530990','007','H','16','10000000000101000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('548259','008','H','16','10000000000101000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('427038','008','H','16','10000000001000000110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('438125','007','H','16','10000000001010000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('524047','007','H','16','10000000000101000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('454326','008','U','16','10000001001010000110000000000000','|013|001|','null'));
+cardBinList.add(new CardBin('489735','007','H','16','10000000001010000110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('526836','007','H','16','10000000000101000110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('427039','007','H','16','10000000001010000110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('438126','007','H','16','10000000001010000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('427010','007','H','16','10000000001000100110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('558360','007','H','16','10000000000101100110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('489736','007','H','16','10000100001010100110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('439060','088','U','16','10000000101010000110000000000000','|013|','null'));
+cardBinList.add(new CardBin('439061','088','U','16','10000000101010000110000000000000','|013|','null'));
+cardBinList.add(new CardBin('479119','088','U','16','10000000101010000110000000000000','|013|','null'));
+cardBinList.add(new CardBin('541801','088','U','16','00000000100101000000000000000000','|013|','null'));
+cardBinList.add(new CardBin('541810','088','U','16','00000000100101000000000000000000','|013|','null'));
+cardBinList.add(new CardBin('524044','088','U','16','00000000100101000000000000000000','|013|','null'));
+cardBinList.add(new CardBin('955888','011','C','19','00100000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('620058','011','C','19','01000000000000000000100000000000','null','null'));
+cardBinList.add(new CardBin('543098','007','H','16','10000000000101000110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('620086','015','C','19','00000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('621226','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('621227','011','C','19','00100000000000000100100000000000','null','2'));
+cardBinList.add(new CardBin('621230','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('620516','015','C','19','00000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('621723','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('955880','003','C','19','00000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('955881','003','C','19','00000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('622240','007','H','16','10000100000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622245','007','H','16','10000100000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('628286','007','H','16','10000100000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622233','007','H','16','10000000000000000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('427064','008','U','16','10000001001010000110000000000000','|013|001|','null'));
+cardBinList.add(new CardBin('402791','008','H','16','10000000001010000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('402792','008','H','16','10000000001000000110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('622210','001','T','16','00000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622212','001','T','16','00000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622213','001','T','16','00000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622215','001','T','16','00000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622223','001','T','16','00000000000000010010000000000000','|001|','null'));
+cardBinList.add(new CardBin('622224','001','T','16','00000000000000010010000000000000','|001|','null'));
+cardBinList.add(new CardBin('622229','001','T','16','00000000000000010010000000000000','|001|','null'));
+cardBinList.add(new CardBin('955886','003','C','19','00001000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('622246','007','H','16','10000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('548943','007','H','16','10000000000101000110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('544210','007','H','16','10000000000101000110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('528856','007','H','16','10000000000101000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('451810','007','H','16','10000000000000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('451811','007','H','16','10000000000000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('623062','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('524374','007','H','16','10000000000101000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('550213','007','H','16','10000000000101000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622202','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('622200','003','C','19','00000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('356880','007','H','16','10000000000000000110011000000000','|001|027|','null'));
+cardBinList.add(new CardBin('356881','007','H','16','10000000000000000110011000000000','|001|014|','null'));
+cardBinList.add(new CardBin('463230','007','H','16','10000000001010001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('463231','007','H','16','10000000001010001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('463232','007','H','16','10000000001010001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('535887','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('370249','007','H','15','10000000010000100110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('370248','007','H','15','10000000010000100110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('413519','007','H','16','10000000001010001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('370247','007','H','15','10000000010000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('374739','007','H','15','10000000010000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('621618','011','C','19','01000000000000000000000000000000','null','null'));
+cardBinList.add(new CardBin('532932','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('526974','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('955883','014','C','19','00000000000000000001000000000000','null','null'));
+cardBinList.add(new CardBin('955885','014','C','19','00000000000000000001000000000000','null','null'));
+cardBinList.add(new CardBin('622599','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625708','007','H','16','10000100000000001110100000000000','|001|','null'));
+cardBinList.add(new CardBin('625709','007','H','16','10000100000000001110100000000000','|001|','null'));
+cardBinList.add(new CardBin('413520','007','H','16','10000000001010001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('413521','007','H','16','10000000001010001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622239','007','H','16','10000000000000000010000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622231','007','H','16','10000000000000000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622232','007','H','16','10000000000000000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622238','007','H','16','10000000000000000010000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625650','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('427018','007','H','16','10000000001010001110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('622237','007','H','16','10000000000000000010000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625332','007','H','16','10000000000000000110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622206','007','H','16','10000000000000000110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622230','007','H','16','10000000000000000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('622235','007','H','16','10000000000000000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('621558','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('621559','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('625330','007','H','16','10000000000000000110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('621288','011','C','19','00100000000000000000000000000000','null','3'));
+cardBinList.add(new CardBin('621722','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('622234','007','H','16','10000000000000000110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('628288','007','H','16','10000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('621218','011','C','19','00100000000000000000100000000000','null','3'));
+cardBinList.add(new CardBin('623163','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('625331','007','H','16','10000000000000000110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('621476','011','C','19','01000000000000000000100000000000','null','null'));
+cardBinList.add(new CardBin('621475','011','C','19','00100000000000000000100000000000','null','2'));
+cardBinList.add(new CardBin('623229','011','C','19','00100000000000000000100000000000','null','2'));
+cardBinList.add(new CardBin('622910','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625859','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625860','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625858','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('450547','007','H','16','10000000001010000110000000100000','|001|014|','null'));
+cardBinList.add(new CardBin('450548','007','H','16','10000000001010000110000000100000','|001|014|','null'));
+cardBinList.add(new CardBin('356819','007','H','16','10000000000000000110011000000000','|001|014|','null'));
+cardBinList.add(new CardBin('356822','007','H','16','10000000000000000110011000000000','|001|027|','null'));
+cardBinList.add(new CardBin('379983','007','H','15','10000000010000000110000000100000','|001|014|','null'));
+cardBinList.add(new CardBin('623260','014','C','19','00000000000000000001000000000000','null','null'));
+cardBinList.add(new CardBin('622597','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('621225','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('955887','014','C','19','00000000000000000001000000000000','null','null'));
+cardBinList.add(new CardBin('955889','014','C','19','00000000000000000001000000000000','null','null'));
+cardBinList.add(new CardBin('374738','007','H','15','10000000010000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('622203','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('360884','007','H','14','10000000000000000110000011000000','|001|014|','null'));
+cardBinList.add(new CardBin('360883','007','H','14','10000000000000000110000011000000','|001|014|','null'));
+cardBinList.add(new CardBin('370246','007','H','15','10000000010000000110000100000000','|001|014|','null'));
+cardBinList.add(new CardBin('370267','007','H','15','10000000010000000110000100000000','|001|014|','null'));
+cardBinList.add(new CardBin('524091','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('510529','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('427062','008','U','16','10000001001010000110000000000000','|013|001|','null'));
+cardBinList.add(new CardBin('545950','008','U','16','10000001000100000110000000000000','|013|001|','null'));
+cardBinList.add(new CardBin('427030','007','H','16','10000000001010000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('530970','007','H','16','10000000000101000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('427019','007','H','16','10000000001000100110000000000000','|001|013|','null'));
+cardBinList.add(new CardBin('454327','088','U','16','10000000101010000110000000000000','|013|','null'));
+cardBinList.add(new CardBin('479120','088','U','16','10000000101010000110000000000000','|013|','null'));
+cardBinList.add(new CardBin('552814','088','U','16','00000000100101000000000000000000','|013|','null'));
+cardBinList.add(new CardBin('955882','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('622208','011','C','19','00100000000000000100100000000000','null','2'));
+cardBinList.add(new CardBin('458441','007','H','16','10000000001010000110000000000000','|001|038|','null'));
+cardBinList.add(new CardBin('621229','011','C','19','01000000000000000100100000000000','null','null'));
+cardBinList.add(new CardBin('621721','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('451804','007','H','16','10000100000000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('458071','007','H','16','10000100000000000110000000000000','|001|014|','null'));
+cardBinList.add(new CardBin('524625','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('527661','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('529868','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('512600','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625865','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625866','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('527324','007','H','16','10000000000101001110000000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('625899','007','H','16','10000000000000001110100000000000','|001|014|038|013|028|012|029|018|027|015|087|','null'));
+cardBinList.add(new CardBin('454328','008','U','16','10000001001010000110000000000000','|013|001|','null'));
+cardBinList.add(new CardBin('622211','001','T','16','00000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622214','001','T','16','00000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622220','001','T','16','00000000000000010110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622225','001','T','16','00000000000000010110000000000000','|001|','null'));
+cardBinList.add(new CardBin('622236','007','H','16','10000000000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('621281','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('621670','011','C','19','01000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('356879','007','H','16','10000000000000000110011000000000','|001|014|','null'));
+cardBinList.add(new CardBin('356882','007','H','16','10000000000000000110011000000000','|001|027|','null'));
+cardBinList.add(new CardBin('625160','007','H','16','10000000000000000110100000000000','|001|014|081|038|013|','null'));
+cardBinList.add(new CardBin('625161','007','H','16','10000000000000000110100000000000','|001|014|081|038|013|','null'));
+cardBinList.add(new CardBin('625162','007','H','16','10000000000000000110100000000000','|001|014|081|038|013|','null'));
+cardBinList.add(new CardBin('88888','002','T','16','00000000000000000100000000000000','|001|','null'));
+cardBinList.add(new CardBin('33333','003','T','16','00000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('45806','001','T','16','00000010000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('53098','001','T','16','00000010000000000110000000000000','|001|','null'));
+cardBinList.add(new CardBin('9333','002','T','19','00000000000000000100000000000000','|001|','null'));
+cardBinList.add(new CardBin('9000','005','T','19','00000000000000000100000000000000','null','null'));
+cardBinList.add(new CardBin('9222','004','T','19','00000000000000000100000000000000','null','null'));
+currTypeList.add(new CurrType('103','韩元','KRW','01001011111000100000000000000000','0','KRW','KRW'));
+currTypeList.add(new CurrType('101','印尼盾','IDR','01000010000000000000000000000000','2','IDR','IDR'));
+currTypeList.add(new CurrType('907','钯金(克)','PDG','00000100000000000000000000000000','2','PDG','PDG'));
+currTypeList.add(new CurrType('100','巴西雷亚尔','BRL','01000000000100000000000000000000','2','BRL','BRL'));
+currTypeList.add(new CurrType('905','铂金(克)','PTG','00000000000000000000000000000000','2','PTG','PTG'));
+currTypeList.add(new CurrType('903','白银(克)','AGG','00000100000000000000000000000000','2','AGG','AGG'));
+currTypeList.add(new CurrType('038','欧元','EUR','11111011111111110000000000000000','2','EUR','EUR'));
+currTypeList.add(new CurrType('901','黄金（克）','AUG','00000100000110000000000000000000','2','AUG','AUG'));
+currTypeList.add(new CurrType('001','人民币','RMB','00010010000110000000000000000000','2','￥','RMB'));
+currTypeList.add(new CurrType('032','马来西亚林吉特','MYR','01000000000000000000000000000000','2','MYR','MYR'));
+currTypeList.add(new CurrType('064','越南盾','VDN','01000010000000000000000000000000','0','VDN','VDN'));
+currTypeList.add(new CurrType('807','钯金(盎司)','XPD','00000100000000000000000000000000','2','XPD','XPD'));
+currTypeList.add(new CurrType('805','铂金(盎司)','XPT','00000000000000000000000000000000','2','XPT','XPT'));
+currTypeList.add(new CurrType('803','白银(盎司)','XAG','00000000000110000000000000000000','2','XAG','XAG'));
+currTypeList.add(new CurrType('801','黄金(盎司)','XAU','00000000000110000000000000000000','2','XAU','XAU'));
+currTypeList.add(new CurrType('125','柬埔寨瑞尔','KHR','01000010000100000000000000000000','2','KHR','KHR'));
+currTypeList.add(new CurrType('124','秘鲁 索尔','PEN','01000010000110000000000000000000','2','PEN','PEN'));
+currTypeList.add(new CurrType('123','老挝基普','LAK','01000010000100000000000000000000','2','LAK','KIP'));
+currTypeList.add(new CurrType('029','澳大利亚元','AUD','11111011111111110000000000000000','2','AUD','AUD'));
+currTypeList.add(new CurrType('028','加拿大元','CAD','11111011111111110000000000000000','2','CAD','CAD'));
+currTypeList.add(new CurrType('027','日元','JPY','11111011111111110000000000000000','0','JPY','JPY'));
+currTypeList.add(new CurrType('089','哈萨克斯坦 坚戈','KZT','01000010000000000000000000000000','2','KZT','KZT'));
+currTypeList.add(new CurrType('088','南非 兰特','ZAR','01001011111000100000000000000000','2','ZAR','ZAR'));
+currTypeList.add(new CurrType('023','挪威克郎','NOK','11101011111111100000000000000000','2','NOK','NOK'));
+currTypeList.add(new CurrType('087','新西兰元','NZD','11101011111111100000000000000000','2','NZD','NZD'));
+currTypeList.add(new CurrType('022','丹麦克朗','DKK','01101011111111100000000000000000','2','DKK','DKK'));
+currTypeList.add(new CurrType('021','瑞典克郎','SEK','11101011111111100000000000000000','2','SEK','SEK'));
+currTypeList.add(new CurrType('084','泰国铢','THB','01101011111110100000000000000000','2','THB','THB'));
+currTypeList.add(new CurrType('082','菲律宾比索','PHP','01100010000110000000000000000000','2','PHP','PHP'));
+currTypeList.add(new CurrType('081','澳门元','MOP','01101011111110100000000000000000','2','MOP','MOP'));
+currTypeList.add(new CurrType('018','新加坡元','SGD','11111011111111110000000000000000','2','SGD','SGD'));
+currTypeList.add(new CurrType('015','瑞士法郎','CHF','11111011111111110000000000000000','2','CHF','CHF'));
+currTypeList.add(new CurrType('014','美元','USD','11111011111111110000000000000000','2','$','USD'));
+currTypeList.add(new CurrType('013','港币','HKD','11111011111111110000000000000000','2','HKD','HKD'));
+currTypeList.add(new CurrType('012','英镑','GBP','11111011111111110000000000000000','2','GBP','GBP'));
+currTypeList.add(new CurrType('070','卢布','RUB','01001011111000100000000000000000','2','RUB','RUB'));
+</SCRIPT>
+
+<SCRIPT>
+	var loginAdInfo = new Array();
+
+		var info = {'AREACODE':'8888',
+					'HQFLAG':'1',
+					'SERIALNUMBER':'0008217',
+					'ADIMAGEURL':'5452740305.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/0617reg619/2.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'8888',
+					'HQFLAG':'1',
+					'SERIALNUMBER':'0008197',
+					'ADIMAGEURL':'0620405758.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/0615_regm7/2.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'8888',
+					'HQFLAG':'1',
+					'SERIALNUMBER':'0008200',
+					'ADIMAGEURL':'5452807797.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/0525znfwd0/2.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'8888',
+					'HQFLAG':'1',
+					'SERIALNUMBER':'0008199',
+					'ADIMAGEURL':'2736427788.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/0612hycjg8/2.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'8888',
+					'HQFLAG':'1',
+					'SERIALNUMBER':'000',
+					'ADIMAGEURL':'',
+					'ADURL':''}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1812',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008219',
+					'ADIMAGEURL':'4918245954.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1810',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008215',
+					'ADIMAGEURL':'5540055457.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'4301',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008191',
+					'ADIMAGEURL':'4634476041.jpg',
+					'ADURL':'http://mall.icbc.com.cn/products/pd_0000330136.jhtml'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1805',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0004601',
+					'ADIMAGEURL':'1003831215.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1814',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008213',
+					'ADIMAGEURL':'3121667369.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1809',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008212',
+					'ADIMAGEURL':'6814749431.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1803',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008211',
+					'ADIMAGEURL':'4011159990.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1807',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008209',
+					'ADIMAGEURL':'9412159263.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1813',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008205',
+					'ADIMAGEURL':'5228465292.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'3202',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008207',
+					'ADIMAGEURL':'2569948287.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1804',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008202',
+					'ADIMAGEURL':'6544301012.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1818',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008203',
+					'ADIMAGEURL':'6300452755.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1817',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008201',
+					'ADIMAGEURL':'3448016116.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=015036&themeId='}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'4301',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008189',
+					'ADIMAGEURL':'9898364386.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=013342'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1115',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008185',
+					'ADIMAGEURL':'5813754001.jpg',
+					'ADURL':'http://mall.icbc.com.cn/products/pd_0000034231.jhtml'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1110',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008183',
+					'ADIMAGEURL':'1668292682.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=011590'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1103',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008135',
+					'ADIMAGEURL':'0789890898.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=012680'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1804',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008131',
+					'ADIMAGEURL':'6451247131.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=013386'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1804',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0006601',
+					'ADIMAGEURL':'7354370801.jpg',
+					'ADURL':'http://mall.icbc.com.cn/shop/index.jhtml?shopId=011076&themeId=000141'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1805',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008016',
+					'ADIMAGEURL':'2764338386.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%ae%a3%e4%bc%a0%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/2014/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8.htm?1=1&Ad_Source=%e4%b8%bb%e5%9b%be_%e4%b8%aa%e4%ba%ba%e4%b8%9a%e5%8a%a1%e5%af%bc%e8%88%aa%e4%b8%bb%e5%9b%be_700_130'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1809',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008042',
+					'ADIMAGEURL':'1585043801.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%ae%a3%e4%bc%a0%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/2014/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8.htm?1=1&Ad_Source=%e4%b8%bb%e5%9b%be_%e4%b8%aa%e4%ba%ba%e4%b8%9a%e5%8a%a1%e5%af%bc%e8%88%aa%e4%b8%bb%e5%9b%be_700_130'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1810',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008040',
+					'ADIMAGEURL':'3509568413.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%ae%a3%e4%bc%a0%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/2014/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8.htm?1=1&Ad_Source=%e4%b8%bb%e5%9b%be_%e4%b8%aa%e4%ba%ba%e4%b8%9a%e5%8a%a1%e5%af%bc%e8%88%aa%e4%b8%bb%e5%9b%be_700_130'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1814',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008033',
+					'ADIMAGEURL':'4973573550.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%ae%a3%e4%bc%a0%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/2014/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8.htm?1=1&Ad_Source=%e4%b8%bb%e5%9b%be_%e4%b8%aa%e4%ba%ba%e4%b8%9a%e5%8a%a1%e5%af%bc%e8%88%aa%e4%b8%bb%e5%9b%be_700_130'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1811',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0008036',
+					'ADIMAGEURL':'6116045020.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%ae%a3%e4%bc%a0%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/%e7%bd%91%e7%ab%99%e5%b9%bf%e5%91%8a%e9%a1%b5%e9%9d%a2/2014/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8/0929%e5%85%a8%e6%96%b0%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e6%b4%bb%e5%8a%a8.htm?1=1&Ad_Source=%e4%b8%bb%e5%9b%be_%e4%b8%aa%e4%ba%ba%e4%b8%9a%e5%8a%a1%e5%af%bc%e8%88%aa%e4%b8%bb%e5%9b%be_700_130'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1202',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0003408',
+					'ADIMAGEURL':'9132097418.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1804',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0005813',
+					'ADIMAGEURL':'4887417278.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1804',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0006003',
+					'ADIMAGEURL':'6094516823.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'3400',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0005602',
+					'ADIMAGEURL':'3306978621.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'0906',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0004803',
+					'ADIMAGEURL':'5025484070.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'0809',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0004004',
+					'ADIMAGEURL':'3406711209.jpg',
+					'ADURL':'http://m.icbc.com.cn/icbc/工行动态1/重要公告/关于个人网上银行手机银行服务升级的公告20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1810',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0005001',
+					'ADIMAGEURL':'5369043187.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1807',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0004003',
+					'ADIMAGEURL':'7659438137.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'1809',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0004405',
+					'ADIMAGEURL':'9743527669.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'2104',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0004613',
+					'ADIMAGEURL':'8437837516.jpg',
+					'ADURL':'http://www.icbc.com.cn/SiteCollectionDocuments/ICBC/Resources/WAP/touch/images/2014new/fuwushengji.jpg'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'3500',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0003403',
+					'ADIMAGEURL':'1545625677.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'0714',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0003007',
+					'ADIMAGEURL':'7693434932.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'2712',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0002202',
+					'ADIMAGEURL':'1341463178.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'2407',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0002003',
+					'ADIMAGEURL':'4154148036.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'2408',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0001601',
+					'ADIMAGEURL':'9044390672.jpg',
+					'ADURL':'http://www.icbc.com.cn/icbc/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+		var info = {'AREACODE':'2806',
+					'HQFLAG':'2',
+					'SERIALNUMBER':'0001001',
+					'ADIMAGEURL':'8927630012.jpg',
+					'ADURL':'http://www.icbc.com.cn/ICBC/%e9%87%8d%e8%a6%81%e5%85%ac%e5%91%8a/%e5%85%b3%e4%ba%8e%e4%b8%aa%e4%ba%ba%e7%bd%91%e4%b8%8a%e9%93%b6%e8%a1%8c%e3%80%81%e6%89%8b%e6%9c%ba%e9%93%b6%e8%a1%8c%e6%9c%8d%e5%8a%a1%e5%8d%87%e7%ba%a7%e7%9a%84%e5%85%ac%e5%91%8a20140618.htm'}
+		loginAdInfo.push(info);
+
+</SCRIPT>
+
+<SCRIPT language=VBScript>
+			sub InstallRootCert()
+				if Navigator.appName<>"Microsoft Internet Explorer" then exit sub
+				'Get IE version
+				nVersionBegin=InStr(Navigator.userAgent,"MSIE ")+5
+				nVersionEnd=InStr(nVersionBegin,Navigator.userAgent,";")
+				Version=mid(Navigator.userAgent,nVersionBegin,nVersionEnd-nVersionBegin)
+				if Version>5.0 then
+					document.body.addBehavior("#default#clientCaps")
+					sVersion=document.body.getComponentVersion("{89820200-ECBD-11CF-8B85-00AA005B4383}","componentid")
+					sVersion=Replace(sVersion,",",".")
+					nBuildStart=InStr(3,sVersion,".")+1
+					nBuildEnd=InStr(nBuildStart,sVersion,".")-1
+					Build=mid(sVersion,nBuildStart,nBuildEnd-nBuildStart+1)
+				end if
+				if Version<6.0 or (Version=5.01 and Build<3315) then '***本行判断版本号，可以修改***
+					document.all.RootCertFrame.src="/icbc/newperbank/InstallRootCert.htm"
+				end if
+			end sub
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+	//处理safari版控件 回车自动登录
+	//1） 增加JS函数，函数名称必须是“XReturnDown”，safeSubmit函数为页面中原来响应提交功能的函数；
+	var isEntered=false;//防止连续点击enter键造成浏览器死掉
+	function XReturnDown(item)
+	{
+	  if(item == "safeSubmit1"&&!isEntered)
+	  {
+	  	
+	    document.getElementById('submitkey').focus();
+	    
+	    mySubmit();
+
+	  }else if(item == "verify")
+	  {
+	  	document.all.KeyPart.focus();
+	  }
+	}
+	var desktop=false;
+	function winopenrisk(){
+		window.open("../main/riskTipMore.jsp","","top=0, left=0,toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, status=yes,location=yes");
+	}
+	function winopenspecial(){
+		window.open("../main/specialTipMore.jsp","","top=0, left=0,toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, status=yes,location=yes");
+	}
+	function disagreement(){
+		alert("您尚未接受我行电子银行章程与服务协议，无法登录");
+		return;
+	}
+	function getfocus1(name, event){
+		if(pebankBrowserCompatible.getKeycode(event)==13){
+			
+		eval("document.all."+name).focus();}
+	}
+
+	function mySubmit(){
+		try{
+
+			if(pebankBrowserCompatible.isSafari()){
+				if(typeof(navigator.mimeTypes['application/x-npsubmit-plugin'])=="undefined"){
+					alert("您尚未正确安装工行网银控件，请您先下载安装工行网银控件");
+					return;
+				}else{
+					var vs = "";
+					try{
+						vs=document.all.safeEdit1.getVersion();
+					}catch(e){vs="";}
+					//if(vs==""||'1.0.0.5'!=document.all.safeEdit1.getVersion()){
+					if(vs==""||compareVersionPlugin(vs,'1.0.0.5')){
+						alert("您安装的工行网银控件版本过低，请您先下载安装工行网银控件");
+						return;
+					}
+				}
+			}
+			var cardNum=document.logonform.logonCardNum.value;
+			if(cardNum.length>17&&cardNum.length!=19 && cardNum.length != 22){
+					alert("请输入正确的卡（账）号/手机号/用户名!");
+					logonform.logonCardNum.select();
+					logonform.logonCardNum.focus();
+					return;
+			}
+			if(cardNum.length==0){
+					alert("卡（账）号/手机号/用户名不能为空!");
+					logonform.logonCardNum.select();
+					logonform.logonCardNum.focus();
+					return;
+			}
+
+			if (document.all.safeEdit1.getLength()<4){
+				alert("密码长度至少应该为四位!");
+				document.all.safeEdit1.focus();
+				return;
+			}
+			if (!document.all.safeEdit1.isValid()){
+		   		alert("输入的密码不合法，请重新输入！");
+		   		document.all.safeEdit1.focus();
+				return ;
+			}
+			if (!document.all.KeyPart.isValid()){
+				alert("输入的验证码不合法，请重新输入！");
+			  	document.all.KeyPart.focus();
+				return ;
+			}
+
+			var cardbinstr=cardBinList.SupportCardBin(9);
+  				var cardbin="|"+cardBinList.getCardBinNoValid(cardNum)+"|";
+
+			//不判断17位年金账号,允许输入14位数字，后台判断是卡号还是用户名
+			if(cardNum.length>15&&!isValidCardAndAcctPublic(cardNum)&&cardNum.length!=17){
+				alert("请输入正确的卡（账）号!");
+				logonform.logonCardNum.select();
+				logonform.logonCardNum.focus();
+				return;
+
+			}else{
+				//非法用户名
+				var re =/\W/;
+				if (re.test(cardNum)){
+					alert("请输入正确的卡（账）号/手机号/用户名!");
+					logonform.logonCardNum.select();
+					logonform.logonCardNum.focus();
+					return;
+				}
+			}
+			
+			if(navigator.browserLanguage != null) {
+				document.logonform.language.value = navigator.browserLanguage.toLowerCase();
+			} else if(navigator.language != null) {
+				document.logonform.language.value = navigator.language.toLowerCase();
+			}
+			if(screen.width > screen.height) {
+				document.logonform.resolution.value = screen.width + "*" + screen.height;
+			} else {
+				document.logonform.resolution.value = screen.height + "*" + screen.width;
+			}
+			var date = new Date();
+			document.logonform.timezone.value = date.getTimezoneOffset();
+			
+
+			document.logonform.action="/servlet/com.icbc.inbs.servlet.ICBCINBSEstablishSessionServlet";
+			document.all.safeSubmit1.reset();
+			document.all.KeyPart.commitKeyPart(document.all.safeEdit1);
+			document.all.safeEdit1.commit(document.all.safeSubmit1);
+			document.all.KeyPart.commitKeyPart(document.all.KeyPart);
+			document.all.KeyPart.commit(document.all.safeSubmit1);
+			document.all.safeSubmit1.submit(logonform);
+			isEntered=true;
+			document.getElementById("submitkey").style.display = "none";
+			document.getElementById("nosubmitkey").style.display = "";
+			return false;
+		}catch(Exception){
+			alert("您尚未正确安装工行网银控件，请您先下载安装工行网银控件");
+			return ;
+		}
+	}
+
+//-->
+</SCRIPT>
+
+<OBJECT id=safeSubmit1 codeBase="/icbc/newperbank/AxSafeControls.cab#version=1,0,0,7" classid=CLSID:8D9E0B29-563C-4226-86C1-5FF2AE77E1D2 data="data:application/x-oleobject;base64,KQuejTxWJkKGwV/yrnfh0gAJAAAAAAAAAAAAAA==" width=0 height=0></OBJECT><IFRAME id=RootCertFrame style="HEIGHT: 0px; WIDTH: 0px; VISIBILITY: hidden" src="/indexicbc.htm"></IFRAME>
+<SCRIPT language=vbscript>InstallRootCert</SCRIPT>
+
+<DIV id=tooltip2 style="CLIP: rect(0px 400px 400px 0px); HEIGHT: 15px; WIDTH: 400px; POSITION: absolute; Z-INDEX: 20; VISIBILITY: hidden; BACKGROUND-COLOR: #ffffff"><LAYER bgColor="#FF0000" width="1000px" name="nstip"></LAYER></DIV><!--head begin -->
+<TABLE id=logontb class=table-top align=center>
+<TBODY>
+<TR>
+<TD width=350 align=right>&nbsp;</TD>
+<TD height=25 width=600>
+<TABLE cellSpacing=0 cellPadding=0 width="45%" align=right border=0>
+<TBODY>
+<TR>
+<TD height=5 colSpan=6></TD></TR>
+<TR>
+<TD width="25%" noWrap><A title=点击进入工行首页 class=link_top href="http://www.icbc.com.cn" target=_parent>工行首页 </A></TD>
+<TD width="5%">|</TD>
+<TD width="25%" noWrap><A title=点击进入企业网上银行 class=link_top href="https://corporbank.icbc.com.cn/icbc/corporbank/logon.jsp" target=_parent>企业网上银行 </A></TD>
+<TD width="5%">|</TD>
+<TD width="25%" noWrap><A title=点击进入英文版 class=link_top href="/icbc/enperbank/index.jsp" target=_parent>English </A></TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD height=61 colSpan=2>
+<DIV class=icbc-logo></DIV></TD></TR></TBODY></TABLE><!--head end -->
+<TABLE class=table-middle cellSpacing=0 cellPadding=0 align=center border=0 sizcache="0" sizset="1">
+<TBODY sizcache="0" sizset="1">
+<TR sizcache="0" sizset="1">
+<TD sizcache="0" sizset="1">
+<DIV id=mainArea sizcache="0" sizset="1">
+<DIV id=mainContent sizcache="0" sizset="1">
+<DIV id=topArea sizcache="0" sizset="1">
+<DIV class=adArea sizcache="0" sizset="1">
+<UL id=adUl sizcache="0" sizset="1">
+<LI style="ZOOM: 1; FILTER:  ; DISPLAY: block" jQuery1434821121971="5" sizcache="0" sizset="0"><A href="http://www.icbc.com.cn/icbc/0617reg619/2.htm" target=_blank sizcache="0" sizset="0"><IMG alt="" src="https://image.mybank.icbc.com.cn//picture/loginad/5452740305.jpg" jQuery1434821121971="6"></A></LI>
+<LI jQuery1434821121971="7" sizcache="0" sizset="1"><A href="http://www.icbc.com.cn/icbc/0615_regm7/2.htm" target=_blank sizcache="0" sizset="1"><IMG alt="" jQuery1434821121971="8"></A></LI>
+<LI jQuery1434821121971="9" sizcache="0" sizset="2"><A href="http://www.icbc.com.cn/icbc/0525znfwd0/2.htm" target=_blank sizcache="0" sizset="2"><IMG alt="" jQuery1434821121971="10"></A></LI>
+<LI jQuery1434821121971="11" sizcache="0" sizset="3"><A href="http://www.icbc.com.cn/ICBC/0612hycjg8/2.htm" target=_blank sizcache="0" sizset="3"><IMG alt="" jQuery1434821121971="12"></A></LI></UL></DIV>
+<DIV id=loginArea>
+<DIV id=loginContent>
+<FORM onsubmit="return false;" method=post name=logonform action=""><INPUT type=hidden name=custMainPage> <INPUT type=hidden name=injectTranName> <INPUT type=hidden name=injectTranData> <INPUT type=hidden name=injectSignStr> <INPUT type=hidden value=10 name=ComputID> <INPUT type=hidden value=0 name=PlatFlag> <INPUT type=hidden name=IconInfo> <INPUT type=hidden name=SnapInfo> <INPUT type=hidden name=LogonTime> <INPUT type=hidden name=cookieFlag> <INPUT type=hidden value=false name=viplogin> <INPUT type=hidden name=cookieValue> <INPUT type=hidden value=1 name=dse_isnewmenu> <INPUT type=hidden value="Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729)" name=ua> <INPUT type=hidden name=language> <INPUT type=hidden name=resolution> <INPUT type=hidden name=timezone> <INPUT type=hidden value=1 name=logonSrc> <INPUT type=hidden name=_jumpBranchAreaCode> <INPUT type=hidden name=_jumpBranchParams> 
+<DIV id=divss hideFocus style="OUTLINE-WIDTH: medium; OUTLINE-STYLE: none; OUTLINE-COLOR: invert"></DIV>
+<P class=login-title>个人网银登录</P>
+<DIV class=input-area>
+<DIV id=tooltip3 style="POSITION: absolute; LEFT: 76px; Z-INDEX: 20; DISPLAY: none; TOP: 6px">
+<TABLE cellSpacing=1 cellPadding=0 bgColor=#cccccc>
+<TBODY>
+<TR>
+<TD>
+<TABLE bgColor=#ffffe1 valign="center">
+<TBODY>
+<TR>
+<TD>登录成功后，进行账户挂失</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+<DIV class=input-label>登录名</DIV>
+<DIV class=input-wrapper-uin><LABEL id=logonCardNumHolder class="place-holder place-holder-alias" style="DISPLAY: none" for=logonCardNum jQuery1434821121971="14">卡（账）号/手机号/用户名</LABEL> <INPUT onkeyup="getfocus1('safeEdit1',event)" id=logonCardNum class=input-style onkeydown=if((pebankBrowserCompatible.isSafari()||pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome())&amp;&amp;pebankBrowserCompatible.getKeycode(event)==9)event.preventDefault(); style="IME-MODE: disabled" maxLength=22 size=19 value=login name=logonCardNum jQuery1434821121971="4"> </DIV></DIV>
+<DIV class=input-area>
+<DIV class=input-label style="WIDTH: 200px; FLOAT: left">登录密码 </DIV>
+<DIV class=tip-link><A tabIndex=334 href="https://epass.icbc.com.cn/resetpwd/reset_pwd_index.jsp">忘记登录密码？</A></DIV>
+<DIV class=input-wrapper-pwd>
+<OBJECT onkeyup="getfocus1('KeyPart', event);detectCapsLock('logonform','safeEdit1',670,140,400,'logontb');" onfocus="detectCapsLock('logonform','safeEdit1',670,140,400,'logontb')" onblur="closeCapTip('logonform','safeEdit1')" id=safeEdit1 codeBase="/icbc/newperbank/AxSafeControls.cab#version=1,0,0,13" classid=CLSID:73E4740C-08EB-4133-896B-8D0A7C9EE3CD width=335 height=28><PARAM NAME="_cx" VALUE="8864"><PARAM NAME="_cy" VALUE="741"></OBJECT><INPUT type=hidden value=130 name=netType> </DIV></DIV>
+<DIV id=axsafetip hideFocus></DIV>
+<DIV class=input-area>
+<DIV class=input-label>验证码</DIV>
+<DIV class=input-wrapper-vcode>
+<OBJECT onkeyup="if(pebankBrowserCompatible.getKeycode(event)==13) mySubmit();" id=KeyPart codeBase="/icbc/newperbank/AxSafeControls.cab#version=1,0,0,13" classid=CLSID:73E4740C-08EB-4133-896B-8D0A7C9EE3CD width=240 height=28><PARAM NAME="_cx" VALUE="6350"><PARAM NAME="_cy" VALUE="741"></OBJECT><INPUT type=hidden value=1434821122487540938 name=randomId> </DIV>
+<DIV class=vcode-img-wrapper style="DISPLAY: block" jQuery1434821121971="15"><IFRAME id=VerifyimageFrame onload="this.contentWindow.document.oncontextmenu =  function(){return false;};" height=28 marginHeight=0 src="/servlet/com.icbc.inbs.person.servlet.Verifyimage2?randomKey=1434821122487540938&amp;imageAlt=点击图片可刷新" frameBorder=0 width=80 name=VerifyimageFrame marginWidth=0 scrolling=no>
+</IFRAME>&nbsp;<A id=link4Verifyimage2Name style="TEXT-DECORATION: underline; COLOR: #5aa5ff; DISPLAY: none" href="JavaScript:refreshVerifyimage();" jQuery1434821121971="1"></A>
+<SCRIPT language=JavaScript>
+if(navigator.userAgent.toLowerCase().indexOf("chrome/")!=-1){//这里注意chrome的useragent也包含safari
+	VerifyimageFrame.location.href="/servlet/com.icbc.inbs.person.servlet.Verifyimage2?randomKey=1434821122487540938&imageAlt=点击图片可刷新"+"&appendRandom="+(new Date()).getTime();
+}else if(navigator.userAgent.toLowerCase().indexOf("safari")!=-1|| navigator.userAgent.toLowerCase().indexOf("firefox")!=-1){
+	VerifyimageFrame.location.href="/servlet/com.icbc.inbs.person.servlet.Verifyimage2?randomKey=1434821122487540938&imageAlt=点击图片可刷新"+"&appendRandom="+(new Date()).getTime();
+}
+function refreshVerifyimage(){
+	if(navigator.userAgent.toLowerCase().indexOf("chrome/")!=-1){//这里注意chrome的useragent也包含safari
+		var url = "/servlet/com.icbc.inbs.person.servlet.Verifyimage2?randomKey=1434821122487540938&imageAlt=点击图片可刷新"+"&appendRandom="+(new Date()).getTime();
+		VerifyimageFrame.location.replace(url);
+	}else if(navigator.userAgent.toLowerCase().indexOf("safari")!=-1){//safari回退时，验证码不刷新问题
+		window.focus();//解决db103335688
+		VerifyimageFrame.location.href="/servlet/com.icbc.inbs.person.servlet.Verifyimage2?randomKey=1434821122487540938&imageAlt=点击图片可刷新"+"&appendRandom="+(new Date()).getTime();
+	}else{
+		VerifyimageFrame.location.reload();
+	}
+
+	 try{
+		//刷新验证码后重新进行倒计时，只对页面定义了vctimeout()的页面有效。
+	    clearTimeout(vctime);
+	    vctime=setTimeout("vctimeout()",300000);
+	}catch(exception){} 
+		
+}
+/*
+if(pebankBrowserCompatible.isSafari()||pebankBrowserCompatible.isChrome()){
+	//屏蔽回退按钮
+	challengeFrame.history.go=function(){
+		pebankBrowserCompatible.alertHistoryTip();
+	}
+	challengeFrame.history.back=function(){
+		pebankBrowserCompatible.alertHistoryTip();
+	}
+}
+*/
+</SCRIPT>
+
+<SCRIPT language=javascript>
+								try{
+									jQuery("#link4Verifyimage2Name").css("color","#5aa5ff");
+									jQuery("#link4Verifyimage2Name").html("");//不改变文字会导致首次显示验证码触发vcf方法
+									jQuery("#link4Verifyimage2Name").hide();//不隐藏会导致多次按tab键时显示有问题
+									//document.getElementById("link4Verifyimage2Name").innerText="";
+								}catch(exception){}
+								
+								function showVCode(){
+									if(!jQuery(".vcode-img-wrapper").is(":visible")){
+										jQuery(".vcode-img-wrapper").show();
+										if(!jQuery("#link4Verifyimage2Name").html()=="")
+											vcf();
+									}
+								}
+							</SCRIPT>
+ </DIV></DIV>
+<DIV id=modeSelect class=input-area>
+<DIV class=input-wrapper-mode><A id=standardMode class="radio-btn checked" jQuery1434821121971="2">标准版 </A><A id=simpleMode class="radio-btn unchecked" jQuery1434821121971="3">简约版 </A></DIV></DIV>
+<DIV class=input-area-btn>
+<DIV onclick=javascript:mySubmit(); id=submitkey class="input-btn-wrapper clickable-btn">登 录</DIV>
+<DIV id=nosubmitkey class=input-btn-wrapper style="DISPLAY: none">登录中...</DIV></DIV></FORM></DIV></DIV></DIV><!-- 下方区域 -->
+<DIV id=downArea>
+<DIV class=quick-menu-box>
+<DIV class="quick-menu-title assist">帮助 </DIV>
+<DIV class=quick-menu-content>
+<DIV class=vertical-line></DIV>
+<UL class=quick-menu-list>
+<LI><A title=提供专业建议，协助您安全地使用网上银行。 href="http://www.icbc.com.cn/icbc/%e7%94%b5%e5%ad%90%e9%93%b6%e8%a1%8c/%e5%ae%89%e5%85%a8%e4%b8%93%e5%8c%ba/" target=_parent>安全专区</A> 
+<LI><A href="../main/risk_tip_new.jsp" target=_blank>风险提示</A> 
+<LI><A title=使用网上银行时的常见问题及解决方法。 href="http://www.icbc.com.cn/ICBCCOLLEGE/client/page/PageShow.aspx" target=_parent>热点问题</A> 
+<LI><A title=提供网上银行的模拟程序，协助您了解并体验网上银行服务。 href="http://www.icbc.com.cn/icbc/html/download/yanshichengxu/personalbank/Perbank/index.htm" target=_parent>动态演示</A> </LI></UL></DIV></DIV>
+<DIV class=quick-menu-box>
+<DIV class="quick-menu-title security">安全 </DIV>
+<DIV class=quick-menu-content>
+<DIV class=vertical-line></DIV>
+<UL class=quick-menu-list>
+<LI><A title=点击进入自助关闭网上银行登录。 href="/icbc/newperbank/logonFreeze.jsp">网银关闭</A> 
+<LI><A title=点击进入自助关闭手机银行登录 href="/icbc/newperbank/wapLogonFreeze.jsp">手机银行关闭</A> 
+<LI><A id=reportLoss href="javascript:void(0);" jQuery1434821121971="13">账户挂失</A> 
+<LI><A href="http://www.icbc.com.cn/icbc/网银安全控件/default.htm" target=_blank>小e安全检测</A> </LI></UL></DIV></DIV>
+<DIV class=quick-menu-box>
+<DIV class="quick-menu-title regist">注册 </DIV>
+<DIV class=quick-menu-content>
+<DIV class=vertical-line></DIV>
+<UL class=quick-menu-list>
+<LI><A title=自助开通网上银行，您就可以办理账户查询以及网上买卖证券、外汇、黄金、保险等业务。 href="../regtip.jsp">自助注册</A> 
+<LI><A href="../main/login_agr_new.jsp" target=_blank>电子银行章程 </A></LI></UL></DIV></DIV>
+<DIV class=quick-menu-box>
+<DIV class="quick-menu-title more">更多 </DIV>
+<DIV class=quick-menu-content>
+<DIV class=vertical-line></DIV>
+<UL class=quick-menu-list>
+<LI><A title=使用中国工商银行的活期存折账号和密码登录，您就可以办理账户查询业务。 href="../bankbook/bankbook_index.jsp">存折版登录</A> 
+<LI><A title="" href="/icbc/newperbank/e_card/ecard_financing_findname_index.jsp">e理财综合服务</A> 
+<LI><A title=为客户提供手机号/E-mail与账号绑定关系确认的功能 href="/icbc/newperbank/binding/binding_confirm_submit.jsp" target=_parent>手机号/Email与账号绑定关系</A> </LI></UL></DIV></DIV>
+<DIV class=dowload-tool-tip>
+<DIV class=inner-tip-wrapper><SPAN>为了保证正常使用网上银行，</SPAN><BR><SPAN style="VERTICAL-ALIGN: bottom">请您下载<A href="javascript:downloadAss();"><IMG border=0 src="/icbc/newperbank/images/login/icbc-assist.png"></A>进行安全设置。</SPAN> </DIV></DIV></DIV></DIV></DIV></TD></TR>
+<TR>
+<TD height=10>&nbsp;</TD></TR></TBODY></TABLE><!--bottom begin-->
+<TABLE class=table-bottom cellSpacing=0 cellPadding=0 align=center>
+<TBODY>
+<TR>
+<TD>
+<TABLE height=35 cellSpacing=0 cellPadding=0 width=850 align=center border=0>
+<TBODY>
+<TR>
+<TD noWrap align=center><A class=text2b href="http://www.icbc.com.cn/icbc/%e5%ae%a2%e6%88%b7%e6%9c%8d%e5%8a%a1/map.htm" target=_blank>网站地图</A> | &nbsp; 
+<TD noWrap align=center><A class=text2b href="http://www.icbc.com.cn/icbc/%e5%ae%a2%e6%88%b7%e6%9c%8d%e5%8a%a1/service.htm" target=_blank>联系我们</A> | &nbsp; 
+<TD noWrap align=center><A class=text2b href="http://www.icbc.com.cn/icbcltd/%e7%bd%91%e7%ab%99%e5%a3%b0%e6%98%8e/%e7%bd%91%e7%ab%99%e5%a3%b0%e6%98%8e.htm" target=_blank>网站声明</A> | &nbsp; 
+<TD noWrap align=center><A class=text2b href="http://www.icbc.com.cn/icbc/%e5%ae%a2%e6%88%b7%e6%9c%8d%e5%8a%a1/business_offices.htm" target=_blank>服务网点</A> | &nbsp; 服务热线 <SPAN><FONT color=#ba0403>95588</FONT></SPAN></TD>
+<TD vAlign=top width=445 align=center>
+<DIV align=right>中国工商银行版权所有 京ICP证 030247号&nbsp;&nbsp;&nbsp;<A href="http://www.hd315.gov.cn/beian/view.asp?bianhao=0102000120100015" target=_blank><IMG border=0 src="/icbc/newperbank/images/icp.gif" width=25 align=absMiddle height=29></A></DIV></TD>
+<TD vAlign=top width=10 align=center>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><!--bottom -->
+<SCRIPT language=javascript>
+
+try{
+	//if(pebankBrowserCompatible.isIE()){
+		document.all.safeSubmit1.reset();
+	//}
+}catch(Exception){
+	dealException();
+}
+
+	
+function dealException(){
+	
+	if(!detectAssistComm()){
+		//没有安装助手弹出新提示，点击后下载
+		document.getElementById("axsafetip").innerHTML = "<table style='font-size:12px' bgcolor=\"#ffffcc\" cellspacing=\"0\" cellpadding=\"0\"><td><font color=\"#FF6600\">“工行网银助手”助您一键安装更新网银安全控件及工具，建议<a href='javascript:downloadAss();'><u><font color='blue'>安装</font></u></a>。</font></td></tr></table>"
+		jQuery(".input-area").css("height","45px");
+	}else{
+		//已经安装助手提示信息不变，自动启动助手
+		document.getElementById("axsafetip").innerHTML = "<table style='font-size:12px' bgcolor=\"#ffffcc\" cellspacing=\"0\" cellpadding=\"0\"><td><font color=\"#FF6600\">如果无法输入密码，请根据浏览器弹出提示进行控件安装。</font></td></tr></table>"
+		jQuery(".input-area").css("height","45px");
+		try{RunAssistComm();}catch(exception){}
+			}
+	
+}
+function downloadAss(){
+	window.open('http://www.icbc.com.cn/icbc/html/download/EbankToolsSoftware/x64/ICBCSetupIntegration_64.msi');
+}
+
+jQuery(document).ready(function(){
+	//网银版本选择
+	jQuery(".radio-btn").bind("click",function(){
+		jQuery(".radio-btn").removeClass("checked").removeClass("unchecked");
+		jQuery(this).addClass("checked");
+		jQuery(".radio-btn").not(jQuery(this)).addClass("unchecked");
+		if(jQuery(this).attr("id")=="standardMode"){
+			document.logonform.dse_isnewmenu.value="1";
+		}else{
+			document.logonform.dse_isnewmenu.value="2";
+		}
+	});
+
+	var defaultUIStyle = '2';
+	if("2"==getCookie("dse_isnewmenu")){
+		document.logonform.dse_isnewmenu.value="2";
+		jQuery("#simpleMode").click();
+	}else if("1"==getCookie("dse_isnewmenu")){
+		document.logonform.dse_isnewmenu.value="1";
+		jQuery("#standardMode").click();
+		}else{
+		if(defaultUIStyle=="2"){
+			document.logonform.dse_isnewmenu.value="2";
+			jQuery("#simpleMode").click();
+		}else{
+			document.logonform.dse_isnewmenu.value="1";
+			jQuery("#standardMode").click();
+		}
+	}
+	
+	//页面元素处理
+	jQuery("#logonCardNum").bind("keydown click",function(){
+		jQuery("#logonCardNumHolder").hide();
+		showVCode();
+		
+	}).bind("blur",function(){
+		if(jQuery("#logonCardNum").val()==""){
+			jQuery("#logonCardNumHolder").show();
+		}
+	});
+	
+	//若传入了卡号
+	if(jQuery("#logonCardNum").val()!=""){
+		jQuery("#logonCardNum").click();
+	}
+	
+	
+	//广告图片处理
+	var Area_code = getCookie("Area_code");
+	var branchAdList = new Array();
+	var finalAdList = new Array();
+	var total = 0;
+	var defaultAd="";
+	try{console.log(loginAdInfo);console.log("Area_code:"+Area_code)}catch(e){}
+	for(var i=0;i<loginAdInfo.length;i++){
+		var serailNum = loginAdInfo[i].SERIALNUMBER;
+		var areaCode = loginAdInfo[i].AREACODE;
+		var hqFlag = loginAdInfo[i].HQFLAG;
+		if(serailNum=="000" || parseInt(serailNum,10)==0){ //默认图片
+			defaultAd = loginAdInfo[i];
+			continue;
+		}
+		if(hqFlag=="1"){//总行广告
+			finalAdList.push(loginAdInfo[i]);
+			total++;
+		}else if(areaCode==Area_code){
+			branchAdList.push(loginAdInfo[i]);
+		}
+		
+		if(total == 5) break;
+	}
+	
+	for(var j=0;j<branchAdList.length;j++){
+		if(total == 5) break;
+		finalAdList.push(branchAdList[j]);
+		total++;
+	}
+	
+	//启动图片轮播
+	try{console.log("finalAdList:");console.log(finalAdList)}catch(e){}
+	(new adLoopPlay(finalAdList,defaultAd)).start();
+
+	//挂失
+	jQuery("#reportLoss").click(function(e){
+		document.logonform.injectTranName.value = "per_ReportLossOp";
+		document.logonform.injectTranData.value = "";
+		document.logonform.injectSignStr.value = "";
+		logonform.logonCardNum.focus();
+// 		jQuery("#tooltip3").css({"top":e.pageY,"left":e.pageX}).show().fadeOut(3000);
+		jQuery("#tooltip3").show().fadeOut(3000);
+		
+});
+
+});
+/**********************************/
+function adLoopPlay(finalAdList,defaultAd) {
+	this.dataList = [];
+    this.list = [];
+    this.length = 0;
+    //图片显示时间
+    this.interval = 5000;
+    this.addAdImg = function(obj){
+		var jDom = jQuery("<li><a href='"+obj.ADURL+"' target='_blank'>"
+				 +"<img alt=''/>"
+				 +"</a></li>");
+		jDom.appendTo(jQuery("#adUl")).bind("click",obj,function(e){
+			var areaCode = e.data.AREACODE;
+			var hqFlag = e.data.HQFLAG;
+			var serialNum = e.data.SERIALNUMBER;
+			var imgUrl = e.data.ADIMAGEURL;
+			var linkUrl = e.data.ADURL;
+			
+			var sendParam = {};
+		    sendParam["tranCode"]="A00413";
+		    sendParam["areaCode"]=areaCode;
+		    sendParam["hqFlag"]=hqFlag;
+		    sendParam["serialNum"]=serialNum;
+		    sendParam["imgUrl"]=imgUrl;
+		    sendParam["linkUrl"]=linkUrl;
+		    sendParam["recDate"]="2015-06-21";
+		    
+		    EBDataStruct.sendAjax({
+				data: sendParam,
+				dataType: "json",
+				url: "AsynGetDataServlet",
+				failCallBack: function(){},
+				successCallBack: function(kc){},
+				isDisplay: false,
+				displayArea: "pselected"
+			});
+		});
+		
+		jDom.find("img").error(function(){
+			jQuery(this).hide()
+			.attr("src","/icbc/newperbank/images/login/err.jpg")
+			.fadeIn(500);
+		});
+		
+		if(jQuery.trim(obj.ADURL)==""){
+			jDom.find("a").attr("href","javascript:void(0);")
+				.attr("disabled","disabled")
+				.attr("target","");
+		}
+		
+    }
+    this.init = function(){
+    	if(finalAdList.length==0){
+    		this.dataList = defaultAd!=""?[defaultAd]:[{"AREACODE":"","HQFLAG":"","SERIALNUMBER":"","ADIMAGEURL":"","ADURL":""}];
+    		if(defaultAd=="" || defaultAd.ADIMAGEURL==""){
+    			jQuery("#adUl").append("<li><img src='/icbc/newperbank/images/login/err.jpg'><li>");
+    			jQuery("#adUl>li:first-child").fadeIn(500);
+    			return;
+    		}
+    	}else{
+    		this.dataList = finalAdList;
+    	}   	
+    	for(var i=0;i<this.dataList.length;i++){
+    		this.addAdImg(this.dataList[i]);
+    	}
+    	this.list = jQuery(".adArea").children(":first").children();
+    	this.length = this.list.length;
+    	
+    	if(this.length>0){
+	    	jQuery("#adUl>li:first-child img").attr("src","https://image.mybank.icbc.com.cn//picture/loginad/"+this.dataList[0].ADIMAGEURL);
+			jQuery("#adUl>li:first-child").fadeIn(500);
+		}
+    }
+
+    var index = 0, pre = 0, isLazyLoad = true,self = this,timerId;
+    this.start = function () {
+    	this.init();
+    	if(this.dataList.length==1) return;
+        timerId = setInterval(self.play, this.interval);
+    };
+    this.play = function () {
+        index++;
+        if (index == self.length) {
+            index = 0;
+        }
+        self.list.eq(pre).fadeOut(300, "linear", function () {
+        	if(isLazyLoad){
+        		jQuery("#adUl img").eq(index).attr("src","https://image.mybank.icbc.com.cn//picture/loginad/"+self.dataList[index].ADIMAGEURL);
+        	}
+            self.list.eq(index).fadeIn(500, "linear", function () {});
+            pre = index;
+            
+	        if ((index+1) == self.length) {
+	            isLazyLoad = false;
+	        }
+        });
+    };
+};
+/**********************************/
+
+function getCookie(name){
+    var arr = document.cookie.split("; ");
+    for(var i = 0;i < arr.length;i ++){
+        var temp = arr[i].split("=");
+        if(temp[0] == name) return unescape(temp[1]);
+   } 
+}
+
+function addCookie(name,value){
+	var str = name + "=" + escape(value);
+	    
+	var nextYear = new Date();
+	nextYear.setFullYear(nextYear.getFullYear()+1);
+	var expires = nextYear.toGMTString();
+		
+	str += "; expires=" + expires+";path=/";
+	document.cookie = str;
+
+}
+
+function checkUser()
+{
+	var ver;//浏览器版本
+	var bType;//浏览器类型
+	var vNumber;//版本号
+	ver = navigator.appVersion;
+	bType =navigator.appName;
+	if(macflag){
+		return true;
+	}
+	if(bType=="Microsoft Internet Explorer"){
+		vNumber=parseFloat(ver.substring(ver.indexOf("MSIE")+5,ver.lastIndexOf("Windows")));
+		if (vNumber < 7.0){
+			return false;
+		}else{
+			return true;
+		}
+	}else{
+	   var PlatFlag_ebiz = '0';
+	   if('0'!=PlatFlag_ebiz){
+	   	return true;
+	   }else{
+	   	return false;
+	   }
+	}
+}
+
+var input_flag = "";
+var showFlag = "false";
+if(pebankBrowserCompatible.isFirefox()){
+	input_flag = typeof(navigator.mimeTypes['application/x-icbcnpxxin-plugin-input']);
+	showFlag = "true"
+}else if(pebankBrowserCompatible.isChrome()){
+	input_flag = typeof(navigator.mimeTypes['application/x-icbc-plugin-chrome-npxxin-input']);
+	showFlag = "true"
+}
+if(showFlag=="true"){
+	if (input_flag=="undefined") {
+		var o1 = document.getElementById('safeSubmit1div');
+		var o2 = document.getElementById('safeEdit1div');
+		var o3 = document.getElementById('KeyPartdiv');
+		o1.style.display = "none";
+		o2.style.display = "none";
+		o3.style.display = "none";
+	}else{
+		var o1 = document.getElementById('safeSubmit1div');
+		var o2 = document.getElementById('safeEdit1div');
+		var o3 = document.getElementById('KeyPartdiv');
+	  	o1.style.display = "block";
+		o2.style.display = "block";
+		o3.style.display = "block";
+	}
+}
+
+</SCRIPT>
+
+<SCRIPT>
+function vcf(){
+	refreshVerifyimage();
+	document.all("VerifyimageFrame").style.display="";
+	try{document.getElementById("link4Verifyimage2Name").innerText="";
+		jQuery("#link4Verifyimage2Name").hide();		
+	}catch(exception){}
+	
+}
+function vctimeout(){
+	document.getElementById("VerifyimageFrame").style.display="none";
+	try{document.getElementById("link4Verifyimage2Name").innerText="刷新验证码";
+	jQuery("#link4Verifyimage2Name").show();}catch(exception){}
+	document.getElementById("link4Verifyimage2Name").href="javascript:vcf()";
+}
+var vctime=setTimeout("vctimeout()",300000);
+</SCRIPT>
+</BODY></HTML>

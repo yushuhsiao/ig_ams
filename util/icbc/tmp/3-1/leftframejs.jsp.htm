@@ -1,0 +1,861 @@
+﻿<HTML><HEAD><TITLE></TITLE>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<SCRIPT language=javascript src="/icbc/newperbank/js/Menulist.js">
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+//阻止左侧菜单区回车事件
+function preventKey13(event) {
+	var pressKey = pebankBrowserCompatible.getKeycode(event);
+	if(pressKey == 13){
+	 	pebankBrowserCompatible.eventPreventDefault(event); 
+	}
+}
+function blockmenu()
+{
+	try{
+		document.getElementById("TB_leftoverlay1").style.display = "block";
+		document.getElementById("TB_leftoverlaybg1").style.display = "block";
+	}catch(excp){
+	}
+}
+function unblockmenu()
+{
+	try{
+		document.getElementById("TB_leftoverlay1").style.display = "none";
+		document.getElementById("TB_leftoverlaybg1").style.display = "none";
+	}catch(excp){
+	}
+}
+</SCRIPT>
+
+<STYLE type=text/css media=screen>
+#TB_leftoverlay1 {
+	position: absolute;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 120%;
+	min-height:100%;
+	background-color:#000;
+	display:none;
+	filter:alpha(opacity=20);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+}
+#TB_leftoverlaybg1 {
+	position: absolute;
+	z-index:0;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	display:none;
+	border:0px;
+	filter:alpha(opacity=0);
+}
+</STYLE>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css">
+<SCRIPT language=javascript>
+	<!--
+	var firstoldNum = '06';
+	var secidold = '0601';
+	var thridold = '';
+	var foridold = '';
+	var idtmp='0601';
+	var subtimes = '';
+	//console.error('这里是leftframe的参数' + secidold + ","+thridold + ","+ foridold + ","+ firstoldNum+ ","+ subtimes);
+	try{parent.parent.topFrame.topColor(firstoldNum);}catch(exception){}
+	//-->
+	</SCRIPT>
+</HEAD>
+<BODY onkeydown=preventKey13(event) style="OVERFLOW-X: hidden"><IFRAME id=TB_leftoverlaybg1 src="/icbc/newperbank/1.html"></IFRAME>
+<DIV id=TB_leftoverlay1></DIV>
+<TABLE class=leftAndMainFirstLineShowPic height=40 cellSpacing=0 cellPadding=0 width=190 border=0>
+<TBODY>
+<TR>
+<TD vAlign=bottom width=180>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD class=leftfirstbgandfont1 width=75>&nbsp;转账汇款</TD>
+<TD class=leftfirstbg1 height=23 width=18></TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+var mlt ;var mt ;var mlt2 ;var mt2 ; mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("020302","注册账户转账","Current-to-Current","0","0","1","1","10","1","","1","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("020402","工行转账汇款","ICBC Remittance ","0","0","1","1","10","1","","2","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("020502","跨行汇款","Interbank Transfer","0","0","1","1","10","1","","3","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+mlt2.add(new menu("060101","向境外Visa/Master卡汇款","Remittance to Overseas VISA/Master Card","0","0","1","1","2","1",""));
+mlt2.add(new menu("020602","向境外银行汇款","Remittance to Overseas Bank","0","0","1","1","2","1",""));
+ mt2 = new menu("060105","跨境汇款","Outward Remittance","0","1","1","1","10","1","020602","4","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("020403","批量转账汇款","Batch Remittance","0","0","1","1","10","1","","5","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060102","手机号汇款","Mobile Remittance","0","0","1","1","10","1","","6","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060103","E-mail汇款","E-mail Remittance ","0","0","1","1","10","1","","7","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060104","跨行快汇","Interbank e-transfer","0","0","1","1","10","1","","8","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+mlt2.add(new menu("06010701","西联汇出汇款","Western Union outward remittance","0","0","1","1","2","1",""));
+mlt2.add(new menu("06010702","西联收款解付","Western Union Receipt/Payment of Remittance","0","0","1","1","2","1",""));
+ mt2 = new menu("060107","西联汇款","Western Union remittance","0","1","1","1","10","1","06010701","9","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+mlt2.add(new menu("06010801","缴存","Payment","0","0","1","1","3","1",""));
+mlt2.add(new menu("06010802","缴存明细查询","Payment Details","0","0","1","1","3","1",""));
+mlt2.add(new menu("06010803","退款查询","Query for Refund","0","0","1","1","3","1",""));
+ mt2 = new menu("060108","投标保证金","Bid Bond","0","1","1","1","10","1","06010801","10","020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|","0|0|0|1|0|0|0|0|1|1|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0601","转账汇款","Transfer","0","1","1","1","9","1","","1","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060299","注册账户转账查询","Transfer by Registration A/C Enquiry","0","0","1","1","4","1","","1","060299|060298|060297|060296|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060298","境内汇款查询","Domestic Transfer Enquiry","0","0","1","1","4","1","","2","060299|060298|060297|060296|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060297","跨境汇款查询","Overseas Transfer Enquiry","0","0","1","1","4","1","","3","060299|060298|060297|060296|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060296","电话核实交易查询","Verify transaction by Phone Enquiry","0","0","1","1","4","1","","4","060299|060298|060297|060296|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0602","转账汇款查询","Transfer Enquiry","0","1","1","1","9","1","060299","2","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060301","工行收款人","Beneficiary","0","0","1","1","6","1","","1","060301|060302|060303|060305|060306|060304|","0|0|0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060302","他行收款人","Inter-bank Beneficiary","0","0","1","1","6","1","","2","060301|060302|060303|060305|060306|060304|","0|0|0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060303","向境外银行汇款收款人","Remittance to beneficiary of overseas bank","0","0","1","1","6","1","","3","060301|060302|060303|060305|060306|060304|","0|0|0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060305","境外Visa/Master卡收款人","Foreign Visa/Master Card Beneficiary","0","0","1","1","6","1","","4","060301|060302|060303|060305|060306|060304|","0|0|0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060306","手机银行收款人","Mobile Banking Beneficiary","0","0","1","1","6","1","","5","060301|060302|060303|060305|060306|060304|","0|0|0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060304","群组","Group","0","0","1","1","6","1","","6","060301|060302|060303|060305|060306|060304|","0|0|0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0603","我的收款人","My list of Payees","0","1","1","1","9","1","","3","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060401","协定金额转账设置","Set Schedule Amount Transfer","0","0","1","1","3","1","","1","060401|060402|060403|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060402","我的协定金额转账服务","My Schedule Amount Transfer Service","0","0","1","1","3","1","","2","060401|060402|060403|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060403","执行明细查询","Execution Details of Schedule Amount Transfer","0","0","1","1","3","1","","3","060401|060402|060403|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0604","协定金额转账","Schedule Amount Transfer","0","1","1","1","9","1","","4","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060501","预约周期转账设置","Set Recurring Transfer","0","0","1","1","3","1","","1","060501|060502|060503|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060502","预约周期转账查询/终止","Check/Terminate Recurring Transfer","0","0","1","1","3","1","","2","060501|060502|060503|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060503","预约周期转账执行明细","Execution Details of Recurring Transfer","0","0","1","1","3","1","","3","060501|060502|060503|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0605","预约周期转账","Recurring Transfer","0","1","1","1","9","1","","5","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060701","购买结算套餐","Buy Settlement Packages","0","0","1","1","3","1","","1","060701|060702|060703|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060702","我的结算套餐","My Settlement Packages","0","0","1","1","3","1","","2","060701|060702|060703|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060703","执行明细查询","Check execution details","0","0","1","1","3","1","","3","060701|060702|060703|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0607","结算套餐","Settlement Packages","0","1","1","1","9","1","","6","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060801","绑定手机号收款","Bind Mobile No. to Receive Money","0","0","1","1","4","1","","1","060801|060802|060803|060804|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060802","绑定E-mail收款","Bind E-mail to Receive Money","0","0","1","1","4","1","","2","060801|060802|060803|060804|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060803","绑定确认短信重发","SMS re-issued for binding confirmation","0","0","1","1","4","1","","3","060801|060802|060803|060804|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060804","E-mail绑定关系确认","Confirm E-mail Binding Relation","0","0","1","1","4","1","","4","060801|060802|060803|060804|","0|0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0608","绑定收款关系","Bind Receiving Relation","0","1","1","1","9","1","060801","7","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("2902","资金托管产品","Products","0","0","1","1","3","1","","1","2902|2903|2904|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("2903","我的资金托管","My Custody of Fund","0","0","1","1","3","1","","2","2902|2903|2904|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("2904","查询历史协议","Check History Agreement","0","0","1","1","3","1","","3","2902|2903|2904|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("29","资金托管","Custody of Fund","0","1","1","1","9","1","2902","8","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+ mlt = new Menulist();
+ mlt2 = new Menulist();
+ mt2 = new menu("060901","设置整汇零取","Installment Remittance Setting","0","0","1","1","3","1","","1","060901|060902|060903|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060902","我的整汇零取","My Installment Remittance","0","0","1","1","3","1","","2","060901|060902|060903|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mlt2 = new Menulist();
+ mt2 = new menu("060903","查询明细","Check details","0","0","1","1","3","1","","3","060901|060902|060903|","0|0|0|");
+mt2.add(mlt2);
+mlt.add(mt2);
+ mt = new menu("0609","整汇零取","Installment Remittance","0","1","1","1","9","1","060901","9","0601|0602|0603|0604|0605|0607|0608|29|0609|","1|1|1|1|1|1|1|1|1|");
+mt.add(mlt);
+menulist.add(mt);
+
+
+</SCRIPT>
+
+<DIV id=navtable>
+<TABLE id=maintable class=td_L_R3 cellSpacing=0 cellPadding=0 width=173 border=0>
+<TBODY>
+<TR onclick="showdv('0601','1','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0601 class=leftsecondbgandfont1 name="tr0601" nowrap><A name=#results0601></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0601 src="/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0601 class=left_link1 href="javascript:onSubleftForm('0601','1','')" name=sa_0601>转账汇款</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0601 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr020302','highlight')" onmouseout="mouseoutName('ltr020302','leftthirdbgandfontold1')" id=ltr020302 class=leftthirdbgandfontold1 name="ltr020302" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img020302 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('020302','1')" name=ta_020302><FONT id=leftthrfont020302>注册账户转账</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table020302 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr020402','highlight')" onmouseout="mouseoutName('ltr020402','leftthirdbgandfontold1')" id=ltr020402 class=leftthirdbgandfontold1 name="ltr020402" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img020402 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('020402','1')" name=ta_020402><FONT id=leftthrfont020402>工行转账汇款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table020402 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr020502','highlight')" onmouseout="mouseoutName('ltr020502','leftthirdbgandfontold1')" id=ltr020502 class=leftthirdbgandfontold1 name="ltr020502" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img020502 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('020502','1')" name=ta_020502><FONT id=leftthrfont020502>跨行汇款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table020502 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('060105','4','10','020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|','1','0|0|0|1|0|0|0|0|1|1|')" onmouseover="mouseoverName('ltr060105','highlight')" onmouseout="mouseoutName('ltr060105','leftthirdbgandfontold1')" id=ltr060105 class=leftthirdbgandfontold1 name="ltr060105" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img060105 style="CURSOR: hand" src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><FONT id=leftthrfont style="CURSOR: hand" +this.id+??>跨境汇款</FONT></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060105 class=td_L_green style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060101','highlight')" onmouseout="mouseoutName('ltr060101','leftthirdbgandfontold1')" id=ltr060101 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('060101','1')" name=fa_060101>向境外Visa/Master卡汇款</A></TD></TR>
+<TR onmouseover="mouseoverName('ltr020602','highlight')" onmouseout="mouseoutName('ltr020602','leftthirdbgandfontold1')" id=ltr020602 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('020602','1')" name=fa_020602>向境外银行汇款</A></TD></TR></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr020403','highlight')" onmouseout="mouseoutName('ltr020403','leftthirdbgandfontold1')" id=ltr020403 class=leftthirdbgandfontold1 name="ltr020403" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img020403 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('020403','1')" name=ta_020403><FONT id=leftthrfont020403>批量转账汇款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table020403 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060102','highlight')" onmouseout="mouseoutName('ltr060102','leftthirdbgandfontold1')" id=ltr060102 class=leftthirdbgandfontold1 name="ltr060102" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060102 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060102','1')" name=ta_060102><FONT id=leftthrfont060102>手机号汇款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060102 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060103','highlight')" onmouseout="mouseoutName('ltr060103','leftthirdbgandfontold1')" id=ltr060103 class=leftthirdbgandfontold1 name="ltr060103" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060103 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060103','1')" name=ta_060103><FONT id=leftthrfont060103>E-mail汇款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060103 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060104','highlight')" onmouseout="mouseoutName('ltr060104','leftthirdbgandfontold1')" id=ltr060104 class=leftthirdbgandfontold1 name="ltr060104" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060104 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060104','1')" name=ta_060104><FONT id=leftthrfont060104>跨行快汇</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060104 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('060107','9','10','020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|','1','0|0|0|1|0|0|0|0|1|1|')" onmouseover="mouseoverName('ltr060107','highlight')" onmouseout="mouseoutName('ltr060107','leftthirdbgandfontold1')" id=ltr060107 class=leftthirdbgandfontold1 name="ltr060107" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img060107 style="CURSOR: hand" src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><FONT id=leftthrfont style="CURSOR: hand" +this.id+??>西联汇款</FONT></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060107 class=td_L_green style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr06010701','highlight')" onmouseout="mouseoutName('ltr06010701','leftthirdbgandfontold1')" id=ltr06010701 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('06010701','1')" name=fa_06010701>西联汇出汇款</A></TD></TR>
+<TR onmouseover="mouseoverName('ltr06010702','highlight')" onmouseout="mouseoutName('ltr06010702','leftthirdbgandfontold1')" id=ltr06010702 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('06010702','1')" name=fa_06010702>西联收款解付</A></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('060108','10','10','020302|020402|020502|060105|020403|060102|060103|060104|060107|060108|','1','0|0|0|1|0|0|0|0|1|1|')" onmouseover="mouseoverName('ltr060108','highlight')" onmouseout="mouseoutName('ltr060108','leftthirdbgandfontold1')" id=ltr060108 class=leftthirdbgandfontold1 name="ltr060108" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img060108 style="CURSOR: hand" src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><FONT id=leftthrfont style="CURSOR: hand" +this.id+??>投标保证金</FONT></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060108 class=td_L_green style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr06010801','highlight')" onmouseout="mouseoutName('ltr06010801','leftthirdbgandfontold1')" id=ltr06010801 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('06010801','1')" name=fa_06010801>缴存</A></TD></TR>
+<TR onmouseover="mouseoverName('ltr06010802','highlight')" onmouseout="mouseoutName('ltr06010802','leftthirdbgandfontold1')" id=ltr06010802 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('06010802','1')" name=fa_06010802>缴存明细查询</A></TD></TR>
+<TR onmouseover="mouseoverName('ltr06010803','highlight')" onmouseout="mouseoutName('ltr06010803','leftthirdbgandfontold1')" id=ltr06010803 class=leftthirdbgandfontold1>
+<TD width="18%"></TD>
+<TD height=20 width="10%" align=center>-</TD>
+<TD height=25 width="72%"><A class=left_link1 href="javascript:onSubleftForm('06010803','1')" name=fa_06010803>退款查询</A></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0602','2','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0602 class=leftsecondbgandfontold1 name="tr0602" nowrap><A name=#results0602></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0602 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0602 class=left_link1 href="javascript:onSubleftForm('0602','1','060299')" name=sa_0602>转账汇款查询</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0602 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060299','highlight')" onmouseout="mouseoutName('ltr060299','leftthirdbgandfontold1')" id=ltr060299 class=leftthirdbgandfontold1 name="ltr060299" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060299 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060299','1')" name=ta_060299><FONT id=leftthrfont060299>注册账户转账查询</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060299 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060298','highlight')" onmouseout="mouseoutName('ltr060298','leftthirdbgandfontold1')" id=ltr060298 class=leftthirdbgandfontold1 name="ltr060298" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060298 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060298','1')" name=ta_060298><FONT id=leftthrfont060298>境内汇款查询</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060298 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060297','highlight')" onmouseout="mouseoutName('ltr060297','leftthirdbgandfontold1')" id=ltr060297 class=leftthirdbgandfontold1 name="ltr060297" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060297 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060297','1')" name=ta_060297><FONT id=leftthrfont060297>跨境汇款查询</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060297 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060296','highlight')" onmouseout="mouseoutName('ltr060296','leftthirdbgandfontold1')" id=ltr060296 class=leftthirdbgandfontold1 name="ltr060296" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060296 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060296','1')" name=ta_060296><FONT id=leftthrfont060296>电话核实交易查询</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060296 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0603','3','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0603 class=leftsecondbgandfontold1 name="tr0603" nowrap><A name=#results0603></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0603 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0603 class=left_link1 href="javascript:onSubleftForm('0603','1','')" name=sa_0603>我的收款人</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0603 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060301','highlight')" onmouseout="mouseoutName('ltr060301','leftthirdbgandfontold1')" id=ltr060301 class=leftthirdbgandfontold1 name="ltr060301" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060301 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060301','1')" name=ta_060301><FONT id=leftthrfont060301>工行收款人</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060301 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060302','highlight')" onmouseout="mouseoutName('ltr060302','leftthirdbgandfontold1')" id=ltr060302 class=leftthirdbgandfontold1 name="ltr060302" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060302 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060302','1')" name=ta_060302><FONT id=leftthrfont060302>他行收款人</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060302 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060303','highlight')" onmouseout="mouseoutName('ltr060303','leftthirdbgandfontold1')" id=ltr060303 class=leftthirdbgandfontold1 name="ltr060303" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060303 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060303','1')" name=ta_060303><FONT id=leftthrfont060303>向境外银行汇款收款人</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060303 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060305','highlight')" onmouseout="mouseoutName('ltr060305','leftthirdbgandfontold1')" id=ltr060305 class=leftthirdbgandfontold1 name="ltr060305" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060305 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060305','1')" name=ta_060305><FONT id=leftthrfont060305>境外Visa/Master卡收款人</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060305 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060306','highlight')" onmouseout="mouseoutName('ltr060306','leftthirdbgandfontold1')" id=ltr060306 class=leftthirdbgandfontold1 name="ltr060306" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060306 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060306','1')" name=ta_060306><FONT id=leftthrfont060306>手机银行收款人</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060306 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060304','highlight')" onmouseout="mouseoutName('ltr060304','leftthirdbgandfontold1')" id=ltr060304 class=leftthirdbgandfontold1 name="ltr060304" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060304 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060304','1')" name=ta_060304><FONT id=leftthrfont060304>群组</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060304 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0604','4','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0604 class=leftsecondbgandfontold1 name="tr0604" nowrap><A name=#results0604></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0604 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0604 class=left_link1 href="javascript:onSubleftForm('0604','1','')" name=sa_0604>协定金额转账</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0604 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060401','highlight')" onmouseout="mouseoutName('ltr060401','leftthirdbgandfontold1')" id=ltr060401 class=leftthirdbgandfontold1 name="ltr060401" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060401 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060401','1')" name=ta_060401><FONT id=leftthrfont060401>协定金额转账设置</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060401 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060402','highlight')" onmouseout="mouseoutName('ltr060402','leftthirdbgandfontold1')" id=ltr060402 class=leftthirdbgandfontold1 name="ltr060402" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060402 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060402','1')" name=ta_060402><FONT id=leftthrfont060402>我的协定金额转账服务</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060402 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060403','highlight')" onmouseout="mouseoutName('ltr060403','leftthirdbgandfontold1')" id=ltr060403 class=leftthirdbgandfontold1 name="ltr060403" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060403 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060403','1')" name=ta_060403><FONT id=leftthrfont060403>执行明细查询</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060403 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0605','5','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0605 class=leftsecondbgandfontold1 name="tr0605" nowrap><A name=#results0605></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0605 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0605 class=left_link1 href="javascript:onSubleftForm('0605','1','')" name=sa_0605>预约周期转账</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0605 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060501','highlight')" onmouseout="mouseoutName('ltr060501','leftthirdbgandfontold1')" id=ltr060501 class=leftthirdbgandfontold1 name="ltr060501" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060501 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060501','1')" name=ta_060501><FONT id=leftthrfont060501>预约周期转账设置</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060501 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060502','highlight')" onmouseout="mouseoutName('ltr060502','leftthirdbgandfontold1')" id=ltr060502 class=leftthirdbgandfontold1 name="ltr060502" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060502 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060502','1')" name=ta_060502><FONT id=leftthrfont060502>预约周期转账查询/终止</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060502 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060503','highlight')" onmouseout="mouseoutName('ltr060503','leftthirdbgandfontold1')" id=ltr060503 class=leftthirdbgandfontold1 name="ltr060503" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060503 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060503','1')" name=ta_060503><FONT id=leftthrfont060503>预约周期转账执行明细</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060503 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0607','6','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0607 class=leftsecondbgandfontold1 name="tr0607" nowrap><A name=#results0607></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0607 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0607 class=left_link1 href="javascript:onSubleftForm('0607','1','')" name=sa_0607>结算套餐</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0607 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060701','highlight')" onmouseout="mouseoutName('ltr060701','leftthirdbgandfontold1')" id=ltr060701 class=leftthirdbgandfontold1 name="ltr060701" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060701 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060701','1')" name=ta_060701><FONT id=leftthrfont060701>购买结算套餐</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060701 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060702','highlight')" onmouseout="mouseoutName('ltr060702','leftthirdbgandfontold1')" id=ltr060702 class=leftthirdbgandfontold1 name="ltr060702" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060702 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060702','1')" name=ta_060702><FONT id=leftthrfont060702>我的结算套餐</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060702 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060703','highlight')" onmouseout="mouseoutName('ltr060703','leftthirdbgandfontold1')" id=ltr060703 class=leftthirdbgandfontold1 name="ltr060703" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060703 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060703','1')" name=ta_060703><FONT id=leftthrfont060703>执行明细查询</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060703 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0608','7','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0608 class=leftsecondbgandfontold1 name="tr0608" nowrap><A name=#results0608></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0608 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0608 class=left_link1 href="javascript:onSubleftForm('0608','1','060801')" name=sa_0608>绑定收款关系</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0608 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060801','highlight')" onmouseout="mouseoutName('ltr060801','leftthirdbgandfontold1')" id=ltr060801 class=leftthirdbgandfontold1 name="ltr060801" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060801 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060801','1')" name=ta_060801><FONT id=leftthrfont060801>绑定手机号收款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060801 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060802','highlight')" onmouseout="mouseoutName('ltr060802','leftthirdbgandfontold1')" id=ltr060802 class=leftthirdbgandfontold1 name="ltr060802" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060802 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060802','1')" name=ta_060802><FONT id=leftthrfont060802>绑定E-mail收款</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060802 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060803','highlight')" onmouseout="mouseoutName('ltr060803','leftthirdbgandfontold1')" id=ltr060803 class=leftthirdbgandfontold1 name="ltr060803" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060803 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060803','1')" name=ta_060803><FONT id=leftthrfont060803>绑定确认短信重发</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060803 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060804','highlight')" onmouseout="mouseoutName('ltr060804','leftthirdbgandfontold1')" id=ltr060804 class=leftthirdbgandfontold1 name="ltr060804" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060804 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060804','1')" name=ta_060804><FONT id=leftthrfont060804>E-mail绑定关系确认</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060804 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('29','8','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr29 class=leftsecondbgandfontold1 name="tr29" nowrap><A name=#results29></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img29 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_29 class=left_link1 href="javascript:onSubleftForm('29','1','2902')" name=sa_29>资金托管</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table29 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr2902','highlight')" onmouseout="mouseoutName('ltr2902','leftthirdbgandfontold1')" id=ltr2902 class=leftthirdbgandfontold1 name="ltr2902" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img2902 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('2902','1')" name=ta_2902><FONT id=leftthrfont2902>资金托管产品</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table2902 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr2903','highlight')" onmouseout="mouseoutName('ltr2903','leftthirdbgandfontold1')" id=ltr2903 class=leftthirdbgandfontold1 name="ltr2903" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img2903 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('2903','1')" name=ta_2903><FONT id=leftthrfont2903>我的资金托管</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table2903 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr2904','highlight')" onmouseout="mouseoutName('ltr2904','leftthirdbgandfontold1')" id=ltr2904 class=leftthirdbgandfontold1 name="ltr2904" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img2904 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('2904','1')" name=ta_2904><FONT id=leftthrfont2904>查询历史协议</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table2904 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+<TR onclick="showdv('0609','9','9','0601|0602|0603|0604|0605|0607|0608|29|0609|','1','1|1|1|1|1|1|1|1|1|')" id=tr0609 class=leftsecondbgandfontold1 name="tr0609" nowrap><A name=#results0609></A>
+<TD height=25 width="10%"></TD>
+<TD height=25 width="10%" align=center><IMG id=img0609 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jia01.gif" height=9></TD>
+<TD height=25 width="80%"><A id=sa_0609 class=left_link1 href="javascript:onSubleftForm('0609','1','060901')" name=sa_0609>整汇零取</A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table0609 style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY>
+<TR onmouseover="mouseoverName('ltr060901','highlight')" onmouseout="mouseoutName('ltr060901','leftthirdbgandfontold1')" id=ltr060901 class=leftthirdbgandfontold1 name="ltr060901" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060901 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060901','1')" name=ta_060901><FONT id=leftthrfont060901>设置整汇零取</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060901 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060902','highlight')" onmouseout="mouseoutName('ltr060902','leftthirdbgandfontold1')" id=ltr060902 class=leftthirdbgandfontold1 name="ltr060902" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060902 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060902','1')" name=ta_060902><FONT id=leftthrfont060902>我的整汇零取</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060902 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR>
+<TR onmouseover="mouseoverName('ltr060903','highlight')" onmouseout="mouseoutName('ltr060903','leftthirdbgandfontold1')" id=ltr060903 class=leftthirdbgandfontold1 name="ltr060903" nowrap>
+<TD height=25 width="13%"></TD>
+<TD height=20 width="10%" align=center><IMG id=img060903 src="https://mybank.icbc.com.cn/icbc/newperbank/images/jian01.gif" height=9></TD>
+<TD height=25 width="77%"><A class=left_link1 href="javascript:onSubleftForm('060903','1')" name=ta_060903><FONT id=leftthrfont060903>查询明细</FONT></A></TD></TR>
+<TR>
+<TD height=1 colSpan=3>
+<TABLE id=table060903 cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+<TABLE cellSpacing=0 cellPadding=0 width=173 border=0>
+<TBODY>
+<TR>
+<TD id=右侧大td vAlign=top><BR><BR>
+<TABLE class=td_L_green height=170 cellSpacing=0 cellPadding=0 width="100%" border=0 vlign="top">
+<TBODY></TBODY></TABLE></TD></TR></TBODY></TABLE></TABLE>
+<FORM method=get name=leftform action=/icbc/newperbank/includes/leftframejs.jsp><INPUT type=hidden name=id> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> </FORM>
+<FORM method=get name=leftformfirefox action=/icbc/newperbank/includes/leftframejs.jsp><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden name=id> <INPUT type=hidden value=0 name=subtimes> </FORM>
+<FORM name=formtocenter action=/servlet/ICBCINBSCenterServlet target=mainFrame><INPUT type=hidden name=id> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> </FORM>
+<SCRIPT language=javascript>
+
+	function leftColor(secNum,thirdNum,fourNum,firstNum,e)
+{	
+		
+	var _toIDnum = "";
+	_toIDnum = firstNum == ""?_toIDnum:firstNum;
+	_toIDnum = secNum == ""?_toIDnum:secNum;
+	_toIDnum = thirdNum == ""?_toIDnum:thirdNum;
+	_toIDnum = fourNum == ""?_toIDnum:fourNum;			
+	if(firstoldNum != firstNum)
+	{
+ 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+ 	 		leftformfirefox.id.value=_toIDnum;
+ 	 		leftformfirefox.subtimes.value="1";
+ 	 		leftformfirefox.submit(); 
+ 		}else{
+ 	 	leftform.submit(); 
+ 	}
+	return;}
+	var leftsecid ;
+	var leftthrid ;
+	var leftforid ;
+	var divn;var img;
+	if(secNum != thirdNum){
+	img = 'img'+secNum;
+	divn = 'table'+secNum;
+	divn = eval(divn);
+	try{
+		if(divn.style.display!='')
+			{
+				img = eval(img);
+				divn.style.display='';
+				img.src="/icbc/newperbank/images/jian01.gif";
+				
+			}
+	}catch(Exception){}
+	var leftsecidold = eval("document.all.tr"+secidold);	
+ 	var leftsecid = eval("document.all.tr"+secNum); 
+	
+ 	if(leftsecidold!=null){
+ 	leftsecidold.className="leftsecondbgandfontold1";}
+ 	leftsecid.className="leftsecondbgandfont1";
+ 	try{
+ 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+ 	 eval("document.all.sa_"+secNum).focus();
+ 	 	}
+ 	}catch(e){}
+ 	location.hash="#results"+secNum;
+	
+ 	var leftthridold = eval("document.all.ltr"+thridold);
+	var leftforidold = eval("document.all.ltr"+foridold);
+ 	var leftthrid = eval("document.all.ltr"+thirdNum);
+	var leftforid = eval("document.all.ltr"+fourNum);
+	
+ 	if(leftthridold!=null&&leftthridold!=leftsecidold){
+
+ 		leftthridold.className="leftthirdbgandfontold1";
+		if(leftforidold!=null){ 
+			leftforidold.className ="leftthirdbgandfontold1";		
+			
+			try{
+			divn='table'+thirdNum; 
+			img = 'img'+thirdNum;
+			divn=eval(divn); 
+						
+			if(divn.style.display!=''){
+					img = eval(img);
+					divn.style.display='';
+					img.src="/icbc/newperbank/images/jian01.gif";					
+				}
+			}catch(Exception){}
+			}
+
+			
+	}
+
+	if(leftthrid!=null){
+		leftthrid.className="leftthirdbgandfont1";
+	 	try{
+	 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+	 	 	 eval("document.all.ta_"+thirdNum).focus();
+	 	 	}
+	 	 	}catch(e){}
+	}
+	if(leftforid!=null){
+                        leftforid.className="leftthirdbgandfont1";
+                	 	try{
+                	 	 	if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+               	 	 	 eval("document.all.fa_"+fourNum).focus();
+                	 	 	}
+               	 	 	}catch(e){}
+                        divn='table'+thirdNum; 
+                                img = 'img'+thirdNum;
+                                img = eval(img);
+                                divn=eval(divn); 
+                                if(divn.style.display!=''){
+                                                divn.style.display='';
+                                                img.src="/icbc/newperbank/images/jian01.gif";                                   
+                                        }
+                }
+ 	secidold = secNum;
+ 	thridold = thirdNum;
+	foridold = fourNum;
+	
+	}
+	try{
+		if(pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome()){
+			focusMainFrame();//将焦点从leftframe转移到mainFrame
+		}
+	}catch(ep){}
+}
+function focusMainFrame(){
+	var focusElem =  parent.mainFrame.document.activeElement;
+	//console.error("main state: "+ parent.mainFrame.document.readyState +"  focusElem:" + focusElem.id);
+	if( parent.mainFrame.document.readyState=="complete"){
+		focusElem.focus();
+	}else{
+		parent.mainFrame.window.focus();
+	}
+}
+	
+if(subtimes == "1"&& (pebankBrowserCompatible.isFirefox()||pebankBrowserCompatible.isChrome() )){
+ 		    leftformfirefox.id.value=idtmp;
+	 		leftformfirefox.subtimes.value="2";
+	 		leftformfirefox.submit(); 
+}else{	
+//console.error('这里是leftColor的参数' + '0601' + ","+'' + ","+ '' + ","+ '06');
+leftColor('0601','','','06');
+}
+</SCRIPT>
+</BODY></HTML>

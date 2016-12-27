@@ -1,0 +1,2185 @@
+﻿<HTML><HEAD><TITLE>欢迎您登陆工商银行网上银行</TITLE>
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery-1.4.3.min.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/desktop/js/jquery.ui.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/flot0.6/jquery.flot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/ajax/jquery.bgiframe.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/datatables/jquery.dataTables.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/dist/jquery.jqplot.js"></SCRIPT>
+
+<SCRIPT src="/icbc/newperbank/js/includes/pebank_browsercompatible.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/preventFresh.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/includes/ControlsId.js"></SCRIPT>
+<INPUT type=hidden name=saveFiledValueFirefox>
+<SCRIPT language=JavaScript1.2>
+<!--
+var isshowtip='1';
+
+function setcolor(){
+		var topframe = parent.parent.topFrame||parent.parent.parent.topFrame;
+		var leftframe = parent.leftFrame||parent.parent.leftFrame;
+		try{
+			topframe.topColor('06');
+			//console.error("left state: "+parent.leftFrame.document.readyState);
+			if(leftframe.document.readyState=="complete"){
+				leftFrameColor();
+			}else{
+				setTimeout("leftFrameColor()",2000);
+			}
+		}catch(Exception){
+			window.setTimeout("leftFrameColor()",2000);
+		}
+}
+//特殊处理新栏目下的左测栏目是否隐藏显示
+function leftFrameColor(){
+	try{
+		var leftframe = parent.leftFrame||parent.parent.leftFrame;
+		leftframe.leftColor('0602','060298','','06');
+	}catch(Exception){}
+}
+function showdv1(){
+
+		try{tabletopmessage.style.display='none';}catch(exception){}
+		/*tdtopmessage.style.display='';
+		tdtopmessage1.style.display='';
+		tdtopmessage2.style.display='';*/
+		try{tdtopmessage.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage1.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage2.style.visibility='visible';}catch(exception){}
+	}
+	function showdv2(){
+		try{tabletopmessage.style.display='';}catch(exception){}
+		/*tdtopmessage.style.display='none';
+		tdtopmessage1.style.display='none';
+		tdtopmessage2.style.display='none';*/
+		try{tdtopmessage.style.visibility='hidden';}catch(exception){}
+		try{tdtopmessage1.style.visibility='hidden';}catch(exception){}
+		try{tdtopmessage2.style.visibility='hidden';}catch(exception){}
+	}
+	
+	try{
+		
+			window.parent.parent.frames[0].TB_remove1();
+			window.parent.parent.frames[0].uncoversub();
+		
+	}catch(excp){
+	}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/layer.js"></SCRIPT>
+
+<FORM method=post name=showTipForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId><INPUT type=hidden value=-1 name=dse_applicationId><INPUT type=hidden value=per_ServicePersonalizeCloseTipOp name=dse_operationName><INPUT type=hidden value=6 name=dse_pageId><INPUT type=hidden value=1 name=enrolflag><INPUT type=hidden name=closetip></FORM><!-- 本交易支持自贸区 --><LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/style_red.css">
+<SCRIPT language=javascript src="/icbc/newperbank/js/accountlist.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+acctList.add(new Account(true,"6222024200019701731","","",0,"3","011","个人综合帐户卡","1","","","","4200","长春","0","","0","1111212112211211212211211111111222112222221222111112112121111112211222111122221111121111111122121111112222222111212221121112222211112211112121112121112111221211122111112122122211211111111221112221222221111112112111211122222222112211111222221112222221221122222221111122221112121112112121111211212211221122121112222211121211112112111111222122112221121111221111111111212121112111111211111122121111211221211111112221112222111112222112222111112111211111211121112211111122112111121112111112211122121211111222111221121222112221111111122211112222222222211111211111111212211122221112111111222212212211111222122222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"," ","","046001769","0"));
+acctList.add(new Account(false,"6222024200019701731","00000","4200202101009494268",0,"3","01","活期","1","","","004","4200","长春","0","","0","","","4","","","","00000000000000000","","","",""));
+
+</SCRIPT>
+
+<SCRIPT language=javascript>
+
+</SCRIPT>
+
+<SCRIPT language=javascript>
+
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/getcurrType.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.1 src="/icbc/newperbank/js/dateSelector.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+ var oCalendarChs=new PopupCalendar("oCalendarChs"); //初始化控件时,请给出实例名称:oCalendarChs
+
+ oCalendarChs.weekDaySting=new Array("日","一","二","三","四","五","六");
+
+ oCalendarChs.monthSting=new Array("一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月");
+
+ oCalendarChs.oBtnTodayTitle="今天";
+
+ oCalendarChs.oBtnCancelTitle="取消";
+
+ oCalendarChs.Init();
+ 
+ var isEcard = "0";
+ 
+function checkcalender(years,months,dates){
+
+  leapyear = (((years % 4 == 0) && (years % 100 != 0)) || (years % 400 == 0)) ?1:0;
+  var month_length = new Array(12);
+  month_length[0] = 31;
+  month_length[1] = leapyear ? 29 : 28;
+  month_length[2] = 31;
+  month_length[3] = 30;
+  month_length[4] = 31;
+  month_length[5] = 30;
+  month_length[6] = 31;
+  month_length[7] = 31;
+  month_length[8] = 30;
+  month_length[9] = 31;
+  month_length[10] = 30;
+  month_length[11] = 31;   
+  if(months<1||months>12){
+    alert("请输入合法月份：1--12"); 
+    return false;
+  }
+
+  var month1=parseInt(months,10)-1;
+
+  if(dates<1||dates>month_length[month1]){
+    alert("请输入合法日期：1--"+month_length[month1]); 
+    return false;
+  }
+  return true;
+}
+function getfirstmonthday(years,months,dates){
+  leapyear = (((years % 4 == 0) && (years % 100 != 0)) || (years % 400 == 0)) ?1:0;
+  var month_length = new Array(12);
+  month_length[0] = 31;
+  month_length[1] = leapyear ? 29 : 28;
+  month_length[2] = 31;
+  month_length[3] = 30;
+  month_length[4] = 31;
+  month_length[5] = 30;
+  month_length[6] = 31;
+  month_length[7] = 31;
+  month_length[8] = 30;
+  month_length[9] = 31;
+  month_length[10] = 30;
+  month_length[11] = 31;   
+  var tempdate="";
+  if(months==0)
+  {
+    tempdate=new Date(years-1,11,dates);
+    return tempdate;
+  }
+
+  if(month_length[months-1]<dates)
+  {
+    tempdate=new Date(years,months-1,month_length[months-1]);
+  }
+  else
+  {
+    tempdate=new Date(years,months-1,dates);
+  }
+  return tempdate;
+}
+
+function initpage()
+{
+
+     InfoForm.TranFlag.options.length=1;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.disabled=true;
+     
+	if('060298'=='060299'){//注册账户
+		InfoForm.TranType.options.length=1;
+		InfoForm.TranType.options[0].selected=true;
+		InfoForm.TranType.options[0].value="0";
+		InfoForm.TranType.options[0].text="注册账户转账";
+		Trantypechange();
+		
+		document.getElementById("TranTypeShow").style.display="none";
+		document.getElementById("tradeType_show").style.display="none";
+		
+	}else if('060298'=='060298'){//境内汇款 工行汇款、跨行汇款、工银速汇、批量汇款、跨行快汇、向任意手机号汇款
+		document.getElementById("TranTypeShow").style.display="";
+		document.getElementById("tradeType_show").style.display="";
+		InfoForm.TranType.options.length=6;
+		InfoForm.TranType.options[0].selected=true;
+		InfoForm.TranType.options[0].value="noselected";
+		InfoForm.TranType.options[0].text="请选择";
+		  	
+		InfoForm.TranType.options[1].value="1";
+		InfoForm.TranType.options[1].text="工行汇款";
+		
+		InfoForm.TranType.options[2].value="2";
+		InfoForm.TranType.options[2].text="跨行汇款";
+		
+		InfoForm.TranType.options[3].value="4";
+		InfoForm.TranType.options[3].text="批量汇款";
+		
+		InfoForm.TranType.options[4].value="7";
+		InfoForm.TranType.options[4].text="跨行快汇";
+		   
+		InfoForm.TranType.options[5].value="11";
+		InfoForm.TranType.options[5].text="向未绑定手机号汇款";
+    	
+    	
+                                 
+	}else if('060298'=='060297'){//境外汇款 工银速汇、向境外他行卡汇款、向境外Visa/Master卡汇款、西联汇款
+		document.getElementById("TranTypeShow").style.display="";
+		document.getElementById("tradeType_show").style.display="";
+		
+		InfoForm.TranType.options.length=4;
+		InfoForm.TranType.options[0].selected=true;
+		InfoForm.TranType.options[0].value="noselected";
+		InfoForm.TranType.options[0].text="请选择";
+    	
+	 	InfoForm.TranType.options[1].value="6";
+	 	InfoForm.TranType.options[1].text="向境外银行汇款";	 	 
+	 	
+	 	InfoForm.TranType.options[2].value="5";
+	 	InfoForm.TranType.options[2].text="向境外Visa/Master卡汇款";
+	 	
+	 	InfoForm.TranType.options[3].value="10";
+	 	InfoForm.TranType.options[3].text="西联汇款";
+
+
+	}else if('060298'=='060296'){//电话核实
+		
+		InfoForm.TranType.options.length=1;
+		InfoForm.TranType.options[0].value="8";
+		InfoForm.TranType.options[0].text="电话核实交易";
+		Trantypechange();
+		document.getElementById("TranTypeShow").style.display="none";
+		document.getElementById("tradeType_show").style.display="none";
+		document.getElementById("cardtList_show").style.display="none";
+		document.getElementById("acctList_show").style.display="none";
+		
+		
+	}
+	
+	
+     
+     
+     InfoForm.endDate.value=20150621;
+     var NdayLaterDate = getfirstmonthday(2015,06,21-30);
+     var d=NdayLaterDate.getDate();
+	 var y=NdayLaterDate.getFullYear();
+	 	 var m=NdayLaterDate.getMonth()+1;
+	 if(d < 10){
+		d="0"+d;
+	 }
+	 if(m < 10){
+		m="0"+m;
+	 }
+    NdayLaterDate = "" + y + m + d;
+    InfoForm.begDate.value=NdayLaterDate;
+    
+      
+    
+    if("1"==isEcard){
+		document.InfoForm.TranType.options[3].selected=true;
+		InfoForm.TranType.disabled=true;
+		normal_onchange(InfoForm);
+    	InfoForm.TranFlag.options.length=2;
+    	InfoForm.TranFlag.options[0].value="noselected";
+    	InfoForm.TranFlag.options[0].text="请选择";
+    	InfoForm.TranFlag.options[0].selected=true;
+    	InfoForm.TranFlag.disabled=true;
+	}
+    
+                                 
+
+
+    
+}
+
+//交易种类改变的onchange方法
+function Tranflagchange()
+{
+  var typevalue=InfoForm.TranType.value;
+  var flagvalue=InfoForm.TranFlag.value;
+
+
+
+  if(typevalue==1)
+  {
+     if(flagvalue==0)
+     pay_onchange(InfoForm);
+     if(flagvalue==1)
+     rec_onchange(InfoForm);
+     if(flagvalue==2)
+     other_onchange(InfoForm);
+
+  }
+	
+	//西联汇款
+	if(typevalue==10)
+  {	
+     if(InfoForm.TranFlag.value=="0"){
+     	wu_onchange(InfoForm,"0");
+     }
+     if(InfoForm.TranFlag.value=="1"){
+     	wu_onchange(InfoForm,"");
+     }
+   }
+   
+   //向未绑定手机号汇款
+   if(typevalue==11)
+   {
+   	if(flagvalue==0){//付款交易
+   		document.getElementById("cardtList_show").style.display="";
+     	document.getElementById("acctList_show").style.display="";
+     	document.getElementById("recName_show").style.display="none";//收款人
+     	document.getElementById("recMobileNum_show").style.display="none";//收款手机号
+   	}else{			//收款交易
+   		document.getElementById("cardtList_show").style.display="none";
+     	document.getElementById("acctList_show").style.display="none";
+     	document.getElementById("recName_show").style.display="";//收款人
+     	document.getElementById("recMobileNum_show").style.display="";//收款手机号
+   	} 
+   }
+   
+   
+
+}
+function Trantypechange_1(){
+  //重置开始日期，否则会缓存上一次的控制值
+  dateSelector_clear("begDate");
+	//交易类型改变的onchange方法
+ Trantypechange();
+}
+function Trantypechange()
+{
+  
+  var typevalue;
+
+  typevalue=InfoForm.TranType.value;
+  jQuery("#td_icbcVerifyCode").hide();
+  InfoForm.qryMode.value="";
+  jQuery("#quickDateTM").show();
+  if(typevalue=="9")
+  {//同城跨行转账
+     document.getElementById("tradeType_show").style.display="none";
+     document.getElementById("cardtList_show").style.display="none";
+     document.getElementById("acctList_show").style.display="none";
+     document.getElementById("queryTime_show").style.display="none";									
+  }else{
+ 	 document.getElementById("tradeType_show").style.display="";
+     document.getElementById("cardtList_show").style.display="";
+     document.getElementById("acctList_show").style.display="";
+     document.getElementById("queryTime_show").style.display="";
+     
+     document.getElementById("recName_show").style.display="none";
+     document.getElementById("recMobileNum_show").style.display="none";
+  }
+  if(typevalue=="1")
+  {//工行转账汇款
+  	
+  	 dateSelector_setDays("begDate",dateSelector_getDays("begDate1"));
+     normal_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=4;
+     InfoForm.TranFlag.options[1].value="0";
+     InfoForm.TranFlag.options[1].text="付款交易";
+     InfoForm.TranFlag.options[2].value="1";
+     InfoForm.TranFlag.options[2].text="收款交易";
+     InfoForm.TranFlag.options[3].value="2";
+     InfoForm.TranFlag.options[3].text="委托管理人交易";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.disabled=false;
+  }
+  else if(typevalue=="2")
+  {//跨行跨款
+  	 jQuery("#quickDateTM").hide();
+	 dateSelector_setMonths("begDate",dateSelector_getMonths("begDate2"));
+     normal_onchange(InfoForm);
+     
+     InfoForm.TranFlag.options.length=3;
+     InfoForm.TranFlag.options[1].value="0";
+     InfoForm.TranFlag.options[1].text="付款交易";
+     InfoForm.TranFlag.options[2].value="1";
+     InfoForm.TranFlag.options[2].text="收款交易";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.disabled=false;
+     
+     InfoForm.acctSelList2.disabled=true;
+     InfoForm.acctSelList.disabled=false;
+
+  }
+ 
+  
+  else if(typevalue=="4")
+  {
+     dateSelector_setMonths("begDate",dateSelector_getMonths("begDate4"));
+     normal_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=1;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.disabled=true;
+     InfoForm.acctSelList.disabled=true;
+     InfoForm.acctSelList2.disabled=true;
+
+  }
+  else if(typevalue=="0")//注册账户转账
+  {
+     dateSelector_setDays("begDate",dateSelector_getDays("begDate0"));
+     InfoForm.TranFlag.options.length=3;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.options[1].value="0";
+     InfoForm.TranFlag.options[1].text="境内账户付款交易";
+     InfoForm.TranFlag.options[2].value="1";
+     InfoForm.TranFlag.options[2].text="境外账户付款交易";
+     InfoForm.TranFlag.disabled=true;//2011年8月版本《2011年8月份电子银行业务流程优化》
+     displayCurrAcct(InfoForm);//显示卡及下挂账户
+     InfoForm.acctSelList.disabled=false;
+     InfoForm.acctSelList2.disabled=false;
+  }
+ else if(typevalue=="5") //Visa/Master汇款
+  {
+	 dateSelector_setMonths("begDate",dateSelector_getMonths("begDate5"));
+     foreign_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=2;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.disabled=true;
+     InfoForm.acctSelList2.disabled=true;
+     InfoForm.acctSelList.disabled=false;
+    
+  }
+  else if(typevalue=="6" )  //新工银速汇
+  {
+	 dateSelector_setDays("begDate",dateSelector_getDays("begDate6"));
+     normal_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=2;
+     InfoForm.TranFlag.options[0].value="0";
+     InfoForm.TranFlag.options[0].text="付款交易";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.options[1].value="1";
+     InfoForm.TranFlag.options[1].text="收款交易";
+     InfoForm.TranFlag.disabled=false;
+     InfoForm.acctSelList.disabled=false;
+     InfoForm.acctSelList2.disabled=true;
+
+  }
+  else if(typevalue=="7")
+  {//跨行快汇
+  	 dateSelector_setMonths("begDate",dateSelector_getMonths("begDate7"));
+     normal_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=2;
+     InfoForm.TranFlag.options[0].value="noselected";
+     InfoForm.TranFlag.options[0].text="请选择";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.disabled=true;
+     InfoForm.acctSelList2.disabled=true;
+     InfoForm.acctSelList.disabled=false;
+  }
+  else if(typevalue=="8")
+  {//电话核实交易
+  	 dateSelector_setDays("begDate",dateSelector_getDays("begDate8"));
+     normal_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=1;
+     InfoForm.TranFlag.options[0].value="0";
+     InfoForm.TranFlag.options[0].text="付款交易";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.disabled=true;
+     InfoForm.acctSelList2.disabled=true;
+     InfoForm.acctSelList.disabled=true;
+  }
+  else if(typevalue=="10")//西联
+  {
+  	 
+     var usertype = '3';
+     var regtype = '0';
+     if(usertype=='0'||regtype=='1')
+     {
+	     InfoForm.TranFlag.options.length=2;
+	     InfoForm.TranFlag.options[0].value="noselected";  
+	     InfoForm.TranFlag.options[0].text="请选择";
+	     InfoForm.TranFlag.options[0].selected=true;
+	     InfoForm.TranFlag.options[1].value="1";
+	     InfoForm.TranFlag.options[1].text="收款解付";
+     }else{
+	     InfoForm.TranFlag.options.length=3;
+	     InfoForm.TranFlag.options[0].value="noselected";
+	     InfoForm.TranFlag.options[0].text="请选择";
+	     InfoForm.TranFlag.options[0].selected=true;
+	     InfoForm.TranFlag.options[1].value="0";
+	     InfoForm.TranFlag.options[1].text="汇出汇款";
+	     InfoForm.TranFlag.options[2].value="1";
+	     InfoForm.TranFlag.options[2].text="收款解付";
+     }
+    
+     InfoForm.TranFlag.disabled=false;//交易种类可选
+     InfoForm.acctSelList2.disabled=true;//下挂账户置灰
+     InfoForm.acctSelList.disabled=false;//注册卡可选
+     
+  }else if(typevalue=="11"){			//向未绑定手机号汇款
+  	 dateSelector_setDays("begDate",dateSelector_getDays("begDate11"));
+  	 normal_onchange(InfoForm);
+     InfoForm.TranFlag.options.length=2;
+     InfoForm.TranFlag.options[0].value="0";
+     InfoForm.TranFlag.options[0].text="付款交易";
+     InfoForm.TranFlag.options[0].selected=true;
+     InfoForm.TranFlag.options[1].value="1";
+     InfoForm.TranFlag.options[1].text="收款交易";
+     InfoForm.TranFlag.disabled=false;
+     InfoForm.acctSelList2.disabled=true;
+     InfoForm.acctSelList.disabled=false;
+  }
+}
+
+function cardSelListChange(accts){
+	var accountNo;
+	var account;
+	var card_num="";
+
+var tempstr1 = '';			
+var tempstr2 = '';			
+
+	if((InfoForm.acctSelList.value=="手工输入"||tempstr1!=""||tempstr2!="")&&InfoForm.TranType.value=="7"){}	
+	else if(InfoForm.acctSelList.value!=""&&InfoForm.acctSelList.value!="no"){
+		card_num=acctList.elementAt(InfoForm.acctSelList.value).cardNum;	
+		
+	}else{
+		InfoForm.acctSelList.length=1;
+		InfoForm.acctSelList.options[0].text="没有满足条件的卡号";
+		InfoForm.acctSelList.options[0].value="";
+	}
+	var acct_array=new Array();	
+	var count=0;
+	
+	var cardNum_prefix = "";
+	try{//避免网银互联账户报错
+	if(acctList.elementAt(InfoForm.acctSelList.value).ftFlag == "5")
+	{
+			cardNum_prefix = "FTI";
+	}
+	else if(acctList.elementAt(InfoForm.acctSelList.value).ftFlag == "6")
+	{
+			cardNum_prefix = "FTF";
+	}
+	}catch(e){}
+	for(var i=0;i<acctList.len();i++){
+		var accounts=acctList.elementAt(i);		
+		
+		if(accounts.isRegistedCard==false&&accts.indexOf("|"+accounts.acctType+"|")!=-1&&accounts.cardNum==card_num){
+		
+			acct_array[count]=i;	
+			count++;
+		}
+	}
+	
+	
+	if(count==0){
+		InfoForm.acctSelList2.length=1;
+		InfoForm.acctSelList2.options[0].text="---账户信息待查---";
+		InfoForm.acctSelList2.options[0].value="no";
+		InfoForm.acctSelList2.options[0].selected=true;		
+		return;
+	}
+	InfoForm.acctSelList2.length=count+1;
+	for(i=0;i<count;i++){
+		account=acctList.elementAt(acct_array[i]);
+
+		InfoForm.acctSelList2.options[i].text=account.acctCode+" "+account.acctDesc+" "+cardNum_prefix+account.acctNum+" "+account.acctAlias;
+		InfoForm.acctSelList2.options[i].value=acct_array[i];
+	}
+	InfoForm.acctSelList2.options[count].text="不带下挂账户";
+	InfoForm.acctSelList2.options[count].value="no";
+	if(InfoForm.TranType.value == "1") {
+		InfoForm.acctSelList2.options[count].selected=true;
+	}
+	
+}
+
+//1004手工输入跨行快汇
+function inputCard(){
+	if(document.InfoForm.acctSelList.value=="手工输入"){
+		document.getElementById("inputdisplay").innerHTML="请输入：<INPUT TYPE='text' NAME='inputcardnum' maxlength='60' onblur=checkLength('InfoForm','inputcardnum',60)>";
+    }else{
+        document.getElementById("inputdisplay").innerHTML="";
+    }
+}	
+/*
+ * 校验长度
+ */
+function checkLength(form,obj,stdlen){
+	var theobj=eval("document."+form+"."+obj);
+	var thevalue=theobj.value;
+	
+	var len=getLength(thevalue);
+	if(parseInt(len,10) > parseInt(stdlen,10)){
+		alert("不能超过"+stdlen+"个字符！");
+		theobj.value="";
+		theobj.focus();
+		
+		return;
+	}
+}
+	
+//计算字节数
+function getLength(inValue){
+	var tmpChar;
+	var len = 0;
+	for(var k=0;k<inValue.length;k++){
+		tmpChar = escape(inValue.substr(k,1));
+		if(tmpChar.substring(0,2) == "%u"){
+			len= len + 2;
+		}else{
+			len = len + 1;
+		}
+	}
+	return len;
+}
+function formsubmit(){
+	if("1"==isEcard){
+		InfoForm.TranType.disabled = false;
+	}
+	
+	 if(InfoForm.TranType.value=="noselected")
+    {
+        alert("请选择交易类型");
+        return;
+    }
+     if(InfoForm.TranType.value=="1"||InfoForm.TranType.value=="2"||InfoForm.TranType.value=="3"||InfoForm.TranType.value=="0"||InfoForm.TranType.value=="10")
+    {
+        if(InfoForm.TranFlag.value=="noselected")
+        {
+          alert("请选择交易种类");
+          return;
+        }
+    }
+	var type=InfoForm.TranType.value;
+	if(type=="9"){//同城跨行转账
+		document.remitNoIcbcBranchForm.submit();
+		return;
+	}
+	var tempstr1 = '';			
+	var tempstr2 = '';		
+	var subObj0=InfoForm.begDate.value;
+	var subObj1=InfoForm.endDate.value;
+    var dyear0 = subObj0.substr(0,4);
+	var dmonth0 = subObj0.substr(4,2);
+	var dday0 = subObj0.substr(6,2);
+
+    var dyear1 = subObj1.substr(0,4);
+	var dmonth1 = subObj1.substr(4,2);
+	var dday1 = subObj1.substr(6,2);
+
+  
+
+    var acctType2;
+	var cardsign;
+	var temp = subObj0;
+	var temp2 = subObj1;
+	
+	
+	if(InfoForm.begDate.disabled==false||InfoForm.endDate.disabled==false){
+		if(InfoForm.begDate.value==""||InfoForm.endDate.value==""){
+			alert("日期不能为空");
+			InfoForm.begDate.focus();
+			return;
+		}		
+		
+	if(temp.length!=8||temp2.length!=8){
+			var rep=/-/gi;
+			if(temp.indexOf("-",0)!=-1){
+			temp=temp.replace(rep,"");			
+				}
+		if(temp2.indexOf("-",0)!=-1){
+			temp2=temp2.replace(rep,"");			
+			}
+		if (temp.length!=8||temp2.length!=8){
+			alert("输入的时间长度不对,请重新确认");
+			InfoForm.begDate.focus();
+			return;
+			}		
+		}
+			 if(checkcalender(dyear0,dmonth0,dday0)==false){
+			InfoForm.begDate.focus();
+			return;	
+		}
+        if(checkcalender(dyear1,dmonth1,dday1)==false){
+			InfoForm.endDate.focus();
+			return;	
+		}
+		if(isNaN(temp)||isNaN(temp2)){
+			alert("输入的时间不能包含有非数字的字符");
+			InfoForm.begDate.focus();
+			return;
+		}
+		if(parseInt(temp,10) > parseInt(temp2,10)){
+			alert("开始时间不能大于结束时间");
+			InfoForm.begDate.focus();
+			return;
+		}			
+	}	 
+	//201402日历控件控制
+	// 境外他行汇款对于收款和付款的查询时间不同，所以需要分开控制。
+	if(type=='3')
+	{
+		var startDate = dateSelector_getCalcDate("begDate" + type + InfoForm.TranFlag.value);
+		if(startDate) {
+			if(parseInt(startDate,10)>parseInt(temp,10)) {
+				alert("支持查询的起始日期最早为" + startDate + "，请您重新设置");
+				InfoForm.begDate.focus();
+				return;
+			}
+		}
+	}
+	else
+	{
+		var startDate = dateSelector_getCalcDate("begDate" + type);
+		if(startDate) {
+			if(parseInt(startDate,10)>parseInt(temp,10)) {
+				alert("支持查询的起始日期最早为" + startDate + "，请您重新设置");
+				InfoForm.begDate.focus();
+				return;
+			}
+		}
+	}
+
+	//向未绑定手机号收款-收款款交易
+	if(type=='11' && InfoForm.TranFlag.value=='1'){
+		var begDate = temp.substring(0,4) + "-" +temp.substring(4,6)+ "-" +temp.substring(6,8);
+		var endDate = temp2.substring(0,4) + "-" +temp2.substring(4,6)+ "-" +temp2.substring(6,8);
+		var recMobileNum = InfoForm.recMobileNum.value;
+		if(recMobileNum=="" ||recMobileNum.length==0){
+			alert('请输入收款手机号！');
+			InfoForm.recMobileNum.focus();
+			return;
+		}else if(!/^\d{11}/.test(recMobileNum)){
+			alert('手机号中包含非法字符或者长度不为11位！');
+        	InfoForm.recMobileNum.focus();
+			return;
+		}
+		document.remitToAnyMobileRecForm.begDate.value= begDate;
+		document.remitToAnyMobileRecForm.endDate.value= endDate;
+		document.remitToAnyMobileRecForm.recMobileNum.value= recMobileNum;
+		document.remitToAnyMobileRecForm.submit();
+		return;
+		
+	} 
+	var accountNo=InfoForm.acctSelList.value;
+	if((InfoForm.qryMode.value!=0 || InfoForm.TranType.value=="1")&&accountNo==""&&InfoForm.TranType.value!="4"){
+		 alert("请选择一张注册卡");
+		 return;
+		}		
+	if(InfoForm.acctSelList2.value!="no" && (InfoForm.qryMode.value==1 || InfoForm.TranType.value=="1")){		
+		accountNo=InfoForm.acctSelList2.value;		
+	}		
+	
+	if(accountNo!=""&&accountNo!="no"&&InfoForm.TranType.value!="4"){
+		if(InfoForm.acctSelList.value=="手工输入"){
+			if(InfoForm.inputcardnum.value==""){
+          		alert("请输入卡(账)号！"); 
+          		return;
+        	}else	InfoForm.cardNum.value=InfoForm.inputcardnum.value;
+		}else if((tempstr1!=""||tempstr2!="")&&InfoForm.TranType.value=="7"&&InfoForm.acctSelList.value.length>3){								
+	
+			InfoForm.cardNum.value=InfoForm.acctSelList.value;
+		}else{
+	var account=acctList.elementAt(accountNo);	
+	InfoForm.cardNum.value=account.cardNum;
+	InfoForm.acctNum.value=account.acctNum;
+	}
+	}
+
+	temp = temp.substring(0,4) + "-" +temp.substring(4,6)+ "-" +temp.substring(6,8);
+	temp2 = temp2.substring(0,4) + "-" +temp2.substring(4,6)+ "-" +temp2.substring(6,8);
+	
+    if(type=="0"){//注册账户转账
+        var tranFlag = InfoForm.TranFlag.value;
+        if(tranFlag!=null && tranFlag=="0"){ 
+			document.form4.begDate.value=temp;
+			document.form4.endDate.value=temp2;
+			
+			document.form4.cardNum.value=InfoForm.cardNum.value;
+			document.form4.acctNum.value=InfoForm.acctNum.value;
+			try{
+				var acct = InfoForm.acctSelList2.value;
+				document.form4.acctCode.value=acctList.elementAt(acct).acctCode;
+			}catch(e){}
+			document.form4.qryMode.value=InfoForm.qryMode.value;
+			document.form4.submit();
+		}else if(tranFlag!=null && tranFlag=="1"){
+		    var fovaAcctNo = InfoForm.acctSelList2.value;
+		    var fovaAccount;
+		    if(InfoForm.acctSelList2.value==null || InfoForm.acctSelList2.value=="no"){
+		        fovaAcctNo = InfoForm.acctSelList.value;
+		    }
+		     if(fovaAcctNo=="")
+		   {
+				   alert("请选择一张注册卡");
+				   return;
+		   }
+		    fovaAccount = acctList.elementAt(fovaAcctNo);	
+			document.FovaForm.begDate.value=temp;
+			document.FovaForm.endDate.value=temp2;
+			document.FovaForm.cardNum.value=fovaAccount.cardNum;
+			document.FovaForm.acctCode.value=fovaAccount.acctCode;
+			document.FovaForm.submit();
+		}
+	} 
+	else if(type=="1"){//工行转账汇款查询
+		
+		document.remiticbcForm.begDate.value=temp;
+		document.remiticbcForm.endDate.value=temp2;
+		document.remiticbcForm.cardNum.value=InfoForm.cardNum.value;
+		document.remiticbcForm.acctNum.value=InfoForm.acctNum.value;
+		document.remiticbcForm.qryMode.value=InfoForm.qryMode.value;
+		try{document.remiticbcForm.incurrType.value=InfoForm.incurrType.value;}catch(exception){}
+
+		document.remiticbcForm.submit();
+	}
+  else if(type=="2"){//跨行汇款
+    if(InfoForm.acctSelList.value!=""&&InfoForm.acctSelList.value!="no"){
+         document.form3.kaccno.value=acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+         /*日期查询区间不能超过31天*/
+         var expectDate = new Date(temp.substring(0,4),parseInt(temp.substring(5,7),10)-1,parseInt(temp.substring(8,10),10)+31);
+         var endDate = new Date(temp2.substring(0,4),parseInt(temp2.substring(5,7),10)-1,temp2.substring(8,10));
+         var tmp = 	InfoForm.endDate.value;	
+         tmp = tmp.indexOf("-",0)!=-1 ? tmp.replace(/-/gi,"") : tmp;
+         if(tmp > 20150621){
+         	alert("结束时间不能大于当前时间");
+			return;
+         }else if(endDate > expectDate){
+         	alert("对不起，跨行汇款目前仅支持查询区间跨度为1个月内的明细");
+			return;
+         }
+         
+         document.form3.startdate.value=temp;
+         document.form3.enddate.value=temp2;
+         document.form3.qryMode.value=InfoForm.TranFlag.value;
+         document.form3.submit();
+		}else{
+			alert("请选择一张注册卡");
+			return;
+		}
+     }
+    else if(type=="3")//跨境查询
+    {
+		if(InfoForm.TranFlag.value=="0"){//转出（原跨境汇款查询交易）
+		document.DomForm.queryCard.value = acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+		document.DomForm.begDate.value= temp;
+		document.DomForm.endDate.value= temp2;
+		DomForm.submit();
+		}
+		if(InfoForm.TranFlag.value=="1"){//转入（原我的账户-账务查询-国际汇款收款指令查询）
+		document.VisaMpiForm.cardNum.value = acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+		document.VisaMpiForm.begDate.value= temp.substring(0,4)+ "-" +temp.substring(5,7)+ "-" +temp.substring(8,10);
+		document.VisaMpiForm.endDate.value= temp2.substring(0,4)+ "-" +temp2.substring(5,7)+ "-" +temp2.substring(8,10);
+		VisaMpiForm.submit();		
+		}
+	}
+    else if(type=="4")//批量查询
+    {
+		document.BatchForm.beginTime.value= temp.substring(0,4)+ "-" +temp.substring(5,7)+ "-" +temp.substring(8,10);
+		document.BatchForm.endTime.value= temp2.substring(0,4)+ "-" +temp2.substring(5,7)+ "-" +temp2.substring(8,10);
+		BatchForm.submit();		
+
+	 }
+      else if(type=="5")//境外Visa卡查询
+   	{
+        var acc=InfoForm.cardNum.value;
+        var accttype1 = parent.parent.topFrame.cardBinList.getCardType(acc);
+        if(accttype1=="N")
+		   {	   
+             if(acc.length==19&&acc.substr(8,2)=="01")
+		       {
+                document.remitvisaForm.cardNum.value="";			  
+                document.remitvisaForm.acctNum.value=InfoForm.cardNum.value;
+           }
+            else
+            {
+              document.remitvisaForm.cardNum.value=InfoForm.cardNum.value;
+              document.remitvisaForm.acctNum.value="";
+            }
+       }
+       else
+           {
+             document.remitvisaForm.cardNum.value=InfoForm.cardNum.value;
+              document.remitvisaForm.acctNum.value="";
+            }
+       
+        document.remitvisaForm.begDate.value=temp;
+		    document.remitvisaForm.endDate.value=temp2;
+        remitvisaForm.submit();	
+	 }
+	  else if(type=="6")//新工银速汇
+      {
+		if(InfoForm.TranFlag.value=="0")
+		{//转出（原跨境汇款查询交易）
+			document.newDomForm.queryCard.value = acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+			document.newDomForm.begDate.value= temp;
+			document.newDomForm.endDate.value= temp2;
+			
+			newDomForm.submit();
+		}
+		else
+		{//收款交易
+			document.newDomRecForm.queryCard.value = acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+			document.newDomRecForm.begDate.value= temp;
+			document.newDomRecForm.endDate.value= temp2;
+			
+			newDomRecForm.submit();		
+		}
+	}
+
+
+  	else if(type=="7"){//跨行快汇
+		if(InfoForm.acctSelList.value=="手工输入"){
+        	document.IbpForm.cardNum.value=InfoForm.cardNum.value;
+			document.IbpForm.begDate.value=temp;
+			document.IbpForm.endDate.value=temp2;
+        	document.IbpForm.Ibpflag.value="1";//1说明是互联签约账户
+		}else if((tempstr1!=""||tempstr2!="")&&InfoForm.TranType.value=="7"&&InfoForm.acctSelList.value.length>3){
+        	document.IbpForm.cardNum.value=InfoForm.cardNum.value;
+			document.IbpForm.begDate.value=temp;
+			document.IbpForm.endDate.value=temp2;
+        	document.IbpForm.Ibpflag.value="1";//1说明是互联签约账户
+		}else if(InfoForm.acctSelList.value!=""&&InfoForm.acctSelList.value!="no"){
+        	document.IbpForm.cardNum.value=acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+			document.IbpForm.begDate.value=temp;
+			document.IbpForm.endDate.value=temp2;
+        	document.IbpForm.Ibpflag.value="0";//1说明是互联签约账户
+		}else{
+			alert("请选择一张注册卡");
+			return;
+		}
+		
+		document.IbpForm.submit();
+     }    
+
+     else if(type=="8"){ //待审核交易
+     	document.remitNeedVerifyForm.begDate.value= temp.substring(0,4)+ "-" +temp.substring(5,7)+ "-" +temp.substring(8,10)+"-"+"00.00.00.000000";
+		document.remitNeedVerifyForm.endDate.value= temp2.substring(0,4)+ "-" +temp2.substring(5,7)+ "-" +temp2.substring(8,10)+"-"+"23.59.59.000000";
+		if(InfoForm.acctSelList.value!=""&&InfoForm.acctSelList.value!="no"){
+			document.remitNeedVerifyForm.cardNum.value = acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+		}else{
+			alert("请选择一张注册卡");
+			return;
+		}
+		try{
+			var acct = InfoForm.acctSelList2.value;
+			document.remitNeedVerifyForm.acctNum.value = acctList.elementAt(acct).acctNum;
+			document.remitNeedVerifyForm.outAcctType.value=acctList.elementAt(acct).acctCode;
+		}catch(e){}
+		
+		document.remitNeedVerifyForm.submit();	
+     } 
+    else if(type=="10")//西联汇款
+    {	
+   		if(InfoForm.cardNum.value==""||InfoForm.cardNum.value=="no"){
+			alert("请选择一张注册卡");
+			return;
+		}
+		
+        if(InfoForm.TranFlag.value=='0'){
+			document.WUSendQueryForm.ACCOUNT_NO.value=InfoForm.cardNum.value;
+			document.WUSendQueryForm.START_DATE.value=temp;
+			document.WUSendQueryForm.END_DATE.value=temp2;
+			document.WUSendQueryForm.submit();
+		}else if (InfoForm.TranFlag.value=='1'){
+			document.WURcvQueryForm.ACCOUNT_NO.value=InfoForm.cardNum.value;
+			document.WURcvQueryForm.START_DATE.value=temp;
+			document.WURcvQueryForm.END_DATE.value=temp2;
+			document.WURcvQueryForm.submit();
+		}
+		
+    }
+    else if(type=="11" && InfoForm.TranFlag.value=='0'){ //向未绑定手机号汇款-只有付款交易能到此处
+     	document.remitToAnyMobilePayForm.begDate.value= temp;
+		document.remitToAnyMobilePayForm.endDate.value= temp2;
+		if(InfoForm.acctSelList.value!=""&&InfoForm.acctSelList.value!="no"){
+			document.remitToAnyMobilePayForm.cardNum.value = acctList.elementAt(InfoForm.acctSelList.value).cardNum;
+		}else{
+			alert("请选择一张注册卡");
+			return;
+		}
+		document.remitToAnyMobilePayForm.submit();	
+     } 
+}
+function getfocus(name)
+{
+	if(pebankBrowserCompatible.getKeycode()==13)
+		document.InfoForm[name].focus();
+}
+
+function IsDateValid(str){
+	var re=/^(\d{4})(\d{2})(\d{2})$/
+	if(!re.test(str))return false;
+	return true;
+}
+
+function wu_onchange(theform,regmode){
+ var opid='0';
+ tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|');changeCurrList(InfoForm);inputCard()>"
+ tempstr=tempstr+acctList.getTypedOptionWithoutBusiness(opid+"|1","|003|011|999|","",regmode);
+ document.all.cardspan.innerHTML=tempstr+"</select>";
+ cardSelListChange('|00|01|');changeCurrList(InfoForm);inputCard();
+ InfoForm.acctSelList2.disabled=true;
+ InfoForm.acctSelList.disabled=false;
+}
+
+
+function pay_onchange(theform){
+ var opid='0' + "|1";
+    tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()>"
+  tempstr=tempstr+acctList.getQryBasicInfoOptionString(opid,'2','');
+  document.all.cardspan.innerHTML=tempstr+"</select>";
+  cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard();
+ InfoForm.acctSelList2.disabled=false;
+ InfoForm.acctSelList.disabled=false;
+
+ InfoForm.qryMode.value=0;
+ changeCurrList(InfoForm);
+
+}
+function rec_onchange(theform){
+var opid='0'+'|1';
+    tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()>"
+  tempstr=tempstr+acctList.getQryBasicInfoOptionString(opid,'2','');
+  document.all.cardspan.innerHTML=tempstr+"</select>";
+  cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard();
+ InfoForm.qryMode.value=1;
+ changeCurrList(InfoForm);
+ InfoForm.acctSelList2.disabled=false;
+ InfoForm.acctSelList.disabled=false;
+
+}
+function foreign_onchange(theform){
+var opid='0'+'|1';
+    tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()>"
+  tempstr=tempstr+acctList.getQryBasicInfoOptionString(opid,'2','');
+  document.all.cardspan.innerHTML=tempstr+"</select>";
+  cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard();
+
+}
+function normal_onchange(theform){
+var tempstr1 = '';			
+var tempstr2 = '';				
+var opid='0'+'|1';
+    tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()>"
+	if(InfoForm.TranType.value=="7")	tempstr=tempstr+tempstr1+tempstr2+acctList.getQryBasicInfoInputOptionString(opid,'0','');//1004可以输入卡号
+	else if(InfoForm.TranType.value=="11") tempstr = tempstr+acctList.getQryBasicInfoOptionString('0','5','');
+	else	tempstr=tempstr+acctList.getQryBasicInfoOptionString(opid,'0','');
+  document.all.cardspan.innerHTML=tempstr+"</select>";
+  cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard();
+
+}
+function other_onchange(theform){
+  
+  tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()>"
+  tempstr=tempstr+acctList.getQryBasicInfoOptionString('0','2','');
+  document.all.cardspan.innerHTML=tempstr+"</select>";
+  cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard();
+ InfoForm.qryMode.value=2;
+ changeCurrList(InfoForm);
+ InfoForm.acctSelList2.disabled=false;
+ InfoForm.acctSelList.disabled=false;
+
+}
+function displayFovaAcct(theform){
+    //控制值显示FOVA账户
+    var opid='0'+'|1';
+    tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|FS10101|');changeCurrList(InfoForm)>"
+    tempstr=tempstr+acctList.getQryBasicInfoOptionString(opid,'3','');
+    document.all.cardspan.innerHTML=tempstr+"</select>";
+    cardSelListChange('|FS10101|');
+    changeCurrList(InfoForm);
+    InfoForm.acctSelList2.disabled=false;
+    InfoForm.acctSelList.disabled=false; 
+}
+
+//注册账户转帐根据卡类型设置交易种类
+function setTranFlag(){
+    //卡号改变修改交易种类 的显示
+	try{
+		var acct = InfoForm.acctSelList.value;
+		var acctType = acctList.elementAt(acct).acctType;
+		if(acctType.indexOf("F")==-1){
+			InfoForm.TranFlag.options[1].selected=true;
+		}else{
+			InfoForm.TranFlag.options[2].selected=true;
+		}
+	}catch(e){alert(e)}
+}
+
+//2011年8月版本：注册账户转账显示NOVA和FOVA账户
+function displayCurrAcct(theform){
+		var opid='0'+'|1';
+    tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|FS10101|');changeCurrList(InfoForm);setTranFlag()>"
+    tempstr=tempstr+acctList.getQryBasicInfoOptionString(opid,'4','');
+    document.all.cardspan.innerHTML=tempstr+"</select>";
+    cardSelListChange('|00|01|21|22|20|23|FS10101|');
+    changeCurrList(InfoForm);
+    InfoForm.acctSelList2.disabled=false;
+    InfoForm.acctSelList.disabled=false;
+    
+    setTranFlag();
+}
+
+function changeCurrList(thisform){
+
+if( InfoForm.qryMode.value==1&&thisform.acctSelList.value!=""){
+	if(acctList.elementAt(thisform.acctSelList.value).acctType!="007"){
+		document.getElementById("div1").innerHTML = ""
+		document.getElementById("div2").innerHTML = ""
+	}else{
+	document.getElementById("div1").innerHTML = "币&nbsp;&nbsp;&nbsp;&nbsp;种："
+	document.getElementById("div2").innerHTML = "<select name='incurrType' style='font-size: 12px'></select>"
+	
+	var currList;
+		if(thisform.acctSelList.value!="no")
+		currList=parent.parent.topFrame.cardBinList.getCurrList(acctList.elementAt(thisform.acctSelList.value).cardNum);
+		 displayCurrType(thisform.name,currList,"incurrType",6,"no","无开通币种"); 
+		 }
+	}else{
+	document.getElementById("div1").innerHTML = ""
+		document.getElementById("div2").innerHTML = ""
+	
+	}
+	
+	
+}
+
+function oCalendarChsRefresh(){
+  try{oCalendarChs.Refresh(new Date());}catch(exception){}	
+}
+
+function quickDate(str) {
+	var toDateString = function(date) {
+		if(date instanceof Date) {
+			var year = date.getFullYear().toString();
+			var month = (date.getMonth() + 1).toString();
+			var date = date.getDate().toString();
+			if(month.length == 1) {
+				month = "0" + month;
+			}
+			if(date.length == 1) {
+				date = "0" + date;
+			}
+			return year + month + date;
+		}
+		return "";
+	}
+	var date = new Date("2015", parseInt("06", 10) - 1, "21");
+	InfoForm.endDate.value = toDateString(date);
+	if(str == "today") {
+		InfoForm.begDate.value = toDateString(date);
+	} else if(str == "week") {
+		var date = new Date("2015", parseInt("06", 10) - 1, parseInt("21", 10) - 6);
+		InfoForm.begDate.value = toDateString(date);
+	} else if(str == "month") {
+		var date = new Date("2015", parseInt("06", 10) - 2, parseInt("21", 10));
+		InfoForm.begDate.value = toDateString(date);
+	} else if(str == "triplemonth") {
+		var date = new Date("2015", parseInt("06", 10) - 4, parseInt("21", 10));
+		InfoForm.begDate.value = toDateString(date);
+	}
+}
+</SCRIPT>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/css/includes/myAdinfo.css"></HEAD>
+<BODY onresize=javascript:resize() onload=oCalendarChsRefresh() style="OVERFLOW-X: hidden">
+<DIV id=oCalendarChs_Div style="BORDER-TOP: #bcd0de 1px solid; HEIGHT: 200px; BORDER-RIGHT: #bcd0de 1px solid; WIDTH: 200px; BORDER-BOTTOM: #bcd0de 1px solid; POSITION: absolute; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; PADDING-LEFT: 2px; BORDER-LEFT: #bcd0de 1px solid; Z-INDEX: 1; DISPLAY: none; PADDING-RIGHT: 2px; BACKGROUND-COLOR: #ffffff"><IFRAME style="HEIGHT: 200px; WIDTH: 200px; POSITION: absolute; LEFT: 0px; FILTER: none; Z-INDEX: -1; TOP: 0px; VISIBILITY: inherit" src="javascript:false" progid:DXImageTransform.Microsoft.Alpha(style="0,opacity=0)';'"></IFRAME>
+<DIV align=center><SELECT onchange=CalendarMonthChange(oCalendarChs) id=oCalendarChs_Month style="WIDTH: 50%"><OPTION value=0>一月</OPTION><OPTION value=1>二月</OPTION><OPTION value=2>三月</OPTION><OPTION value=3>四月</OPTION><OPTION value=4>五月</OPTION><OPTION selected value=5>六月</OPTION><OPTION value=6>七月</OPTION><OPTION value=7>八月</OPTION><OPTION value=8>九月</OPTION><OPTION value=9>十月</OPTION><OPTION value=10>十一月</OPTION><OPTION value=11>十二月</OPTION></SELECT><SELECT onchange=CalendarYearChange(oCalendarChs) id=oCalendarChs_Year style="WIDTH: 50%"><OPTION value=1970>1970</OPTION><OPTION value=1971>1971</OPTION><OPTION value=1972>1972</OPTION><OPTION value=1973>1973</OPTION><OPTION value=1974>1974</OPTION><OPTION value=1975>1975</OPTION><OPTION value=1976>1976</OPTION><OPTION value=1977>1977</OPTION><OPTION value=1978>1978</OPTION><OPTION value=1979>1979</OPTION><OPTION value=1980>1980</OPTION><OPTION value=1981>1981</OPTION><OPTION value=1982>1982</OPTION><OPTION value=1983>1983</OPTION><OPTION value=1984>1984</OPTION><OPTION value=1985>1985</OPTION><OPTION value=1986>1986</OPTION><OPTION value=1987>1987</OPTION><OPTION value=1988>1988</OPTION><OPTION value=1989>1989</OPTION><OPTION value=1990>1990</OPTION><OPTION value=1991>1991</OPTION><OPTION value=1992>1992</OPTION><OPTION value=1993>1993</OPTION><OPTION value=1994>1994</OPTION><OPTION value=1995>1995</OPTION><OPTION value=1996>1996</OPTION><OPTION value=1997>1997</OPTION><OPTION value=1998>1998</OPTION><OPTION value=1999>1999</OPTION><OPTION value=2000>2000</OPTION><OPTION value=2001>2001</OPTION><OPTION value=2002>2002</OPTION><OPTION value=2003>2003</OPTION><OPTION value=2004>2004</OPTION><OPTION value=2005>2005</OPTION><OPTION value=2006>2006</OPTION><OPTION value=2007>2007</OPTION><OPTION value=2008>2008</OPTION><OPTION value=2009>2009</OPTION><OPTION value=2010>2010</OPTION><OPTION value=2011>2011</OPTION><OPTION value=2012>2012</OPTION><OPTION value=2013>2013</OPTION><OPTION value=2014>2014</OPTION><OPTION selected value=2015>2015</OPTION><OPTION value=2016>2016</OPTION><OPTION value=2017>2017</OPTION><OPTION value=2018>2018</OPTION><OPTION value=2019>2019</OPTION><OPTION value=2020>2020</OPTION></SELECT></DIV>
+<TABLE id=oCalendarChs_Table cellSpacing=1 cellPadding=0 width="100%" bgColor=#cccccc border=0>
+<TBODY style="FONT-SIZE: 13px" bgColor=#ffffff>
+<TR bgColor=#98b8cd>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>日</TD>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>一</TD>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>二</TD>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>三</TD>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>四</TD>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>五</TD>
+<TD style="CURSOR: pointer" height=20 vAlign=middle align=center>六</TD></TR>
+<TR>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>1</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>2</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>3</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>4</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>5</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>6</TD></TR>
+<TR>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>7</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>8</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>9</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>10</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>11</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>12</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>13</TD></TR>
+<TR>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>14</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>15</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>16</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>17</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>18</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>19</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>20</TD></TR>
+<TR>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center><FONT color=red><I><B>21</B></I></FONT></TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>22</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>23</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>24</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>25</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>26</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>27</TD></TR>
+<TR>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>28</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>29</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; COLOR: #666666; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>30</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD></TR>
+<TR>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD>
+<TD onclick=CalendarCellsClick(this,oCalendarChs) onmouseover=CalendarCellsMsOver(event,oCalendarChs) onmouseout=CalendarCellsMsOut(event,oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; BORDER-BOTTOM: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; BACKGROUND-COLOR: #ffffff" height=20 vAlign=middle align=center>&nbsp;</TD></TR></TBODY></TABLE>
+<DIV style="PADDING-BOTTOM: 3px; PADDING-TOP: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px" align=center><BUTTON onclick=CalendarTodayClick(oCalendarChs) id=oCalendarChs_TODAYBTN style="CURSOR: pointer; BORDER-TOP: #bcd0de 1px solid; BORDER-RIGHT: #bcd0de 1px solid; WIDTH: 40%; BORDER-BOTTOM: #bcd0de 1px solid; BORDER-LEFT: #bcd0de 1px solid; BACKGROUND-COLOR: #eeeeee">今天</BUTTON>&nbsp;<BUTTON onclick=CalendarCancel(oCalendarChs) style="CURSOR: pointer; BORDER-TOP: #bcd0de 1px solid; BORDER-RIGHT: #bcd0de 1px solid; WIDTH: 40%; BORDER-BOTTOM: #bcd0de 1px solid; BORDER-LEFT: #bcd0de 1px solid; BACKGROUND-COLOR: #eeeeee">取消</BUTTON> </DIV></DIV>
+<STYLE type=text/css>
+	a.quickdate {
+		color:blue;
+		text-decoration:underline;
+	}
+</STYLE>
+
+<DIV onmouseout=removeevent2();removeevent_ltb() id=object1 style="POSITION: absolute; LEFT: 765px; Z-INDEX: 2; TOP: 0px; VISIBILITY: visible"><LAYER name="layertip" bgcolor="#ffffff" visibility="hide">
+<SCRIPT language=JavaScript1.2>
+var langlayer='zh_CN';
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/layernew.js"></SCRIPT>
+
+<TABLE cellSpacing=1 cellPadding=0 width=225 border=0>
+<TBODY>
+<TR>
+<TD id=tab1 vAlign=top align=left><IMG onmouseover=getevent2() id=layerimg src="/icbc/newperbank/images/menu_recently.png" width=21 height=87> </TD>
+<TD onmouseover=getevent2() id=rightbig style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width=206 border=0>
+<TBODY>
+<TR>
+<TD background=/icbc/newperbank/images/dot_gray2.gif width=1></TD>
+<TD id=右侧大td bgColor=#f3f3f3 vAlign=top>
+<SCRIPT language=JavaScript1.2 src="/icbc/newperbank/js/includes/greenwayMessage.js"></SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 valign="bottom">
+<FORM method=post name=formChannel action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden name=id> </FORM>
+<TBODY></TBODY></TABLE>
+<TABLE id=最近使用 class=td_L_green cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('060298')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款查询-境内汇款查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('060299')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款查询-注册账户转账查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020205')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">账务查询-明细查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020102')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">我的账户-注册账户列表</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020402')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">转账汇款-工行转账汇款</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('2801')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">e卡服务-申请e卡</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('020203')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">账务查询-余额查询</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR>
+<TR>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" width="8%" align=center><IMG src="/icbc/newperbank/images/dot_red2.png" width=4 height=4></TD>
+<TD style="FONT-SIZE: 12px; TEXT-DECORATION: none; HEIGHT: 18px; LINE-HEIGHT: 18px" vAlign=bottom width="92%" align=left><A class=link_black href="javascript:channelSubmit('310601')"><FONT style="FONT-SIZE: 12px; COLOR: #000000">网上挂失-注册账户挂失</FONT> </A></TD></TR>
+<TR>
+<TD height=2 colSpan=3><IMG src="/icbc/newperbank/images/line1.gif" width=165 height=2></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TABLE></LAYER></DIV>
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/includes/onlineServiceCheck.js"></SCRIPT>
+
+<STYLE type=text/css>
+
+#floatdiv{ width:100px; border:0px solid #9CF; font-size:12px; position:absolute; z-index:90;cursor:crosshair}
+#floatclosediv{ margin:0px; padding-left:0px; height:20px; line-height:20px; font-size:12px; color:#0066CC; font-weight:100; background:#FFFFFF;cursor:crosshair}
+.floatcontent{ padding:0px 0px; line-height:100px;background-color:#F7F7F7;}
+
+</STYLE>
+
+<SCRIPT type=text/javascript>
+//在线客户服务
+			function floatserviceSubmit()
+			{
+				
+				
+				document.floatonLineServiceForm.submit();
+				
+				
+			}			
+var floatdivtopnum = 0;
+var floatdivtopnum2 = 0;
+var floatParentObj;
+var contentPageHeigh;
+
+try{                    
+		floatParentObj = parent.parent.parent;  
+		floatParentObj.topFrame.getFloatShowFlag(); 
+	}catch(E){
+		floatParentObj = parent.parent; 	
+	}            
+
+try{
+	floatdivtopnum = 0;                           
+	floatdivtopnum2 = 0;      
+	
+	contentPageHeigh = document.body.clientHeight;
+
+}catch(E){}
+
+var nextYear = new Date();
+					nextYear.setFullYear(nextYear.getFullYear()+1);
+					var expires = nextYear.toGMTString();	
+function floatdrag(obj,e){
+	var e=e ? e : event;
+	var mouse_left=e.clientX-obj.offsetLeft;
+	var mouse_top=e.clientY-obj.offsetTop;
+	var docmousemove=obj.onmousemove;
+	var docmouseup=obj.onmouseup;
+	var docmousedown=obj.onmousedown;
+	obj.onselectstar=function(e){return false}
+	obj.onmousedown=function(e){
+		if(e==null)e=window.event;
+		if(obj.setCapture)
+			obj.setCapture();	
+	}
+	obj.onmouseup=function(){
+		obj.releaseCapture();
+		obj.onmousemove=docmousemove;
+		obj.onmouseup=docmouseup;
+		obj.onselectstar=function(e){return true}
+		floatParentObj.topFrame.setFloatPos(obj.style.left,obj.style.top);
+		document.cookie = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosLeft="+obj.style.left+";expires="+expires;	
+		document.cookie = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosTop="+obj.style.top+";expires="+expires;	
+		floatdivtopnum2 = parseInt(obj.style.top,10);
+		
+	}
+	
+	obj.onmousemove=function(ev){
+		
+		
+		var ev=ev ? ev : event;
+		//document.getElementById('text').innerHTML=ev.clientX-mouse_left+"<br>"+(document.documentElement.clientWidth-(ev.clientX-mouse_left)-obj.offsetWidth+document.documentElement.scrollLeft)
+		
+		if(e.clientX<0||e.clientY<0||e.clientX>document.body.clientWidth-10||e.clientY>document.body.clientHeight-10){
+			obj.releaseCapture();
+			if(obj.setCapture)
+			obj.setCapture();	
+		}
+		
+			
+		if(ev.clientX-mouse_left>0&&obj.offsetLeft<=document.body.clientWidth-100){
+			if(obj.setCapture)
+				obj.setCapture();	
+			obj.style.left=(ev.clientX-mouse_left)+"px";
+			if(obj.offsetLeft>document.body.clientWidth-120)
+			obj.style.left=(document.body.clientWidth-120)+"px";
+			
+			
+		}
+		if(ev.clientY-mouse_top>0&&obj.offsetTop<=(parseInt(document.body.scrollTop,10)+contentPageHeigh-100)&&obj.offsetTop>=parseInt(document.body.scrollTop,10)){
+			if(obj.setCapture)
+				obj.setCapture();	
+			obj.style.top=(ev.clientY-mouse_top)+"px";
+			floatdivtopnum = ev.clientY-mouse_top - parseInt(document.body.scrollTop,10);
+			if(obj.offsetTop>(parseInt(document.body.scrollTop,10)+contentPageHeigh-140)){
+				obj.style.top=(parseInt(document.body.scrollTop,10)+contentPageHeigh-140)+"px";
+				floatdivtopnum = contentPageHeigh-140;
+			}
+			if(obj.offsetTop<parseInt(document.body.scrollTop,10)){
+				obj.style.top=document.body.scrollTop+"px";
+				floatdivtopnum = 0;
+			}
+		}
+		
+		
+		ev.cancelBubble = true;
+		ev.returnValue=false;
+		
+		
+	}
+	
+}
+
+function getcookieTop(){
+	
+ 				var cTop = '-1';
+				var cookieStr = document.cookie;
+				
+				if(cookieStr==""){
+					
+					return cTop
+				}
+				//alert(cookieStr);
+				var cookieValue = cookieStr.split("; ");
+				//alert(cookieValue);
+				var varName = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosTop=";
+				
+				var startPos = -1;
+				var endPos = -1;
+				//alert(varName);
+				for(var i=0;i<cookieValue.length;i++){
+					startPos = cookieValue[i].indexOf(varName);
+					//alert(startPos);
+					if(startPos!=0){
+						continue;	
+					}
+					startPos += varName.length;
+					endPos = cookieValue[i].length;
+					var cookieText = unescape(cookieValue[i].substring(startPos,endPos));
+					
+					//alert(logonTime);
+					
+					cTop = cookieText;
+					//alert("top:"+cTop);
+					return cTop;	
+				}
+				return "-1";
+			}                 
+			
+	function getcookieLeft(){
+		
+ 				var cLeft = '-1';
+				var cookieStr = document.cookie;
+				
+				if(cookieStr==""){
+					
+					return cLeft
+				}
+				
+				var cookieValue = cookieStr.split("; ");
+				//alert(cookieValue);
+				var varName = "%06%E8%A6%9D%EF%BF%BD%E8%BF%8E%2C%0E%00%0FQ%E5%A9%9B%60w%E9%91%84%2C%EF%BF%BD"+"floatPosLeft=";
+				
+				var startPos = -1;
+				var endPos = -1;
+				//alert(varName);
+				for(var i=0;i<cookieValue.length;i++){
+					startPos = cookieValue[i].indexOf(varName);
+					
+					if(startPos!=0){
+						continue;	
+					}
+					startPos += varName.length;
+					endPos = cookieValue[i].length;
+					var cookieText = unescape(cookieValue[i].substring(startPos,endPos));
+					
+					//alert("left:"+cookieText);
+					
+					cLeft = cookieText;
+					
+					return cLeft;	
+				}
+				return "-1";
+			}                 		
+</SCRIPT>
+
+<FORM method=post name=floatonLineServiceForm action=/servlet/ICBCINBSReqServlet target=null><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_OnLineCustomerServiceOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=queryprocflag> <INPUT type=hidden value=0 name=salesFlag> </FORM>
+<FORM method=post name=floatWindowForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_ajaxCloseFloatWindowOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT id=TipOpenFlagTemp type=hidden> <INPUT id=opflag type=hidden value=0> 
+<DIV id=floatdiv style="DISPLAY: none">
+<DIV onmousedown=floatdrag(this.parentNode,event) class=floatcontent>
+<DIV id=float_service style="TEXT-ALIGN: center"><A class=link_top href="javascript:floatserviceSubmit()"><IMG border=0 src="https://mybank.icbc.com.cn/icbc/newperbank/images/xuanting_1.gif" width=81 height=90></A></DIV>
+<DIV style="TEXT-ALIGN: center"><INPUT id=noshow type=checkbox );?> 不再显示 </DIV>
+<DIV id=floatclosediv style="TEXT-ALIGN: center"><A onclick=closefloat() class=close href="javascript:closefloat()"><IMG onmousedown=floatdrag(this.parentNode,event) border=0 src="/icbc/newperbank/images/floatclose.png" width=60 height=20></A> </DIV></DIV></DIV></FORM>
+<SCRIPT language=javascript> 
+    		var float_div_msg1="<a href=\"javascript:floatserviceSubmit()\" class=\"link_top\"><img src=\"/icbc/newperbank/images/xuanting_1.gif\"  WIDTH=\"81\" HEIGHT=\"90\"  border=\"0\"></a>";
+
+    		try{
+    			    			float_service.innerHTML=float_div_msg1;
+    		}catch(e){
+    			jQuery("#float_service").html(float_div_msg1);
+    		}
+
+        	    	</SCRIPT>
+
+<SCRIPT>
+	var floatshowFlag = 0;
+	
+	var float_desktopflag = '10';
+	var floatTipOpenFlag1 = '1111211111111111121111111111111111111111';
+	var floatMacFlag = '6432';
+	var commonCustFloatOpenFlag = '1';
+	var vipCustFloatFlag = '2';
+	var serviceLevelInt_float = '1';
+	var servicelowestLevelInt_float = '2';
+	var floatVipopenRegSign = '1111212112211211212211211111111222112222221222111112112121111112211222111122221111121111111122121111112222222111212221121112222211112211112121112121112111221211122111112122122211211111111221112221222221111112112111211122222222112211111222221112222221221122222221111122221112121112112121111211212211221122121112222211121211112112111111222122112221121111221111111111212121112111111211111122121111211221211111112221112222111112222112222111112111211111211121112211111122112111121112111112211122121211111222111221121222112221111111122211112222222222211111211111111212211122221112111111222212212211111222122222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222';
+	var floatVipopenFlag = '1';
+
+	if('12'!=float_desktopflag&&floatMacFlag!="MACOS-SAFARI-0"&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag){	
+		try{
+			floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+		}catch(Exception){
+			//alert(Exception)
+			floatParentObj = parent.parent.parent;
+			try{
+				floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+			}catch(Exception){
+				//alert(Exception)
+				floatParentObj = parent.parent.parent.parent;
+				try{
+					floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+				}catch(Exception){
+					//alert(Exception)
+					floatshowFlag=0;
+				
+				}
+				
+			}
+			//floatshowFlag=0;
+		}
+		
+	}
+
+
+	
+		floatTipOpenFlag1=floatTipOpenFlag1.substring(0,4)+"2"+floatTipOpenFlag1.substr(5);
+	if(0==floatshowFlag&&'12'!=float_desktopflag&&'14'!=float_desktopflag&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag){
+		try{
+			floatParentObj.topFrame.setFloatShowFlag('2');	
+			floatshowFlag = floatParentObj.topFrame.getFloatShowFlag();	
+		}catch(Exception){}	 
+		
+	}
+	
+	if(2==floatshowFlag||'12'==float_desktopflag||floatMacFlag=="MACOS-SAFARI-0"||'16'==float_desktopflag||'17'==float_desktopflag||'18'==float_desktopflag||'19'==float_desktopflag){
+		try{
+			document.getElementById('floatdiv').style.display='none';
+		}catch(Exception){}	 
+	}
+	
+	if((1==floatshowFlag&&'12'!=float_desktopflag&&floatMacFlag!="MACOS-SAFARI-0"&&'16'!=float_desktopflag&&'17'!=float_desktopflag&&'18'!=float_desktopflag&&'19'!=float_desktopflag)&&(("1"!=vipCustFloatFlag && "1"==commonCustFloatOpenFlag) || ("1"==floatVipopenFlag && serviceLevelInt_float>=servicelowestLevelInt_float))){
+		
+		var floattempx = floatParentObj.topFrame.getFloatObjx();
+		var floattempy = floatParentObj.topFrame.getFloatObjy();
+		
+		var cTop = getcookieTop();
+		var cLeft = getcookieLeft();
+		//alert(floattempx+","+floattempy);
+		if(floattempx!=-1&&floattempy!=-1&&floattempx!=""&&floattempy!=""){
+			if(parseInt(floattempy,10)>document.body.clientHeight-140)
+				floattempy = document.body.clientHeight-140 + "px";
+			if(parseInt(floattempx,10)>document.body.clientWidth-20)
+				floattempx = document.body.clientWidth-20 + "px";	
+			document.getElementById("floatdiv").style.left=floattempx;
+			document.getElementById("floatdiv").style.top=floattempy;
+			document.getElementById('floatdiv').style.display=""
+			
+		}	else{
+			if(cTop=='-1'||cLeft=='-1'){
+				document.getElementById("floatdiv").style.right="20px";
+				document.getElementById("floatdiv").style.top="100px";
+			}else{
+				if(parseInt(cTop,10)>document.body.clientHeight-140)
+					cTop = document.body.clientHeight-140 + "px";
+				if(parseInt(cLeft,10)>document.body.clientWidth-20)
+					cLeft = document.body.clientWidth-20 + "px";	
+				document.getElementById("floatdiv").style.left=cLeft;
+				document.getElementById("floatdiv").style.top=cTop;
+			}
+			document.getElementById('floatdiv').style.display=""
+		}
+		var floatwindowdiv = document.getElementById("floatdiv");
+		floatdivtopnum = parseInt(floatwindowdiv.style.top,10);
+		floatdivtopnum2 = parseInt(floatwindowdiv.style.top,10);
+		window.onscroll=function(){
+			
+	
+	var scrolltopnum = parseInt(document.body.scrollTop,10);
+	
+	var floatscrolldivtopnum = scrolltopnum +floatdivtopnum;
+	floatwindowdiv.style.top = floatscrolldivtopnum +"px";
+	
+};
+//window.onresize=window.onscroll;
+window.attachEvent('resize',window.onscroll);
+window.onscroll();
+	}
+	
+	function closefloat(){
+		document.getElementById('floatdiv').style.display='none';
+		floatParentObj.topFrame.setFloatShowFlag('2');	
+		
+		
+	if(document.floatWindowForm.noshow.checked){
+		
+	
+		
+		document.floatWindowForm.TipOpenFlagTemp.value=floatTipOpenFlag1;
+		document.floatWindowForm.opflag.value=1;
+		floatParentObj.topFrame.floatChangeTip(floatTipOpenFlag1,1);	
+	}
+  
+ }
+ 
+ 
+  
+</SCRIPT>
+
+<TABLE class=leftAndMainFirstLineShowPic height=40 cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR>
+<TD class=tdspace></TD>
+<TD vAlign=bottom width="96%">
+<TABLE height=30 cellSpacing=0 cellPadding=0 width="96%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=mainfont1>&gt; &gt; 转账汇款 &gt; 转账汇款查询 &gt; 境内汇款查询 </TD></TR>
+<TR>
+<TD><IMG src="/icbc/newperbank/images/line2.gif" width="100%" height=1></TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE id=tabletopmessage style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD width=67 noWrap align=right></TD>
+<TD align=right>
+<FORM method=post name=ideaSubmit_form1 action=/servlet/ICBCINBSReqServlet target=_blank><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_IdeaSubmitOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=100 name=doFlag> </FORM><A href="javascript:ideaSubmit();"><FONT color=#0000ff><U>体验评价</U></FONT></A> <A title=获得更多使用帮助 class=hot_red href="/icbc/newperbank/account/message_useguide.jsp?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI&amp;menuid=060298" target=_blank>&gt;&gt;更多帮助</A> </TD>
+<TD width="15%">
+<P onclick=javascript:showdv1() align=left><IMG title=关闭栏目提示信息 class=subMenuHot src="/icbc/newperbank/images/bq_x.gif" align=top></P></TD></TR>
+<TR>
+<TD align=left><IMG title=栏目提示信息 class=subMenuHot src="/icbc/newperbank/images/rp_13.gif" width=67 height=47> </TD>
+<TD height=21 align=left><BR>转账汇款查询：您可以查询到您操作过的汇款明细信息。 <BR></TD></TR></TBODY></TABLE></TD></TR>
+<TR height=3>
+<TD colSpan=2></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+	function ideaSubmit(){
+			//var ideaUrl="
+			//window.open(ideaUrl,"","toolbar=yes,location=no,directories=no,status=yes,menubar=yes,scrollbars=no,resizable=yes,width=800,height=480");
+			pebankBrowserCompatible.action_blankformSubmit(document.ideaSubmit_form1);
+			return;
+		}
+
+</SCRIPT>
+
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+<SCRIPT language=JavaScript1.2 type=text/javascript src="/icbc/newperbank/js/main.js"></SCRIPT>
+
+<DIV id=TipLayer style="POSITION: absolute; Z-INDEX: 1000; TOP: -100px; VISIBILITY: hidden"></DIV>
+<SCRIPT language=JavaScript1.2 type=text/javascript src="/icbc/newperbank/js/style.js"></SCRIPT>
+
+<TBODY>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD>
+<TABLE id=三级栏目标题图片 cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=leftfirstbgandfont1 width=125 noWrap align=left>&nbsp;境内汇款查询</TD>
+<TD class=maintitlebg1 height=23 width=18 noWrap></TD>
+<TD width=320 noWrap align=right></TD>
+<TD id=tdtopmessage1 style="VISIBILITY: visible" noWrap align=right><A href="javascript:ideaSubmit();"><FONT color=#0000ff>&gt;&gt;<U>体验评价</U></FONT></A>&nbsp;</TD>
+<TD id=tdtopmessage2 style="VISIBILITY: visible" noWrap align=right>&nbsp;</TD>
+<TD id=tdtopmessage style="VISIBILITY: visible" noWrap align=right><!-- 帮助信息显示的链接 --><A onmouseover=stm(Text[15],Style[12],1) onmouseout=htm() class=link_blue href="javascript:showdv2()"><FONT color=#0000ff>&gt;&gt;<U>查看栏目信息</U></FONT></A> </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=JavaScript1.2>
+<!--
+if (isshowtip==0){
+	showdv2();
+}else{
+		try{tabletopmessage.style.display='none';}catch(exception){}
+		try{tdtopmessage.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage1.style.visibility='visible';}catch(exception){}
+		try{tdtopmessage2.style.visibility='visible';}catch(exception){}
+	}
+
+	//-->
+</SCRIPT>
+</TD></TR>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<FORM method=post name=form3 action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=0 name=Tran_Flag> <INPUT type=hidden name=kaccno> <INPUT type=hidden name=startdate> <INPUT type=hidden name=enddate> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=qryMode> <INPUT type=hidden value=/icbc/newperbank/precontract/precontract_myprecontract_submit.jsp name=ActionUrl> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_InterbankTransferEnquiryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=form4 action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=0 name=Tran_flag> <INPUT type=hidden name=qryMode> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=acctNum> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=acctCode> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_accountQueryCurrHistoryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=DomForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=1 name=head_top_num> <INPUT type=hidden value=0 name=Tran_flag1> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=acctIndex> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=queryCard> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitForExcQryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=newDomForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=1 name=head_top_num> <INPUT type=hidden value=0 name=Tran_flag1> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=acctIndex> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=queryCard> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitForExcQryNewOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=newDomRecForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=1 name=head_top_num> <INPUT type=hidden value=0 name=Tran_flag1> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=acctIndex> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=queryCard> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitForExcQryRecOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=VisaMpiForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=1 name=head_top_num> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=acctIndex> <INPUT type=hidden value=0 name=Tran_flag> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=flag> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_AccountQueryVisaMpiOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=BatchForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=1 name=head_top_num> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=searchFlag> <INPUT type=hidden name=beginTime> <INPUT type=hidden name=endTime> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_AccountFetchBatchFile name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=remiticbcForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitExcQueryICBCHistoryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=Tran_flag> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=acctNum> <INPUT type=hidden name=qryMode> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=incurrType> <INPUT type=hidden name=verifyCode> </FORM>
+<FORM method=post name=remitvisaForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitForCardExcQryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=Tran_flag> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=acctNum> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> </FORM>
+<FORM method=post name=remitToForICBCForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitToForICBCExcQryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=1 name=head_top_num> <INPUT type=hidden value=0 name=Tran_flag1> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden value=0 name=acctIndex> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=queryCard> </FORM>
+<FORM method=post name=FovaForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_AccountQueryFovaHistoryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=tranFlag> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=acctCode> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> </FORM>
+<FORM method=post name=IbpForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=0 name=Tran_flag> <INPUT type=hidden name=cardNum> <INPUT type=hidden value=-1 name=Begin_pos> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> <INPUT type=hidden name=flag> <INPUT type=hidden name=Ibpflag> <INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_IbpQueryInterbanklistOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> </FORM>
+<FORM method=post name=remitNeedVerifyForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitNeedVerifyQueryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=tranFlag> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=acctNum> <INPUT type=hidden name=outAcctType> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> </FORM>
+<FORM method=post name=remitNoIcbcBranchForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitNoICBCBranchOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=2 name=funId> </FORM><!-- 西联汇出汇款 -->
+<FORM method=post name=WUSendQueryForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_WURemitSendQueryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=1 name=tranflag> <INPUT type=hidden name=ACCOUNT_NO> <INPUT type=hidden name=START_DATE> <INPUT type=hidden name=END_DATE> <INPUT type=hidden value=1 name=START_FLAG> <INPUT type=hidden value=20 name=RET_NUM> </FORM><!-- 西联收款解付-->
+<FORM method=post name=WURcvQueryForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_WURemitRcvQueryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=1 name=tranflag> <INPUT type=hidden name=ACCOUNT_NO> <INPUT type=hidden name=START_DATE> <INPUT type=hidden name=END_DATE> <INPUT type=hidden value=1 name=START_FLAG> <INPUT type=hidden value=20 name=RET_NUM> </FORM><!-- 向未绑定手机号汇款(付款交易查询)-->
+<FORM method=post name=remitToAnyMobilePayForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitToAnyMobileQueryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=tranFlag> <INPUT type=hidden value=0 name=qryMode> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> </FORM><!-- 向未绑定手机号汇款(收款交易查询)-->
+<FORM method=post name=remitToAnyMobileRecForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI name=dse_sessionId> <INPUT type=hidden value=-1 name=dse_applicationId> <INPUT type=hidden value=per_RemitToAnyMobileQueryOp name=dse_operationName> <INPUT type=hidden value=6 name=dse_pageId> <INPUT type=hidden value=0 name=tranFlag> <INPUT type=hidden value=1 name=qryMode> <INPUT type=hidden name=recMobileNum> <INPUT type=hidden name=begDate> <INPUT type=hidden name=endDate> </FORM>
+<FORM method=post name=InfoForm action=/servlet/ICBCINBSReqServlet><INPUT type=hidden value=1 name=head_top_num> 
+<TABLE id=主交易区 class=td_L_main cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR align=center>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
+<TBODY>
+<TR>
+<TD height=26 colSpan=3 noWrap></TD>
+<TR id=TranTypeShow>
+<TD height=13 width="25%">
+<DIV align=right>交易类型：</DIV></TD>
+<TD height=26 colSpan=2 noWrap>
+<DIV align=left><SELECT onchange=Trantypechange_1(); id=TranType name=TranType><OPTION value=noselected>请选择</OPTION><OPTION selected value=1>工行汇款</OPTION><OPTION value=2>跨行汇款</OPTION><OPTION value=4>批量汇款</OPTION><OPTION value=7>跨行快汇</OPTION><OPTION value=11>向未绑定手机号汇款</OPTION></SELECT> </DIV></TD></TR>
+<TR id=tradeType_show>
+<TD height=13 width="25%">
+<DIV align=right>交易种类：</DIV></TD>
+<TD height=26 colSpan=2 noWrap><SPAN align="left"><SELECT onchange=Tranflagchange(); id=TranFlag name=TranFlag> <OPTION value=noselected>请选择</OPTION><OPTION value=0>付款交易</OPTION><OPTION selected value=1>收款交易</OPTION><OPTION value=2>委托管理人交易</OPTION></SELECT> </SPAN></TD></TR>
+<TR id=cardtList_show>
+<TD height=13 width="25%">
+<DIV align=right>注册卡（账）号：</DIV></TD>
+<TD height=26 noWrap><SPAN id=cardspan><SELECT onchange="cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()" id=acctSelList name=acctSelList><OPTION selected value=0>长春 6222024200019701731 e时代卡</OPTION></SELECT></SPAN><SPAN id=inputdisplay></SPAN><INPUT type=hidden value=0 name=Tran_flag> <INPUT type=hidden name=cardNum> <INPUT type=hidden name=acctNum> <INPUT type=hidden value=1 name=qryMode> <INPUT type=hidden value=-1 name=Begin_pos> </TD></TR>
+<TR id=acctList_show>
+<TD height=13 width="25%">
+<DIV align=right>下挂账户：</DIV></TD>
+<TD height=26 colSpan=2 noWrap>
+<DIV align=left><SELECT id=acctSelList2 name=acctSelList2><OPTION value=1>00000 活期 4200202101009494268 </OPTION><OPTION selected value=no>不带下挂账户</OPTION></SELECT> </DIV></TD></TR>
+<TR>
+<TD width="25%" align=right>
+<DIV id=div1></DIV></TD>
+<TD colSpan=2>
+<DIV id=div2></DIV></TD></TR>
+<TR id=queryTime_show>
+<TD height=26 width="25%">
+<DIV align=right>起止日期：</DIV></TD>
+<TD height=26 colSpan=2><INPUT onkeyup='getfocus("endDate")' id=begDate style="VERTICAL-ALIGN: middle" maxLength=8 size=9 value=20140626 name=begDate> <IMG onclick=getDateString(InfoForm.begDate,oCalendarChs) id=depPic style="CURSOR: pointer; VERTICAL-ALIGN: middle" border=0 src="/icbc/newperbank/images/b_time.gif"> - <INPUT id=endDate style="VERTICAL-ALIGN: middle" maxLength=8 size=9 value=20150621 name=endDate> <IMG onclick=getDateString(InfoForm.endDate,oCalendarChs) id=depPic1 style="CURSOR: pointer; VERTICAL-ALIGN: middle" border=0 src="/icbc/newperbank/images/b_time.gif"> <A class=quickdate href="javascript:quickDate('today');">当天</A>&nbsp;<A class=quickdate href="javascript:quickDate('week');">最近一周</A>&nbsp;<A class=quickdate href="javascript:quickDate('month');">最近一个月</A>&nbsp;<A id=quickDateTM class=quickdate href="javascript:quickDate('triplemonth');">最近三个月</A> </TD></TR>
+<TR id=recName_show style="DISPLAY: none">
+<TD height=13 width="25%">
+<DIV align=right>收款人：</DIV></TD>
+<TD height=26 colSpan=2 noWrap>
+<DIV align=left>周天一 </DIV></TD></TR>
+<TR id=recMobileNum_show style="DISPLAY: none">
+<TD height=13 width="25%">
+<DIV align=right>收款手机号：</DIV></TD>
+<TD height=26 colSpan=2 noWrap>
+<DIV align=left><INPUT id=recMobileNum maxLength=11 name=recMobileNum> </DIV></TD></TR>
+<TR>
+<TD class=newButtonTdStyle colSpan=3>
+<DIV align=center><A href="javascript:formsubmit();"><IMG border=0 src="/icbc/newperbank//nbt/chaxun.gif"></A></DIV></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></FORM></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>
+  //setTimeout("initpage()",500);
+  tempstr="<select id=acctSelList name=acctSelList onchange=cardSelListChange('|00|01|21|22|20|23|');changeCurrList(InfoForm);inputCard()>"
+  tempstr=tempstr+acctList.getQryBasicInfoOptionString('0','0','');
+  document.all.cardspan.innerHTML=tempstr+"</select>";
+  cardSelListChange('|00|01|21|22|20|23|');
+</SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/includes/relatedTran.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/service/service_mycommand.js"></SCRIPT>
+
+<SCRIPT>
+ 
+
+  		</SCRIPT>
+<LINK rel=stylesheet type=text/css href="/icbc/newperbank/desktop/style1/css/desktop-relatedtran.css">
+<TABLE id=relatedTran_table style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR height=45>
+<TD class=tdspace></TD>
+<TD>&nbsp;</TD></TR>
+<TR>
+<TD>&nbsp;</TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=font_tblack background=/icbc/newperbank/images/wel_r1.gif width=250 noWrap>&nbsp;您可能还会对以下产品或功能感兴趣：</TD>
+<TD width=61><IMG src="/icbc/newperbank/images/jiao.gif" width=20 height=23></TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD>
+<TABLE class=td_L_R2 cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR style="BACKGROUND-COLOR: #f2f2f2" height=70>
+<TD onclick=deactiveIcon(); style="PADDING-LEFT: 20px" colSpan=3>
+<DIV id=relatedTrade></DIV></TD></TR></TBODY></TABLE></TD></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=JavaScript1.2>
+	var realNum = 0;
+	var commandNum;
+	function gotoDetail(url){
+		window.location=url;
+	}
+	function rel_changeJsp(id1){
+	var cform=eval("document.forwardformaaa");
+	cform.id.value=id1;
+	//alert(id);
+	cform.ActionUrl.value="";
+	try{
+		singleProcess();
+	}catch(err){}
+	cform.submit();
+	}
+	function activeIcon(id){
+		//清空所有选中后再高亮
+		deactiveIcon("#related_icon1",realNum);
+		deactiveIcon("#command_icon1",commandNum);
+		jQuery("#" + id).addClass("active");
+	}
+	
+	function deactiveIcon(str,num){
+		for(var i=0;i<num;i++){ //realNum
+			if(jQuery(str +i).hasClass("active"))
+				jQuery(str +i).removeClass("active");
+		}
+	}	
+	function showIcon(_icommadList){
+	commandNum = _icommadList.length > 10?10:_icommadList.length;
+	var realNum1 = 10 - commandNum < 0 ? 0:10 - commandNum;
+	realNum = realNum < realNum1?realNum:realNum1;
+	//推荐和相关交易需要同时考虑
+	if(realNum>0||commandNum>0){//修改desktop-window.js
+		jQuery("#relatedTran_table").show();
+		//构建相关交易
+		var DstList = new Array();	
+  		var menuIdDst_str = '';
+  		var displayDescDst_str = '';  		
+  		var openURLDst_str = '';
+ 
+		var menuIdDst = menuIdDst_str.split("&");
+		var displayDescDst = displayDescDst_str.split("&@#$%");	//交易名称使用GBK编码，会出现&；比如“开通VISA/万事达卡SecureCode&#153验证服务”
+		var openUrlDst = openURLDst_str.split("&");
+	
+		var Template= "";
+		var stylePath = 'style1';
+		//推荐产品添加
+		for(var i=0;i<commandNum;i++){ //realNum
+	  		var displayImg = "/icbc/newperbank/desktop/"+stylePath+"/images/menu/"+_icommadList[i].id+"_big.png";	  		
+	  		if(""!=openUrlDst[i]){
+				 openUrlDst[i] =_icommadList[i].url;
+			}
+	  		else{
+	  			openUrlDst[i] = null;
+	  	  	}
+	  	  var displayDescDstTmp=_icommadList[i].proName;
+	  	  
+	  	  var NameLength;
+	  	  if(displayDescDstTmp != undefined)
+	  	  {
+	  	  	NameLength= displayDescDstTmp.length;
+	  	  }else{
+	  	  	NameLength=0;	  	  	
+	  	  	displayDescDstTmp="交易名称解析异常";
+	  	  }
+	  	  
+	  	if(NameLength>10){	  		
+	  		displayDescDstTmp=displayDescDstTmp.substring(0,10)+"…";
+	  	}	
+	  	var command_id = "command_icon1" + i;
+		Template = Template + "<div class=\"related_icon1\" id=\""+command_id+"\" tabIndex=\"-1\" ondblclick = \""+_icommadList[i].url +"\" onclick=\"activeIcon('"+command_id+"');if(event.stopPropagation){event.stopPropagation();} else{event.cancelBubble=true;}\">" +
+							"<image  class=\"displayImgBottom\" src=\""+ displayImg +"\")>" +
+							"<image style=\"position:relative;\" src=\"/icbc/newperbank/images/jian.png\"/></image>" +
+							"<div style='font-size:12px;'  class=\"displayDescBottom\">"+displayDescDstTmp+"</div>" + 
+							"</div>";	
+		}		
+  	  	//相关交易添加
+		for(var i=0;i<realNum;i++){ //realNum
+	  		var displayImg = "/icbc/newperbank/desktop/"+stylePath+"/images/menu/"+menuIdDst[i]+"_big.png";	  		
+	  		if(""!=openUrlDst[i]){
+				 openUrlDst[i] ="/servlet/ICBCINBSCenterServlet?"+ "dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI"+"&id="+openUrlDst[i];
+			}
+	  		else{
+	  			openUrlDst[i] = null;
+	  	  	}
+	  	  var displayDescDstTmp=displayDescDst[i];
+	  	  
+	  	  var NameLength;
+	  	  if(displayDescDstTmp != undefined)
+	  	  {
+	  	  	NameLength= displayDescDstTmp.length;
+	  	  }else{
+	  	  	NameLength=0;	  	  	
+	  	  	displayDescDstTmp="交易名称解析异常";
+	  	  }
+	  	var related_id = "related_icon1" + i;	  	  
+	  	if(NameLength>10){	  		
+	  		displayDescDstTmp=displayDescDstTmp.substring(0,10)+"…";
+	  	}	
+		Template = Template + "<div class=\"related_icon1\" id=\""+related_id+"\" tabIndex=\"-1\" ondblclick = \"rel_changeJsp('"+menuIdDst[i]+"')\" onclick=\"activeIcon('"+related_id+"');if(event.stopPropagation){event.stopPropagation();} else{event.cancelBubble=true;}\">" +
+							"<div class=\"displayImgBottom\"><img src=\""+displayImg+"\"></img></div>" +
+							"<div style='font-size:12px;' class=\"displayDescBottom\">"+displayDescDstTmp+"</div>" + 
+							"</div>";	
+		}	
+		jQuery("#relatedTrade").append(Template);		
+		jQuery("#relatedTrade").show();	
+	}
+	}
+	
+		//ajax 查询推荐产品
+ 		relatedTran._ajax_icommandList('GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI','20150621');
+ 	
+</SCRIPT>
+
+<FORM method=post name=forwardformaaa action=/servlet/ICBCINBSCenterServlet?dse_sessionId=GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI><INPUT type=hidden value=ee name=id> <INPUT type=hidden name=ActionUrl> </FORM>
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/json2.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/ajax/datastruct-ajax-eb.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/includes/MyAdInfo.js"></SCRIPT>
+
+<SCRIPT language=Javascript src="/icbc/newperbank/js/util/ebank_util.js"></SCRIPT>
+
+<SCRIPT language=javascript src="/icbc/newperbank/js/service/service_mycommand.js"></SCRIPT>
+
+<TABLE id=myadinfo_table style="DISPLAY: none" cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY>
+<TR height=45>
+<TD class=tdspace></TD>
+<TD>&nbsp;</TD></TR>
+<TR>
+<TD>&nbsp;</TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD align=center>
+<DIV id=banner>
+<DIV id=banner_bg></DIV>
+<DIV id=banner_info></DIV>
+<UL id=banner_ul></UL>
+<DIV id=banner_list></DIV></DIV></TD></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT>
+ebank_util.getInstance().addCSS("/icbc/newperbank/css/includes/myAdinfo.css");
+var tttttt = nnnnnnn = 0, countAd;
+	jQuery(document).ready(function(){	
+		//dodemo();
+		var utb_isEmallLogin = '0';
+		var mainob_intheMenuList = '1'
+		if(utb_isEmallLogin != '1' && mainob_intheMenuList == '1'){
+			_ajax_getADPic('GTJLBJCFEWBFFYAPGFIUFUFUEJCKCAEZHCCOBUCI','20150621');
+		}
+	})
+
+function showAuto()
+{
+	nnnnnnn = nnnnnnn >=(countAd - 1) ? 0 : ++nnnnnnn;
+	jQuery("#banner li").eq(nnnnnnn).trigger('click');
+}	
+function dodemo(){
+	var pic1 = new MyAdInfo();
+	pic1.pic_url = "/icbc/newperbank/images/106.jpg";	
+	pic1.href_url = "#";	
+	pic1.id = "0";	
+	jQuery("#banner_ul").append(pic1.toLiHtml());
+	jQuery("#banner_list").append(pic1.toDivHtml());	
+		var pic2 = new MyAdInfo();
+	pic2.pic_url = "/icbc/newperbank/images/107.jpg";	
+	pic2.href_url = "#";	
+	pic2.id = "1";	
+	jQuery("#banner_ul").append(pic2.toLiHtml());
+	jQuery("#banner_list").append(pic2.toDivHtml());		
+		var pic3 = new MyAdInfo();
+	pic3.pic_url = "/icbc/newperbank/108.jpg";	
+	pic3.href_url = "#";	
+	pic3.id = "2";	
+	jQuery("#banner_ul").append(pic3.toLiHtml());
+	jQuery("#banner_list").append(pic3.toDivHtml());				
+	};
+function _ajax_getADPic(sessionId,nowDate){
+		var sendParam = {};
+		sendParam["SessionId"] = sessionId;	
+		sendParam["tranCode"] = "A00338";
+		EBDataStruct.sendAjax( {
+			data :sendParam,
+			dataType :"json",
+			url :"AsynGetDataServlet",
+			failCallBack : function() {		
+				_qeuryOver = "1";
+				//showIcon(_icommadList);
+			
+			},
+			successCallBack : function(kc) {
+			
+				getADPic_deal(kc,sessionId,nowDate);
+			},
+			isDisplay :false,
+			displayArea :"pselected"
+		});		
+		
+	}
+	function getADPic_deal(KColl,sessionId,nowDate){
+
+		var TranErrorCode = KColl.getValueAt("TranErrorCode");
+		var TranErrorDisplayMsg = KColl.getValueAt("TranErrorDisplayMsg");	
+		var MAX_ADCount = KColl.getValueAt("MAX_ADCount");
+		var ik = KColl.getIndexedCollection("rd");	
+		var rownum = ik.size();
+		if(rownum == 0) return;
+		var adcount = 0;
+		if (TranErrorCode == "0") {
+			for(var i=0; i<rownum && adcount < MAX_ADCount;i++){
+			
+			var koll = ik.getElementAt(i);
+	  		var showFlag = koll.getValueAt("isavilable")==null?"":koll.getValueAt("isavilable");
+	  		if(showFlag == "0"){
+	  			//i--;
+	  			continue;
+	  		}
+	  			
+				var pic3 = new MyAdInfo();
+				pic3.pic_url = koll.getValueAt("AD_PIC");	
+				pic3.id = adcount++;					
+				var skip_link =  formatStr(koll.getValueAt("SKIP_LINK"));
+				var Data_Dt = koll.getValueAt("Data_Dt");
+				var campeventid1 = koll.getValueAt("EXEC_ID");
+				var ADV_SEQ = koll.getValueAt("ADV_SEQ");				
+  			var url = "javascript:AD_goto('" + skip_link + "','" +
+ 						campeventid1 + "','','','','','" + 		
+ 						ADV_SEQ + "','" +  						
+ 						Data_Dt + "','" +  
+ 						sessionId + "','" + 
+ 						nowDate + "','" +  						
+ 					  "');";
+ 				pic3.href_url = url;					
+				jQuery("#banner_ul").append(pic3.toLiHtml());
+				jQuery("#banner_list").append(pic3.toDivHtml());	  		
+		}
+		if(adcount != 0){show_adDom();}
+
+		}
+	}	
+	function show_adDom(){
+		count=jQuery("#banner_list img").length;
+		countAd=count;
+		jQuery("#banner_list img:not(:first-child)").hide();
+		jQuery("#banner_info").html(jQuery("#banner_list div:first-child").attr('alt'));
+		if(countAd!=1){
+			jQuery("#banner li").click(function() {
+				var i = parseInt(jQuery(this).attr("id"),10) - 1;
+				n = i;
+				if (i >= count) return;
+				jQuery("#banner_info").html(jQuery("#banner_list img").eq(i).attr('alt'));
+				//$("#banner_info").unbind().click(function(){window.open($("#banner_list a").eq(i).attr('href'), "_blank")})
+				jQuery("#banner_list img").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(500);
+				document.getElementById("banner").style.background="";
+				if(!jQuery(this).hasClass("on")){
+					jQuery(this).toggleClass("on");
+				}
+				jQuery(this).siblings().removeAttr("class");
+			});
+			t = setInterval("showAuto()", 4000);
+			jQuery("#banner").hover(function(){clearInterval(t)}, function(){t = setInterval("showAuto()", 4000);});
+		}
+		jQuery("#myadinfo_table").show();	
+	}
+		function formatStr(s){
+		return decodeURIComponent(s);
+	}
+</SCRIPT>
+<BR><BR>
+<TABLE class=leftAndMainLastLineShowPic cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD class=tdspace></TD>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=left border=0>
+<TBODY>
+<TR>
+<TD width="10%"><FONT color=#ffffff>06020001</FONT></TD></TR>
+<TR>
+<TD class=font_tblack background=/icbc/newperbank/images/wel_r1.gif width=75 noWrap>&nbsp;交易提示</TD>
+<TD width=61><IMG src="/icbc/newperbank/images/jiao.gif" width=20 height=23></TD>
+<TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR>
+<TR>
+<TD>
+<TABLE id=交易提示区 class=td_L_R2 cellSpacing=0 cellPadding=0 width="85%" align=left border=0>
+<TBODY>
+<TR>
+<TD vAlign=top width="10%" align=left><IMG title=交易提示信息 src="/icbc/newperbank/images/rp_29.png" width=47 height=42></TD>
+<TD vAlign=top width="90%" align=left>1.工行汇款：可查看近360天的明细<BR>2.跨行转账汇款查询：可查看近3个月的明细：<BR>（1）可查询付款交易和收款交易。<BR>（2）查询区间跨度为1个月。<BR>3.跨行快汇查询：可查看近1年的明细<BR>4.向境外银行汇款查询：可查看近6个月的明细<BR>5.向境外VISA卡汇款查询：可查看近6个月的明细</TD></TR></TBODY></TABLE></TD></TD></TR></TBODY></TABLE></TD></TR>
+<TR height=1>
+<TD></TD></TR></TBODY></TABLE>
+<SCRIPT language=javascript>	
+	//modify by xuwx,芯片卡服务交易区引用了iframe
+	try{
+		parent.leftFrame.idtmp = "060298";
+	}catch(e){
+		try{
+			parent.parent.leftFrame.idtmp = "060298";
+		}catch(e1){
+			
+		}
+	}
+</SCRIPT>
+
+<SCRIPT src="/ebdpui/pc4ebankp/ebdp-pc4ebankp-core.js"></SCRIPT>
+<LINK rel=stylesheet type=text/css href="/ebdpui/pc4ebankp/style/default/floatmessage/ebdp-pc4ebankp-floatmessage.css">
+<SCRIPT src="/ebdpui/pc4ebankp/ebdp-pc4ebankp-floatmessage.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+var objectArray = {};
+initFloatMessage(objectArray);
+var dateSelector_json = {"begDate0_date_DD":"-360","begDate30_date_DD":"-210","begDate1_date_DD":"-360","begDate31_date_DD":"-360","begDate2_date_MM":"-3","begDate11_date_DD":"-360","begDate5_date_MM":"-18","begDate6_date_DD":"-210","begDate7_date_DD":"-360","begDate8_date_DD":"-60"};
+var dateSelector_datenow = "20150621";
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+//特殊处理新栏目下的左测栏目是否隐藏显示
+function leftFramehide(){
+	try{
+		parent.hideLeftMenu();
+		parent.hideSwitchBar();
+	}catch(e){
+		parent.parent.hideLeftMenu();
+		parent.parent.hideSwitchBar();	
+	}
+}
+<!--
+			
+	setcolor();
+	
+ 	init();
+
+//-->
+</SCRIPT>
+
+<SCRIPT language=javascript>
+  setTimeout("initpage()",500); //防止dateSelector_json加载不完。
+</SCRIPT>
+</BODY></HTML>

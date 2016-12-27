@@ -1,0 +1,66 @@
+﻿<HTML style="DISPLAY: block"><HEAD><TITLE>中国工商银行新一代网上银行</TITLE>
+<STYLE> html{display : none ; } </STYLE>
+
+<SCRIPT>
+//防止恶意网站iframe钓鱼
+if( self.location == top.location ) { document.documentElement.style.display = 'block' ; } else { top.location = self.location ; }
+
+	//safari崩溃的签退
+	try{
+		//alert("navigator.userAgent="+navigator.userAgent);
+		if(navigator.userAgent.indexOf("Safari")>-1 || navigator.userAgent.indexOf("Firefox")>-1){
+			var sid=window.localStorage.getItem("sid");
+			if(sid!=null){;
+				window.localStorage.removeItem("sid");
+				xmlhttp=new XMLHttpRequest();
+				xmlhttp.open("GET","/servlet/ICBCINBSReqServlet?dse_operationName=per_PersonalSignOffOp&dse_sessionId="+sid+"&dse_applicationId=-1",true);
+				xmlhttp.send();
+			}
+		}
+	}catch(e){}
+</SCRIPT>
+
+<SCRIPT language=Javascript>
+var httpCacheUtil = { 
+	createXHR: function () {
+		 if (typeof XMLHttpRequest != "undefined") { 
+		 	return new XMLHttpRequest();
+	 } else if (typeof ActiveXObject != "undefined") {
+	 	 if (typeof arguments.callee.activeXString != "string") {
+	 	 	 var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp"];
+ for (var i = 0, len = versions.length;i < len; ++i) { 
+ 		try { var xhr = new ActiveXObject(versions[i]);
+ 		arguments.callee.activeXString = versions[i];
+ 	return xhr;
+	 } catch (ex) { // pass
+ 	 } } }
+ 	  return new ActiveXObject(arguments.callee.activeXString);
+	 } else { 
+	 	throw new Error("No XHR object available");
+	 } }, 
+ update: function(url){ try { var success = function(responseText) { };
+ var error = function(errorStatus) { };
+ var xhr = httpCacheUtil.createXHR();
+ if(typeof xhr != "undefined" && xhr != null) {
+ 	 xhr.onreadystatechange = function (event) { 
+ 	 	if (xhr.readyState == 4) {
+ 	 		 if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) { 
+ 	 		 	if (typeof success === "function") success(xhr.responseText);
+ 			} else {
+ 				 if (typeof error === "function") error(xhr.status);
+			 } 
+		 } 
+	  };
+	 xhr.open("GET", url, false);
+	 xhr.setRequestHeader("If-None-Match","\"22426f327b8cd1:0\"");
+	 xhr.setRequestHeader("If-Modified-Since", "Sat, 31 Dec 2011 02:51:00 GMT");
+	 xhr.send(null);
+ } } catch(e){ // throw no exception
+ 	 } } };
+ 	try{
+		httpCacheUtil.update("/icbc/newperbank/js/checkacct.js");
+		httpCacheUtil.update("/icbc/newperbank/js/accountlist.js");	
+	}catch(exception){}
+</SCRIPT>
+
+<META content="text/html; charset=GBK" http-equiv=Content-Type></HEAD><FRAMESET style="BORDER-LEFT-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; BORDER-TOP-WIDTH: 0px" frameSpacing=0 border=0 frameBorder=NO rows=*,0 cols=*><FRAME noResize marginHeight=0 src="/icbc/newperbank/main/login.jsp?injectTranName=&amp;injectTranData=&amp;injectSignStr=&amp;lastUserName=&amp;destpage=&amp;injectSignStrV=&amp;_jumpBranchAreaCode=&amp;_jumpBranchParams=" name=indexFrame marginWidth=0 target="_top"><FRAME src="./1.html" name=null><NOFRAMES></NOFRAMES></FRAMESET></HTML>

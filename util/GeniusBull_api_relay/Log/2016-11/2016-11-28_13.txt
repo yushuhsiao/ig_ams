@@ -1,0 +1,2 @@
+﻿2016-11-28 13:23:27.02	1	/recognitionservice/rest/recog
+2016-11-28 13:25:17.25	1	192.168.5.254	/recognitionservice/rest/recog

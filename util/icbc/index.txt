@@ -1,0 +1,4 @@
+﻿登入頁面
+_top		https://mybank.icbc.com.cn/icbc/perbank/index.jsp
+indexFrame	https://mybank.icbc.com.cn/icbc/newperbank/main/login.jsp?injectTranName=&injectTranData=&injectSignStr=&lastUserName=&destpage=&injectSignStrV=&_jumpBranchAreaCode=&_jumpBranchParams=
+_blank		https://mybank.icbc.com.cn/icbc/perbank/1.html

@@ -1,0 +1,49 @@
+﻿1-login		登入
+
+
+2-main1		主畫面
+
+主畫面廣告
+<A id=emall_closebtn href="javascript:parent.frames[0].TB_removeEmall()"><IMG border=0 src="https://mybank.icbc.com.cn/icbc/newperbank/images/Xclose.GIF" width=21 height=20></A>
+
+
+
+2-main2		主畫面(按下關閉)
+
+<A class=link_black1 href="JavaScript:onSubtopForm('06','1')"><FONT id=headfont06>转账汇款</FONT></A>
+
+
+
+3-1			轉帳匯款1
+
+<A id=sa_0602 class=left_link1 href="javascript:onSubleftForm('0602','1','060299')" name=sa_0602>转账汇款查询</A>
+
+
+
+3-2			轉帳匯款2
+
+<A class=left_link1 href="javascript:onSubleftForm('060298','1')" name=ta_060298><FONT id=leftthrfont060298>境内汇款查询</FONT></A>
+
+3-3			境內匯款 條件設定
+
+查詢按鈕:
+<A href="javascript:formsubmit();"><IMG border=0 src="/icbc/newperbank//nbt/chaxun.gif"></A>
+
+
+
+4			境內匯款 查詢結果
+
+mybank.icbc.com.cn/servlet/ICBCINBSReqServlet
+可以執行 on_sub()
+
+<A href="javascript:on_sub('thisform','currserialNo','HQH000000000003163839649')"><FONT color=blue><U>详细信息</U></FONT></A>
+<A href="javascript:on_sub('thisform','currserialNo','HQH000000000003163724819')"><FONT color=blue><U>详细信息</U></FONT></A>
+<A href="javascript:on_sub('thisform','currserialNo','HQH000000000003163470109')"><FONT color=blue><U>详细信息</U></FONT></A>
+
+
+
+5			單筆明細
+
+mybank.icbc.com.cn/servlet/ICBCINBSReqServlet
+<a href="javascript:history.go(-1);"><img src="/icbc/newperbank/nbt/fanhui.gif" border="0"></a>
+可以執行 history.go(-1)
