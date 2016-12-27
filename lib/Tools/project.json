@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Newtonsoft.Json": "9.0.1",
+    "StackExchange.Redis": "1.1.608"
+  },
+  "buildOptions": {
+    "allowUnsafe": true
+  },
+
+  "frameworks": {
+    "net40": {
+      "dependencies": {
+      },
+      "frameworkAssemblies": {
+        "System.Configuration": "4.0.0.0",
+        "System.Core": "4.0.0.0",
+        "System.Data": "4.0.0.0",
+        "System.Drawing": "4.0.0.0",
+        "System.Runtime.Remoting": "4.0.0.0",
+        "System.Web": "4.0.0.0",
+        "System.Windows.Forms": "4.0.0.0",
+        "System.Xml": "4.0.0.0",
+        "System.Xml.Linq": "4.0.0.0"
+      }
+    },
+    "netstandard1.5": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.6.1",
+        "Microsoft.Extensions.Configuration": "1.1.0",
+        "System.Collections.Specialized": "4.3.0",
+        "System.ComponentModel.TypeConverter": "4.3.0",
+        "System.Data.Common": "4.3.0",
+        "System.Data.SqlClient": "4.3.0",
+        "System.Diagnostics.StackTrace": "4.3.0",
+        "System.Dynamic.Runtime": "4.3.0",
+        "System.Diagnostics.TraceSource": "4.3.0",
+        "System.AppDomain": "2.0.11"
+      }
+    }
+  }
+}

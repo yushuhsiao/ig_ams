@@ -1,0 +1,423 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Security;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Tools;
+
+namespace redis
+{
+    enum RespType : byte
+    {
+        SimpleStrings = (byte)'+',
+        Errors = (byte)'-',
+        Integers = (byte)':',
+        BulkStrings = (byte)'$',
+        Arrays = (byte)'*'
+    }
+
+    public class RedisClient
+    {
+        #region Defaults
+
+        public const long DefaultDb = 0;
+        public const int DefaultPort = 6379;
+        public const string DefaultHost = "localhost";
+        public const int DefaultIdleTimeOutSecs = 240; //default on redis is 300
+
+        #endregion
+
+        #region consts
+
+        internal const byte CR = (byte)'\r';
+        internal const byte LF = (byte)'\n';
+        internal static readonly byte[] CRLF = new byte[] { CR, LF };
+
+        #endregion
+
+        #region writelog
+
+        const string prefix = "redis";
+
+        public static bool EnableWriteLog = true;
+
+        internal static void writelog(string msg)
+        {
+            if (EnableWriteLog) log.message(prefix, "{0}", msg);
+        }
+
+        internal static void writelog(string format, params object[] args)
+        {
+            if (EnableWriteLog) log.message(prefix, format, args);
+        }
+
+        #endregion
+
+        public string Host { get; private set; }
+        public int Port { get; private set; }
+
+        public int SendTimeout { get; set; }
+        public int ReceiveTimeout { get; set; }
+        public int ConnectTimeout { get; set; }
+
+        public RedisClient(string host = DefaultHost, int port = DefaultPort)
+        {
+            this.Host = host;
+            this.Port = port;
+            this.SendTimeout = -1;
+            this.ReceiveTimeout = -1;
+            this.ConnectTimeout = 3000;
+
+            this.GetConnection();
+        }
+
+        RedisConnection connection;
+
+        RedisConnection GetConnection()
+        {
+            if (this.connection == null)
+            {
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(this.Host, this.Port);
+                this.connection = new RedisConnection(socket);
+            }
+            return this.connection;
+        }
+
+        public object SendCommand(string str)
+        {
+            return this.GetConnection().SendCommand(str);
+        }
+    }
+
+    class RedisConnection : IDisposable
+    {
+        readonly Socket sck;
+        readonly NetworkStream s1;
+        readonly BufferedStream s2;
+
+        public RedisConnection(Socket socket)
+        {
+            this.sck = socket;
+            s1 = new NetworkStream(sck);
+            s2 = new BufferedStream(s1);
+        }
+
+        void IDisposable.Dispose()
+        {
+            using (sck)
+            {
+                try { sck.Shutdown(SocketShutdown.Both); }
+                catch { }
+                try { sck.Close(); }
+                catch { }
+            }
+        }
+
+        public object SendCommand(string str)
+        {
+            str = str.Trim(true);
+            if (str == null) return null;
+            RedisClient.writelog("{0}", str);
+            byte[] sendBuf = Encoding.UTF8.GetBytes(str);
+            s2.Write(sendBuf, 0, sendBuf.Length);
+            s2.Write(RedisClient.CRLF, 0, RedisClient.CRLF.Length);
+            s2.Flush();
+            RespType t;
+            object result = this.Read(-1, out t);
+            RedisClient.writelog("{0}{1}", (char)t, result);
+            return result;
+        }
+
+        object Read(int depth, out RespType t)
+        {
+            t = (RespType)s2.ReadByte();
+            switch (t)
+            {
+                case RespType.Errors:
+                case RespType.SimpleStrings: return ReadString();
+                case RespType.Integers: return ReadInteger();
+                case RespType.BulkStrings: return ReadBulkString();
+                case RespType.Arrays: return ReadArray(depth + 1);
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        string ReadString()
+        {
+            byte[] tmp = new byte[16];
+            byte prev, b = 0;
+            for (int p = 0; ; )
+            {
+                prev = b;
+                tmp[p++] = b = (byte)s2.ReadByte();
+                if ((prev == RedisClient.CR) && (b == RedisClient.LF))
+                {
+                    string s = Encoding.UTF8.GetString(tmp, 0, p - 2);
+                    return s;
+                }
+                if (p >= tmp.Length) Array.Resize(ref tmp, tmp.Length * 2);
+            }
+        }
+
+        long ReadInteger()
+        {
+            long n;
+            this.ReadString().ToInt64(out n);
+            return n;
+        }
+
+        string ReadBulkString()
+        {
+            int size = (int)this.ReadInteger();
+            if (size == -1) return null; // Null Bulk String
+            byte[] tmp = new byte[size + 2];
+            s2.Read(tmp, 0, tmp.Length); string s = Encoding.UTF8.GetString(tmp, 0, size);
+            return s;
+        }
+
+        RedisArray ReadArray(int depth)
+        {
+            RespType t;
+            long size = this.ReadInteger();
+            RedisArray array = new RedisArray(depth);
+            for (long i = 0; i < size; i++)
+                array.Add(Read(depth, out t));
+            return array;
+        }
+
+
+
+
+        byte[] recvBuf = new byte[1024];
+        int pos;
+        int len;
+        int count
+        {
+            get { return this.len - this.pos; }
+        }
+
+        void recv(IAsyncResult ar)
+        {
+            DateTime time = DateTime.Now;
+            try
+            {
+                lock (this)
+                {
+                    if (ar != null)
+                    {
+                        //int cnt = socket.EndReceive(ar);
+                        int cnt = s2.EndRead(ar);
+                        Interlocked.Add(ref total, cnt);
+                        if (cnt == 0) { client.CloseConnection(); return; }
+                        this.len += cnt;
+                        object result;
+                        while (this.Read(-1, ref this.nested, out result))
+                        {
+                            RedisCommand cmd;
+                            lock (this.wait_queue)
+                            {
+                                if (this.wait_queue.Count == 0)
+                                    cmd = null;
+                                else
+                                    cmd = this.wait_queue.Dequeue();
+                            }
+                            if (cmd != null)
+                                cmd.Ready(time, result);
+                            client.DataReady(time, result);
+                        }
+                    }
+
+                    #region trim buffer
+
+                    if (this.pos != 0)
+                    {
+                        for (int i = 0, j = this.pos, cnt = this.count; i < cnt; i++, j++)
+                            this.recvBuf[i] = this.recvBuf[j];
+                        this.len -= this.pos;
+                        this.pos = 0;
+                    }
+
+                    if (this.recvBuf.Length - this.len < 128)
+                        Array.Resize(ref this.recvBuf, this.recvBuf.Length * 2);
+
+                    //int available = socket.Available;
+                    //if (available < 128)
+                    //    available = 128;
+                    //while ((this.data.Length - this.len) < available)
+                    //    Array.Resize(ref this.data, this.data.Length * 2);
+
+
+                    #endregion
+                    //socket.BeginReceive(this.data, this.len, this.data.Length - this.len, SocketFlags.None, recv, client);
+                    s2.BeginRead(this.recvBuf, this.len, this.recvBuf.Length - this.len, recv, client);
+                }
+            }
+            catch (Exception ex)
+            {
+                client.CloseConnection();
+                RedisClient.writelog(ex.Message);
+            }
+        }
+        
+        bool Read(int depth, ref RedisArray nested, out object result)
+        {
+            bool ret; string tmp_s; long tmp_i; object tmp_o;
+            if (nested == null)
+            {
+                if (this.pos < this.len)
+                {
+                    RespType t = (RespType)this.recvBuf[this.pos];
+                    switch (t)
+                    {
+                        case RespType.Errors:
+                        case RespType.SimpleStrings:
+                            ret = this.ReadString(this.pos + 1, out tmp_s);
+                            result = tmp_s;
+                            return ret;
+
+                        case RespType.Integers:
+                            ret = this.ReadInteger(this.pos + 1, out tmp_i);
+                            result = tmp_i;
+                            return ret;
+
+                        case RespType.BulkStrings:
+                            ret = this.ReadBulkString(this.pos + 1, out tmp_s);
+                            result = tmp_s;
+                            return ret;
+
+                        case RespType.Arrays:
+                            if (this.ReadInteger(this.pos + 1, out tmp_i))
+                                nested = new RedisArray(depth + 1, (int)tmp_i);
+                            break;
+
+                        default:
+                            int n = this.findCRLF(-1, -1);
+                            if (n > 0) this.pos = n + 2;
+                            result = null;
+                            return false;
+                    }
+                }
+            }
+            if (nested != null)
+            {
+                while ((nested.Count < nested.Capacity) && (this.pos < this.len))
+                {
+                    if (this.Read(nested.depth, ref nested.nested, out tmp_o))
+                        nested.Add(tmp_o);
+                    else break;
+                }
+                if (nested.Count >= nested.Capacity)
+                {
+                    result = nested;
+                    nested = null;
+                    return true;
+                }
+            }
+            result = null;
+            return false;
+        }
+
+        bool ReadString(int start, out string result)
+        {
+            int n = this.findCRLF(start, -1);
+            if (n >= 0)
+            {
+                result = this.getString(start, n - start);
+                this.pos = n + 2;
+                return true;
+            }
+            result = null;
+            return false;
+        }
+
+        bool ReadInteger(int start, out long result)
+        {
+            string str;
+            if (this.ReadString(start, out str))
+                return str.ToInt64(out result);
+            result = 0;
+            return false;
+        }
+
+        bool ReadBulkString(int start, out string result)
+        {
+            int pos1 = this.findCRLF(start, -1);
+            if (pos1 >= 0)
+            {
+                long size_l;
+                if (this.getString(start, pos1 - start).ToInt64(out size_l))
+                {
+                    int size = (int)size_l;
+                    pos1 += 2;
+                    if (size == -1) // Null Bulk String
+                    {
+                        this.pos = pos1;
+                        result = null;
+                        return true;
+                    }
+                    if ((this.len - pos1) >= size)
+                    {
+                        int pos2 = this.findCRLF(pos1 + size, -1);
+                        if (pos2 >= 0)
+                        {
+                            result = this.getString(pos1, pos2 - pos1);
+                            this.pos = pos2 + 2;
+                            return true;
+                        }
+                    }
+                }
+            }
+            result = null;
+            return false;
+        }
+
+
+
+
+        [DebuggerStepThrough]
+        int findCRLF(int start = -1, int count = -1)
+        {
+            if (start == -1) start = this.pos;
+            if (count == -1) count = this.len - start;
+            return this.recvBuf.indexOf(RedisClient.CRLF, start, count);
+        }
+
+        [DebuggerStepThrough]
+        string getString(int index, int count)
+        {
+            return Encoding.UTF8.GetString(this.recvBuf, index, count);
+        }
+    }
+
+    class RedisArray : List<object>
+    {
+        internal readonly int depth;
+        internal RedisArray nested;
+        internal RedisArray(int depth) { this.depth = depth; }
+        internal RedisArray(int depth, int capacity) : base(capacity) { this.depth = depth; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < this.Count; i++)
+            {
+                sb.AppendLine();
+                for (int j = 0; j < this.depth; j++)
+                    sb.Append('\t');
+                sb.AppendFormat("{0}) {1}", i, this[i]);
+            }
+            return sb.ToString();
+        }
+    }
+}
