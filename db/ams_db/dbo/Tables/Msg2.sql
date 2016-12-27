@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Msg2] (
+    [txtID] UNIQUEIDENTIFIER NOT NULL,
+    [txt]   NVARCHAR (MAX)   NOT NULL,
+    CONSTRAINT [PK_Msg2] PRIMARY KEY CLUSTERED ([txtID] ASC)
+);
+
