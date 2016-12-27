@@ -1,0 +1,164 @@
+﻿@{ ViewBag.Title = "Index"; }
+@section head {
+    <link rel="stylesheet" href="~/css/bootstrap" />
+    <link rel="stylesheet" href="~/css/font-awesome" />
+    @Scripts.Render(BundleConfig.bootstrap_js)
+    @*@Styles.Render(BundleConfig.jqwidgets_css)*@
+    @*@Scripts.Render(BundleConfig.jqwidgets_js)*@
+    @*@Styles.Render(BundleConfig.site_css)*@
+    @*@Scripts.Render(BundleConfig.site_js)*@
+    @BundleConfig.RenderBundle(this)
+}
+<div id="navbar" class="navbar navbar-inverse navbar-fixed-top" style="border: 0;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_top">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>*@
+            <button type="button" class="h4 navbar-toggle collapsed navbar-inverse navbar-text" data-toggle="collapse" data-target="#navbar_top">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            @*<button type="button" class="h4 navbar-toggle collapsed navbar-inverse navbar-text" data-toggle="collapse" data-target="#navbar_sm_left">
+                    <span class="glyphicon glyphicon-th"></span>
+                </button>*@
+            <div class="navbar-brand">
+                <img src="~/img/logo.png" alt="logo">
+            </div>
+        </div>
+        <div id="navbar_top" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">
+                        <span class="fa fa-home"></span>
+                        @lang["Home"]
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <iframe id="msg_frame" src="~/Default/Message"></iframe>
+                        <span class="fa fa-envelope-o"></span>
+                        @lang["Messages"]
+                        <span class="badge">0</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">1.</a>
+                        </li>
+                        <li><a href="#">2.</a></li>
+                        <li><a href="#">3.</a></li>
+                        <li><a href="#">3.</a></li>
+                        <li><a href="#">3.</a></li>
+                        <li><a href="#">3.</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span class="fa fa-cog"></span>
+                        @lang["Options"]
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span class="fa fa-user"></span>
+                        @CurrentUser.Name
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        @*<div id="navbar_sm_left" class="navbar-collapse collapse visible-xs hidden-sm hidden-md hidden-lg">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                    <li>small menu</li>
+                </ul>
+            </div>*@
+    </div>
+</div>
+
+@helper menu1(string target, string lang_key, string lang_text, string icon) {
+    <div class="nav-menu btn btn-primary btn-block collapsed" data-toggle="collapse" data-target="@target">
+        <span class="fa fa-fw fa-@icon"></span>
+        <span>@lang[lang_key, lang_text]</span>
+        <span class="icon1 fa fa-caret-down" style="float: right"></span>
+        <span class="icon2 fa fa-caret-left" style="float: right"></span>
+    </div>
+}
+
+<div id="doc_root" class="container-fluid">
+    <div class="row">
+        <div id="doc_nav" class="col-sm-3 col-md-2 hidden-xs">
+            <div class="navbar navbar-default navbar-inverse">
+                <ul class="nav navbar-nav">
+                    <li><a>a</a></li>
+                    <li><a>b</a></li>
+                </ul>
+            </div>
+            @*<ul class="nav navbar-default navbar-nav nav-pills nav-stacked">
+                <li>
+                    <a data-toggle="collapse" data-target="#a1">a</a>
+                    <ul id="a1" class="nav nav-pills nav-stacked collapse">
+                        <li><a>a1</a></li>
+                        <li><a>a2</a></li>
+                        <li><a>a2</a></li>
+                        <li><a>a2</a></li>
+                        <li><a>a2</a></li>
+                    </ul>
+                </li>
+                <li><a>a</a></li>
+                <li><a>a</a></li>
+                <li><a>a</a></li>
+            </ul>*@
+        </div>
+        @*<div id="doc_nav" class="col-sm-3 col-md-2 hidden-xs">
+            @menu1("#menu-acc", "menu-acc", "Accounts", "users")
+            <div id="menu-acc" class="collapse">acc</div>
+            @menu1("#menu-cash", "menu-cash", "Deposit/Withdrawal", "dollar")
+            <div id="menu-cash" class="collapse">cash</div>
+            @menu1("#menu-gametran", "menu-gametran", "Game Transaction", "dollar")
+            <div id="menu-gametran" class="collapse">game tran</div>
+            @menu1("#menu-promotion", "menu-promotion", "Promotion", "dollar")
+            <div id="menu-promotion" class="collapse">promotion</div>
+            @menu1("#menu-reports", "menu-reports", "Reports", "bar-chart")
+            <div id="menu-reports" class="collapse">reports</div>
+            @menu1("#menu-events", "menu-events", "Events", "gift")
+            <div id="menu-events" class="collapse">events</div>
+            @menu1("#menu-management", "menu-management", "Management", "cogs")
+            <div id="menu-management" class="collapse">management</div>
+        </div>*@
+        <div id="doc_main" class="col-sm-9 col-md-10">
+            <iframe src="~/Default/Home"></iframe>
+            <div class="main-frame-mask hidden"></div>
+        </div>
+    </div>
+</div>

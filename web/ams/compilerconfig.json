@@ -1,0 +1,7 @@
+[
+  {
+    "outputFile": "lib/bootswatch/cerulean/bootswatch.css",
+    "inputFile": "lib/bootswatch/cerulean/bootswatch.less",
+    "sourceMap": false
+  }
+]

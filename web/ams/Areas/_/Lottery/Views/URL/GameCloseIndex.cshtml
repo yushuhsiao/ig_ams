@@ -1,0 +1,84 @@
+﻿@model List<GameControl.Models.GameClose>
+@{
+    ViewBag.Title = "GameCloseIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@if (ViewBag.ResultMessage != null)
+{
+    @Html.Label("info", (string)ViewBag.ResultMessage, new { @class = "text-info" });
+}
+
+
+<div class="services">
+    <h2>賽事封盤時間設定  @Html.ActionLink(
+               "新增", "GameCloseCreate", "", new { @class = "btn btn-success btn-lg" }
+               )</h2>
+    
+    <div class="container">
+        <div class="CSSTableGenerator">
+            <table class="table">
+                <tr>
+                    <td style="width:10%">遊戲類型</td>
+                    <td style="width:10%">地區</td>
+                    <td style="width:10%">封盤秒數</td>
+                    <td style="width:15%">更新時間</td>
+                    <td style="width:10%">更新使用人</td>
+                    <td style="width:6%" colspan="2" >選項</td>
+                </tr>
+
+                @foreach (var pd in this.Model)
+                {
+                    var GT = "";
+                    var LC = "";
+                    if (@pd.GameType == "01")
+                    {
+                        GT = "基諾彩";
+                    }
+                    if (@pd.Location == "01")
+                    {
+                        LC = "北京快樂8";
+                    }
+                    else if (@pd.Location == "02")
+                    {
+                        LC = "台灣賓果賓果";
+                    }
+                    else if (@pd.Location == "03")
+                    {
+                        LC = "加拿大";
+                    }
+                    else if (@pd.Location == "04")
+                    {
+                        LC = "加拿大西部";
+                    }
+                    else if (@pd.Location == "05")
+                    {
+                        LC = "斯洛伐克";
+                    }
+                    else if (@pd.Location == "06")
+                    {
+                        LC = "俄亥俄";
+                    }
+                    <tr>
+                        <td>@GT</td>
+                        <td>@LC</td>
+                        <td>@pd.CloseTime</td>
+                        <td>@pd.UpdateTime</td>
+                        <td>@pd.UpdateUser</td>
+                        <td>
+                            @Html.ActionLink(
+               "編輯", "GameCloseEdit", new { SID = pd.SID }, new { @class = "btn btn-info" }
+               )</td><td>
+                         @Html.ActionLink(
+               "刪除", "GameCloseDelete", new { SID = pd.SID }, new { @class = "btn btn-danger" }
+               )
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

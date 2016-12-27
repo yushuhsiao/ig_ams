@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <title></title>
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.12.4.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <script src="~/Scripts/angular.js"></script>
+        <script type="text/javascript">
+            var app_init = new Array();
+            var app = angular.module('app', []).controller('main', function ($scope) {
+                app_init.forEach(function (cb) { cb.call(app, $scope); });
+
+                $scope.login = { UserName: '', Password: '' };
+                $scope.login_click = function () {
+                }
+            });
+        </script>
+    </head>
+    <body ng-controller="main">
+        <div class="form-inline">
+            <div class="form-group">
+                <label class="sr-only">User Name</label>
+                <input type="email" class="form-control" placeholder="User Name" ng-model="login.UserName">
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Password</label>
+                <input type="password" class="form-control" placeholder="Password" ng-model="login.Password">
+            </div>
+            <button class="btn btn-default" ng-click="login_click()">Sign in</button>
+        </div>
+    </body>
+</html>

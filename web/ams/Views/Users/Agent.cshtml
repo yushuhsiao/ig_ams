@@ -1,0 +1,210 @@
+﻿@using jqx
+@using ams
+@using ams.Data
+@using ams.Controllers;
+@{
+    popups.dialog modal_dialog = new popups.dialog(this, "_modal1");
+    ViewBag.Title = "Agents";
+    jqxGrid grid = new jqxGrid<AgentData>
+    {
+        page = this,
+        scope_id = "grid1",
+        showtoolbar = "#toolbar",
+        source = { id = "ID", url = Url.GetActionUrl<AgentAccountApiController>("list"), datafields = new[] { new jqxGrid.datafield { name = "Balance" } } },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple, },
+        filter = { filterable = true, server_filtering = true, showfilterrow = true, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        //editmode = editmode.selectedcell,
+        selectionmode = selectionmode.singlerow,
+        //selectedrowindex = 0,
+        columngroups = new[] {
+            new jqxGrid.columngroup { name = "Status", text = lang["Status"], align = alignment.center },
+            new jqxGrid.columngroup { name = "MaxDepth", text = lang["MaxDepth"], align = alignment.center },
+            new jqxGrid.columngroup { name = "MaxAgent", text = lang["MaxAgent"], align = alignment.center },
+            new jqxGrid.columngroup { name = "MaxAdmin", text = lang["MaxAdmin"], align = alignment.center },
+            new jqxGrid.columngroup { name = "MaxMember", text = lang["MaxMember"], align = alignment.center },
+        },
+        columns = new[] {
+            new jqx_column.ActionPopup(this, "_popup1") { ButtonText = "Details", modal = modal_dialog, cellsalign = alignment.center },
+            new jqx_column.ver(this),
+            new jqx_column.ID1(this, "ID") { text = lang["Agent ID   "] },
+            new jqx_column.CorpID(this),
+            new jqx_column.CorpName(this),
+            new jqx_column.ParentID(this) { hidden = true },
+            new jqx_column.ParentName(this),
+            new jqx_column.Depth(this),
+            new jqx_column.UserName(this),
+            new jqx_column.NickName(this),
+            new jqxGrid._column { _datafield = { name = "Active ", type = dataFieldType._string }, text = lang["State"], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "Active1", type = dataFieldType._bool__ }, columngroup = "Status", text = lang["Active"], width = 050, columntype = columntype.checkbox, sortable = false },
+            new jqxGrid._column { _datafield = { name = "Active2", type = dataFieldType._bool__ }, columngroup = "Status", text = lang["Game  "], width = 050, columntype = columntype.checkbox, sortable = false },
+            new jqx_column.Amount(this, "TotalBalance",lang["TotalBalance"]),
+            new jqx_column.Amount(this, "Balance1    ",lang["Balance1    "]),
+            new jqx_column.Amount(this, "Balance2    ",lang["Balance2    "]),
+            new jqx_column.Amount(this, "Balance3    ",lang["Balance3    "]) { hidden = true },
+            new jqx_column._number (this, " MaxDepth        ", "") { columngroup = "MaxDepth ", width = 050, cellsalign = alignment.center },
+            new jqx_column._boolean (this, "MaxDepthEnabled ", "") { columngroup = "MaxDepth ", width = 030, columntype = columntype.checkbox },
+            new jqx_column._number (this, " MaxAgent        ", "") { columngroup = "MaxAgent ", width = 050, cellsalign = alignment.center },
+            new jqx_column._boolean (this, "MaxAgentEnabled ", "") { columngroup = "MaxAgent ", width = 030, columntype = columntype.checkbox },
+            new jqx_column._number (this, " MaxAdmin        ", "") { columngroup = "MaxAdmin ", width = 050, cellsalign = alignment.center },
+            new jqx_column._boolean (this, "MaxAdminEnabled ", "") { columngroup = "MaxAdmin ", width = 030, columntype = columntype.checkbox },
+            new jqx_column._number (this, " MaxMember       ", "") { columngroup = "MaxMember", width = 050, cellsalign = alignment.center },
+            new jqx_column._boolean (this, "MaxMemberEnabled", "") { columngroup = "MaxMember ", width = 030, columntype = columntype.checkbox },
+            new jqx_column.CreateTime(this), new jqx_column.CreateUser(this), new jqx_column.ModifyTime(this), new jqx_column.ModifyUser(this),
+        }
+    };
+    widgets.layout_1(this, grid);
+}
+@if (IsDetails)
+{
+    int corpID = Request.QueryString["CorpID"].ToInt32() ?? 0;
+    int id = Request.QueryString["ID"].ToInt32() ?? 0;
+    AgentData row = CorpInfo.GetCorpInfo(corpID).GetAgentData(id);
+    popups.EditControl edit1 = new popups.EditControl(this, "edit1") { grid = grid, row = row, updaterow = true };
+    popups.EditControl edit2 = new popups.EditControl(this, "edit2") { };
+    popups.EditControl edit3 = new popups.EditControl(this, "edit3") { };
+    popups.nav_tabs tabs = new popups.nav_tabs(
+        new popups.tab("a") { body = () => tab1(edit1), title = lang["General"] },
+        new popups.tab("b") { body = () => tab2(edit2), title = lang["Platform Accounts"], Visible = false },
+        new popups.tab("c") { body = () => tab3(edit3), title = lang[""], Visible = false });
+    @tabs
+    @section head {
+        @popups.popup_css()
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                var edit1 = new $.EditControl($.n(@edit1), {
+                    OnUpdate: function (data, jqXHR, settings) {
+                        settings.url = '@(Url.GetActionUrl<AgentAccountApiController>("set"))';
+                    }
+                });
+                var edit2 = new $.EditControl($.n(@edit2), {
+                    OnUpdate: function (data, jqXHR, settings) { }
+                });
+                var edit3 = new $.EditControl($.n(@edit3), {
+                    OnLoading: function (data, jqXHR, settings) { }
+                });
+                $('@tabs["b"].selector').on('show.bs.tab', function (e) {
+                });
+                $('@tabs["c"].selector').on('show.bs.tab', function (e) {
+                });
+            });
+        </script>
+    }
+    @helper tab1(popups.EditControl edit)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @edit.TextBox("  ID         ")
+                    @edit.TextBox("  CorpID     ")
+                    @edit.TextBox("  ParentID   ")
+                    @edit.TextBox("  UserName   ")
+                    @edit.TextInput("NickName   ")
+                    @edit.Active3(lang["State"], "", "", "Active1", "Active2")
+                    @edit.Password2("Password1", lang["Password        "])
+                    @edit.Password2("Password2", lang["Confirm Password"])
+                    @edit.TextBox("  Depth      ", width: 3)
+                    @edit.CommandsEdit()
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @edit.SwitchedNumberInput(lang["MaxDepth "], "MaxDepth ", "MaxDepthEnabled ", text2: lang["Enabled"], min: 0)
+                    @edit.SwitchedNumberInput(lang["MaxAgent "], "MaxAgent ", "MaxAgentEnabled ", text2: lang["Enabled"], min: 0)
+                    @edit.SwitchedNumberInput(lang["MaxAdmin "], "MaxAdmin ", "MaxAdminEnabled ", text2: lang["Enabled"], min: 0)
+                    @edit.SwitchedNumberInput(lang["MaxMember"], "MaxMember", "MaxMemberEnabled", text2: lang["Enabled"], min: 0)
+                </div>
+            </div>
+        </div>
+    }
+    @helper tab2(popups.EditControl edit)
+    {
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    }
+    @helper tab3(popups.EditControl edit)
+    {
+       <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    popups.AddControl add = new popups.AddControl(this, grid);
+    @section head {
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    columns: [{
+                        name: '_popup1', get_url: function (data) {
+                            return '@Url.Action("AgentDetails")?CorpID=' + data.CorpID + '&ID=' + data.ID;
+                        },
+                    }],
+                });
+                var add = new $.EditControl($.n(@add), {
+                    OnCreate: function () {
+                        return {
+                            CorpName: $grid1.getFilterValue("CorpName"),
+                            ParentName: '', UserName: '', NickName: '', Password1: '', Password2: '', Active1: true, Active2: false,
+                            MaxDepth: 0, MaxDepthEnabled: true,
+                            MaxAgent: 0, MaxAgentEnabled: true,
+                            MaxAdmin: 0, MaxAdminEnabled: false,
+                            MaxMember: 0, MaxMemberEnabled: false,
+                        };
+                    },
+                    OnUpdate: function (data, jqXHR, settings) {
+                        if (data.Password1 === data.Password2)
+                            data.Password = data.Password1;
+                        settings.url = '@(Url.GetActionUrl<AgentAccountApiController>("add"))';
+                    },
+                    OnUpdateComplete: function (data, textStatus, jqXHR) {
+                        $grid1.addrow(null, data, 'first');
+                    },
+                });
+            });
+        </script>
+    }
+    @helper tab_add(jqxGrid grid, popups.AddControl add)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">@lang["General"]</h3></div>
+                <div class="panel-body">
+                    @add.TextBox("  CorpName   ", lang["CorpID           "])
+                    @add.TextInput("ParentName ")
+                    @add.TextInput("UserName   ")
+                    @add.TextInput("NickName   ")
+                    @add.Password(" Password1  ", lang["Password        "])
+                    @add.Password(" Password2  ", lang["Confirm Password"])
+                    @add.Active3(grid.GetColumn("Active").text, "", "", "Active1", "Active2")
+                    @add.CommandsAdd()
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">@lang[""]</h3></div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+    }
+    <div id="toolbar" class="hidden">
+        @add.button()
+        @toolbars.GridRefresh(grid)
+    </div>
+    <div id="_grid1"></div>
+    @modal_dialog
+    @add.modal(() => tab_add(grid, add))
+}

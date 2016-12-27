@@ -1,0 +1,160 @@
+﻿@import "../../css/bootswatch/cosmo/bootstrap.css";
+.fill-x {
+  width: 100%;
+}
+.fill-y {
+  height: 100%;
+}
+.fill {
+  width: 100%;
+  height: 100%;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.easing {
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+#navbar-wrapper {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+#navbar-wrapper .navbar {
+  margin-bottom: 0;
+}
+#navbar-wrapper .navbar-brand {
+  padding: 5px;
+}
+#navbar-wrapper .navbar-brand > img {
+  max-height: 100%;
+  height: 100%;
+  max-width: 100%;
+  width: auto;
+  margin: 0 auto;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+@media (min-width: 768px) {
+  #navbar-wrapper .navbar-brand {
+    margin-left: 0;
+  }
+}
+#navbar-wrapper .navbar-header {
+  color: #fff;
+}
+#navbar-wrapper .navbar-header .navbar-toggle {
+  margin-right: 15px;
+  padding: 9px 10px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+#sidebar {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  float: none;
+  /*.list-group {
+        margin-bottom: -1px;
+    }
+    @ident: 15px;
+    .list-group-item {
+        padding-left: @ident;
+        .list-group-item {
+            padding-left: @ident;
+            .list-group-item {
+                padding-left: @ident;
+                .list-group-item {
+                    padding-left: @ident;
+                    .list-group-item {
+                        padding-left: @ident;
+                    }
+                }
+            }
+        }
+        background-color: inherit;
+        border-left: 0;
+        border-right: 0;
+        padding: 0;
+        & > a {
+            cursor: pointer;
+            color: inherit;
+            background-color: inherit;
+            padding-top: .5em;
+            padding-bottom: .5em;
+        }
+    }*/
+}
+#content {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+#content-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+#sidebar-wrapper,
+#content-wrapper {
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 52px;
+  white-space: nowrap;
+}
+@media (min-width: 768px) {
+  #sidebar-wrapper,
+  #content-wrapper {
+    padding-top: 53px;
+  }
+}
+#sidebar-wrapper {
+  width: 0;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#content-wrapper {
+  padding-left: 0;
+  position: relative;
+  width: 100%;
+}
+.sidebar-toggle #sidebar-wrapper {
+  width: 60%;
+  opacity: .8;
+}
+.sidebar-toggle #content-wrapper {
+  padding-left: 0;
+}
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    width: 15%;
+  }
+  #content-wrapper {
+    padding-left: 15%;
+  }
+  .sidebar-toggle #sidebar-wrapper {
+    width: 0;
+  }
+  .sidebar-toggle #content-wrapper {
+    padding-left: 0;
+  }
+}

@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Lang";
+}
+@section head {
+<link rel="stylesheet" href="~/fonts/fonts.less" />
+@Bundles.jquery.Render(false)
+@Bundles.bootstrap.Render(false)
+@Bundles.modernizr.Render()
+@Bundles.angular.Render(false)
+<link rel="stylesheet" href="~/jqwidgets/styles/jqx-all.less" />
+<script src="~/jqwidgets/jqx-all.js"></script>
+<script src="~/js/jqx.js"></script>
+@Bundles.jstree.Render(false)
+@Bundles.RenderStyles(this, null, false)
+@Bundles.RenderScripts(this, null, false, Bundles.json2)
+<script type="text/javascript">
+    var app = ng_app('app').controller('main', function ($scope, $window) {
+        //postMessage('main_sidebar_dock_toggle', false);
+        window.$scope = $scope;
+        //angular.element($window).bind('resize', function () { $scope.$apply(); });
+
+        $('#panel1').jqxSplitter({
+            width: '100%', height: '100%', splitBarSize: 1, orientation: 'horizontal',
+            panels: [{ size: 30, collapsible: false }, { collapsible: false }]
+        });
+        $('#panel2').jqxSplitter({
+            width: '100%', height: '100%', splitBarSize: 1,
+            panels: [{ size: '30%', collapsible: false }, { collapsible: false }]
+        });
+
+        $.fn.jqxInit = function (widget_name, options) {
+            this[widget_name](options);
+            var instance = this[widget_name]('getInstance');
+            instance[widget_name] = this[widget_name];
+            return instance;
+        }
+
+        var source = new $.jqx.dataAdapter({
+            datatype: 'json', type: 'post', id: 'path',
+            //mapChar: '.',
+            url: '@(Url.GetActionUrlContent<ams.Controllers.LangApiController>("list"))',
+            datafields: [
+                { name: 'path', type: 'string' },
+                { name: 'name', type: 'string' },
+                { name: 'text', type: 'string', map: 'values>0' },
+                { name: 'en-us', type: 'string', map: 'values>1028' },
+                { name: 'zh-hant', type: 'string', map: 'values>1033' },
+                { name: 'zh-hans', type: 'string', map: 'values>2052' },
+                { name: 'values', type: 'object' },
+                { name: 'items', type: 'array' },
+            ],
+            hierarchy: { root: 'items', },
+        }, { autoBind: true, });
+
+        ///*@Html.jqx(new jqxTreeGrid { }, s1: "$scope.treegrid1 = ") //*/
+        $scope.treegrid1 = $('#treegrid1').on('bindingComplete sort filter pageChanged pageSizeChanged rowClick rowDoubleClick cellValueChanged rowBeginEdit rowEndEdit rowSelect rowUnselect rowCheck rowUncheck columnResized columnReordered rowExpand rowCollapse cellBeginEdit cellEndEdit', function (e) {
+            console.log(e.type, e.args);
+        }).on("rowClick", function (e) {
+            if (e.args.row.items == null)
+                $scope.treegrid1.beginCellEdit(e.args.key, e.args.dataField);
+        }).jqxTreeGrid({
+            source: source, width: '100%', height: '100%', editable: true, sortable: true, altRows: true,
+            beginEdit: function (rowKey, column) {
+                var row = $scope.treegrid1.getRow(rowKey);
+                //console.log('beginEdit', arguments);
+                return row.items == null;
+            },
+            editSettings: {
+                saveOnPageChange: true,
+                saveOnBlur: true,
+                saveOnSelectionChange: true,
+                cancelOnEsc: true,
+                saveOnEnter: true,
+                editSingleCell: true,
+                editOnDoubleClick: true,
+                editOnF2: true
+            },
+            columns: [
+                { text: '@lang["name        "]', width: 300, align: 'center', dataField: 'name' },
+                { text: '@lang["command ", ""]', width: 100, align: 'center' },
+                { text: '@lang["text        "]', width: 150, align: 'center', dataField: 'text' },
+                { text: '@lang["en-us       "]', width: 150, align: 'center', dataField: 'en-us' },
+                { text: '@lang["zh-hant     "]', width: 150, align: 'center', dataField: 'zh-hant' },
+                { text: '@lang["zh-hans     "]', width: 150, align: 'center', dataField: 'zh-hans' },
+                { text: '@lang["path        "]', width: 500, align: 'center', dataField: 'path', hidden: false, editable: false },
+            ]
+        }).jqxTreeGrid('getInstance');
+
+        setTimeout(function () {
+            console.log($scope);
+        }, 1000);
+    });
+</script>
+<style type="text/css">
+    html, body { overflow: hidden; }
+    /*.jqx-splitter-panel > div { border: none; }*/
+</style>
+}
+<div ng-app="app" ng-controller="main" ng-init="init()" class="fill" ui-resize="">
+    <div id="panel1">
+        <div> toolbar </div>
+        <div>
+            <div id="treegrid1"></div>
+            <div id="panel2" class="hidden">
+                <div><div id="tree1"></div></div>
+                <div><div id="grid1"></div></div>
+            </div>
+        </div>
+    </div>
+</div>

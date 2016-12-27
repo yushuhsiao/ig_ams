@@ -1,0 +1,89 @@
+﻿@using jqx;
+@{
+    Layout = "../Shared/_Layout1.cshtml";
+    ViewBag.Title = "Corp";
+    ViewBag.PanelLeft = "40%";
+}
+@section head {
+    @Bundles.RenderStyles(this, null, false)
+    @Bundles.RenderScripts(this, null, false)
+    <script type="text/javascript">
+        $(document).on('ng-app-init', function () {
+            $scope.aaa = function () {
+                console.log('1');
+            }
+
+            $scope.grid1_opts = {
+                columns: [
+                // @(new jqxGrid.column { })
+                $.jqx.columns.row_number(),
+                //$.jqx.columns.row_command(),
+                { text: '@lang["uid       "]', dataField: { name: '@trim["uid       "]', type: '@trim["string"]' }, width: 100, align: 'center' },
+                { text: '@lang["ID        "]', dataField: { name: '@trim["ID        "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ver       "]', dataField: { name: '@trim["ver       "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["CorpID    "]', dataField: { name: '@trim["CorpID    "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ParentID  "]', dataField: { name: '@trim["ParentID  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ACNT      "]', dataField: { name: '@trim["ACNT      "]', type: '@trim["string"]' }, width: 100, align: 'center' },
+                { text: '@lang["Name      "]', dataField: { name: '@trim["Name      "]', type: '@trim["string"]' }, width: 100, align: 'center' },
+                { text: '@lang["Active    "]', dataField: { name: '@trim["Active    "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["_level    "]', dataField: { name: '@trim["_level    "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["UserLevel "]', dataField: { name: '@trim["UserLevel "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxDepth  "]', dataField: { name: '@trim["MaxDepth  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxAgent  "]', dataField: { name: '@trim["MaxAgent  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxAdmin  "]', dataField: { name: '@trim["MaxAdmin  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxMember "]', dataField: { name: '@trim["MaxMember "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["CreateTime"]', dataField: { name: '@trim["CreateTime"]', type: '@trim["date  "]' }, width: 100, align: 'center' },
+                { text: '@lang["CreateUser"]', dataField: { name: '@trim["CreateUser"]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ModifyTime"]', dataField: { name: '@trim["ModifyTime"]', type: '@trim["date  "]' }, width: 100, align: 'center' },
+                { text: '@lang["ModifyUser"]', dataField: { name: '@trim["ModifyUser"]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                ],
+                xxx: {
+                },
+            };
+        });
+    </script>
+}
+@section top {
+}
+@*@section bottom {
+    <div @(new jqxGrid { settings = "$scope.grid1_opts", instance = "$scope.grid1", pageable = true, pagermode = pagermode.simple, filterable = true, editable = true, sortable = true, server_sorting = false, editmode = editmode.selectedcell, selectionmode = selectionmode.singlerow, showstatusbar = false, showeverpresentrow = false, })>
+        <div @(new jqxGrid.source { id = "ID", url = Url.GetActionUrlContent<ams.Controllers.CorpAccountApiController>("list") })></div>
+    </div>
+}*@
+@section left {
+    <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a data-toggle="tab" data-target="#@_id["corp1"]" href="">Home</a></li>
+        <li><a data-toggle="tab" data-target="#@_id["corp2"]" href="">Menu 1</a></li>
+        <li><a data-toggle="tab" data-target="#@_id["corp3"]" href="">Menu 2</a></li>
+        <li><a data-toggle="tab" data-target="#@_id["corp4"]" href="">Menu 3</a></li>
+    </ul>
+}
+<div class="tab-content">
+    <div id="@_id["corp1"]" class="tab-pane fade in active">
+        <h3>HOME</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="@_id["corp2"]" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="@_id["corp3"]" class="tab-pane fade">
+        <h3>Menu 2</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="@_id["corp4"]" class="tab-pane fade">
+        <h3>Menu 3</h3>
+        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+</div>
+
+
+@*
+    <div id="grid"></div>
+    <div role="row" style="position: relative; height:25px;" id="row2a"><div role="gridcell" style="left: 0px; z-index: 793; width:150px;" class="jqx-grid-cell jqx-grid-cell-bootstrap jqx-item jqx-item-bootstrap"><div class="jqx-grid-cell-left-align" style="margin-top: 4px;">3</div></div><div role="gridcell" style="left: 150px; z-index: 792; width:200px;" class="jqx-grid-cell jqx-grid-cell-bootstrap jqx-item jqx-item-bootstrap"><div class="jqx-grid-cell-left-align" style="margin-top: 4px;">f8pdry6apn</div></div><div role="gridcell" style="left: 350px; z-index: 791; width:150px;" class="jqx-grid-cell jqx-grid-cell-bootstrap jqx-item jqx-item-bootstrap"><div class="jqx-grid-cell-left-align" style="margin-top: 4px;">22</div></div></div>
+    <div role="row" style="position: relative; height:25px;" id="row3a">
+        <div role="gridcell" style="left: 0px; z-index: 790; width:150px;" class="jqx-grid-cell jqx-grid-cell-bootstrap jqx-item jqx-item-bootstrap jqx-grid-cell-alt jqx-grid-cell-alt-bootstrap"><div class="jqx-grid-cell-left-align" style="margin-top: 4px;">4</div></div><div role="gridcell" style="left: 150px; z-index: 789; width:200px;" class="jqx-grid-cell jqx-grid-cell-bootstrap jqx-item jqx-item-bootstrap jqx-grid-cell-alt jqx-grid-cell-alt-bootstrap"><div class="jqx-grid-cell-left-align" style="margin-top: 4px;">nbebvd8zdg</div></div><div role="gridcell" style="left: 350px; z-index: 788; width:150px;" class="jqx-grid-cell jqx-grid-cell-bootstrap jqx-item jqx-item-bootstrap jqx-grid-cell-alt jqx-grid-cell-alt-bootstrap">
+            <div class="jqx-grid-cell-left-align" style="margin-top: 4px;">28</div>
+        </div>
+    </div>
+*@

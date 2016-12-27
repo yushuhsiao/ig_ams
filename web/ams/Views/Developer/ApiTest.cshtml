@@ -1,0 +1,55 @@
+﻿@using ams;
+@using ams.Controllers;
+@using System.Web.Http;
+@using System.Web.Http.Description;
+@{ Layout = "../Shared/_Layout.cshtml"; }
+@section head {
+    <script type="text/javascript">
+        app_init.push(function ($scope, $compile, $http) {
+            $scope.data = {
+                CorpName: 'ig02',
+                MemberName: 'test2',
+                PlatformName: 'geniusbull',
+                Lobby: 'LiveCasino',
+                Lang: 'zh-tw',
+                a: 1,
+                b: 2,
+            };
+            $scope.result = null;
+
+            function test_call(){
+                $.ajax({
+                    type: 'post',
+                    contentType: 'application/json',
+                    url: '@(Url.GetActionUrl<PlatformsApiController>("m_forward"))',
+                    data: JSON.stringify($scope.data),
+                    dataType: 'json',
+                    cache: false,
+                    async: true,
+                    success: function (data, textStatus, jqXHR) {
+                        console.log("success", arguments);
+                        $scope.result = data;
+                        $scope.$applyAsync();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("error", arguments);
+                        $scope.result = textStatus;
+                        $scope.$applyAsync();
+                    },
+                    complete: function () {
+                        console.log("complete", arguments);
+                        $scope.$applyAsync();
+                    }
+                });
+            }
+            $scope.test = function () {
+                $scope.result = "...";
+                $scope.$applyAsync();
+                setTimeout(test_call, 1000);
+            }
+        });
+    </script>
+}
+<div>{{data}}</div>
+<button ng-click="test()">test</button>
+<div>{{result}}</div>

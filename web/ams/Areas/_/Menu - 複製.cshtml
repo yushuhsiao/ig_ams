@@ -1,0 +1,32 @@
+﻿@inherits _WebViewPage
+@using ams.Models
+@helper menu(MenuItem node, string dashboard_url) {
+Dictionary<string, object> dict = new Dictionary<string, object>();
+string id = _id[node, 8];
+string url = node.Url;
+if (!string.IsNullOrEmpty(url)) { url = Url.Content(url); }
+dict["id"] = id;
+dict["url"] = url;
+dict["is_default"] = string.Compare(url, dashboard_url, true) == 0;
+if (node.HasChilds) {
+    <li class="dropdown@(node.Parent.IsRoot ? "" : "-submenu")">
+        <a href="" data-toggle="dropdown">
+            @lang[node.Text]
+            @if (node.Parent.IsRoot) { <i class="caret"></i> }
+        </a>
+        <ul class="dropdown-menu">
+            @foreach (var m in node.Childs)
+    { @menu(m, dashboard_url); }
+        </ul>
+    </li>
+    } else {
+    <li class="">
+        @if (string.IsNullOrEmpty(node.Url))
+        { <a href="">@lang[node.Text]</a> }
+        else
+        { <a href="@url" target="content" ng-click="menu.click('@id')" ng-init="menu.init(@json.SerializeObject(dict, quoteName: true, quoteChar: '\''))" >@lang[node.Text]</a> }
+    </li>
+    }
+}
+@foreach (var node in MenuItem.Current.Childs)
+{ @menu(node, Url.Action("Dashboard", "Home", new { Area = _url.areas.Main })) }

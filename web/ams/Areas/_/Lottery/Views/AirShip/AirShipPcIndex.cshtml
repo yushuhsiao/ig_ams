@@ -1,0 +1,49 @@
+﻿@model List<ams.Models.PK10_PC>
+
+@{
+    ViewBag.Title = "PCIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.ResultMessage != null)
+{
+    @Html.Label("info", (string)ViewBag.Type, new { @class = "text-info" });
+}
+
+<div class="services">
+    <h2>
+        賽事盤口設定  @Html.ActionLink(
+               "新增", "PCCreate", "", new { @class = "btn btn-success btn-lg" }
+               )
+    </h2>
+    <div class="container">
+        <div class="CSSTableGenerator">
+            <table class="table">
+                <tr>
+                    <td>盤口名稱</td>
+                    <td>最後更新時間</td>
+                    <td>最後更新者</td>
+                    <td colspan="2" style="width:6%">選項</td>
+                </tr>
+
+                @foreach (var a in this.Model)
+                {
+                    <tr>
+                        <td>@a.Dish</td>
+                        <td>@a.UpdateTime</td>
+                        <td>@a.UpdateUser</td>
+                        <td>
+                            @Html.ActionLink(
+               "編輯", "AirShipPCEnableEdit", new { SID = a.SID }, new { @class = "btn btn-info" }
+               )
+                        </td>
+                        <td>
+                            @Html.ActionLink(
+               "刪除", "PCDelete", new { SID = a.SID }, new { @class = "btn btn-danger" }
+               )
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

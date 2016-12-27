@@ -1,0 +1,3673 @@
+﻿@import "../../css/variables.less";
+@import "variables.less";
+
+.jqx-rc-tl-custom {
+    -moz-border-radius-topleft: @defaultBorder;
+    -webkit-border-top-left-radius: @defaultBorder;
+    border-top-left-radius: @defaultBorder;
+}
+
+.jqx-rc-tr-custom {
+    -moz-border-radius-topright: @defaultBorder;
+    -webkit-border-top-right-radius: @defaultBorder;
+    border-top-right-radius: @defaultBorder;
+}
+
+.jqx-rc-bl-custom {
+    -moz-border-radius-bottomleft: @defaultBorder;
+    -webkit-border-bottom-left-radius: @defaultBorder;
+    border-bottom-left-radius: @defaultBorder;
+}
+
+.jqx-rc-br-custom {
+    -moz-border-radius-bottomright: @defaultBorder;
+    -webkit-border-bottom-right-radius: @defaultBorder;
+    border-bottom-right-radius: @defaultBorder;
+}
+
+.jqx-rc-t-custom {
+    -moz-border-radius-topleft: @defaultBorder;
+    -webkit-border-top-left-radius: @defaultBorder;
+    border-top-left-radius: @defaultBorder;
+    -moz-border-radius-topright: @defaultBorder;
+    -webkit-border-top-right-radius: @defaultBorder;
+    border-top-right-radius: @defaultBorder;
+}
+
+.jqx-rc-b-custom {
+    -moz-border-radius-bottomleft: @defaultBorder;
+    -webkit-border-bottom-left-radius: @defaultBorder;
+    border-bottom-left-radius: @defaultBorder;
+    -moz-border-radius-bottomright: @defaultBorder;
+    -webkit-border-bottom-right-radius: @defaultBorder;
+    border-bottom-right-radius: @defaultBorder;
+}
+
+.jqx-rc-r-custom {
+    -moz-border-radius-topright: @defaultBorder;
+    -webkit-border-top-right-radius: @defaultBorder;
+    border-top-right-radius: @defaultBorder;
+    -moz-border-radius-bottomright: @defaultBorder;
+    -webkit-border-bottom-right-radius: @defaultBorder;
+    border-bottom-right-radius: @defaultBorder;
+}
+
+.jqx-rc-l-custom {
+    -moz-border-radius-topleft: @defaultBorder;
+    -webkit-border-top-left-radius: @defaultBorder;
+    border-top-left-radius: @defaultBorder;
+    -moz-border-radius-bottomleft: @defaultBorder;
+    -webkit-border-bottom-left-radius: @defaultBorder;
+    border-bottom-left-radius: @defaultBorder;
+}
+
+.jqx-rc-all-custom {
+    -moz-border-radius: @defaultBorder;
+    -webkit-border-radius: @defaultBorder;
+    border-radius: @defaultBorder;
+}
+
+.jqx-widget-custom {
+    -webkit-transition: box-shadow linear .2s;
+    -moz-transition: box-shadow linear .1s;
+    -o-transition: box-shadow linear .1s;
+    transition: box-shadow linear .1s;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    font-family: @font-family;
+
+    .jqx-grid-cell-custom {
+        background-color: @contentBackground;
+        border-color: @cellsBorder;
+        color: @cellsColor;
+        text-shadow: none;
+        font-family: @font-family;
+    }
+
+    .jqx-grid-column-header-custom {
+        border-color: @cellsBorder;
+    }
+
+    .jqx-grid-group-cell {
+        border-color: @cellsBorder;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        border-color: @cellsBorder;
+    }
+
+    .jqx-grid-column-sortascbutton-custom {
+        border-color: @cellsBorder;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        border-color: @cellsBorder;
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/icon-down.png');
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/icon-right.png');
+    }
+
+    .jqx-grid-cell-sort-custom {
+        background-color: @altColor2;
+        color: @altCellsColor2;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-filter-custom {
+        background-color: @altColor2;
+        color: @altCellsColor2;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-pinned-custom {
+        background-color: @altColor2;
+        color: @altCellsColor2;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-alt-custom {
+        background-color: @altColor;
+        color: @altCellsColor;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-sort-alt-custom {
+        background-color: @altColor;
+        color: @altCellsColor;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-pinned-alt-custom {
+        background-color: @altColor;
+        color: @altCellsColor;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-filter-alt-custom {
+        background-color: @altColor;
+        color: @altCellsColor;
+        text-shadow: none;
+    }
+
+    .jqx-grid-cell-hover-custom {
+        color: @altHoverColor !important;
+        text-shadow: none;
+        border-color: @altHoverBorder !important;
+        background-color: @altHoverBackground !important;
+        background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+        background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+
+    .jqx-grid-cell-selected-custom {
+        color: @altActiveColor !important;
+        text-shadow: none;
+        border-color: @altActiveBorder !important;
+        background-color: @altActiveBackground !important;
+        background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+        background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+
+    .jqx-grid-group-collapse-rtl-custom {
+        background-image: url('images/icon-left.png');
+    }
+
+    .jqx-grid-group-cell-custom {
+        border-color: @cellsBorder;
+    }
+}
+
+.jqx-widget-header-custom {
+    -webkit-transition: box-shadow linear .2s;
+    -moz-transition: box-shadow linear .1s;
+    -o-transition: box-shadow linear .1s;
+    transition: box-shadow linear .1s;
+    -moz-background-clip: padding-box;
+    color: @headerColor;
+    text-shadow: none;
+    border-color: @headerBorder;
+    background-color: @headerBackground;
+    background-image: -moz-linear-gradient(top,@headerBackground,@headerBackground2);
+    background-image: -ms-linear-gradient(top,@headerBackground,@headerBackground2);
+    background-image: -o-linear-gradient(top,@headerBackground,@headerBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@headerBackground),to(@headerBackground2));
+    background-image: -webkit-linear-gradient(top,@headerBackground,@headerBackground2);
+    background-image: linear-gradient(top,@headerBackground,@headerBackground2);
+    background-image: linear-gradient(to bottom,@headerBackground,@headerBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-fill-state-normal-custom {
+    -webkit-transition: box-shadow linear .2s;
+    -moz-transition: box-shadow linear .1s;
+    -o-transition: box-shadow linear .1s;
+    transition: box-shadow linear .1s;
+    color: @defaultColor;
+    text-shadow: none;
+    border-color: @defaultBorder;
+    background-color: @defaultBackground;
+    background-image: -moz-linear-gradient(top,@defaultBackground,@defaultBackground2);
+    background-image: -ms-linear-gradient(top,@defaultBackground,@defaultBackground2);
+    background-image: -o-linear-gradient(top,@defaultBackground,@defaultBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@defaultBackground),to(@defaultBackground2));
+    background-image: -webkit-linear-gradient(top,@defaultBackground,@defaultBackground2);
+    background-image: linear-gradient(top,@defaultBackground,@defaultBackground2);
+    background-image: linear-gradient(to bottom,@defaultBackground,@defaultBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-widget-content-custom {
+    -webkit-transition: box-shadow linear .2s;
+    -moz-transition: box-shadow linear .1s;
+    -o-transition: box-shadow linear .1s;
+    transition: box-shadow linear .1s;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    color: @contentColor;
+    text-shadow: none;
+    border-color: @contentBorder;
+    background-color: @contentBackground;
+    font-family: @font-family;
+}
+
+.jqx-fill-state-hover-custom {
+    -webkit-transition: box-shadow linear .2s;
+    -moz-transition: box-shadow linear .1s;
+    -o-transition: box-shadow linear .1s;
+    transition: box-shadow linear .1s;
+    text-decoration: none;
+    color: @hoverColor;
+    text-shadow: none;
+    border-color: @hoverBorder;
+    background-color: @hoverBackground;
+    background-image: -moz-linear-gradient(top,@hoverBackground,@hoverBackground2);
+    background-image: -ms-linear-gradient(top,@hoverBackground,@hoverBackground2);
+    background-image: -o-linear-gradient(top,@hoverBackground,@hoverBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@hoverBackground),to(@hoverBackground2));
+    background-image: -webkit-linear-gradient(top,@hoverBackground,@hoverBackground2);
+    background-image: linear-gradient(top,@hoverBackground,@hoverBackground2);
+    background-image: linear-gradient(to bottom,@hoverBackground,@hoverBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-fill-state-pressed-custom {
+    -webkit-transition: box-shadow linear .2s;
+    -moz-transition: box-shadow linear .1s;
+    -o-transition: box-shadow linear .1s;
+    transition: box-shadow linear .1s;
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    color: @activeColor;
+    text-shadow: none;
+    border-color: @activeBorder;
+    background-color: @activeBackground;
+    background-image: -moz-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: -ms-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: -o-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@activeBackground),to(@activeBackground2));
+    background-image: -webkit-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: linear-gradient(to bottom,@activeBackground,@activeBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-button-custom {
+    padding: 4px 12px;
+    -webkit-border-radius: @defaultBorder;
+    -moz-border-radius: @defaultBorder;
+    border-radius: @defaultBorder;
+    *zoom: 1;
+    text-shadow: none;
+    border-color: @defaultButtonBorder;
+    background-color: @defaultButtonBackground;
+    background-image: -moz-linear-gradient(top,@defaultButtonBackground,@defaultButtonBackground2);
+    background-image: -ms-linear-gradient(top,@defaultButtonBackground,@defaultButtonBackground2);
+    background-image: -o-linear-gradient(top,@defaultButtonBackground,@defaultButtonBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@defaultButtonBackground),to(@defaultButtonBackground2));
+    background-image: -webkit-linear-gradient(top,@defaultButtonBackground,@defaultButtonBackground2);
+    background-image: linear-gradient(top,@defaultButtonBackground,@defaultButtonBackground2);
+    background-image: linear-gradient(to bottom,@defaultButtonBackground,@defaultButtonBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-combobox-multi-item-custom {
+    padding: 1px 3px;
+}
+
+.jqx-fill-state-focus-custom {
+    color: @defaultColor;
+    text-decoration: none;
+    outline: none;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    border-color: @focusBorder;
+}
+
+.jqx-grid-cell-custom {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: @contentBackground;
+    color: @cellsColor;
+    border-color: @cellsBorder;
+    color: @altDefaultColor;
+    text-shadow: none;
+    font-family: @font-family;
+}
+
+.jqx-grid-column-menubutton-custom {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-color: @headerBorder;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-calendar-row-header-custom {
+    background-color: #f0f0f0;
+    border: 0 solid #f2f2f2;
+}
+
+.jqx-calendar-top-left-header-custom {
+    background-color: #f0f0f0;
+    border: 0 solid #f2f2f2;
+}
+
+.jqx-calendar-column-header-custom {
+    background-color: #FFF;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.jqx-expander-header-custom {
+    background: #fff;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-color: #e6e6e6;
+    color: @altDefaultColor !important;
+    text-shadow: none;
+
+    &:hover {
+        cursor: pointer;
+        color: @altHoverColor2;
+        text-shadow: none;
+    }
+}
+
+.jqx-scrollbar-state-normal-custom {
+    border: 1px solid @scrollBarBorder;
+    background-color: @scrollBarBackgroundColor;
+}
+
+.jqx-scrollbar-thumb-state-normal-custom {
+    border-color: @scrollBarThumbBorder;
+    background-color: @scrollBarThumbBackground;
+    background-image: -moz-linear-gradient(left,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: -ms-linear-gradient(left,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: -o-linear-gradient(left,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: -webkit-gradient(linear,left top,right top,from(@scrollBarThumbBackground),to(@scrollBarThumbBackground2));
+    background-image: -webkit-linear-gradient(left,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: linear-gradient(left,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: linear-gradient(left right,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+}
+
+.jqx-scrollbar-thumb-state-normal-horizontal-custom {
+    border-color: @scrollBarThumbBorder;
+    background-color: @scrollBarThumbBackground;
+    background-image: -moz-linear-gradient(top,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: -ms-linear-gradient(top,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: -o-linear-gradient(top,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@scrollBarThumbBackground),to(@scrollBarThumbBackground2));
+    background-image: -webkit-linear-gradient(top,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: linear-gradient(top,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    background-image: linear-gradient(to bottom,@scrollBarThumbBackground,@scrollBarThumbBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-scrollbar-thumb-state-hover-custom {
+    background-color: @scrollBarThumbHoverBackground;
+    border-color: @scrollBarThumbHoverBorder;
+    background-image: -moz-linear-gradient(left,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: -ms-linear-gradient(left,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: -o-linear-gradient(left,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: -webkit-gradient(linear,left top,right top,from(@scrollBarThumbHoverBackground),to(@scrollBarThumbHoverBackground2));
+    background-image: -webkit-linear-gradient(left,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: linear-gradient(left,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: linear-gradient(left right,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+}
+
+.jqx-scrollbar-thumb-state-hover-horizontal-custom {
+    background-color: @scrollBarThumbHoverBackground;
+    border-color: @scrollBarThumbHoverBorder;
+    background-image: -moz-linear-gradient(top,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: -ms-linear-gradient(top,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: -o-linear-gradient(top,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@scrollBarThumbHoverBackground),to(@scrollBarThumbHoverBackground2));
+    background-image: -webkit-linear-gradient(top,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: linear-gradient(top,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    background-image: linear-gradient(to bottom,@scrollBarThumbHoverBackground,@scrollBarThumbHoverBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-progressbar-custom {
+    background: @progress-bg !important ;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.jqx-progressbar-value-custom {
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-splitter-collapse-button-horizontal-custom {
+    background-color: #428bca;
+    background: @activeBackground;
+    background-color: @altActiveBackground !important;
+}
+
+.jqx-splitter-collapse-button-vertical-custom {
+    background-color: #428bca;
+    background: @activeBackground;
+    background-color: @altActiveBackground !important;
+}
+
+.jqx-progressbar-value-vertical-custom {
+    background-color: #428bca;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(left,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(left,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(left,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,left top,right top,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(left,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(left,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(left right,@altActiveBackground,@altActiveBackground2) !important;
+}
+
+.jqx-scrollbar-thumb-state-pressed-custom {
+    background: #d9d9d9;
+    border-color: #b3b3b3;
+    background-color: @scrollBarThumbActiveBackground;
+    border-color: @scrollBarThumbActiveBackground;
+    background-image: -moz-linear-gradient(left,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: -ms-linear-gradient(left,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: -o-linear-gradient(left,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: -webkit-gradient(linear,left top,right top,from(@scrollBarThumbActiveBackground),to(@scrollBarThumbActiveBackground2));
+    background-image: -webkit-linear-gradient(left,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: linear-gradient(left,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: linear-gradient(left right,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+}
+
+.jqx-splitter-splitbar-vertical-custom {
+    background: #d9d9d9;
+    border-color: #b3b3b3;
+    background: @defaultBackground;
+}
+
+.jqx-splitter-splitbar-horizontal-custom {
+    background: #d9d9d9;
+    border-color: #b3b3b3;
+    background: @defaultBackground;
+}
+
+.jqx-scrollbar-thumb-state-pressed-horizontal-custom {
+    background: #d9d9d9;
+    border-color: #b3b3b3;
+    background-color: @scrollBarThumbActiveBackground;
+    border-color: @scrollBarThumbActiveBackground;
+    background-image: -moz-linear-gradient(top,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: -ms-linear-gradient(top,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: -o-linear-gradient(top,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@scrollBarThumbActiveBackground),to(@scrollBarThumbActiveBackground2));
+    background-image: -webkit-linear-gradient(top,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: linear-gradient(top,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    background-image: linear-gradient(to bottom,@scrollBarThumbActiveBackground,@scrollBarThumbActiveBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-grid-column-sortdescbutton-custom {
+    background-color: transparent;
+    border-style: solid;
+    border-width: 0;
+    border-color: #ccc;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+jqx-grid-column-filterbutton-custom {
+    background-color: transparent;
+    border-style: solid;
+    border-width: 0;
+    border-color: #ccc;
+}
+
+.jqx-grid-column-sortascbutton-custom {
+    background-color: transparent;
+    border-style: solid;
+    border-width: 0;
+    border-color: #ccc;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-slider-rangebar-custom {
+    background: #ccc;
+    border-color: #428bca;
+    background: #428bca;
+    background: @activeBackground;
+    background-color: @altActiveBackground !important;
+}
+
+.jqx-menu-vertical-custom {
+    background: #fff;
+    filter: none;
+    background: @menuBackground;
+
+    .jqx-menu-item-top-hover-custom {
+        background-color: #ebebeb !important;
+        border-color: #ebebeb !important;
+        outline: 0;
+        color: @altHoverColor !important;
+        text-shadow: none;
+        border-color: @altHoverBorder !important;
+        background-color: @altHoverBackground !important;
+        background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+        background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+
+    .jqx-menu-item-top-selected-custom {
+        color: @altActiveColor !important;
+        text-shadow: none;
+        border-color: @altActiveBorder !important;
+        background-color: @altActiveBackground !important;
+        background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+        background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+        background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+
+    .jqx-menu-item-top-normal-custom {
+        color: @altDefaultColor;
+        text-shadow: none;
+        font-family: @font-family;
+    }
+}
+
+.jqx-checkbox-check-checked-custom {
+    background-image: url('images/check_black.png');
+}
+
+.jqx-combobox-content-custom {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+    color: @InputColor;
+    text-shadow: none;
+    border-color: @InputBorder;
+    background-color: @InputBackground;
+}
+
+.jqx-combobox-content-focus-custom {
+    border-color: #b3b3b3;
+    outline: none;
+    border-color: rgba(82,168,236,0.8);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+}
+
+.jqx-numberinput-focus-custom {
+    border-color: #b3b3b3;
+    outline: none;
+    border-color: rgba(82,168,236,0.8);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+}
+
+.jqx-grid-bottomright-custom {
+    background-color: #efefef;
+    background-color: @scrollBarBackgroundColor;
+}
+
+.jqx-panel-bottomright-custom {
+    background-color: #efefef;
+    background-color: @scrollBarBackgroundColor;
+}
+
+.jqx-listbox-bottomright-custom {
+    background-color: #efefef;
+    background-color: @scrollBarBackgroundColor;
+}
+
+.jqx-tabs-title-custom {
+    color: @altDefaultColor !important;
+    text-shadow: none;
+}
+
+.jqx-tabs-title-bottom-custom {
+    color: @altDefaultColor !important;
+    text-shadow: none;
+}
+
+.jqx-tabs-title-hover-top-custom {
+    background: #eee;
+    border-color: #eee;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    color: @altHoverColor2;
+    text-shadow: none;
+}
+
+.jqx-tabs-title-hover-bottom-custom {
+    background: #eee;
+    border-color: #eee;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    color: @altHoverColor2;
+    text-shadow: none;
+}
+
+.jqx-tabs-title-selected-top-custom {
+    border-bottom: 1px solid #fff;
+    filter: none;
+    color: @contentColor;
+    border-color: @contentBorder;
+    border-bottom: 1px solid @contentBackground;
+    background-image: none;
+    background-color: @contentBackground;
+    color: @altActiveColor2 !important;
+    text-shadow: none;
+}
+
+.jqx-tabs-selection-tracker-top-custom {
+    filter: none;
+    box-shadow: none;
+    color: @contentColor;
+    text-shadow: none;
+    border-color: @contentBorder;
+    border-bottom: 1px solid @contentBackground;
+    background-image: none;
+    background-color: @contentBackground;
+}
+
+.jqx-tabs-title-selected-bottom-custom {
+    filter: none;
+    color: @contentColor;
+    text-shadow: none;
+    border-color: @contentBorder;
+    border-top: 1px solid @contentBackground;
+    background-image: none;
+    background-color: @contentBackground;
+}
+
+.jqx-tabs-selection-tracker-bottom-custom {
+    filter: none;
+    box-shadow: none;
+    color: @contentColor;
+    text-shadow: none;
+    border-color: @contentBorder;
+    border-top: 1px solid @contentBackground;
+    background-image: none;
+    background-color: @contentBackground;
+}
+
+.jqx-tabs-header-custom {
+    background: #fff;
+    border-color: #ddd;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.jqx-tabs-custom {
+    border-color: #ddd;
+}
+
+.jqx-window-custom {
+    box-shadow: 0 4px 23px 5px rgba(0,0,0,0.2),0 2px 6px rgba(0,0,0,0.15);
+}
+
+.jqx-tooltip-custom {
+    box-shadow: 0 4px 23px 5px rgba(0,0,0,0.2),0 2px 6px rgba(0,0,0,0.15);
+    -moz-border-radius: @defaultBorder;
+    -webkit-border-radius: @defaultBorder;
+    border-radius: @defaultBorder;
+    color: @tooltipColor;
+    text-shadow: none;
+    border-color: @tooltipBorder;
+    background-color: @tooltipBackground;
+    background-image: -moz-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: -ms-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: -o-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@tooltipBackground),to(@tooltipBackground2));
+    background-image: -webkit-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: linear-gradient(to bottom,@tooltipBackground,@tooltipBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-docking-custom {
+    .jqx-window-custom {
+        box-shadow: none;
+    }
+}
+
+.jqx-docking-panel-custom {
+    .jqx-window-custom {
+        box-shadow: none;
+    }
+}
+
+.jqx-radiobutton-custom {
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+    background: none;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+.jqx-radiobutton-custom-custom {
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+}
+
+.jqx-radiobutton-hover-custom {
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+.jqx-radiobutton-check-checked-custom {
+    filter: none;
+    background: #666;
+    background-repeat: no-repeat;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    background: @checkMark;
+    width: 7px;
+    height: 7px;
+    margin-left: 2px;
+    margin-top: 2px;
+    border-width: 1px;
+    border-style: solid;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+.jqx-radiobutton-check-indeterminate-custom {
+    filter: none;
+    background: #999;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+.jqx-radiobutton-check-indeterminate-disabled-custom {
+    filter: none;
+    background: #999;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+.jqx-slider-track-horizontal-custom {
+    border-color: #ccc;
+    background: #f0f0f0;
+    background: @defaultBackground;
+}
+
+.jqx-slider-track-vertical-custom {
+    border-color: #ccc;
+    background: #f0f0f0;
+    background: @defaultBackground;
+}
+
+.jqx-slider-button-custom {
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    padding: 3px;
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+
+
+
+.jqx-fill-state-normal(@bg, @border, @color) {
+    background-color: @bg;
+    border-color: @border;
+    color: @color;
+}
+
+.jqx-fill-state-hover(@bg, @border, @color) {
+    background-color: darken(@bg, 8%);
+    border-color: darken(@border, 12%);
+    color: @color;
+}
+
+.jqx-fill-state-pressed(@bg, @border, @color) {
+    background-color: darken(@bg, 8%);
+    border-color: darken(@border, 12%);
+    color: @color;
+}
+
+.jqx-fill-state-normal-custom.jqx-primary {
+    background-color: @jqx-primary-bg;
+    border-color: @jqx-primary-border;
+    color: @jqx-primary-color;
+}
+
+.jqx-fill-state-hover-custom.jqx-primary {
+    .jqx-fill-state-hover(@jqx-primary-bg, @jqx-primary-border, @jqx-primary-color);
+}
+
+.jqx-fill-state-pressed-custom.jqx-primary {
+    .jqx-fill-state-pressed(@jqx-primary-bg, @jqx-primary-border, @jqx-primary-color);
+}
+
+.jqx-fill-state-normal-custom.jqx-warning {
+    .jqx-fill-state-normal(@btn-warning-bg, @btn-warning-border, @btn-warning-color);
+}
+
+.jqx-fill-state-hover-custom.jqx-warning {
+    .jqx-fill-state-hover(@btn-warning-bg, @btn-warning-border, @btn-warning-color);
+}
+
+.jqx-fill-state-pressed-custom.jqx-warning {
+    .jqx-fill-state-pressed(@btn-warning-bg, @btn-warning-border, @btn-warning-color);
+}
+
+.jqx-fill-state-normal-custom.jqx-danger {
+    .jqx-fill-state-normal(@btn-danger-bg, @btn-danger-border, @btn-danger-color);
+}
+
+.jqx-fill-state-hover-custom.jqx-danger {
+    .jqx-fill-state-hover(@btn-danger-bg, @btn-danger-border, @btn-danger-color);
+}
+
+.jqx-fill-state-pressed-custom.jqx-danger {
+    .jqx-fill-state-pressed(@btn-danger-bg, @btn-danger-border, @btn-danger-color);
+}
+
+.jqx-fill-state-normal-custom.jqx-success {
+    .jqx-fill-state-normal(@btn-success-bg, @btn-success-border, @btn-success-color);
+}
+
+.jqx-fill-state-hover-custom.jqx-success {
+    .jqx-fill-state-hover(@btn-success-bg, @btn-success-border, @btn-success-color);
+}
+
+.jqx-fill-state-pressed-custom.jqx-success {
+    .jqx-fill-state-pressed(@btn-success-bg, @btn-success-border, @btn-success-color);
+}
+
+.jqx-fill-state-normal-custom.jqx-info {
+    .jqx-fill-state-normal(@btn-info-bg, @btn-info-border, @btn-info-color);
+}
+
+.jqx-fill-state-hover-custom.jqx-info {
+    .jqx-fill-state-hover(@btn-info-bg, @btn-info-border, @btn-info-color);
+}
+
+.jqx-fill-state-pressed-custom.jqx-info {
+    .jqx-fill-state-pressed(@btn-info-bg, @btn-info-border, @btn-info-color);
+}
+
+.jqx-fill-state-normal-custom.jqx-inverse {
+    background-color: #222222;
+    border-color: #080808;
+    color: #ffffff;
+}
+
+.jqx-fill-state-hover-custom.jqx-inverse {
+    background-color: #080808;
+    color: #ffffff;
+}
+
+.jqx-fill-state-pressed-custom.jqx-inverse {
+    background-color: #080808;
+    color: #ffffff;
+}
+
+.jqx-listitem-state-hover-custom {
+    outline: 0;
+    color: @altHoverColor !important;
+    text-shadow: none;
+    border-color: @altHoverBorder !important;
+    background-color: @altHoverBackground !important;
+    background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-menu-item-hover-custom {
+    outline: 0;
+    color: @altHoverColor !important;
+    text-shadow: none;
+    border-color: @altHoverBorder !important;
+    background-color: @altHoverBackground !important;
+    background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-tree-item-hover-custom {
+    outline: 0;
+    color: @altHoverColor !important;
+    text-shadow: none;
+    border-color: @altHoverBorder !important;
+    background-color: @altHoverBackground !important;
+    background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-calendar-cell-hover-custom {
+    outline: 0;
+    color: @altHoverColor !important;
+    text-shadow: none;
+    border-color: @altHoverBorder !important;
+    background-color: @altHoverBackground !important;
+    background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-grid-cell-hover-custom {
+    outline: 0;
+    color: @altHoverColor !important;
+    text-shadow: none;
+    border-color: @altHoverBorder !important;
+    background-color: @altHoverBackground !important;
+    background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-input-popup-custom {
+    .jqx-fill-state-hover-custom {
+        outline: 0;
+        color: @altHoverColor !important;
+        text-shadow: none;
+        border-color: @altHoverBorder !important;
+        background-color: @altHoverBackground !important;
+        background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+        background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+
+    .jqx-fill-state-pressed-custom {
+        outline: 0;
+        color: @altHoverColor !important;
+        text-shadow: none;
+        border-color: @altHoverBorder !important;
+        background-color: @altHoverBackground !important;
+        background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+        background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+        background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+
+    .jqx-fill-state-normal-custom {
+        color: @altDefaultColor;
+        text-shadow: none;
+        font-family: @font-family;
+    }
+}
+
+.jqx-input-button-header-custom {
+    outline: 0;
+    color: @altHoverColor !important;
+    text-shadow: none;
+    border-color: @altHoverBorder !important;
+    background-color: @altHoverBackground !important;
+    background-image: -moz-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -o-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altHoverBackground),to(@altHoverBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(top,@altHoverBackground,@altHoverBackground2) !important;
+    background-image: linear-gradient(to bottom,@altHoverBackground,@altHoverBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-listitem-state-selected-custom {
+    color: @altActiveColor !important;
+    text-shadow: none;
+    border-color: @altActiveBorder !important;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-menu-item-selected-custom {
+    color: @altActiveColor !important;
+    text-shadow: none;
+    border-color: @altActiveBorder !important;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-tree-item-selected-custom {
+    color: @altActiveColor !important;
+    text-shadow: none;
+    border-color: @altActiveBorder !important;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-calendar-cell-selected-custom {
+    color: @altActiveColor !important;
+    text-shadow: none;
+    border-color: @altActiveBorder !important;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-grid-cell-selected-custom {
+    color: @altActiveColor !important;
+    text-shadow: none;
+    border-color: @altActiveBorder !important;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-grid-selectionarea-custom {
+    color: @altActiveColor !important;
+    text-shadow: none;
+    border-color: @altActiveBorder !important;
+    background-color: @altActiveBackground !important;
+    background-image: -moz-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -ms-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -o-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@altActiveBackground),to(@altActiveBackground2)) !important;
+    background-image: -webkit-linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(top,@altActiveBackground,@altActiveBackground2) !important;
+    background-image: linear-gradient(to bottom,@altActiveBackground,@altActiveBackground2) !important;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    font-family: @font-family;
+}
+
+.jqx-rc-t-expanded-custom {
+    -moz-border-radius-topleft: @defaultBorder !important;
+    -webkit-border-top-left-radius: @defaultBorder !important;
+    border-top-left-radius: @defaultBorder !important;
+    -moz-border-radius-topright: @defaultBorder !important;
+    -webkit-border-top-right-radius: @defaultBorder !important;
+    border-top-right-radius: @defaultBorder !important;
+}
+
+.jqx-rc-b-expanded-custom {
+    -moz-border-radius-bottomleft: @defaultBorder !important;
+    -webkit-border-bottom-left-radius: @defaultBorder !important;
+    border-bottom-left-radius: @defaultBorder !important;
+    -moz-border-radius-bottomright: @defaultBorder !important;
+    -webkit-border-bottom-right-radius: @defaultBorder !important;
+    border-bottom-right-radius: @defaultBorder !important;
+}
+
+.jqx-popup-custom.jqx-listbox-custom {
+    top: 2px !important;
+    position: relative;
+    color: @DropDownColor;
+    text-shadow: none;
+    border-color: @DropDownBorder;
+    background-color: @DropDownBackground;
+}
+
+.jqx-popup-custom.jqx-calendar-custom {
+    top: 2px !important;
+    position: relative;
+    color: @DropDownColor;
+    text-shadow: none;
+    border-color: @DropDownBorder;
+    background-color: @DropDownBackground;
+}
+
+.jqx-popup-up-custom.jqx-listbox-custom {
+    top: 23px !important;
+    position: relative;
+}
+
+.jqx-popup-up-custom.jqx-calendar-custom {
+    top: 23px !important;
+    position: relative;
+}
+
+.jqx-menu-popup-custom {
+    > div {
+        &:first-child {
+            padding-bottom: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+.jqx-menu-dropdown-custom {
+    margin-top: 2px !important;
+    color: @DropDownColor;
+    text-shadow: none;
+    border-color: @DropDownBorder;
+    background-color: @DropDownBackground;
+}
+
+.jqx-popup-custom.jqx-dropdownbutton-popup-custom {
+    margin-top: 2px !important;
+    color: @DropDownColor;
+    text-shadow: none;
+    border-color: @DropDownBorder;
+    background-color: @DropDownBackground;
+}
+
+.jqx-popup-custom {
+    border: 1px solid #ccc;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: @defaultBorder !important;
+    -moz-border-radius: @defaultBorder !important;
+    border-radius: @defaultBorder !important;
+    -webkit-box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+
+    .jqx-fill-state-focus-custom {
+        border-color: @focusBorder;
+    }
+}
+
+.jqx-widget {
+    .jqx-grid-column-filterbutton-custom {
+        border-color: #ccc;
+    }
+}
+
+.jqx-expander-arrow-bottom-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-window-collapse-button-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-menu-item-arrow-up-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-menu-item-arrow-up-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-menu-item-arrow-top-up-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-icon-arrow-up-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-icon-arrow-up-hover-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-icon-arrow-up-selected-custom {
+    background-image: url('images/icon-up.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.jqx-grid-group-expand-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-expander-arrow-top-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-window-collapse-button-collapsed-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-menu-item-arrow-down-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-menu-item-arrow-down-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-icon-arrow-down-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-icon-arrow-down-hover-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-icon-arrow-down-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-tabs-arrow-left-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-menu-item-arrow-left-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-left.png');
+    background-image: url('images/icon-left-white.png');
+}
+
+.jqx-menu-item-arrow-top-left {
+    background-image: url('images/icon-left.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.jqx-icon-arrow-left-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-icon-arrow-down-left-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-icon-arrow-left-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-grid-group-collapse-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-tabs-arrow-right-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-menu-item-arrow-right-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+    background-image: url('images/icon-right-white.png');
+}
+
+.jqx-menu-item-arrow-top-right-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-icon-arrow-right-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-icon-arrow-right-hover-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-icon-arrow-right-selected-custom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-tree-item-arrow-collapse-rtl-custom {
+    background-image: url(images/icon-left.png);
+}
+
+.jqx-tree-item-arrow-collapse-hover-rtl-custom {
+    background-image: url(images/icon-left.png);
+}
+
+.jqx-primary {
+    .jqx-grid-column-sortascbutton-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-bottom-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-widget-custom {
+        .jqx-primary {
+            .jqx-grid-group-expand-custom {
+                background-image: url('images/icon-down-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .jqx-grid-group-collapse-custom {
+                background-image: url('images/icon-right-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-top-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-collapsed-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-hover-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-left {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-close-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-hover-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-selected-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tree-item-arrow-collapse-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+
+    .jqx-tree-item-arrow-collapse-hover-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+}
+
+.jqx-warning {
+    .jqx-grid-column-sortascbutton-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-bottom-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-widget-custom {
+        .jqx-warning {
+            .jqx-grid-group-expand-custom {
+                background-image: url('images/icon-down-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .jqx-grid-group-collapse-custom {
+                background-image: url('images/icon-right-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-top-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-collapsed-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-hover-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-left {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-close-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-hover-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-selected-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tree-item-arrow-collapse-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+
+    .jqx-tree-item-arrow-collapse-hover-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+}
+
+.jqx-danger {
+    .jqx-grid-column-sortascbutton-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-bottom-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-widget-custom {
+        .jqx-danger {
+            .jqx-grid-group-expand-custom {
+                background-image: url('images/icon-down-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .jqx-grid-group-collapse-custom {
+                background-image: url('images/icon-right-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-top-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-collapsed-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-hover-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-left {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-close-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-hover-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-selected-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tree-item-arrow-collapse-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+
+    .jqx-tree-item-arrow-collapse-hover-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+}
+
+.jqx-info {
+    .jqx-grid-column-sortascbutton-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-bottom-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-widget-custom {
+        .jqx-info {
+            .jqx-grid-group-expand-custom {
+                background-image: url('images/icon-down-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .jqx-grid-group-collapse-custom {
+                background-image: url('images/icon-right-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-top-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-collapsed-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-hover-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-left {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-close-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-hover-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-selected-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tree-item-arrow-collapse-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+
+    .jqx-tree-item-arrow-collapse-hover-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+}
+
+.jqx-success {
+    .jqx-grid-column-sortascbutton-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-bottom-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-widget-custom {
+        .jqx-success {
+            .jqx-grid-group-expand-custom {
+                background-image: url('images/icon-down-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .jqx-grid-group-collapse-custom {
+                background-image: url('images/icon-right-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-top-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-collapsed-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-hover-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-left {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-close-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-hover-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-selected-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tree-item-arrow-collapse-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+
+    .jqx-tree-item-arrow-collapse-hover-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+}
+
+.jqx-inverse {
+    .jqx-grid-column-sortascbutton-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-bottom-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-widget-custom {
+        .jqx-inverse {
+            .jqx-grid-group-expand-custom {
+                background-image: url('images/icon-down-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .jqx-grid-group-collapse-custom {
+                background-image: url('images/icon-right-white.png');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+    }
+
+    .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-menubutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-column-sortdescbutton-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-expander-arrow-top-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-collapse-button-collapsed-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-hover-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-selected-custom {
+        background-image: url('images/icon-down-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-left {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-down-left-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-menu-item-arrow-top-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-window-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-icon-close-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-hover-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tabs-close-button-selected-custom {
+        background-image: url(images/close_white.png);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .jqx-tree-item-arrow-collapse-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+
+    .jqx-tree-item-arrow-collapse-hover-rtl-custom {
+        background-image: url(images/icon-left.png);
+    }
+}
+
+.jqx-input-button-content-custom {
+    font-size: 10px;
+}
+
+.jqx-input-custom {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+    color: @InputColor;
+    text-shadow: none;
+    border-color: @InputBorder;
+    background-color: @InputBackground;
+}
+
+.jqx-combobox-custom {
+    border-color: #ccc;
+}
+
+.jqx-combobox-state-normal-custom {
+    border-color: #ccc;
+}
+
+.jqx-combobox-state-focus-custom {
+    outline: none;
+    border-color: rgba(82,168,236,0.8);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+}
+
+.jqx-datetimeinput-content {
+    overflow: visible !important;
+}
+
+.jqx-datetimeinput-container {
+    overflow: visible !important;
+}
+
+input[type="text"].jqx-input-custom {
+    padding-left: 0 !important;
+
+    &:-moz-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-webkit-input-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: @InputPlaceholder;
+    }
+}
+
+input[type="text"].jqx-widget-content-custom {
+    padding-left: 0 !important;
+
+    &:-moz-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-webkit-input-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: @InputPlaceholder;
+    }
+}
+
+input[type="textarea"].jqx-widget-content-custom {
+    padding-left: 0 !important;
+
+    &:-moz-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-webkit-input-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: @InputPlaceholder;
+    }
+}
+
+textarea.jqx-input-custom {
+    padding-left: 0 !important;
+
+    &:-moz-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-webkit-input-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: @InputPlaceholder;
+    }
+}
+
+input[type="password"].jqx-input-custom {
+    padding-left: 0 !important;
+
+    &:-moz-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-webkit-input-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: @InputPlaceholder;
+    }
+}
+
+input[type="password"].jqx-widget-content-custom {
+    padding-left: 0 !important;
+
+    &:-moz-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-webkit-input-placeholder {
+        color: @InputPlaceholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: @InputPlaceholder;
+    }
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom {
+    outline: none;
+    border-color: #b2b2b2;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+}
+
+.jqx-listbox-custom.jqx-fill-state-focus-custom {
+    outline: none;
+    border-color: #b2b2b2;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom.jqx-primary {
+    border-color: #04c #04c #002a80;
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom.jqx-warning {
+    border-color: #f89406 #f89406 #ad6704;
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom.jqx-danger {
+    border-color: #bd362f #bd362f #802420;
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom.jqx-success {
+    border-color: #51a351 #51a351 #387038;
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom.jqx-info {
+    border-color: #2f96b4 #2f96b4 #1f6377;
+}
+
+.jqx-dropdownlist-state-normal-custom.jqx-fill-state-focus-custom.jqx-inverse {
+    border-color: #222 #222 #000;
+}
+
+.jqx-popup-custom.jqx-fill-state-focus-custom {
+    border: 1px solid #ccc;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: @defaultBorder !important;
+    -moz-border-radius: @defaultBorder !important;
+    border-radius: @defaultBorder !important;
+    -webkit-box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.jqx-expander-content-custom.jqx-fill-state-focus-custom {
+    z-index: 20;
+}
+
+.jqx-grid-cell-custom.jqx-grid-cell-selected-custom {
+    > .jqx-grid-group-expand-custom {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/icon-down-white.png');
+    }
+
+    > .jqx-grid-group-collapse-custom {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/icon-right-white.png');
+    }
+
+    > .jqx-grid-group-collapse-rtl-custom {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/icon-left-white.png');
+    }
+
+    > .jqx-grid-group-expand-rtl-custom {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('images/icon-down-white.png');
+    }
+}
+
+.jqx-layout-custom {
+    background-color: #ccc;
+}
+
+.jqx-grid-custom {
+    .jqx-widget-header-custom {
+        color: @headerColor;
+        text-shadow: none;
+        border-color: @headerBorder;
+        background-color: @headerBackground;
+        background-image: -moz-linear-gradient(top,@headerBackground,@headerBackground2);
+        background-image: -ms-linear-gradient(top,@headerBackground,@headerBackground2);
+        background-image: -o-linear-gradient(top,@headerBackground,@headerBackground2);
+        background-image: -webkit-gradient(linear,center top,center bottom,from(@headerBackground),to(@headerBackground2));
+        background-image: -webkit-linear-gradient(top,@headerBackground,@headerBackground2);
+        background-image: linear-gradient(top,@headerBackground,@headerBackground2);
+        background-image: linear-gradient(to bottom,@headerBackground,@headerBackground2);
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        font-family: @font-family;
+    }
+}
+
+.jqx-widget-custom.jqx-grid-column-menubutton-custom {
+    border-color: @headerBorder;
+}
+
+.jqx-grid-cell-sort-custom {
+    background-color: @altColor2;
+    color: @altCellsColor2;
+    text-shadow: none;
+}
+
+.jqx-grid-cell-filter-custom {
+    background-color: @altColor2;
+    color: @altCellsColor2;
+    text-shadow: none;
+}
+
+.jqx-grid-cell-pinned-custom {
+    background-color: @altColor2;
+    color: @altCellsColor2;
+    text-shadow: none;
+}
+
+.jqx-grid-cell-alt-custom {
+    background-color: @altColor;
+    color: @altCellsColor;
+    text-shadow: none;
+}
+
+.jqx-grid-cell-sort-alt-custom {
+    background-color: @altColor;
+    color: @altCellsColor;
+    text-shadow: none;
+}
+
+.jqx-grid-cell-filter-alt-custom {
+    background-color: @altColor;
+    color: @altCellsColor;
+    text-shadow: none;
+}
+
+.jqx-switchbutton-label-on-custom {
+    color: @activeColor;
+    text-shadow: none;
+    border-color: @activeBorder;
+    background-color: @activeBackground;
+    background-image: -moz-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: -ms-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: -o-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@activeBackground),to(@activeBackground2));
+    background-image: -webkit-linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: linear-gradient(top,@activeBackground,@activeBackground2);
+    background-image: linear-gradient(to bottom,@activeBackground,@activeBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-splitter-splitbar-hover-custom {
+    background: @hoverBackground;
+}
+
+.jqx-scrollbar-button-state-normal-custom {
+    background-color: @scrollBarButtonBackground;
+    background-image: -moz-linear-gradient(top,@scrollBarButtonBackground,@scrollBarButtonBackground2);
+    background-image: -ms-linear-gradient(top,@scrollBarButtonBackground,@scrollBarButtonBackground2);
+    background-image: -o-linear-gradient(top,@scrollBarButtonBackground,@scrollBarButtonBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@scrollBarButtonBackground),to(@scrollBarButtonBackground2));
+    background-image: -webkit-linear-gradient(top,@scrollBarButtonBackground,@scrollBarButtonBackground2);
+    background-image: linear-gradient(top,@scrollBarButtonBackground,@scrollBarButtonBackground2);
+    background-image: linear-gradient(to bottom,@scrollBarButtonBackground,@scrollBarButtonBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-scrollbar-button-state-hover-custom {
+    background-color: @scrollBarButtonHoverBackground;
+    border-color: @scrollBarButtonHoverBorder;
+    background-image: -moz-linear-gradient(top,@scrollBarButtonHoverBackground,@scrollBarButtonHoverBackground2);
+    background-image: -ms-linear-gradient(top,@scrollBarButtonHoverBackground,@scrollBarButtonHoverBackground2);
+    background-image: -o-linear-gradient(top,@scrollBarButtonHoverBackground,@scrollBarButtonHoverBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@scrollBarButtonHoverBackground),to(@scrollBarButtonHoverBackground2));
+    background-image: -webkit-linear-gradient(top,@scrollBarButtonHoverBackground,@scrollBarButtonHoverBackground2);
+    background-image: linear-gradient(top,@scrollBarButtonHoverBackground,@scrollBarButtonHoverBackground2);
+    background-image: linear-gradient(to bottom,@scrollBarButtonHoverBackground,@scrollBarButtonHoverBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-scrollbar-button-state-pressed-custom {
+    background-color: @scrollBarButtonActiveBackground;
+    border-color: @scrollBarButtonActiveBorder;
+    background-image: -moz-linear-gradient(top,@scrollBarButtonActiveBackground,@scrollBarButtonActiveBackground2);
+    background-image: -ms-linear-gradient(top,@scrollBarButtonActiveBackground,@scrollBarButtonActiveBackground2);
+    background-image: -o-linear-gradient(top,@scrollBarButtonActiveBackground,@scrollBarButtonActiveBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@scrollBarButtonActiveBackground),to(@scrollBarButtonActiveBackground2));
+    background-image: -webkit-linear-gradient(top,@scrollBarButtonActiveBackground,@scrollBarButtonActiveBackground2);
+    background-image: linear-gradient(top,@scrollBarButtonActiveBackground,@scrollBarButtonActiveBackground2);
+    background-image: linear-gradient(to bottom,@scrollBarButtonActiveBackground,@scrollBarButtonActiveBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-radiobutton-default-custom {
+    -moz-border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    border-radius: 100% !important;
+}
+
+.jqx-tooltip-text-custom {
+    -moz-border-radius: @defaultBorder;
+    -webkit-border-radius: @defaultBorder;
+    border-radius: @defaultBorder;
+}
+
+.jqx-tooltip-main-custom {
+    -moz-border-radius: @defaultBorder;
+    -webkit-border-radius: @defaultBorder;
+    border-radius: @defaultBorder;
+    color: @tooltipColor;
+    text-shadow: none;
+    border-color: @tooltipBorder;
+    background-color: @tooltipBackground;
+    background-image: -moz-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: -ms-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: -o-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: -webkit-gradient(linear,center top,center bottom,from(@tooltipBackground),to(@tooltipBackground2));
+    background-image: -webkit-linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: linear-gradient(top,@tooltipBackground,@tooltipBackground2);
+    background-image: linear-gradient(to bottom,@tooltipBackground,@tooltipBackground2);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+}
+
+.jqx-icon-arrow-up-selected-custom.jqx-expander-arrow-expanded-custom {
+    background-image: url('images/icon-up.png');
+}
+
+.jqx-tree-item-arrow-expand-custom {
+    background-image: url('images/icon-down.png');
+}
+
+.jqx-menu-item-arrow-top-left-custom {
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-grid-group-collapse-rtl-custom {
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-icon-arrow-left-hover-custom {
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-menu-item-arrow-collapse-custom {
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-window-close-button-custom {
+    background-image: url('images/close.png');
+}
+
+.jqx-tabs-close-button-custom {
+    background-image: url('images/close.png');
+}
+
+.icon-close-custom {
+    background-image: url('images/close.png');
+}
+
+.jqx-tabs-close-button-selected-custom {
+    background-image: url('images/close.png');
+}
+
+.jqx-tabs-close-button-hover-custom {
+    background-image: url('images/close.png');
+}
+
+.jqx-checkbox-check-indeterminate-custom {
+    background-image: url('images/check_indeterminate_black.png');
+}
+
+.jqx-combobox-input-custom {
+    color: @InputColor;
+    text-shadow: none;
+}
+
+.jqx-input-content-custom {
+    color: @InputColor;
+    text-shadow: none;
+    background-color: @InputBackground;
+}
+
+.jqx-menu-item-arrow-right-custom {
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-tree-item-arrow-collapse-custom {
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-menu-item-arrow-left-custom {
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-menu-item-arrow-right-hover-custom {
+    background-image: url('images/icon-right.png');
+}
+
+.jqx-menu-item-arrow-left-hover-custom {
+    background-image: url('images/icon-left.png');
+}
+
+.jqx-scrollbar-custom {
+    .jqx-icon-arrow-up-custom {
+        background-image: url('images/icon-up.png');
+    }
+
+    .jqx-icon-arrow-left-custom {
+        background-image: url('images/icon-left.png');
+    }
+
+    .jqx-icon-arrow-right-custom {
+        background-image: url('images/icon-right.png');
+    }
+
+    .jqx-icon-arrow-bottom-custom {
+        background-image: url('images/icon-bottom.png');
+    }
+
+    .jqx-icon-arrow-up-hover-custom {
+        background-image: url('images/icon-up.png');
+    }
+
+    .jqx-icon-arrow-left-hover-custom {
+        background-image: url('images/icon-left.png');
+    }
+
+    .jqx-icon-arrow-right-hover-custom {
+        background-image: url('images/icon-right.png');
+    }
+
+    .jqx-icon-arrow-bottom-hover-custom {
+        background-image: url('images/icon-bottom.png');
+    }
+
+    .jqx-icon-arrow-up-selected-custom {
+        background-image: url('images/icon-up.png');
+    }
+
+    .jqx-icon-arrow-left-selected-custom {
+        background-image: url('images/icon-left.png');
+    }
+
+    .jqx-icon-arrow-right-selected-custom {
+        background-image: url('images/icon-right.png');
+    }
+
+    .jqx-icon-arrow-bottom-selected-custom {
+        background-image: url('images/icon-bottom.png');
+    }
+}
+
+.jqx-listitem-state-normal-custom {
+    color: @altDefaultColor;
+    text-shadow: none;
+    font-family: @font-family;
+}
+
+.jqx-menu-item-normal-custom {
+    color: @altDefaultColor;
+    text-shadow: none;
+    font-family: @font-family;
+}
+
+.jqx-tree-item-normal-custom {
+    color: @altDefaultColor;
+    text-shadow: none;
+    font-family: @font-family;
+}
+
+.jqx-calendar-cell-custom {
+    color: @altDefaultColor;
+    text-shadow: none;
+    font-family: @font-family;
+}
+
+jqx-tabs-selection-tracker-top-custom.jqx-tabs-title-selected-bottom-custom {
+    color: @altActiveColor2 !important;
+    text-shadow: none;
+}
+
+jqx-tabs-selection-tracker-bottom-custom {
+    color: @altActiveColor2 !important;
+    text-shadow: none;
+}
+
+jqx-expander-header-expanded-custom {
+    color: @altActiveColor2 !important;
+    text-shadow: none;
+}
+
+.jqx-icon-calendar-custom {
+    background-image: url('images/icon-calendar.png');
+}
+
+.jqx-icon-calendar-hover-custom {
+    background-image: url('images/icon-calendar.png');
+}
+
+.jqx-icon-calendar-pressed-custom {
+    background-image: url('images/icon-calendar.png');
+}
+
+.jqx-icon-first-custom {
+    background-image: url('images/icon-first.png');
+}
+
+.jqx-icon-first-hover-custom {
+    background-image: url('images/icon-first.png');
+}
+
+.jqx-icon-first-selected-custom {
+    background-image: url('images/icon-first.png');
+}
+
+.jqx-icon-last-custom {
+    background-image: url('images/icon-last.png');
+}
+
+.jqx-icon-last-hover-custom {
+    background-image: url('images/icon-last.png');
+}
+
+.jqx-icon-last-selected-custom {
+    background-image: url('images/icon-last.png');
+}
+
+.jqx-grid-cell-custom.jqx-grid-cell-custom {
+    > .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down.png');
+    }
+
+    > .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right.png');
+    }
+
+    > .jqx-grid-group-expand-rtl-custom {
+        background-image: url('images/icon-down.png');
+    }
+
+    > .jqx-grid-group-collapse-rtl-custom {
+        background-image: url('images/icon-left.png');
+    }
+}
+
+.jqx-grid-cell-custom.jqx-grid-cell-hover-custom {
+    > .jqx-grid-group-expand-custom {
+        background-image: url('images/icon-down.png');
+    }
+
+    > .jqx-grid-group-collapse-custom {
+        background-image: url('images/icon-right.png');
+    }
+
+    > .jqx-grid-group-expand-rtl-custom {
+        background-image: url('images/icon-down.png');
+    }
+
+    > .jqx-grid-group-collapse-rtl-custom {
+        background-image: url('images/icon-left.png');
+    }
+}
+
+.jqx-icon-delete-custom {
+    background-image: url('images/icon-delete.png');
+}
+
+.jqx-icon-edit-custom {
+    background-image: url('images/icon-edit.png');
+}
+
+.jqx-icon-save-custom {
+    background-image: url('images/icon-save.png');
+}
+
+.jqx-icon-cancel-custom {
+    background-image: url('images/icon-cancel.png');
+}
+
+.jqx-icon-search-custom {
+    background-image: url('images/icon-search.png');
+}
+
+.jqx-icon-plus-custom {
+    background-image: url('images/icon-plus.png');
+}

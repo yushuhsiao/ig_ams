@@ -1,0 +1,45 @@
+﻿@{ Layout = null; }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Payment Sample</title>
+</head>
+<body>
+    <div class="col-sm-9">
+        <form class="form-horizontal" target="_blank" method="post" action="~/SunTech/BuySafeRequest">
+            <div class="form-group">
+                <label for="txt01" class="col-sm-3 control-label">BuySafe 信用卡付款</label>
+                <div class="col-sm-3"><input type="number" class="form-control" name="mn" id="txt01" value="100" placeholder="Amount"></div>
+                <div class="col-sm-3"><input type="text" class="form-control" name="name" value="yushu" placeholder="Name"></div>
+                <div class="col-sm-3"><button type="submit" class="btn btn-default">Test</button></div>
+            </div>
+        </form>
+        <form class="form-horizontal" target="_blank" method="post" action="~/SunTech/WebATMRequest">
+            <div class="form-group">
+                <label for="txt02" class="col-sm-3 control-label">WebATM 即時付</label>
+                <div class="col-sm-3"><input type="number" class="form-control" name="mn" id="txt02" value="100" placeholder="Amount"></div>
+                <div class="col-sm-3"><input type="text" class="form-control" name="name" value="yushu" placeholder="Name"></div>
+                <div class="col-sm-3"><button type="submit" class="btn btn-default">Test</button></div>
+            </div>
+        </form>
+        <form class="form-horizontal" target="_blank" method="post" action="~/SunTech/24PayRequest">
+            <div class="form-group">
+                <label for="txt03" class="col-sm-3 control-label">超商代收 24Pay</label>
+                <div class="col-sm-3"><input type="number" class="form-control" name="mn" id="txt03" value="100" placeholder="Amount"></div>
+                <div class="col-sm-3"><input type="text" class="form-control" name="name" value="yushu" placeholder="Name"></div>
+                <div class="col-sm-3"><button type="submit" class="btn btn-default">Test</button></div>
+            </div>
+        </form>
+        <form class="form-horizontal" target="_blank" method="post" action="~/SunTech/PayCodeRequest">
+            <div class="form-group">
+                <label for="txt04" class="col-sm-3 control-label">PayCode 超商代碼繳費</label>
+                <div class="col-sm-3"><input type="number" class="form-control" name="mn" id="txt04" value="100" placeholder="Amount"></div>
+                <div class="col-sm-3"><input type="text" class="form-control" name="name" value="yushu" placeholder="Name"></div>
+                <div class="col-sm-3"><button type="submit" class="btn btn-default">Test</button></div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

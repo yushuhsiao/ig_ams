@@ -1,0 +1,796 @@
+﻿{
+  "theme": "theme_bootstrap.txt",
+  "active": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA501",
+        "id": "activeBackground",
+        "text": "Active state background",
+        "type": "color"
+      }
+    },
+    {
+      "backgroundColor2": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA502",
+        "id": "activeBackground2",
+        "text": "Active state background 2",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#adadad",
+        "value": "#AAA503",
+        "id": "activeBorder",
+        "text": "Active state border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA504",
+        "id": "activeColor",
+        "text": "Active state color",
+        "type": "color"
+      }
+    },
+    {
+      "icon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "sortAsctIcon",
+        "text": "Icon type",
+        "type": "list"
+      }
+    },
+    {
+      "altBackgroundColor": {
+        "defaultValue": "#428bca",
+        "value": "#AAA505",
+        "id": "altActiveBackground",
+        "text": "Alt active state background",
+        "type": "color"
+      }
+    },
+    {
+      "altBackgroundColor2": {
+        "defaultValue": "#428bca",
+        "value": "#AAA506",
+        "id": "altActiveBackground2",
+        "text": "Alt active state background 2",
+        "type": "color"
+      }
+    },
+    {
+      "altBorderColor": {
+        "defaultValue": "#357ebd",
+        "value": "#AAA507",
+        "id": "altActiveBorder",
+        "text": "Alt active state border",
+        "type": "color"
+      }
+    },
+    {
+      "altTextColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA508",
+        "id": "altActiveColor",
+        "text": "Alt active state color",
+        "type": "color"
+      }
+    },
+    {
+      "altTextColor2": {
+        "defaultValue": "#0088CC",
+        "value": "#AAA509",
+        "id": "altActiveColor2",
+        "text": "Alt active state color 2",
+        "type": "color"
+      }
+    },
+    {
+      "altIcon": {
+        "defaultValue": "light",
+        "value": "light",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "altIcon",
+        "text": "Alt Icon type",
+        "type": "list"
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA901",
+        "id": "defaultBackground",
+        "text": "Button background",
+        "type": "color"
+      }
+    },
+    {
+      "backgroundColor2": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA902",
+        "id": "defaultBackground2",
+        "text": "Button background 2",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#cccccc",
+        "value": "#AAA903",
+        "id": "defaultBorder",
+        "text": "Button border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA904",
+        "id": "defaultColor",
+        "text": "Button color",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarBackgroundColor": {
+        "defaultValue": "#f0f0f0",
+        "value": "#AAA905",
+        "id": "scrollBarBackgroundColor",
+        "text": "Scrollbar background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarBorder": {
+        "defaultValue": "#f0f0f0",
+        "value": "#AAA906",
+        "id": "scrollBarBorder",
+        "text": "Scrollbar border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbBorder": {
+        "defaultValue": "#b3b3b3",
+        "value": "#AAA907",
+        "id": "scrollBarThumbBorder",
+        "text": "Scrollbar thumb border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbBackground": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA908",
+        "id": "scrollBarThumbBackground",
+        "text": "Scrollbar thumb background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbBackground2": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA909",
+        "id": "scrollBarThumbBackground2",
+        "text": "Scrollbar thumb background 2",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbHoverBorder": {
+        "defaultValue": "#b3b3b3",
+        "value": "#AAA910",
+        "id": "scrollBarThumbHoverBorder",
+        "text": "Scrollbar thumb hover border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbHoverBackground": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA911",
+        "id": "scrollBarThumbHoverBackground",
+        "text": "Scrollbar thumb hover background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbHoverBackground2": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA912",
+        "id": "scrollBarThumbHoverBackground2",
+        "text": "Scrollbar thumb hover background 2",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbActiveBorder": {
+        "defaultValue": "#b3b3b3",
+        "value": "#AAA913",
+        "id": "scrollBarThumbActiveBorder",
+        "text": "Scrollbar thumb active border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbActiveBackground": {
+        "defaultValue": "#d9d9d9",
+        "value": "#AAA914",
+        "id": "scrollBarThumbActiveBackground",
+        "text": "Scrollbar thumb active background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarThumbActiveBackground2": {
+        "defaultValue": "#d9d9d9",
+        "value": "#AAA915",
+        "id": "scrollBarThumbActiveBackground2",
+        "text": "Scrollbar thumb active background 2",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonBorder": {
+        "defaultValue": "#f0f0f0",
+        "value": "#AAA916",
+        "id": "scrollBarButtonBorder",
+        "text": "Scrollbar button border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonBackground": {
+        "defaultValue": "#f0f0f0",
+        "value": "#AAA917",
+        "id": "scrollBarButtonBackground",
+        "text": "Scrollbar button background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonBackground2": {
+        "defaultValue": "#f0f0f0",
+        "value": "#AAA918",
+        "id": "scrollBarButtonBackground2",
+        "text": "Scrollbar button background 2",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonHoverBorder": {
+        "defaultValue": "#b3b3b3",
+        "value": "#AAA919",
+        "id": "scrollBarButtonHoverBorder",
+        "text": "Scrollbar button hover border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonHoverBackground": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA920",
+        "id": "scrollBarButtonHoverBackground",
+        "text": "Scrollbar button hover background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonHoverBackground2": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA921",
+        "id": "scrollBarButtonHoverBackground2",
+        "text": "Scrollbar button hover background 2",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonActiveBorder": {
+        "defaultValue": "#b3b3b3",
+        "value": "#AAA922",
+        "id": "scrollBarButtonActiveBorder",
+        "text": "Scrollbar button active border",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonActiveBackground": {
+        "defaultValue": "#d9d9d9",
+        "value": "#AAA923",
+        "id": "scrollBarButtonActiveBackground",
+        "text": "Scrollbar button active background",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarButtonActiveBackground2": {
+        "defaultValue": "#d9d9d9",
+        "value": "#AAA924",
+        "id": "scrollBarButtonActiveBackground2",
+        "text": "Scrollbar button active background 2",
+        "type": "color"
+      }
+    },
+    {
+      "scrollBarIcon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "iconDefault",
+        "text": "Scrollbar button icon type",
+        "type": "list"
+      }
+    },
+    {
+      "scrollBarHoverIcon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "iconHover",
+        "text": "Scrollbar button hover icon type",
+        "type": "list"
+      }
+    },
+    {
+      "scrollBarActiveIcon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "iconActive",
+        "text": "Scrollbar button active icon type",
+        "type": "list"
+      }
+    }
+  ],
+  "contents": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA201",
+        "id": "contentBackground",
+        "text": "Content background",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA202",
+        "id": "contentBorder",
+        "text": "Content border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA203",
+        "id": "contentColor",
+        "text": "Content color",
+        "type": "color"
+      }
+    },
+    {
+      "icon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "contentIcon",
+        "text": "Icon type",
+        "type": "list"
+      }
+    }
+  ],
+  "default": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA301",
+        "id": "defaultBackground",
+        "text": "Default state background",
+        "type": "color"
+      }
+    },
+    {
+      "backgroundColor2": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA302",
+        "id": "defaultBackground2",
+        "text": "Default state background 2",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#cccccc",
+        "value": "#AAA303",
+        "id": "defaultBorder",
+        "text": "Default state border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA304",
+        "id": "defaultColor",
+        "text": "Default state color",
+        "type": "color"
+      }
+    },
+    {
+      "icon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "sortAsctIcon",
+        "text": "Icon type",
+        "type": "list"
+      }
+    },
+    {
+      "altTextColor": {
+        "defaultValue": "#0088CC",
+        "value": "#AAA305",
+        "id": "altDefaultColor",
+        "text": "Alt default state color",
+        "type": "color"
+      }
+    }
+  ],
+  "headers": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#f5f5f5",
+        "value": "#AAA101",
+        "id": "headerBackground",
+        "text": "Header background",
+        "type": "color"
+      }
+    },
+    {
+      "backgroundColor2": {
+        "defaultValue": "#f5f5f5",
+        "value": "#AAA102",
+        "id": "headerBackground2",
+        "text": "Header background 2",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#cccccc",
+        "value": "#AAA103",
+        "id": "headerBorder",
+        "text": "Header border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA104",
+        "id": "headerColor",
+        "text": "Header color",
+        "type": "color"
+      }
+    },
+    {
+      "icon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "headerIcon",
+        "text": "Icon type",
+        "type": "list"
+      }
+    }
+  ],
+  "hover": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA401",
+        "id": "hoverBackground",
+        "text": "Hover state background",
+        "type": "color"
+      }
+    },
+    {
+      "backgroundColor2": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA402",
+        "id": "hoverBackground2",
+        "text": "Hover state background 2",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#adadad",
+        "value": "#AAA403",
+        "id": "hoverBorder",
+        "text": "Hover state border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA404",
+        "id": "hoverColor",
+        "text": "Hover state color",
+        "type": "color"
+      }
+    },
+    {
+      "icon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "sortAsctIcon",
+        "text": "Icon type",
+        "type": "list"
+      }
+    },
+    {
+      "altBackgroundColor": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA405",
+        "id": "altHoverBackground",
+        "text": "Alt hover state background",
+        "type": "color"
+      }
+    },
+    {
+      "altBackgroundColor2": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA406",
+        "id": "altHoverBackground2",
+        "text": "Alt hover state background 2",
+        "type": "color"
+      }
+    },
+    {
+      "altBorderColor": {
+        "defaultValue": "#ebebeb",
+        "value": "#AAA407",
+        "id": "altHoverBorder",
+        "text": "Alt hover state border",
+        "type": "color"
+      }
+    },
+    {
+      "altTextColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA408",
+        "id": "altHoverColor",
+        "text": "Alt hover state color",
+        "type": "color"
+      }
+    },
+    {
+      "altTextColor2": {
+        "defaultValue": "#333333",
+        "value": "#AAA409",
+        "id": "altHoverColor2",
+        "text": "Alt hover state color 2",
+        "type": "color"
+      }
+    },
+    {
+      "altIcon": {
+        "defaultValue": "dark",
+        "value": "dark",
+        "values": [ "light", "dark", "metro_light", "metro_dark" ],
+        "id": "altIcon",
+        "text": "Alt Icon type",
+        "type": "list"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA701",
+        "id": "InputBackground",
+        "text": "Input background",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#cccccc",
+        "value": "#AAA702",
+        "id": "InputBorder",
+        "text": "Input border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA703",
+        "id": "InputColor",
+        "text": "Input color",
+        "type": "color"
+      }
+    },
+    {
+      "dropDownBackgroundColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA704",
+        "id": "DropDownBackground",
+        "text": "DropDown background",
+        "type": "color"
+      }
+    },
+    {
+      "dropDownBorderColor": {
+        "defaultValue": "#e6e6e6",
+        "value": "#AAA705",
+        "id": "DropDownBorder",
+        "text": "DropDown border",
+        "type": "color"
+      }
+    },
+    {
+      "dropDownTextColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA706",
+        "id": "DropDownColor",
+        "text": "DropDown color",
+        "type": "color"
+      }
+    }
+  ],
+  "misc": [
+    {
+      "fontFamily": {
+        "value": "aaa601",
+        "defaultValue": "Helvetica Neue",
+        "id": "fontFamily",
+        "text": "Font family",
+        "type": "input"
+      }
+    },
+    {
+      "borderRadius": {
+        "value": "aaa602",
+        "defaultValue": "4",
+        "id": "borderRadius",
+        "text": "Border radius",
+        "type": "input"
+      }
+    },
+    {
+      "altBackgroundColor": {
+        "value": "#AAA603",
+        "defaultValue": "#f9f9f9",
+        "id": "altColor",
+        "text": "Alternating background",
+        "type": "color"
+      }
+    },
+    {
+      "altTextColor": {
+        "value": "#AAA604",
+        "defaultValue": "#000000",
+        "id": "altCellsColor",
+        "text": "Alternating color",
+        "type": "color"
+      }
+    },
+    {
+      "altBackgroundColor2": {
+        "value": "#AAA605",
+        "defaultValue": "#E5E5E5",
+        "id": "altColor2",
+        "text": "Alternating background 2",
+        "type": "color"
+      }
+    },
+    {
+      "altTextColor2": {
+        "value": "#AAA606",
+        "defaultValue": "#000000",
+        "id": "altCellsColor2",
+        "text": "Alternating color 2",
+        "type": "color"
+      }
+    },
+    {
+      "contextMenuBackground": {
+        "value": "#AAA607",
+        "defaultValue": "#ffffff",
+        "id": "menuBackground",
+        "text": "Context menu background",
+        "type": "color"
+      }
+    },
+    {
+      "focusBorder": {
+        "value": "#AAA608",
+        "defaultValue": "#52A8EC",
+        "id": "focusBorder",
+        "text": "Focus border",
+        "type": "color"
+      }
+    },
+    {
+      "cellsTextColor": {
+        "value": "#AAA609",
+        "defaultValue": "#222222",
+        "id": "cellsColor",
+        "text": "Cells color",
+        "type": "color"
+      }
+    },
+    {
+      "cellsBorder": {
+        "value": "#AAA610",
+        "defaultValue": "#cccccc",
+        "id": "cellsBorder",
+        "text": "Cells border",
+        "type": "color"
+      }
+    },
+    {
+      "radioCheckMark": {
+        "value": "#AAA611",
+        "defaultValue": "#666666",
+        "id": "checkMark",
+        "text": "Radio button check color",
+        "type": "color"
+      }
+    }
+  ],
+  "tooltips": [
+    {
+      "backgroundColor": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA801",
+        "id": "tooltipBackground",
+        "text": "Tooltip background",
+        "type": "color"
+      }
+    },
+    {
+      "backgroundColor2": {
+        "defaultValue": "#ffffff",
+        "value": "#AAA802",
+        "id": "tooltipBackground2",
+        "text": "Tooltip background 2",
+        "type": "color"
+      }
+    },
+    {
+      "borderColor": {
+        "defaultValue": "#cccccc",
+        "value": "#AAA803",
+        "id": "tooltipBorder",
+        "text": "Tooltip border",
+        "type": "color"
+      }
+    },
+    {
+      "textColor": {
+        "defaultValue": "#333333",
+        "value": "#AAA804",
+        "id": "tooltipColor",
+        "text": "Tooltip color",
+        "type": "color"
+      }
+    }
+  ]
+}

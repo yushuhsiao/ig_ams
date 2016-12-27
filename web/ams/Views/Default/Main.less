@@ -1,0 +1,128 @@
+﻿@import "../../../../css/variables";
+
+html, body, #main { margin: 0; padding: 0; overflow: auto; white-space: nowrap; }
+.easing {
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#navbar {
+    .fill-x; margin-bottom: 0;
+    .navbar-header
+    {
+        &.navbar-text { margin-top: 0; margin-bottom: 0; }
+        .navbar-toggle {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .navbar-brand {
+            padding: 5px;
+            & > a > img {
+                max-height: 100%;
+                height: 100%;
+                max-width: 100%;
+                width: auto;
+                margin: 0 auto;
+                -o-object-fit: contain;
+                object-fit: contain;
+            }
+        }
+    }
+    .nav-cmd { cursor: pointer; }
+}
+
+#content { .fill; border: 0; }
+#content-mask1 { position: absolute; top: 0; left: 0; .fill; background-color: transparent; }
+#content-mask2 { position: absolute; top: 0; left: 0; .fill; background-color: white; }
+
+#sidebar-wrapper, #content-wrapper { padding-top: @navbar-height; .easing; .fill-y; overflow: hidden; }
+
+@sidebar-toolbar-top-height: 0;
+@sidebar-toolbar-bottom-height: 28px;
+@sidebar-toolbar-width: 15px;
+@sidebar-hidden-width: 28px;
+#sidebar {
+    .fill; padding-top: @sidebar-toolbar-top-height; padding-bottom: @sidebar-toolbar-bottom-height; position: relative; white-space: nowrap;
+    #toolbar1 { .fill-x; position: absolute; top: 0; left: 0; height: @sidebar-toolbar-top-height; }
+    #toolbar2 { .fill-y; position: absolute; top: 0; right: 0; width: @sidebar-toolbar-width; }
+    #toolbar3 { .fill-x; position: absolute; bottom: 0; left: 0; height: @sidebar-toolbar-bottom-height; text-align: center; cursor: pointer; border-top: outset thin; }
+}
+
+
+#sidebar-wrapper {
+    position: absolute; top: 0; left: 0; z-index: 2;
+    @media(max-width:@screen-sm) {
+        /*width: 60%;*/
+        /*&.panel-hide { width: 0; }*/
+    }
+    @media(min-width:@screen-sm) {
+        .sidebar_show { width: 20%; }
+        /*width: 20%;*/
+        /*&.panel-hide { width: @sidebar-toolbar-width; }*/
+    }
+}
+#content-wrapper {
+    position: absolute; top: 0; left: 0; z-index: 1; .fill-x;
+    @media(max-width:@screen-sm) {
+    }
+    @media(min-width:@screen-sm) {
+        /*padding-left: 20%;*/
+        /*&.panel-hide { padding-left: @sidebar-toolbar-width;  }*/
+    }
+}
+
+@media(max-width:@screen-sm) {
+        #sidebar-wrapper { width: 0; }
+        #content-wrapper { padding-left: 0; }
+    .sidebar-show-xs {
+        #sidebar-wrapper { width: 60%; }
+    }
+    #sidebar { padding-top: 0; }
+    #toolbar1, #toolbar2, #toolbar3 { display: none; }
+}
+@media(min-width:@screen-sm) {
+    .sidebar-hide #menu,
+    .sidebar-hide #toolbar1 { display: none; }
+    .sidebar-show #toolbar2 { display: none; }
+    .sidebar-hide     { #sidebar-wrapper { width:        @sidebar-hidden-width; }
+                        #content-wrapper { padding-left: @sidebar-hidden-width; } }
+                        #sidebar-wrapper { width:        20%; }
+                        #content-wrapper { padding-left: 20%; }
+    .sidebar-undock   { #content-wrapper { padding-left: @sidebar-hidden-width; } }
+}
+
+#menu {
+    .fill; overflow: auto;
+    ul { padding-left: 0; }
+    li {
+        list-style-type: none;
+        .btn {
+            line-height: 1em;
+            text-align: left;
+            //cursor: pointer;
+            padding-left: 0;
+            padding-right: 0;
+            border-radius: 0;
+            &:active,
+            &:hover {
+                color: @navbar-default-link-active-color;
+                background-color: @navbar-default-link-active-bg;
+            }
+        }
+    }
+    .menu-active {
+        background-color: @navbar-default-link-hover-bg;
+        color: @navbar-default-brand-color;
+    }
+    li li .btn { padding-left: 1em; padding-top: .5em; padding-bottom: .5em;  }
+    li li li .btn { padding-left: 2em; }
+    li li li li .btn { padding-left: 3em; }
+    li li li li li .btn { padding-left: 4em; }
+}
+#msg_frame { 
+    height: 1em;
+    width: 1em;
+    border: none;
+}

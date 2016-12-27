@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "../Layout-ng.cshtml";
+    ViewBag.Title = "Lang";
+}
+@section head {
+    @Bundles.RenderStyles(this, null, false)
+    @Bundles.RenderScripts(this, null, false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //@(new jqxSplitter { resizable = false })
+            $('#panel1').jqxSplitter({
+                width: '100%', height: '100%', splitBarSize: 1,
+                panels: [{ size: '30%', collapsible: false }, { collapsible: false }]
+            });
+            $('#panel2, #panel3').jqxSplitter({
+                width: '100%', height: '100%', splitBarSize: 0, orientation: 'horizontal', resizable: false,
+                panels: [{ size: 30, min: 30, collapsible: false }, { collapsible: false }]
+            });
+            window.tree = $('#tree1').on('initialized', function (event) {
+                //console.log('initialized', event);
+                $.invoke_api({
+                    url: '@(Url.GetActionUrlContent<ams.Controllers.LangApiController>("list"))',
+                    success: function (data, textStatus, jqXHR) {
+                        event.owner.addTo(data.items);
+                        var n = event.owner.getItems();
+                        if (n.length > 0) {
+                            event.owner.selectItem(n[0])
+                        }
+                        event.owner.focus();
+                    }
+                });
+                event.owner.focus();
+            }).on('expand collapse added removed checkChange dragEnd dragStart itemClick', function (event) {
+                //console.log(event);
+            }).on('select', function (event) {
+                var item = tree.getItem(event.args.element);
+                console.log('select', item);
+            }).jqxTree({
+                width: '100%', height: '100%',
+                animationShowDuration: 0,
+                animationHideDuration: 0,
+            }).jqxTree('getInstance');
+        });
+        //    var app = ng_app('app').controller('main', function ($scope, $window) {
+        //        //postMessage('main_sidebar_dock_toggle', false);
+        //        //angular.element($window).bind('resize', function () { $scope.$apply(); });
+        //
+        //
+        //        var source = new $.jqx.dataAdapter({
+        //            datatype: 'json', type: 'post', id: 'path',
+        //            //mapChar: '.',
+        //            url: '@(Url.GetActionUrlContent<ams.Controllers.LangApiController>("list"))',
+        //            datafields: [
+        //                { name: 'path', type: 'string' },
+        //                { name: 'name', type: 'string' },
+        //                { name: 'text', type: 'string', map: 'values>0' },
+        //                { name: 'en-us', type: 'string', map: 'values>1028' },
+        //                { name: 'zh-hant', type: 'string', map: 'values>1033' },
+        //                { name: 'zh-hans', type: 'string', map: 'values>2052' },
+        //                { name: 'values', type: 'object' },
+        //                { name: 'items', type: 'array' },
+        //            ],
+        //            hierarchy: { root: 'items', },
+        //        }, { autoBind: true, });
+        //
+        //        $scope.treegrid1 = $('#treegrid1').on('bindingComplete sort filter pageChanged pageSizeChanged rowClick rowDoubleClick cellValueChanged rowBeginEdit rowEndEdit rowSelect rowUnselect rowCheck rowUncheck columnResized columnReordered rowExpand rowCollapse cellBeginEdit cellEndEdit', function (e) {
+        //            console.log(e.type, e.args);
+        //        }).on("rowClick", function (e) {
+        //            if (e.args.row.items == null)
+        //                $scope.treegrid1.beginCellEdit(e.args.key, e.args.dataField);
+        //        }).jqxTreeGrid({
+        //            source: source, width: '100%', height: '100%', editable: true, sortable: true, altRows: true,
+        //            beginEdit: function (rowKey, column) {
+        //                var row = $scope.treegrid1.getRow(rowKey);
+        //                //console.log('beginEdit', arguments);
+        //                return row.items == null;
+        //            },
+        //            editSettings: {
+        //                saveOnPageChange: true,
+        //                saveOnBlur: true,
+        //                saveOnSelectionChange: true,
+        //                cancelOnEsc: true,
+        //                saveOnEnter: true,
+        //                editSingleCell: true,
+        //                editOnDoubleClick: true,
+        //                editOnF2: true
+        //            },
+        //            columns: [
+        //                { text: '@lang["name        "]', width: 300, align: 'center', dataField: 'name' },
+        //                { text: '@lang["command ", ""]', width: 100, align: 'center' },
+        //                { text: '@lang["text        "]', width: 150, align: 'center', dataField: 'text' },
+        //                { text: '@lang["en-us       "]', width: 150, align: 'center', dataField: 'en-us' },
+        //                { text: '@lang["zh-hant     "]', width: 150, align: 'center', dataField: 'zh-hant' },
+        //                { text: '@lang["zh-hans     "]', width: 150, align: 'center', dataField: 'zh-hans' },
+        //                { text: '@lang["path        "]', width: 500, align: 'center', dataField: 'path', hidden: false, editable: false },
+        //            ]
+        //        }).jqxTreeGrid('getInstance');
+        //
+        //        setTimeout(function () {
+        //            console.log($scope);
+        //        }, 1000);
+        //    });
+    </script>
+    <style type="text/css">
+        /*.jqx-splitter-panel > div { border: none; }*/
+    </style>
+}
+<div id="panel1">
+    <div>
+        <div id="panel2">
+            <div class="btn-toolbar">
+                <div class="btn-group btn-group-sm">
+                    <a class="btn">Pages</a>
+                    <a class="btn">Enums</a>
+                </div>
+            </div>
+            <div><div id="tree1"></div></div>
+        </div>
+    </div>
+    <div>
+        <div id="panel3">
+            <div class="btn-toolbar">
+                <div class="btn-group btn-group-sm">
+                    <a class="btn">Refresh</a>
+                </div>
+            </div>
+            <div><div id="grid1"></div></div>
+        </div>
+    </div>
+</div>

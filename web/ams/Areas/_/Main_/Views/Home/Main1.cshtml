@@ -1,0 +1,389 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+@section head {
+    <link href="~/css/supr/html/css/icons.css" rel="stylesheet" />
+    <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/fonts/devicons/css/devicons.min.css" rel="stylesheet" />
+    <link href="~/fonts/octicons/octicons/octicons.css" rel="stylesheet" />
+    @*@css.Render(css.jqwidget)*@
+    @*@js.Render(js.jqwidgets)*@
+    @js.Render(js.index)
+    @css.Render(css.index)
+
+    <script type="text/javascript">
+        var app = angular.module('app', ['ngAnimate', 'ui.bootstrap']);
+        app.config(function ($animateProvider) {
+            $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/); // disable animation
+        });
+        app.controller('main', function ($scope) {
+            function get_dimensions() {
+                return {
+                    nav_height: $('#navbar').outerHeight(),
+                    width: $('#main').innerWidth(),
+                    height: $('#main').innerHeight()
+                }
+            };
+            $scope.dimensions = get_dimensions();
+            $scope.sidebar = { dock: true, show: true, show_xs: false };
+            $(window).resize(function () {
+                $scope.dimensions = get_dimensions();
+                $scope.sidebar = { dock: true, show: true, show_xs: false };
+                $scope.$apply();
+            });
+            $scope.class = function () {
+                return [
+                    $scope.sidebar.dock ? 'sidebar-dock' : 'sidebar-undock',
+                    $scope.sidebar.show ? 'sidebar-show' : 'sidebar-hide',
+                    $scope.sidebar.show_xs ? 'sidebar-show-xs' : ''
+                ];
+            };
+
+            var h_timeout = 0;
+            $scope.sidebar_dock = function () {
+                clearTimeout(h_timeout);
+                $scope.sidebar.dock = !$scope.sidebar.dock;
+            };
+            $scope.sidebar_toggle = function (visible) {
+                clearTimeout(h_timeout);
+                $scope.sidebar.show = !$scope.sidebar.show;
+            };
+            $scope.sidebar_enter = function () {
+                clearTimeout(h_timeout);
+                h_timeout = setTimeout(function () {
+                    $scope.sidebar.show = true;
+                    $scope.$apply();
+                }, 1000);
+            }
+            $scope.sidebar_leave = function () {
+                clearTimeout(h_timeout);
+                if ($scope.sidebar.dock) return;
+                h_timeout = setTimeout(function () {
+                    $scope.sidebar.show = false;
+                    $scope.$apply();
+                }, 1000);
+            }
+
+            $scope.logout = function () {
+                console.log('logout');
+                $.invoke_api({
+                    url: '@Url.Content(apiurl.logout)',
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.Status == '@((int)Status.Success)') {
+                            location.reload(true);
+                        }
+                    },
+                })
+            }
+        });
+        app.directive('fa', function () {
+            return {
+                scope: false, transclude: false, replace: true,
+                //templateUrl: 'fa-icon.html',
+                template: '<i class="fa fa-fw"></i>'
+            };
+        });
+
+        $(document).ready(function () {
+            $('#navbar .dropdown')
+                .on('show.bs.dropdown', function () { $('#content-mask').removeClass('hidden'); })
+                .on('hidden.bs.dropdown', function () { $('#content-mask').addClass('hidden'); });
+            $(window).trigger('resize');
+        });
+    </script>
+}
+<div id="main" ng-app="app" ng-controller="main" ng-class="class()">
+    <nav id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-nav"><fa class="fa-bars"></fa></button>
+                <button type="button" class="navbar-toggle" ng-click="sidebar.show_xs = !sidebar.show_xs">
+                    <i class="icon14 minia-icon-layout"></i>
+                </button>
+                <div class="navbar-brand"><img src="~/img/logo.png" alt="logo"></div>
+            </div>
+            <div id="navbar-nav" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="fa fa-bell-o"></span>
+                            @lang["Messages"]
+                            <span class="badge">0</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a>1.</a></li>
+                            <li><a>2.</a></li>
+                            <li><a>3.</a></li>
+                            <li><a>4.</a></li>
+                            <li><a>5.</a></li>
+                            <li><a>6.</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            @*<iframe id="msg_frame" src="~/Default/Message"></iframe>*@
+                            <span class="fa fa-envelope-o"></span>
+                            @lang["Messages"]
+                            <span class="badge">0</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a>1.</a></li>
+                            <li><a>2.</a></li>
+                            <li><a>3.</a></li>
+                            <li><a>3.</a></li>
+                            <li><a>3.</a></li>
+                            <li><a>3.</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="fa fa-cog"></span>
+                            @lang["Options"]
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a>Action</a></li>
+                            <li><a>Another action</a></li>
+                            <li><a>Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a>Separated link</a></li>
+                            <li><a>One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <fa class="fa-user"></fa>
+                            @_User.Current.Name
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a>Accounts</a></li>
+                            <li><a>Another action</a></li>
+                            <li><a>Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a>Separated link</a></li>
+                            <li><a class="nav-cmd" ng-click="logout()">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="sidebar-wrapper" style="padding-top: {{dimensions.nav_height}}px;" ng-mouseenter="sidebar_enter()" ng-mouseleave="sidebar_leave()">
+        <div id="sidebar" class="bg-primary text-primary">
+            @*<div id="toolbar1">
+                <div class="btn btn-xs pull-right" ng-click="sidebar_toggle()">
+                    <fa class="fa-caret-square-o-left"></fa>
+                </div>
+                <div ng-model="sidebar.dock" uib-btn-checkbox class="btn btn-xs pull-right">
+                    <fa class="fa-toggle-on  ng-animate-disabled" ng-show="sidebar.dock"></fa>
+                    <fa class="fa-toggle-off ng-animate-disabled" ng-hide="sidebar.dock"></fa>
+                </div>
+            </div>*@
+            @*<div id="toolbar2">
+                <div class="btn btn-xs pull-right" ng-click="sidebar_toggle()">
+                    <fa class="fa-caret-square-o-right"></fa>
+                </div>
+            </div>*@
+            <div id="toolbar3">
+                <span ng-click="sidebar_toggle()" class="pull-right">
+                    <span class="fa-stack ng-animate-disabled" ng-hide="sidebar.show">
+                        <fa class="fa-circle-thin fa-stack-2x"></fa>
+                        <fa class="fa-angle-double-right fa-stack-1x"></fa>
+                    </span>
+                    <span class="fa-stack ng-animate-disabled" ng-show="sidebar.show">
+                        <fa class="fa-circle-thin fa-stack-2x"></fa>
+                        <fa class="fa-angle-double-left fa-stack-1x"></fa>
+                    </span>
+                </span>
+                <span ng-show="sidebar.show" ng-click="sidebar_dock()" class="pull-right">
+                    <span class="fa-stack ng-animate-disabled" ng-hide="sidebar.dock">
+                        <fa class="fa-circle-thin fa-stack-2x"></fa>
+                        <fa class="fa-toggle-off fa-stack-1x"></fa>
+                    </span>
+                    <span class="fa-stack ng-animate-disabled" ng-show="sidebar.dock">
+                        <fa class="fa-circle-thin fa-stack-2x"></fa>
+                        <fa class="fa-toggle-on fa-stack-1x"></fa>
+                    </span>
+                </span>
+            </div>
+            <script type="text/javascript">
+                app.controller('_menu', function ($scope) { });
+                app.directive('mUlRoot', function () {
+                    return {
+                        controller: '_menu', transclude: true, replace: true, scope: true,
+                        templateUrl: 'm-menu.html',
+                        link: function postLink(scope, iElement, iAttrs, controller) {
+                            scope.container = true;
+                        }
+                    }
+                });
+                app.directive('mLi', function () {
+                    return {
+                        controller: '_menu',
+                        transclude: true, replace: true, scope: { link: '@@' },
+                        templateUrl: 'm-li.html',
+                        link: function postLink(scope, iElement, iAttrs, controller) {
+                        }
+                    }
+                });
+                app.directive('mUl', function () {
+                    return {
+                        require: '^mLi', transclude: true, replace: true, scope: false,
+                        templateUrl: 'm-ul.html',
+                        link: function postLink(scope, iElement, iAttrs, controller) {
+                            scope.hasChild = true;
+                            scope.collapse = false;
+                            scope.$watch('collapse', function (newValue, oldValue) {
+                                $(iElement).collapse(newValue ? 'show' : 'hide');
+                            });
+                        }
+                    }
+                });
+                app.directive('mTxt', function () {
+                    return {
+                        require: '^mLi', transclude: true, replace: true, scope: false,
+                        templateUrl: 'm-txt.html',
+                        link: function postLink(scope, iElement, iAttrs, controller) {
+                            scope.hasChild = false;
+                            scope.collapse = false;
+                            scope.click = function () {
+                                scope.collapse = !scope.collapse;
+                                console.log(scope.$parent.link, app);
+                                if (scope.$parent.link != null)
+                                    $('#content').prop('src', scope.$parent.link);
+                            }
+                        }
+                    }
+                });
+            </script>
+            <script type="text/ng-template" id="m-menu.html">
+                <div><ul class="nav nav-pills nav-stacked" ng-transclude></ul></div>
+            </script>
+            <script type="text/ng-template" id="m-ul.html">
+                <ul class="collapse nav nav-pills nav-stacked" ng-transclude></ul>
+            </script>
+            <script type="text/ng-template" id="m-li.html">
+                <li ng-transclude></li>
+            </script>
+            <script type="text/ng-template" id="m-txt.html">
+                <a class="btn btn-block bg-primary text-primary" ng-click="click()">
+                    <span ng-transclude></span>
+                    <fa class="pull-right fa-fw fa-caret-left" ng-class="collapse?'fa-rotate-270':''" ng-show="hasChild"></fa>
+                </a>
+            </script>
+            <m-ul-root id="menu">
+                <m-li>
+                    <m-txt><fa class="fa-users"></fa>@lang["Accounts"]</m-txt>
+                    <m-ul>
+                        <m-li>
+                            <m-txt><fa class="fa-user"></fa>@lang["Member List"]</m-txt>
+                            <m-ul>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Member List"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Login History"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Groups"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent List"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Login History"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Groups"]</m-txt></m-li>
+                            </m-ul>
+                        </m-li>
+                        <m-li>
+                            <m-txt><fa class="fa-user"></fa>@lang["Member Login History"]</m-txt>
+                            <m-ul>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Member List"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Login History"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Groups"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent List"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Login History"]</m-txt></m-li>
+                                <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Groups"]</m-txt></m-li>
+                            </m-ul>
+                        </m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Groups"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent List"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Login History"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Groups"]</m-txt></m-li>
+                    </m-ul>
+                </m-li>
+                <m-li>
+                    <m-txt><fa class="fa-dollar"></fa>@lang["Deposit/Withdrawal"]</m-txt>
+                    <m-ul>
+                        <m-li><m-txt><fa class="fa-dollar"></fa>@lang["Member Deposit"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-dollar"></fa>@lang["Member Withdrawal"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-dollar"></fa>@lang["Agent Deposit"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-dollar"></fa>@lang["Agent Withdrawal"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-dollar"></fa>@lang["Third Party Payment"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-dollar"></fa>@lang["Payment Channels"]</m-txt></m-li>
+                    </m-ul>
+                </m-li>
+                <m-li>
+                    <m-txt><fa class="fa-users"></fa>@lang["Game Deposit/Withdrawal"]</m-txt>
+                    <m-ul>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Game Deposit"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Member Game Withdrawal"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Game Deposit"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Agent Game Withdrawal"]</m-txt></m-li>
+                    </m-ul>
+                </m-li>
+                <m-li>
+                    <m-txt><fa class="fa-gift"></fa>@lang["Promotion"]</m-txt>
+                    <m-ul>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Promotion 1"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Promotion 2"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Promotion 3"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Promotion 4"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Promotion 5"]</m-txt></m-li>
+                    </m-ul>
+                </m-li>
+                <m-li>
+                    <m-txt><fa class="fa-file-text-o"></fa>@lang["Reports"]</m-txt>
+                    <m-ul>
+                        <m-li><m-txt><fa class="fa-file-text-o"></fa>@lang["Reports 1"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-file-text-o"></fa>@lang["Reports 2"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-file-text-o"></fa>@lang["Reports 3"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-file-text-o"></fa>@lang["Reports 4"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-file-text-o"></fa>@lang["Reports 5"]</m-txt></m-li>
+                    </m-ul>
+                </m-li>
+                <m-li>
+                    <m-txt><fa class="fa-users"></fa>@lang["Events"]</m-txt>
+                    <m-ul>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Events 1"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Events 2"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Events 3"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Events 4"]</m-txt></m-li>
+                        <m-li><m-txt><fa class="fa-user"></fa>@lang["Events 5"]</m-txt></m-li>
+                    </m-ul>
+                </m-li>
+                <m-li>
+                    <m-txt><fa class="fa-cogs"></fa>@lang["Management"]</m-txt>
+                    <m-ul>
+                        <m-li link="@Url.Action("Config", "Sys")">
+                            <m-txt><fa class="fa-cog"></fa>@lang["Config"]</m-txt>
+                        </m-li>
+                        <m-li link="@Url.Action("Lang", "Sys")">
+                            <m-txt><fa class="fa-file-text-o"></fa>@lang["Languages"]</m-txt>
+                        </m-li>
+                        <m-li>
+                            <m-txt><fa class="devicons devicons-redis"></fa>@lang["Redis"]</m-txt>
+                        </m-li>
+                        <m-li>
+                            <m-txt><fa class="devicons devicons-mongodb"></fa>@lang["mongoDB"]</m-txt>
+                        </m-li>
+                        <m-li link="@Url.Action("Index","Help")">
+                            <m-txt><fa class="fa-book"></fa>@lang["API Help"]</m-txt>
+                        </m-li>
+                    </m-ul>
+                </m-li>
+            </m-ul-root>
+        </div>
+    </div>
+    <div id="content-wrapper" style="padding-top: {{dimensions.nav_height}}px;">
+        <iframe id="content" src="@Url.Action("Test", "Home")"></iframe>
+        <div id="content-mask" class="hidden"></div>
+    </div>
+</div>

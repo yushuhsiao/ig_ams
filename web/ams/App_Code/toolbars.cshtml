@@ -1,0 +1,197 @@
+﻿@using jqx;
+@using ams;
+@using ams.Data;
+@using System.Web.Mvc;
+@functions {
+    private static jqxTree.source_item new_tree_item(ref bool s, CorpInfo corp)
+    {
+        var item = new jqxTree.source_item
+        {
+            id = corp.ID,
+            label = corp.UserName,
+            value = new { CorpID = corp.ID, CorpName = corp.UserName, AgentName = corp.UserName }
+        };
+        if (!corp.ID.IsRoot)
+        {
+            item.selected = s;
+            s = false;
+        }
+        return item;
+    }
+}
+@helper GridAdd(jqxGrid grid)
+{ <div class="pull-left" @(new jqxButton { }) ng-click="@grid.page.Html.Raw("{0}.ext.addRow()", grid.scope_id)"><i class="fa fa-fw fa-plus"></i>@grid.page.lang["Add"]</div> }
+
+@helper GridRefresh(jqxGrid grid, bool bs = false)
+{
+    bs = false;
+    if (bs)
+    { <div class="pull-left btn btn-sm"           ng-click="@grid.page.Html.Raw("{0}.updatebounddata('data')", grid.scope_id)"><i class="fa fa-fw fa-refresh"></i>@grid.page.lang["Refresh"]</div> }
+    else
+    { <div class="pull-left" @(new jqxButton { }) ng-click="@grid.page.Html.Raw("{0}.updatebounddata('data')", grid.scope_id)"><i class="fa fa-fw fa-refresh"></i>@grid.page.lang["Refresh"]</div> }
+}
+
+@helper HistoryLink(jqxGrid grid, string actionName, string text = null, bool bs = false)
+{
+    <div class="pull-left" @(new jqxButton { height = widgets.HEIGHT - 9 })><a href="@grid.page.Url.Content(grid.page.Url.Action(actionName))"><i class="fa fa-fw fa-list"></i>@(text.Trim(true) ?? grid.page.lang["History"])</a></div>
+}
+
+@helper tran_op(_WebViewPage page, jqxGrid grid, string text, string fa, string url)
+{
+Guid guid = Guid.NewGuid();
+var id = page._id[guid];
+    <div class="pull-left" @(new jqxButton { }) ng-click="@(id)()">
+        <script type="text/javascript">
+        $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+            $scope['@id'] = function () {
+                var $grid = $scope['@grid.scope_id'];
+                var rowid = $grid.getrowid($grid.getselectedrowindex());
+                var rowdata = $grid.getrowdatabyid(rowid);
+                $.invoke_api({
+                    data: { CorpName: rowdata.CorpName, TranID: rowdata.TranID },
+                    url: '@url',
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.IsDelete === true) window.setTimeout(function () {
+                            var s = $grid.getselectedrowindex()
+                            $grid.deleterow(rowid);
+                            $grid.selectrow(s)
+                        }, 200);
+                        else
+                            $grid.updaterow(rowid, data);
+                    }
+                });
+            }
+        });
+        </script>
+        <i class="fa fa-fw @fa"></i>@text
+    </div>
+}
+
+
+
+
+@*@helper AgentTree(jqxGrid grid, string _ng_model, UserType userType, int width = 100)
+{
+var jqx1 = new jqxDropDownButton { width = width, height = widgets3.toolbar_height - 3, animationType = animationType.none };
+var jqx2 = new jqxTree { };
+string id1 = "drop" + grid.page._id[jqx1];
+string id2 = "tree" + grid.page._id[jqx2];
+string id1_model = grid.page._id[id1];
+jqx1.settings = id1;
+jqx1.instance = id1 + ".instance";
+jqx2.settings = id2;
+var source = new List<jqxTree.source_item>();
+bool s = true;
+if (_User.Current.CorpID.IsRoot)
+{
+    foreach (CorpInfo corp in CorpInfo.Cache.Value)
+    {
+        source.Add(new_tree_item(ref s, corp));
+    }
+}
+else
+{
+    CorpInfo corp = CorpInfo.GetCorpInfo(_User.Current.CorpID);
+    source.Add(new_tree_item(ref s, corp));
+}
+<script type="text/javascript">
+    app_init.push(function ($scope, $compile, $http) {
+        $scope['@_ng_model'] = null;
+        $scope['@jqx1.settings'] = {
+            //event: { '*': function (event) { console.log(event.type, event); }, },
+        };
+        $scope['@jqx2.settings'] = {
+            //event: { '*': function (event) { console.log(event.type, event); }, },
+            select: function (event) {
+                var item = event.owner.getSelectedItem();
+                if (item != null) {
+                    $scope['@id1_model'] = item.label;
+                    $scope['@_ng_model'] = item.value;
+                    $scope.$applyAsync();
+                }
+                try { $scope['@id1'].instance.close(); } catch (e) { }
+                var grid = $scope['@grid.scope_id'];
+                if (grid != null)
+                    grid.updatebounddata('data');
+            },
+            source: [@grid.page.Html.JsonRaw(source)][0],
+        };
+
+        new $.init_tick(function () {
+            if ($scope['@_ng_model'] == null) return;
+            //if ($scope['@grid.scope_id'] == null) return;
+            $(document).trigger('ng-tree-init', [$scope, $compile, $http]);
+            //$scope['@grid.scope_id'].updatebounddata('data')
+            return true;
+        });
+    });
+</script>
+<div class="form-inline pull-left">
+    <div class="form-group">
+        <label class="control-label">@grid.page.lang["Agent"]</label>
+        <div class="form-control ams-toolbar" ng-model="@id1_model" @jqx1>
+            <div @jqx2></div>
+        </div>
+    </div>
+</div>
+}*@
+
+@helper CorpList(jqxGrid grid, string _ng_model, int width = 100, bool include_root = true) {
+_Controller controller = grid.page.ViewContext.Controller as _Controller;
+UserName corpName = Request.QueryString["CorpName"];
+var source = new List<object>();
+var jqx1 = new jqxDropDownList { width = width, height = widgets.toolbar_height - 3, animationType = animationType.none, autoDropDownHeight = true, source = source, };
+jqx1.settings = grid.page._id[jqx1];
+CorpInfo cc = null;
+var n = CorpInfo.Cache.Value;
+if (_User.Current.CorpID.IsRoot)
+{
+    foreach (CorpInfo corp in n)
+    {
+        if (corp.ID.IsRoot)
+        {
+            if (!include_root) { continue; }
+        }
+        else if (cc == null)
+        {
+            cc = corp;
+            jqx1.selectedIndex = source.Count;
+        }
+        if (corpName.IsValid && corp.UserName == corpName)
+        {
+            cc = corp;
+            jqx1.selectedIndex = source.Count;
+        }
+        source.Add(new { label = corp.UserName, value = corp.UserName, });
+    }
+    cc = cc ?? CorpInfo.GetCorpInfo(UserID.root);
+}
+else
+{
+    CorpInfo corp = cc = CorpInfo.GetCorpInfo(_User.Current.CorpID);
+    source.Add(new { label = corp.UserName, value = corp.UserName, });
+    jqx1.selectedIndex = 0;
+}
+<script type="text/javascript">
+    app_init.push(function ($scope, $compile, $http) {
+        $scope['@jqx1.settings'] = {
+        //event: { '*': function (event) { console.log(event.type, event); }, },
+        change: function (event) {
+            window.location = '@string.Format("{0}?CorpName=", grid.page.Url.Content(controller.GetActionUrl(controller.ActionDescriptor)))' + event.args.item.value;
+        //$scope['@_ng_model'] = event.args.item.value;
+        //var grid = $scope['@grid.scope_id'];
+        //if (grid != null)
+        //    grid.updatebounddata('data');
+        },
+        };
+        $scope['@_ng_model'] = '@cc.UserName';
+        $(document).trigger('ng-corp-init', [$scope, $compile, $http]);
+});
+</script>
+<div class="form-inline pull-left">
+    <div class="form-group">
+        <label class="control-label">@grid.page.lang["Corp"]</label>
+        <div class="form-control ams-toolbar" @jqx1></div>
+    </div>
+</div>
+}

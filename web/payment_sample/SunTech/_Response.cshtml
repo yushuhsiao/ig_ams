@@ -1,0 +1,9 @@
+﻿<html>
+<body>
+    @RenderBody()
+    <table>
+        @foreach (string key in HttpContext.Current.Request.Form.AllKeys)
+        { <tr><td>@key</td><td>@HttpUtility.UrlDecode(HttpContext.Current.Request.Form[key])</td></tr> }
+    </table>
+</body>
+</html>

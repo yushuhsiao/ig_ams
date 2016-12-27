@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Lang";
+    List<object> objs = new List<object>();
+    for (int i = 0; i < 1000; i++)
+    {
+        objs.Add(new
+        {
+            id = System.Security.Cryptography.RandomValue.GetRandomString(10),
+            name = System.Security.Cryptography.RandomValue.GetRandomString(10),
+            lcid_1028 = System.Security.Cryptography.RandomValue.GetRandomString(30),
+            lcid_2052 = System.Security.Cryptography.RandomValue.GetRandomString(30),
+            lcid_1033 = System.Security.Cryptography.RandomValue.GetRandomString(30),
+        });
+    }
+}
+@section head {
+    @Bundles.fonts.RenderStyle(false)
+    @Bundles.jquery.Render(false)
+    @Bundles.bootstrap.Render(false)
+    @Bundles.modernizr.Render()
+    @Bundles.angular.Render(false)
+    @Bundles.jqwidgets.Render(false)
+    <link rel="stylesheet" href="~/jqwidgets/styles/jqx.custom.less" />
+    @Bundles.jstree.Render(false)
+    @Bundles.RenderStyles(this, null, false)
+    @Bundles.RenderScripts(this, null, false, Bundles.json2)
+    <script type="text/javascript">
+        var _scope;
+        var app = ng_app('app').controller('main', function ($scope, $window) {
+            //postMessage('main_sidebar_dock_toggle', false);
+            _scope = $scope;
+
+            $scope.tree = {
+                initialized: function () {
+                    $.invoke_api({
+                        url: '@(Url.GetActionUrlContent<ams.Controllers.LangApiController>("list"))',
+                        success: function (data, textStatus, jqXHR) {
+                            $scope.tree.instance.clear();
+                            //console.log(data);
+                            $scope.tree.instance.addTo(data);
+                            $scope.tree.instance.expandAll();
+                        }
+                    });
+                },
+                select: function(e) {
+                    var item = $scope.tree.instance.getItem(e.args.element);
+                    console.log(item, arguments);
+                },
+                added: function(e) {
+                    console.log('added', arguments);
+                },
+                docking: function($info){
+                    $scope.tree.width = $info.width;
+                    $scope.tree.height = $info.height;
+                    //$scope.$apply();
+                    console.log(this, $info);
+                }
+            };
+            
+            $scope.grid =
+            {
+                source: @Html.Raw(json.SerializeObject(objs)),
+                columns: [
+                    { text: 'path', dataField: 'path', width: 50 },
+                    { text: 'name', dataField: 'name', width: 100 },
+                    { text: 'zh-tw', dataField: 'lcid_1028', width: 150 },
+                    { text: 'zh-cn', dataField: 'lcid_2052', width: 150 },
+                    { text: 'en-us', dataField: 'lcid_1033', width: 150 }
+                ],
+                ready: function() {
+                    console.log('grid-ready');
+                }
+            }
+
+
+            @*$scope.init = function () {
+                //console.log('init');
+            }
+            $scope.click = function(){
+                console.log($scope);
+                $scope.settings.width += 50;
+                $scope.settings.refresh('width');
+                //$scope.settings.width += 50;
+                //$scope.settings.apply
+            }
+
+            $(document).ready(function () {
+                //console.log('ready');
+                $('#tree')
+                    //.on('changed.jstree', function () {
+                    //    console.log("changed", arguments);
+                    //})
+                    .on('select_node.jstree', function () {
+                        console.log("select_node", arguments);
+                    })
+                    .jstree({
+                        'core': {
+                            'animation': 0,
+                            'data': {
+                                'url': '@(Url.GetActionUrlContent<ams.Controllers.LangApiController>("list"))',
+                                //'data': function (node) {
+                                //    return { 'id': node.id };
+                                //}
+                            }
+                        },
+                        "plugins": [
+                            "changed",
+                            //"checkbox",
+                            //"conditionalselect",
+                            //"contextmenu",
+                            //"dnd",
+                            //"massload",
+                            //"search",
+                            //"sort",
+                            //"state",
+                            "types",
+                            //"unique",
+                            "wholerow"
+                        ],
+                        'sort': 1,
+                    });
+            });*@
+        });
+        //$(document).ready(function () { $(window).trigger('resize'); });
+    </script>
+    <style type="text/css">
+        html body { overflow: hidden; }
+        .container-fluid { padding-left: 0; padding-right: 0; } /*  15px */
+        .row { margin-left: 0; margin-right: 0; }               /* -15px */
+        .row > div { padding-left: 0; padding-right: 0; }       /*  15px */
+    </style>
+}
+<div ng-app="app" ng-controller="main" ng-init="init()" class="fill-y container-fluid">
+    <div class="fill-y row">
+        <div class="fill-y col-sm-4 col-xs-4">
+            @(new jqxTree { watchSettings = true, settings = "tree", animationShowDuration = 0, animationHideDuration = 0,  _extend = { /*uiResize = "tree.docking($info)", */uiJqxDock = null } })
+            @*<jqx-tree jqx-settings="tree" jqx-animation-show-duration="0" jqx-animation-hide-duration="0" jqx-watch-settings ui-jqx-dock></jqx-tree>*@
+   </div>
+        <div class="fill-y col-sm-8 col-xs-8">
+            @(new jqxGrid { watchSettings = true, settings = "grid" , _extend = { uiJqxDock = null } })
+            @*<jqx-grid jqx-settings="grid"></jqx-grid>*@
+        </div>
+    </div>
+</div>

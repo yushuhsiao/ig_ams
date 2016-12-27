@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_Photo.cshtml";
+    Page.Title = "PhotoCheck (進大廳前拍照，確認本人與註冊照片是否相符)";
+    ams.api_client.TakePictureUrls urls = Model;
+}
+    <script type="text/javascript">
+        @*var swfUrl = '@String.Format("{0}/webcam/PhotoCheck.swf?v=201611011136", ConfigHelper.AssetServerUrl)';*@
+        var swfUrl = '@urls.swfUrl';
+
+        function verifyPhotoSuccess() {
+            alertify.success('照片比對成功。');
+        }
+
+        function verifyPhotoFail() {
+            alertify.error('照片比對失敗。');
+        }
+    </script>

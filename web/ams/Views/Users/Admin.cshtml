@@ -1,0 +1,383 @@
+﻿@using jqx
+@using ams
+@using ams.Data
+@using ams.Controllers;
+@{
+    popups.dialog modal_dialog = new popups.dialog(this, "_modal1");
+    ViewBag.Title = "Admins";
+    jqxGrid grid = new jqxGrid<AdminData>
+    {
+        page = this,
+        scope_id = "grid1",
+        showtoolbar = "#toolbar",
+        source = { id = "ID", url = Url.GetActionUrl<AdminAccountApiController>("list"), },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple, },
+        filter = { filterable = true, server_filtering = true, showfilterrow = true, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        //editmode = editmode.selectedcell,
+        selectionmode = selectionmode.singlerow,
+        //selectedrowindex = 0,
+        columns = new jqxGrid._column[] {
+            new jqx_column.ActionPopup(this, "_popup1") { ButtonText = "Details", modal = modal_dialog, cellsalign = alignment.center },
+            new jqx_column.ver(this),
+            new jqx_column.ID1(this, lang["Admin ID   "]),
+            new jqx_column.CorpID(this),
+            new jqx_column.CorpName(this, root: true),
+            new jqx_column.ParentID(this) { hidden = true },
+            new jqx_column.ParentName(this),
+            new jqx_column.Depth(this),
+            new jqx_column.UserName(this),
+            new jqx_column.NickName(this),
+            new jqx_column.AdminActive(this),
+            new jqx_column.CreateTime(this), new jqx_column.CreateUser(this), new jqx_column.ModifyTime(this), new jqx_column.ModifyUser(this),
+        }
+    };
+    widgets.layout_1(this, grid);
+}
+@if (IsDetails)
+{
+    int corpID = Request.QueryString["CorpID"].ToInt32() ?? 0;
+    int id = Request.QueryString["ID"].ToInt32() ?? 0;
+    AdminData row = CorpInfo.GetCorpInfo(corpID).GetAdminData(id);
+    popups.EditControl edit1 = new popups.EditControl(this, "edit1") { grid = grid, row = row, updaterow = true };
+    popups.EditControl edit2 = new popups.EditControl(this, "edit2") { };
+    popups.EditControl edit3 = new popups.EditControl(this, "edit3") { };
+    popups.nav_tabs tabs = new popups.nav_tabs(
+        new popups.tab("a") { body = () => tab1(edit1), title = lang["General"] },
+        new popups.tab("b") { body = () => tab2(edit2), title = lang["Api Auth"] },
+        new popups.tab("c") { body = () => tab3(edit3), title = lang[""], Visible = false });
+    @tabs
+    @section head {
+        @popups.popup_css()
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                var edit1 = new $.EditControl($.n(@edit1), {
+                    OnUpdate: function (data, jqXHR, settings) {
+                        settings.url = '@(Url.GetActionUrl<AdminAccountApiController>("set"))';
+                    }
+                });
+                var edit2 = new $.EditControl($.n(@edit2), {
+                    update_url: '@(Url.GetActionUrl<ApiAuthApiController>("set"))',
+                    OnUpdate: function (data, jqXHR, settings) {
+                        data.CorpID = '@corpID';
+                    },
+                    OnUpdateComplete: function (data, textStatus, jqXHR) {
+                        data.KeySize = 0;
+                    },
+                    load_url: '@(Url.GetActionUrl<ApiAuthApiController>("get"))',
+                    OnLoading: function (data, jqXHR, settings) {
+                        settings.data = { CorpID: '@corpID', UserID: '@id' };
+                    },
+                    OnLoadComplete: function (data, textStatus, jqXHR) {
+                        data.KeySize = 0;
+                    },
+                });
+                var edit3 = new $.EditControl($.n(@edit3), {
+                    OnLoading: function (data, jqXHR, settings) {
+                    },
+                });
+                $('@tabs["b"].selector').on('show.bs.tab', function (e) {
+                    $scope['@edit2.name'].LoadData();
+                });
+                $('@tabs["c"].selector').on('show.bs.tab', function (e) {
+                });
+            });
+        </script>
+    }
+    @helper tab1(popups.EditControl edit)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @edit.TextBox("  ID         ")
+                    @edit.TextBox("  CorpID     ")
+                    @edit.TextBox("  ParentID   ")
+                    @edit.TextBox("  UserName   ")
+                    @edit.TextInput("NickName   ")
+                    @edit.CheckBox(" Active     ")
+                    @edit.Password2("Password1", lang["Password        "])
+                    @edit.Password2("Password2", lang["Confirm Password"])
+                    @edit.TextBox("  Depth      ", width: 3)
+                    @edit.CommandsEdit()
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    }
+    @helper tab2(popups.EditControl edit)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @edit.CheckBox("Active", lang["Enable Api Auth"])
+                    <div class="form-group form-group-sm" ng-show="@edit.IsEditing">
+                        @edit.NumberInput("KeySize", lang["Key Size"])
+                        @*@edit.control_label(lang["Key Size"])
+                        <div class="col-sm-@widgets.WIDTH2">
+                            @(new jqxSlider { element = "div", ngModel=edit.name + ".Row.KeySize", width = "100%", min = 0, max = 8192, step = 1024, tickSize = 512, ticksFrequency = 1024, mode = jqxSlider_mode.@fixed })
+                            <jqx-slider jqx-ng-model="edit2.Row.KeySize" jqx-width="'100%'" jqx-min="0" jqx-max="8192" jqx-step="1024" jqx-tick-size="512" jqx-ticks-frequency="1024" jqx-mode="'fixed'"></jqx-slider>
+                            <div class="form-control-static">
+                                {{label_key_size(@(edit.name).Row.KeySize)}}
+                            </div>
+                        </div>*@
+                    </div>
+                    @edit.CommandsEdit()
+                    <div class="form-group form-group-sm">
+                        @edit.control_label(lang["Api Key"])
+                        <div class="col-sm-@widgets.WIDTH2">
+                            <textarea readonly rows="10" class="form-control" style="resize: none;">{{@(edit.name).Row.apikey}}</textarea>
+                            <textarea readonly rows="10" class="form-control" style="resize: none;">{{@(edit.name).Row.apikey_xml}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body bg-info">
+                    管理帳號可以設定成以 api 形式操作系統功能<br />
+                    外部系統在呼叫 api 時<br />
+                    需要在http header 設定 IG-AUTH-SITE 和 IG-AUTH-USER<br />
+                    並且用這個頁面產生的公鑰對資料進行 rsa 加密<br />
+                    加密後的資料再轉換成 Base64<br />
+                    <br />
+                    傳回值不加密<br />
+                </div>
+            </div>
+        </div>
+    }
+    @helper tab3(popups.EditControl edit)
+    {
+    }
+
+
+    @*@helper head() {
+        <script type="text/javascript">
+            $(document).on('ng-corp-init', function (e, $scope, $compile, $http) {
+                //function corp_filter() {
+                //    var filtergroup = new $.jqx.filter();
+                //    filtergroup.addfilter('@filter_operators.and', filtergroup.createfilter('@filter_types.numericfilter', 'ig02', '@filter_conditions.EQUAL'));
+                //    return filtergroup;
+                //}
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    //columns: [
+                    //    { name: 'CorpID', filter: corp_filter() }
+                    //],
+                    ext: {
+                        grps: {
+                            '': {
+                                OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                    if (data.Password1 === data.Password2) data.Password = data.Password1;
+                                    data.Password1 = data.Password2 = '';
+                                    data.CorpName = $scope.select_corp;
+                                    settings.url = '@(Url.GetActionUrl<AdminAccountApiController>("set"))';
+                                },
+                            },
+                            'apiauth': {
+                                TabIndex: 1,
+                                OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                    settings.url = '@(Url.GetActionUrl<ApiAuthApiController>("set"))';
+                                    data.apikey = null;
+                                    data.CorpID = rowdata.CorpID;
+                                    data.UserID = rowdata.ID;
+                                },
+                                OnUpdateComplete: function (rowid, row, data) {
+                                    data.KeySize = 0;
+                                },
+                                OnLoading: function (rowid, rowdata, jqXHR, settings) {
+                                    if (this.data == null) {
+                                        settings.url = '@(Url.GetActionUrl<ApiAuthApiController>("get"))';
+                                        settings.data = { CorpID: rowdata.CorpID, UserID: rowdata.ID };
+                                    }
+                                },
+                                OnLoadComplete: function (rowid, row, data) {
+                                    data.KeySize = 0;
+                                },
+                            },
+                            //'aaa': {
+                            //    OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                            //    },
+                            //    OnLoading: function (rowid, rowdata, jqXHR, settings) {
+                            //    },
+                            //},
+                            //'bbb': {}
+                        },
+                        formatData: function (data) {
+                            data.CorpName = $scope.select_corp; return data;
+                        },
+                        OnAddingRow: function (addRow) {
+                            addRow(null, {
+                                CorpName: $scope.select_corp, ParentName: '',
+                                UserName: '', NickName: '', Password1: '', Password2: '', Active1: true, Active2: false,
+                            });
+                        },
+                        OnAddRow: function (row, jqXHR, settings) {
+                            if (row.Password1 === row.Password2)
+                                row.Password = row.Password1;
+                            else return false;
+                            settings.url = '@(Url.GetActionUrl<AdminAccountApiController>("add"))';
+                        },
+                        OnUpdateRow: function (rowid, rowdata, data, jqXHR, settings) {
+                            if (data.Password1 === data.Password2) data.Password = data.Password1;
+                            data.Password1 = data.Password2 = '';
+                            data.CorpName = $scope.select_corp;
+                            settings.url = '@(Url.GetActionUrl<AdminAccountApiController>("set"))';
+                        },
+                    },
+                    event: {
+                        //'*': function (event) { console.log(event.type, event); },
+                        bindingcomplete: function (event) {
+                            //event.owner.selectrow(0)
+                        },
+                    },
+                });
+
+                $scope.label_key_size = function (value) {
+                    if ((value == null) || (value == 0)) return '@lang["No Change"]';
+                    return value;
+                }
+            });
+        </script>
+    }
+    @helper edit_form() {
+        <section class="container-fluid form-horizontal">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="" data-toggle="tab" data-target=".tab1" ng-click="grid1.tab_index=0">@lang["General"]</a></li>
+                <li class=""><a href="" data-toggle="tab" data-target=".tab2" ng-click="grid1.tab_index=1">@lang["Api Auth"]</a></li>
+                <li class=""><a href="" data-toggle="tab" data-target=".tab3">@lang["Agent Settings"]</a></li>
+                <li class=""><a href="" data-toggle="tab" data-target=".tab4">@lang["Admin Settings"]</a></li>
+                <li class=""><a href="" data-toggle="tab" data-target=".tab5">@lang["Member Settings"]</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab1 row tab-pane fade in active">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 hidden">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab2 row tab-pane fade">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                @widgets.CheckBox(lang["Enable Api Auth"], grid, "Active", grp_name: "apiauth")
+                                <div class="form-group form-group-sm" ng-show="@widgets.ng_show(grid, grp_name: "apiauth")">
+                                    @widgets.NumberInput(lang["Key Size"], grid, "KeySize", "apiauth")
+                                    @widgets.control_label(lang["Key Size"])
+                                    <div class="col-sm-@widgets.WIDTH2">
+                                        <div @(new jqxSlider { width = "100%", min = 0, max = 8192, step = 1024, tickSize = 512, ticksFrequency = 1024, mode = jqxSlider_mode.@fixed }) ng-model="@widgets.ng_model(grid, "KeySize", "apiauth")"></div>
+                                        <div class="form-control-static">
+                                            {{label_key_size(@widgets.ng_model(grid, "KeySize", "apiauth"))}}
+                                        </div>
+                                    </div>
+                                </div>
+                                @widgets.CommandsEdit(grid, grp_name: "apiauth")
+                                <div class="form-group form-group-sm">
+                                    @widgets.control_label(lang["Api Key"])
+                                    <div class="col-sm-@widgets.WIDTH2">
+                                        <textarea readonly rows="10" class="form-control" style="resize: none;">{{@widgets.ng_model(grid, "apikey", grp_name: "apiauth")}}</textarea>
+                                        <textarea readonly rows="10" class="form-control" style="resize: none;">{{@widgets.ng_model(grid, "apikey_xml", grp_name: "apiauth")}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body bg-info">
+                                管理帳號可以設定成以 api 形式操作系統功能<br />
+                                外部系統在呼叫 api 時<br />
+                                需要在http header 設定 IG-AUTH-SITE 和 IG-AUTH-USER<br />
+                                並且用這個頁面產生的公鑰對資料進行 rsa 加密<br />
+                                加密後的資料再轉換成 Base64<br />
+                                <br />
+                                傳回值不加密<br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab3 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">3</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">3</div></div></div></div>
+                <div class="tab4 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">4</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">4</div></div></div></div>
+                <div class="tab5 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">5</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">5</div></div></div></div>
+            </div>
+        </section>
+    }*@
+}
+else
+{
+    popups.AddControl add = new popups.AddControl(this, grid);
+    @section head {
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    columns: [{
+                        name: '_popup1', get_url: function (data) {
+                            return '@Url.Action("AdminDetails")?CorpID=' + data.CorpID + '&ID=' + data.ID;
+                        },
+                    }],
+                });
+                var add = new $.EditControl($.n(@add), {
+                    OnCreate: function () {
+                        return {
+                            CorpName: $grid1.getFilterValue("CorpName"),
+                            ParentName: '', UserName: '', NickName: '', Password1: '', Password2: '', Active1: true, Active2: false,
+                        };
+                    },
+                    OnUpdate: function (data, jqXHR, settings) {
+                        if (data.Password1 === data.Password2)
+                            data.Password = data.Password1;
+                        settings.url = '@(Url.GetActionUrl<AdminAccountApiController>("add"))';
+                    },
+                    OnUpdateComplete: function (data, textStatus, jqXHR) {
+                        $grid1.addrow(null, data, 'first');
+                    },
+                });
+            });
+        </script>
+    }
+    @helper tab_add(jqxGrid grid, popups.AddControl add)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">@lang["General"]</h3></div>
+                <div class="panel-body">
+                    @add.TextBox("  CorpName   ", lang["CorpID           "])
+                    @add.TextInput("ParentName ")
+                    @add.TextInput("UserName   ")
+                    @add.TextInput("NickName   ")
+                    @add.Password(" Password1  ", lang["Password        "])
+                    @add.Password(" Password2  ", lang["Confirm Password"])
+                    @add.CheckBox(" Active     ")
+                    @add.CommandsAdd()
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">@lang[""]</h3></div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+}
+    <div id="toolbar" class="hidden">
+        @add.button()
+        @toolbars.GridRefresh(grid)
+    </div>
+    <div id="_grid1"></div>
+    @modal_dialog
+    @add.modal(() => tab_add(grid, add))
+}

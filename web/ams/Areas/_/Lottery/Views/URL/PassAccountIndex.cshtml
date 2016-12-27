@@ -1,0 +1,89 @@
+﻿@model List<GameControl.Models.PassAccount>
+
+@{
+    ViewBag.Title = "PassAccountIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.ResultMessage != null)
+{
+    @Html.Label("info", (string)ViewBag.ResultMessage, new { @class = "text-info" });
+}
+
+<div class="services">
+    <h2>過賬設定  @Html.ActionLink(
+               "新增", "PassAccountCreate", "", new { @class = "btn btn-success btn-lg" }
+               )</h2>
+    
+    <div class="container">
+        <div class="CSSTableGenerator">
+            <table class="table">
+                <tr>
+                    <td style="width:10%">遊戲類型</td>
+                    <td style="width:10%">地區</td>
+                    <td style="width:10%">狀態</td>
+                    <td style="width:15%">最後更新時間</td>
+                    <td style="width:10%">更新使用人</td>
+                    <td style="width:6%" colspan="2" >選項</td>
+                </tr>
+
+                @foreach (var pd in this.Model)
+                {
+                    var GT = "";
+                    var LC = "";
+                    var stat = "";
+                    if (@pd.GameType == "01")
+                    {
+                        GT = "基諾彩";
+                    }
+                    if (@pd.Location == "01")
+                    {
+                        LC = "北京快樂8";
+                    }
+                    else if (@pd.Location == "02")
+                    {
+                        LC = "台灣賓果賓果";
+                    }
+                    else if (@pd.Location == "03")
+                    {
+                        LC = "加拿大";
+                    }
+                    else if (@pd.Location == "04")
+                    {
+                        LC = "加拿大西部";
+                    }
+                    else if (@pd.Location == "05")
+                    {
+                        LC = "斯洛伐克";
+                    }
+                    else if (@pd.Location == "06")
+                    {
+                        LC = "俄亥俄";
+                    }
+                    if (@pd.Status == 1)
+                    {
+                        stat = "啟用";
+                    }
+                    else
+                    {
+                        stat = "關閉";
+                    }
+                    <tr>
+                        <td>@GT</td>
+                        <td>@LC</td>
+                        <td>@stat</td>
+                        <td>@pd.UpdateTime</td>
+                        <td>@pd.UpdateUser</td>
+                        <td>
+                            @Html.ActionLink(
+               "編輯", "PassAccountEdit", new { SID = pd.SID }, new { @class = "btn btn-info" }
+               )</td><td>
+                        @Html.ActionLink(
+               "刪除", "PassAccountDelete", new { SID = pd.SID }, new { @class = "btn btn-danger" }
+               )
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@using jqx;
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    var p1 = new jqxSplitter
+    {
+        width = "100%",
+        height = "100%",
+        splitBarSize = 1,
+        showSplitBar = true,
+        orientation = orientation.horizontal,
+        resizable = true,
+        panel1 = { collapsible = false, size = ViewBag.PanelBody ?? "55%" },
+        panel2 = { collapsible = false }
+    };
+    var p2 = new jqxSplitter
+    {
+        width = "100%",
+        height = "100%",
+        splitBarSize = 1,
+        showSplitBar = true,
+        orientation = orientation.horizontal,
+        resizable = true,
+        panel1 = { collapsible = false, size = widgets.toolbar_height },
+        panel2 = { collapsible = false }
+    };
+}
+@section head {
+    @Bundles.RenderStyles(ViewBag.Page, null, false)
+    @Bundles.RenderScripts(ViewBag.Page, null, false)
+    @RenderSection("head", false)
+}
+@if (IsSectionDefined("row_details"))
+{
+    <div @p1>
+        <div>
+            <div @p2>
+                <div>@RenderSection("toolbar", false)</div>
+                <div style="overflow: auto;">@RenderSection("row_details", false)</div>
+            </div>
+        </div>
+        <div>@RenderBody()</div>
+    </div>
+}
+else
+{
+    <div @p2>
+        <div>@RenderSection("toolbar", false)</div>
+        <div>@RenderBody()</div>
+    </div>
+}

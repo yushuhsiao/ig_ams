@@ -1,0 +1,130 @@
+﻿@using jqx
+@using ams
+@using ams.Data
+@using ams.Controllers;
+@{
+    ViewBag.Title = "Corp";
+    jqxGrid grid = new jqxGrid<ams.Data.CorpInfo>
+    {
+        page = this,
+        scope_id = "grid1",
+        showtoolbar = "#toolbar > *",
+        toolbarheight = widgets.toolbar_height,
+        source = { id = "ID", url = Url.GetActionUrl<CorpAccountApiController>("list"), datafields = new[] { new jqxGrid.datafield { name = "Balance" } } },
+        rowdetail = { rowdetails = true, showrowdetailscolumn = true, rowdetailshidden = true, rowdetailsheight = 200 },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple, },
+        filter = { filterable = true, server_filtering = true, showfilterrow = false, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        row_numbers = false,
+        //editable = true,
+        editmode = editmode.programmatic,
+        //selectedrowindex = 0,
+        columns = new jqxGrid._column[] {
+            new jqx_column.ActionEdit(this, "_action_edit1") { columntype = columntype.custom, cellsalign = alignment.center },
+            new jqx_column.ActionEdit(this, "_action_edit2") { columntype = columntype.custom, cellsalign = alignment.center },
+            //new jqx_column.ActionDetail(this, "_details1", ""),
+            //new jqx_column.ActionDetail(this, "_details2", ""),
+            new jqx_column.ID1(this) { text = lang["Corp ID"] },
+            new jqx_column.ver(this),
+            new jqx_column.UserName(this) { text = lang["Corp Name"] },
+            new jqx_column.DisplayName(this) { hidden = true },
+            new jqx_column._string(this, "User01R") { hidden = true },
+            new jqx_column._string(this, "User01W") { hidden = true },
+            new jqx_column._string(this, "Log01R") { hidden = true },
+            new jqx_column._string(this, "Log01W") { hidden = true },
+            new jqx_column._number(this, "Mode") { hidden = true },
+            new jqx_column.Amount(this, "TotalBalance", lang["TotalBalance"] ),
+            new jqx_column.Amount(this, "Balance1", lang["Balance1"] ),
+            new jqx_column.Amount(this, "Balance2", lang["Balance2"] ),
+            new jqx_column.Amount(this, "Balance3", lang["Balance3"] ) { hidden = true },
+            new jqx_column.Currency(this),
+            new jqx_column._string(this, "Prefix"),
+            //new jqxGrid._column { _datafield = { name = "Currency    ", type = dataFieldType._string }, text = lang["Currency    "], width = 100, hidden = false },
+            new jqxGrid._column { _datafield = { name = "Prefix      ", type = dataFieldType._string }, text = lang["Prefix      "], width = 050, },
+            new jqx_column.Active(this),
+            new jqx_column.CreateTime(this), new jqx_column.CreateUser(this), new jqx_column.ModifyTime(this), new jqx_column.ModifyUser(this),
+        }
+    };
+    widgets.layout_1(this, grid);
+}
+@if (IsAddRow)
+{
+}
+else if (IsDetails)
+{
+    CorpInfo corp = CorpInfo.GetCorpInfo(corpID: Request.QueryString.ToString().ToInt32());
+
+    @section head {
+        @Bundles.RenderStyles(ViewBag.Page, null, false)
+        @Bundles.RenderScripts(ViewBag.Page, null, false)
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                $scope.row = $.n(@Html.JsonRaw(corp))
+            });
+        </script>
+    }
+    <div>{{row}}</div>
+}
+else
+{
+    @section head {
+        @Bundles.RenderStyles(ViewBag.Page, null, false)
+        @Bundles.RenderScripts(ViewBag.Page, null, false)
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    columns: [{
+                        name: '_action_edit1', width: 60,
+                        //createwidget: function (row, column, value, cellElement) {
+                        //    //$('<button class="btn btn-sm">xxx</button>').appendTo(cellElement);
+                        //},
+                        cellsrenderer: function (row, columnfield, value, defaulthtml, columnproperties, rowdata, column, boundrow, element) {
+                            if (element) {
+                                var btn = $('button', element);
+                                if (btn.hasClass('_init')) {
+                                    btn.removeClass('_init').click(function () {
+                                        boundrow.owner.BeginRowEdit(boundrow);
+                                    });
+                                }
+                            }
+                            else {
+                                rowdata = this.owner.getrowdata(row);
+                                return '<div class="jqx-grid-cell-middle-align"><button class="btn btn-sm _init" style="width: 99%; height: 100%;""><i class="fa fa-fw fa-pencil"></i>Edit</button></div>';
+                            }
+                            //return '<div class="jqx-grid-cell-middle-align"><button class="btn btn-sm" style="width: 90%; height: 100%;" ng_click="' + this.owner.scope_id + '.BeginRowEdit(' + row + ')"><i class="fa fa-fw fa-pencil"></i>Edit</button></div>';
+                        },
+                        //createeditor: function (row, cellValue, editor, cellText, width, height) {
+                        //    console.log(arguments);
+                        //},
+                        //initeditor: function (row, cellValue, editor, cellText, width, height) {
+                        //},
+                        //geteditorvalue: function (row, cellValue, editor) {
+                        //}
+                    }, {
+                        name: '_action_edit2', width: 60,
+                        cellsrenderer: function (row, columnfield, value, defaulthtml, columnproperties) {
+                        },
+                        //createeditor: function (row, cellValue, editor, cellText, width, height) {
+                        //},
+                        //initeditor: function (row, cellValue, editor, cellText, width, height) {
+                        //},
+                        //geteditorvalue: function (row, cellValue, editor) {
+                        //}
+                    }],
+                    ext: {
+                        rowdetails_url: function (index, parentElement, gridElement, datarecord) {
+                            return '@Url.Action("CorpDetail")?' + datarecord.ID
+                        },
+                    },
+                });
+            });
+        </script>
+    }
+    <div id="toolbar" class="hidden">
+        @toolbars.GridAdd(grid)
+        @toolbars.GridRefresh(grid)
+    </div>
+    
+    <div id="_grid1"></div>
+}

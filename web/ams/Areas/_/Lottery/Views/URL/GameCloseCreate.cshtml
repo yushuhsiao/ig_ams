@@ -1,0 +1,67 @@
+﻿@model GameControl.Models.GameClose
+
+@{
+    ViewBag.Title = "GameCloseCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>賽事封盤新增</h2>
+
+        <!--表格開始-->
+
+        <div class="CSSTable">
+            <table>
+                <tr>
+                    <td style="width:10%">
+                        項目
+                    </td>
+                    <td style="width:80%">
+                        屬性
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        遊戲類型
+                    </td>
+                    <td>
+                        @Html.DropDownList("GameType")
+                        @Html.ValidationMessageFor(model => model.GameType, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        開獎地區
+                    </td>
+                    <td>
+                        @Html.DropDownList("Location")
+                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        封盤秒數
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.CloseTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CloseTime, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!--表格結束-->
+        <br />
+        <button type="submit" class="btn btn-info btn-lg" value="新增">新增</button>
+        <input class="btn btn-warning btn-lg" type="button" value="回首頁" onclick="location.href='@Url.Action("GameCloseIndex", "URL")'" />
+    </div>
+}
+

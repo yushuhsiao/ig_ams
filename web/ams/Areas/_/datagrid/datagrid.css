@@ -1,0 +1,42 @@
+﻿div.jqx-datagrid[grid=host] {
+  overflow: hidden;
+  background-color: #cccccc;
+  position: relative;
+}
+div.jqx-datagrid div[grid=toolbar] {
+  /*    */
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+div.jqx-datagrid div[grid=body] {
+  /*       */
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+div.jqx-datagrid div[grid=statusbar] {
+  /*  */
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+div.jqx-datagrid div[grid=header] {
+  /*     */
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.jqx-datagrid div[grid=filter] {
+  /*     */
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.jqx-datagrid div[grid=data] {
+  /*       */
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+}
+/*# sourceMappingURL=datagrid.css.map */

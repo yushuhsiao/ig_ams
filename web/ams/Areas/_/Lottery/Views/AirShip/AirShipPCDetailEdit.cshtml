@@ -1,0 +1,683 @@
+﻿@model ams.Models.PK10_PC
+
+@{
+    ViewBag.Title = "PCDetailEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-2" style="font-size:24pt">幸運飛艇</div>
+    <div class="col-md-10">
+        <ol class="breadcrumb">
+            <li class="active">@Html.DisplayFor(model => model.Dish)盤</li>
+            <li><a href="#">盤口投注限額</a></li>
+        </ol>
+    </div>
+</div>
+<div class="navbar" style="margin-bottom:20px; margin-top:40px">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("盤口啟用設定", "AirShipPCEnableEdit", "AirShip", new { SID = Model.SID }, null)</li>
+        <li>@Html.ActionLink("盤口名稱細項設定", "AirShipPCNameEdit", "AirShip", new { SID = Model.SID }, null)</li>
+        <li>@Html.ActionLink("盤口水位/退水設定", "AirShipPCWaterEdit", "AirShip", new { SID = Model.SID }, null)</li>
+        <li>@Html.ActionLink("盤口投注限額", "AirShipPCDetailEdit", "AirShip", new { Model.SID }, null)</li>
+    </ul>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="CSSTable">
+        <tbody>
+            <tr>
+            <tr>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">冠亞和值</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最低</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最高</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單項最高</td>
+            </tr>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum3.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Sum3.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sum3.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Sum3.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sum3.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Sum3.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sum3.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum4.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>
+                    @Html.EditorFor(model => model.Sum4.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sum4.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Sum4.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sum4.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Sum4.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sum4.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum5.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum5.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum5.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum5.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum5.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum5.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum5.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum6.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum6.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum6.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum6.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum6.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum6.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum6.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum7.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum7.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum7.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum7.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum7.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum7.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum7.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum8.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum8.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum8.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum8.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum8.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum8.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum8.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum9.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum9.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum9.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum9.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum9.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum9.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum9.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum10.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum10.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum10.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum10.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum10.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum10.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum10.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum11.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum11.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum11.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum11.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum11.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum11.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum11.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum12.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum12.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum12.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum12.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum12.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum12.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum12.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum13.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum13.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum13.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum13.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum13.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum13.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum13.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum14.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum14.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum14.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum14.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum14.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum14.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum14.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum15.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum15.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum15.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum15.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum15.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum15.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum15.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum16.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum16.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum16.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum16.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum16.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum16.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum16.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum17.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum17.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum17.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum17.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum17.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum17.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum17.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum18.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum18.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum18.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum18.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum18.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum18.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum18.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Sum19.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum19.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum19.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum19.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum19.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.Sum19.SingelMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum19.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td>單盤最大</td>
+                <td colspan="3">
+                    @Html.ValidationMessageFor(model => model.Sum3.DishMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sum3.DishMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">冠亞和值大小單雙</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最低</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最高</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單項最高</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.SumSmall.Name, "", new { @class = "text-danger" })</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.SumSmall.BetMin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.SumSmall.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.SumSmall.BetMax, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.SumSmall.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumSmall.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumSmall.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.SumBig.Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td>
+                    @Html.EditorFor(model => model.SumBig.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumBig.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumBig.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumBig.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumBig.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumBig.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.SumOdd.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.SumOdd.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumOdd.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumOdd.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumOdd.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumOdd.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumOdd.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.SumEven.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.SumEven.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumEven.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumEven.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumEven.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SumEven.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SumEven.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>單盤最大</td>
+                <td colspan="3">
+                    @Html.ValidationMessageFor(model => model.SumSmall.DishMax)
+                    @Html.EditorFor(model => model.SumSmall.DishMax, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">冠亞軍組合</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最低</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最高</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單項最高</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.ChampionBuild.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.ChampionBuild.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ChampionBuild.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ChampionBuild.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ChampionBuild.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ChampionBuild.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ChampionBuild.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+
+            <tr>
+                <td>單盤最大</td>
+                <td colspan="3">
+                    @Html.EditorFor(model => model.ChampionBuild.DishMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ChampionBuild.DishMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">名次車號</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最低</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最高</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單項最高</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car1.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car1.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car1.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car1.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car1.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car1.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car1.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car2.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car2.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car2.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car2.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car2.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car2.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car2.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car3.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car3.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car3.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car3.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car3.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car3.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car3.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car4.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car4.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car4.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car4.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car4.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car4.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car4.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car5.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car5.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car5.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car5.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car5.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car5.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car5.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car6.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car6.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car6.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car6.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car6.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car6.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car6.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car7.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car7.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car7.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car7.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car7.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car7.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car7.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car8.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car8.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car8.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car8.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car8.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car8.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car8.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car9.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car9.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car9.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car9.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car9.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car9.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car9.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.Car10.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.Car10.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car10.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car10.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car10.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Car10.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car10.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>單盤最大</td>
+                <td colspan="3">
+                    @Html.EditorFor(model => model.Car1.DishMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Car1.DishMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">名次大小龍虎單雙</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最低</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單注最高</td>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">單項最高</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.CarSmall.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.CarSmall.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarSmall.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarSmall.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarSmall.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarSmall.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarSmall.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.CarBig.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.CarBig.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarBig.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarBig.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarBig.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarBig.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarBig.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.CarOdd.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.CarOdd.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarOdd.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarOdd.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarOdd.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarOdd.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarOdd.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.CarEven.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.CarEven.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarEven.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarEven.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarEven.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarEven.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarEven.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.CarDra.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.CarDra.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarDra.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarDra.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarDra.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarDra.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarDra.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayFor(model => model.CarTig.Name)</td>
+                <td>
+                    @Html.EditorFor(model => model.CarTig.BetMin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarTig.BetMin, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarTig.BetMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarTig.BetMax, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CarTig.SingelMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarTig.SingelMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>單盤最大</td>
+                <td colspan="3">
+                    @Html.EditorFor(model => model.CarSmall.DishMax, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CarSmall.DishMax, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color:#39abb5;color:#FFF;font-weight:bold;text-align:center;">
+                    遊戲最大收款
+                </td>
+                <td colspan="3">
+                    @Html.EditorFor(model => model.BallMaxMonney, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BallMaxMonney, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-info btn-lg" value="儲存">儲存</button>
+    <input class="btn btn-warning btn-lg" type="button" value="回前頁" onclick="location.href='@Url.Action("PCIndex", "URL")'" />
+}
+

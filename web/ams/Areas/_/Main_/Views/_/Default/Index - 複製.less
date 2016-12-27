@@ -1,0 +1,66 @@
+﻿/*@import "../../css/bootswatch/cerulean/variables.less";*/
+/*@import "../../css/bootswatch/cerulean/bootstrap.css";*/
+
+.fill-x { width: 100%; }
+.fill-y { height: 100%; }
+.fill { .fill-x; .fill-y; }
+html, body { .fill; overflow: auto; white-space: nowrap; }
+.easing {
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#navbar {
+    .fill-x;
+    .navbar-header
+    {
+        &.navbar-text { margin-top: 0; margin-bottom: 0; }
+        .navbar-toggle {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .navbar-brand {
+            padding: 5px;
+            & > img {
+                max-height: 100%;
+                height: 100%;
+                max-width: 100%;
+                width: auto;
+                margin: 0 auto;
+                -o-object-fit: contain;
+                object-fit: contain;
+            }
+        }
+    }
+}
+#sidebar, #content { .fill; }
+
+@sidebar-toolbar-height: 22px;
+#sidebar {
+    .fill; padding-top: @sidebar-toolbar-height; position: relative;
+    #toolbar { .fill-x; position: absolute; top: 0; left: 0; height: @sidebar-toolbar-height; }
+    #menu { .fill; overflow: auto; }
+}
+#content { border: 0; }
+#content-mask { position: absolute; top: 0; left: 0; .fill; background-color: transparent; }
+
+#sidebar-wrapper, #content-wrapper { padding-top: 50px; .easing; .fill-y; overflow: hidden; }
+#sidebar-wrapper { z-index: 2; position: absolute; top: 0; left: 0; }
+#content-wrapper { position: relative; .fill-x; }
+
+@media(max-width:768px) {
+    #sidebar { padding-top: 0; }
+                        #sidebar-wrapper { width:        0; z-index: 2; position: absolute; top: 0; left: 0; }
+                        #content-wrapper { padding-left: 0; position: relative; .fill-x; }
+    .sidebar-toggled {  #sidebar-wrapper { width:        60%; opacity: .8; }
+                        #content-wrapper { padding-left: 60%; } }
+}
+@media(min-width:768px) {
+    .hide-panel       { #sidebar-wrapper { width:        20px; }
+                        #content-wrapper { padding-left: 20px; } }
+                        #sidebar-wrapper { width:        30%; }
+                        #content-wrapper { padding-left: 30%; }
+    .auto-hide-panel  { #content-wrapper { padding-left: 20px; } }
+}

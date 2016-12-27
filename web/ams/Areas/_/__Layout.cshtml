@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/fonts/fonts.less" />
+    <link rel="stylesheet" href="~/css/bootstrap.less" />
+    <script src="~/scripts/jquery-1.12.0.js"></script>
+    <script src="~/lib/bootstrap_dropdowns_enhancement/js/dropdowns-enhancement.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+    <script src="~/scripts/respond.js"></script>
+    <script src="~/scripts/modernizr-2.8.3.js"></script>
+    <script src="~/scripts/angular.js"></script>
+    <script src="~/scripts/angular-animate.js"></script>
+    <script src="~/scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script src="~/scripts/angular-ui.js"></script>
+    <script src="~/Scripts/angular-ui-ieshiv.js"></script>
+    <script src="~/js/angular-ext.js"></script>
+    <link rel="stylesheet" href="~/jqwidgets/styles/jqx-all.less" />
+    <script src="~/jqwidgets/jqx-all.js"></script>
+    <script src="~/js/jqx.js"></script>
+    @*@Bundles.jquery.Render(false)
+    @Bundles.bootstrap.Render(false)
+    @Bundles.modernizr.Render()
+    @Bundles.angular.Render(false)*@
+    @RenderSection("head", false)
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

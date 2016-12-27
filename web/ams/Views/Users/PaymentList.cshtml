@@ -1,0 +1,175 @@
+﻿@using jqx
+@using ams
+@using ams.Data
+@using ams.Controllers;
+@{
+    popups.dialog modal_dialog = new popups.dialog(this, "_modal1");
+    ViewBag.Title = "Payment List";
+    //ViewBag.PanelBody = widgets.tran_size;
+    jqxGrid grid = new jqxGrid<ams.Data.PaymentInfo>
+    {
+        page = this,
+        scope_id = "grid1",
+        showtoolbar = "#toolbar",
+        source = { id = "ID", url = Url.GetActionUrl<PaymentInfoApiController>("list") },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple },
+        filter = { filterable = true, server_filtering = true, showfilterrow = true, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        editmode = editmode.selectedcell,
+        selectionmode = selectionmode.singlerow,
+        //selectedrowindex = 0,
+        //rowdetails = true,
+        //rowdetailstemplate = new { rowdetails= "<div style='margin: 10px;'><ul style='margin-left: 30px;'><li class='title'></li><li>Notes</li></ul><div class='information'></div><div class='notes'></div></div>", rowdetailsheight= 200 },
+        columns = new jqxGrid._column[] {
+            new jqx_column.ActionPopup(this, "_popup1") { ButtonText = "Details", modal = modal_dialog, cellsalign = alignment.center },
+            new jqx_column.ID2(this) { hidden = true },
+            new jqx_column.CorpID(this),
+            new jqx_column.CorpName(this),
+            new jqx_column.AgentID(this),
+            new jqx_column._string(this, "PaymentName"),
+            new jqx_column.PaymentProvider(this),
+            new jqx_column.PaymentType(this) { width = 150 },
+            new jqx_column.Active(this),
+            new jqx_column._string(this, "MerhantId"),
+            new jqx_column._string(this, "extdata"),
+            new jqx_column._string(this, "Description"),
+            new jqx_column.CreateTime(this), new jqx_column.CreateUser(this), new jqx_column.ModifyTime(this), new jqx_column.ModifyUser(this),
+        }
+    };
+    widgets.layout_1(this, grid);
+}
+@if (IsDetails)
+{
+    int corpID = Request.QueryString["CorpID"].ToInt32() ?? 0;
+    Guid id = Request.QueryString["ID"].ToGuid() ?? Guid.Empty;
+    CorpInfo corp = CorpInfo.GetCorpInfo(corpID);
+    PaymentInfo row = PaymentInfo.GetRow(id, corp);
+    popups.EditControl edit1 = new popups.EditControl(this, "edit1") { grid = grid, row = row, updaterow = true };
+    popups.nav_tabs tabs = new popups.nav_tabs(
+        new popups.tab("a") { body = () => tab1(edit1), title = lang["General"] });
+    @tabs
+    @section head {
+        @popups.popup_css()
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                var edit1 = new $.EditControl($.n(@edit1), {
+                    update_url: '@(Url.GetActionUrl<PaymentInfoApiController>("set"))',
+                });
+            });
+        </script>
+    }
+    @helper tab1(popups.EditControl edit)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @edit.TextInput("   PaymentName  ", lang["PaymentName   "])
+                    @edit.PaymentType(" PaymentType  ", lang["PaymentType   "])
+                    @edit.CheckBox("    Active       ", lang["              "])
+                    @edit.TextInput("   MerhantId    ", lang["MerhantId     "])
+                    @edit.TextArea("    extdata      ", lang["extdata       "])
+                    @edit.CommandsEdit()
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    popups.AddControl add = new popups.AddControl(this, grid);
+    @section head {
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    columns: [{
+                        name: '_popup1', get_url: function (data) {
+                            return '@Url.Action("PaymentDetails")?CorpID=' + data.CorpID + '&ID=' + data.ID;
+                        },
+                    }],
+                    //ext: {
+                    //    grps: {
+                    //        '': {
+                    //            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                    //                data.CorpName = $scope.select_corp;
+                    //                settings.url = '@(Url.GetActionUrl<PaymentInfoApiController>("set"))';
+                    //            },
+                    //        },
+                    //    },
+                    //    formatData: function (data) {
+                    //        data.CorpName = $grid1.getFilterValue("CorpName"); return data;
+                    //    },
+                    //    OnAddingRow: function (addRow) {
+                    //        addRow(null, { CorpName: $scope.select_corp, AgentID: 0, Name: '', PaymentType: 0, Active: true, MerhantId: '', data1: '', data2: '', extdata: '' });
+                    //    },
+                    //    OnAddRow: function (row, jqXHR, settings) {
+                    //        settings.url = '@(Url.GetActionUrl<PaymentInfoApiController>("add"))';
+                    //    },
+                    //}
+                });
+                var add = new $.EditControl($.n(@add), {
+                    OnCreate: function () {
+                        return {
+                            CorpName: $grid1.getFilterValue("CorpName"),
+                            AgentID: 0,
+                            Name: '',
+                            PaymentType: 0,
+                            Active: true,
+                            MerhantId: '',
+                            data1: '',
+                            data2: '',
+                            extdata: ''
+                        };
+                    },
+                    OnUpdate: function (data, jqXHR, settings) {
+                        settings.url = '@(Url.GetActionUrl<PaymentInfoApiController>("add"))';
+                    },
+                    OnUpdateComplete: function (data, textStatus, jqXHR) {
+                        $grid1.addrow(null, data, 'first');
+                    },
+                });
+            });
+        </script>
+    }
+    @helper tab_add(jqxGrid grid, popups.AddControl add)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @add.TextInput("    AgentName   ", lang["AgentName      "])
+                    @add.TextInput("    PaymentName ", lang["PaymentName    "])
+                    @add.PaymentType("  PaymentType ", lang["PaymentType    "])
+                    @add.CheckBox("     Active      ", lang["               "])
+                    @add.TextInput("    MerhantId   ", lang["MerhantId      "])
+                    @add.TextArea("     extdata     ", lang["extdata         "])
+                    @add.CommandsAdd(label_width: 0, btn_width: 6, hr: true)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 hidden">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 hidden">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    }
+    <div id="toolbar" class="hidden">
+        @add.button()
+        @toolbars.GridRefresh(grid)
+    </div>
+    <div id="_grid1"></div>
+    @modal_dialog
+    @add.modal(() => tab_add(grid, add))
+}

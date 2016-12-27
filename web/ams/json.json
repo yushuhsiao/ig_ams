@@ -1,0 +1,121 @@
+﻿{
+  "gameStart": {
+    "dealerSeat": 3,
+    "infoList": [
+      {
+        "id": 3767,
+        "seatNumber": 3,
+        "hands": [ "Js", "6s" ],
+        "balance": "2100.0000"
+      },
+      {
+        "id": 3768,
+        "seatNumber": 6,
+        "hands": [ "8c", "6c" ],
+        "balance": "4000.0000"
+      }
+    ]
+  },
+  "gameRounds": [
+    {
+      "communityCards": [ ],
+      "actionList": [
+        {
+          "id": 3767,
+          "seatNumber": 3,
+          "action": "Small blind",
+          "betAmount": 10
+        },
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Big blind",
+          "betAmount": 20
+        },
+        {
+          "id": 3767,
+          "seatNumber": 3,
+          "action": "Call",
+          "betAmount": 10
+        },
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Check",
+          "betAmount": 0
+        }
+      ]
+    },
+    {
+      "communityCards": [ "2d", "7c", "8h" ],
+      "actionList": [
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Check",
+          "betAmount": 0
+        },
+        {
+          "id": 3767,
+          "seatNumber": 3,
+          "action": "Bet(1500)",
+          "betAmount": 1500
+        },
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Call",
+          "betAmount": 1500
+        }
+      ]
+    },
+    {
+      "communityCards": [ "2d", "7c", "8h", "8s" ],
+      "actionList": [
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Check",
+          "betAmount": 0
+        },
+        {
+          "id": 3767,
+          "seatNumber": 3,
+          "action": "Bet(100)",
+          "betAmount": 100
+        },
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Call",
+          "betAmount": 100
+        }
+      ]
+    },
+    {
+      "communityCards": [ "2d", "7c", "8h", "8s", "Qc" ],
+      "actionList": [
+        {
+          "id": 3768,
+          "seatNumber": 6,
+          "action": "Check",
+          "betAmount": 0
+        },
+        {
+          "id": 3767,
+          "seatNumber": 3,
+          "action": "Fold",
+          "betAmount": 0
+        }
+      ]
+    }
+  ],
+  "gameResult": [
+    {
+      "id": 3768,
+      "winAmount": "3078",
+      "betAmount": "1620",
+      "balance": "5458.0000"
+    }
+  ]
+}

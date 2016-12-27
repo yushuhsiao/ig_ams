@@ -1,0 +1,160 @@
+﻿@using jqx
+@using ams
+@using ams.Controllers;
+@{
+    ViewBag.Title = "PlatformGames";
+    jqxGrid grid = new jqxGrid<ams.Data.PlatformGameInfo>
+    {
+        page = this,
+        scope_id = "grid1",
+        showtoolbar = "#toolbar > *",
+        toolbarheight = widgets.toolbar_height,
+        source = { id = "ID", url = Url.GetActionUrl<PlatformGamesApiController>("list"), },
+        rowdetail = { rowdetails = true, showrowdetailscolumn = true, rowdetailshidden = true, rowdetailsheight = 200 },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple, pagesize = 100 },
+        filter = { filterable = true, server_filtering = true, showfilterrow = false, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        row_numbers = false, editable = false, editmode = editmode.selectedrow,
+        selectedrowindex = 0,
+        columns = new[] {
+            new jqxGrid._column { _datafield = { name = "ver         ", type = dataFieldType._number }, text = lang["ver         "], width = 100, hidden = true },
+            new jqx_column.PlatformType(this),
+            new jqx_column.GameClass(this),
+            new jqx_column.GameID(this),
+            new jqx_column._string(this, "OriginalID"),
+            //new jqxGrid._column { _datafield = { name = "Active      ", type = dataFieldType._bool__ }, text = lang["State       "], width = 50, columntype = columntype.checkbox },
+            new jqx_column.CreateTime(this), new jqx_column.CreateUser(this), new jqx_column.ModifyTime(this), new jqx_column.ModifyUser(this),
+            new jqx_column.ID2(this, "ID") { hidden = true },
+        }
+    };
+    widgets.layout_grid_detail(this, grid);
+}
+@section head {
+    <script type="text/javascript">
+        $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+            window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                $scope: $scope,
+                ext: {
+                    grps: {
+                        '': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                settings.url = '@(Url.GetActionUrl<PlatformGamesApiController>("set"))';
+                            },
+                        },
+                        'aaa': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                            },
+                            OnLoading: function (rowid, rowdata, jqXHR, settings) {
+                            },
+                        },
+                        'bbb': {}
+                    },
+                    OnAddingRow: function (addRow) {
+                        for (var id = '@UserID.corp_min', id_max = '@UserID.corp_max'; id < id_max; id++) {
+                            var row = this.getrowdatabyid(id);
+                            if (row == null) {
+                                $scope.grid1.ext.addRow(id, {
+                                    PlatformType: '@PlatformType.InnateGloryA',
+                                    GameID: 1,
+                                    GameName: '',
+                                    @*GameType: '@GameType.Bingo',*@
+                                    OriginalID: '',
+                                    TargetGameID: '',
+                                    Active: false,
+                                });
+                                return;
+                            }
+                        }
+                    },
+                    OnAddRow: function (data, jqXHR, settings) {
+                        settings.url = '@(Url.GetActionUrl<PlatformGamesApiController>("add"))';
+                    },
+                },
+                event: {
+                    //'*': function (event) { console.log(event.type, event); },
+                    bindingcomplete: function (event) {
+                        //event.owner.selectrow(0)
+                    },
+                },
+            });
+        });
+    </script>
+}
+@section toolbar {
+    @toolbars.GridAdd(grid)
+    @toolbars.GridRefresh(grid)
+}
+@section add_form {
+    <section class="container-fluid form-horizontal">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">@lang["General"]</h3></div>
+                    <div class="panel-body">
+                        @*@widgets.NumberInput(" ", grid, "ID          ", addonly: true)*@
+                        @widgets.PlatformType("", grid, "PlatformType", addonly: true)
+                        @widgets.GameList("    ", grid, "GameID      ", addonly: true)
+                        @widgets.TextInput("   ", grid, "OriginalID  ", addonly: true)
+                        @*@widgets.CheckBox("    ", grid, "Active      ", addonly: true)*@
+                        @widgets.CommandsAdd(grid)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 hidden">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">@lang[""]</h3></div>
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row hidden">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section edit_form {
+    <section class="container-fluid form-horizontal">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="" data-toggle="tab" data-target=".tab1">@lang["General"]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab2">@lang[""]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab3">@lang[""]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab4">@lang[""]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab5">@lang[""]</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab1 row tab-pane fade in active">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            @*@widgets.TextBox("     ", grid, "ID          ")*@
+                            @widgets.PlatformType("", grid, "PlatformType")
+                            @widgets.GameList("    ", grid, "GameID      ")
+                            @*@widgets.TextInput("   ", grid, "GameName    ")*@
+                            @*@widgets.GameType("    ", grid, "GameType    ")*@
+                            @widgets.TextInput("   ", grid, "OriginalID  ")
+                            @*@widgets.CheckBox("    ", grid, "Active      ")*@
+                            @widgets.CommandsEdit(grid)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 hidden">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab2 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">2</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">2</div></div></div></div>
+            <div class="tab3 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">3</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">3</div></div></div></div>
+            <div class="tab4 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">4</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">4</div></div></div></div>
+            <div class="tab5 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">5</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">5</div></div></div></div>
+        </div>
+    </section>
+}
+<div id="_grid1"></div>

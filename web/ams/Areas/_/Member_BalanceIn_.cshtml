@@ -1,0 +1,156 @@
+﻿@using jqx
+@using ams
+@using ams.Controllers;
+@{
+    ViewBag.Title = "Member Balance In";
+    ViewBag.PanelBody = widgets.tran_size;
+    jqxGrid grid = new jqxGrid
+    {
+        page = this,
+        scope_id = "grid1",
+        row_numbers = true,
+        source = { id = "ID", url = Url.Content(MemberTranApiController.ActionUrls.BalanceIn_List), },
+        pageable = false,
+        pagermode = pagermode.simple,
+        filterable = true,
+        sortable = true,
+        server_sorting = true,
+        editmode = editmode.selectedcell,
+        selectionmode = selectionmode.singlerow,
+        showfilterrow = false,
+        showfiltermenuitems = false,
+        server_filtering = true,
+        selectedrowindex = 0,
+        columns = new[] {
+            new jqxGrid._column { _datafield = { name = "TranID      ", type = dataFieldType._string }, text = lang["TranID      "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "LogType     ", type = dataFieldType._number }, text = lang["LogType     "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "SerialNumber", type = dataFieldType._string }, text = lang["SerialNumber"], width = 150 },
+            new jqxGrid._column { _datafield = { name = "CorpID      ", type = dataFieldType._number }, text = lang["CorpID      "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "CorpName    ", type = dataFieldType._number }, text = lang["CorpName    "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "ProviderID  ", type = dataFieldType._number }, text = lang["ProviderID  "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "ProviderName", type = dataFieldType._number }, text = lang["ProviderName"], width = 100 },
+            new jqxGrid._column { _datafield = { name = "UserID      ", type = dataFieldType._number }, text = lang["UserID      "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "UserName    ", type = dataFieldType._number }, text = lang["UserName    "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "Amount1     ", type = dataFieldType._number }, text = lang["Amount1     "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "Amount2     ", type = dataFieldType._number }, text = lang["Amount2     "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "Amount3     ", type = dataFieldType._number }, text = lang["Amount3     "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "CurrencyA   ", type = dataFieldType._number }, text = lang["CurrencyA   "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "CurrencyB   ", type = dataFieldType._number }, text = lang["CurrencyB   "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "CurrencyX   ", type = dataFieldType._number }, text = lang["CurrencyX   "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "RequestIP   ", type = dataFieldType._string }, text = lang["RequestIP   "], width = 100 },
+            new jqxGrid._columns.DateTime { _datafield = { name = "ReuqestTime" }, text = lang["ReuqestTime"] },
+            new jqxGrid._columns.User____ { _datafield = { name = "RequestUser" }, text = lang["RequestUser"] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "LifeTime   " }, text = lang["LifeTime   "] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "AcceptTime " }, text = lang["AcceptTime "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "AcceptUser " }, text = lang["AcceptUser "] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "FinishTime " }, text = lang["FinishTime "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "FinishUser " }, text = lang["FinishUser "] },
+        }
+    };
+    widgets.layout_2(this, grid);
+}
+@section head {
+    <script type="text/javascript">
+            $(document).on('ng-corp-init', function (e, $scope, $compile, $http) {
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    ext: {
+                        grps: {
+                            '': {
+                                OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                    data.CorpID = $scope.select_corp;
+                                    settings.url = '@(Url.GetActionUrl<MemberTranApiController>("balancein_set"))';
+                                },
+                            },
+                        },
+                        formatData: function (data) {
+                            data.CorpID = $scope.select_corp; return data;
+                        },
+                        OnAddingRow: function (addRow) {
+                            addRow(null, { UserName: '', Amount1: 0, Amount2: 0, Amount3: 0, CorpID: $scope.select_corp });
+                        },
+                        OnAddRow: function (row, jqXHR, settings) {
+                            settings.url = '@(Url.GetActionUrl<MemberTranApiController>("balancein_add"))';
+                        },
+                    },
+                });
+            });
+    </script>
+}
+@section toolbar {
+    @toolbars.CorpList(grid, "select_corp")
+    @toolbars.HistoryLink(grid, "MemberBalanceInHist")
+    @toolbars.GridAdd(grid)
+    @toolbars.GridRefresh(grid)
+}
+@section row_details {
+<section class="container-fluid form-horizontal" ng-show="grid1.ng_row.isNew">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @widgets.TextInput("    ", grid, "UserName  ", addonly: true)
+                    @widgets.CommandsAdd(grid, label_width: 0, btn_width: 6, hr: true)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @widgets.NumberInput("  ", grid, "Amount1   ", addonly: true, min: 0)
+                    @widgets.NumberInput("  ", grid, "Amount2   ", addonly: true, min: 0)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container-fluid form-horizontal" ng-hide="grid1.ng_row.isNull || grid1.ng_row.isNew">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @widgets.TextBox("  ", grid, "TranID        ")
+                    @widgets.TextBox("  ", grid, "LogType       ")
+                    @widgets.TextBox("  ", grid, "SerialNumber  ")
+                    @widgets.TextBox("  ", grid, "CorpID        ")
+                    @widgets.TextBox("  ", grid, "CorpName      ")
+                    @widgets.TextBox("  ", grid, "ProviderID    ")
+                    @widgets.TextBox("  ", grid, "ProviderName  ")
+                    @widgets.TextBox("  ", grid, "UserID        ")
+                    @widgets.TextBox("  ", grid, "UserName      ")
+                    @widgets.TextBox("  ", grid, "Amount1       ")
+                    @widgets.TextBox("  ", grid, "Amount2       ")
+                    @widgets.TextBox("  ", grid, "Amount3       ")
+                    @widgets.TextInput("", grid, "DisplayName")
+                    @widgets.CheckBox(" ", grid, "Active     ")
+                    @widgets.Password2(lang["Password        "], grid, "Password1")
+                    @widgets.Password2(lang["Confirm Password"], grid, "Password2")
+                    @widgets.TextBox("  ", grid, "Depth      ", width: 3)
+                    @widgets.CommandsEdit(grid)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+}
+<div id="_grid1"></div>

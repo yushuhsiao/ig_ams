@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案是由您 Web 專案的發行/封裝處理程序所使用。您可以編輯此 MSBuild 檔案，
+以自訂此處理程序的行為。若要深入了解，請造訪 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\ig\ams.bin\RecogService</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Code/TakePictureUrls.cs">
+      <publishTime>11/30/2016 17:39:46</publishTime>
+    </File>
+    <File Include="bin/ams.core.dll">
+      <publishTime>12/01/2016 06:25:56</publishTime>
+    </File>
+    <File Include="bin/ams.platforms.dll">
+      <publishTime>12/01/2016 06:25:56</publishTime>
+    </File>
+    <File Include="bin/corelib.dll">
+      <publishTime>11/30/2016 16:32:33</publishTime>
+    </File>
+    <File Include="bin/GeniusBullApi.dll">
+      <publishTime>12/01/2016 06:25:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>08/31/2016 03:39:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>02/13/2015 13:16:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>02/13/2015 13:16:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/13/2016 23:06:14</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/13/2012 12:19:34</publishTime>
+    </File>
+    <File Include="bin/PhotoService.dll">
+      <publishTime>11/30/2016 17:12:13</publishTime>
+    </File>
+    <File Include="bin/RecogService.dll">
+      <publishTime>12/01/2016 07:05:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe.config">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.rsp">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.rsp">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.AppContext.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe.config">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.rsp">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/StackExchange.Redis.dll">
+      <publishTime>10/06/2016 13:42:00</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>01/28/2015 04:02:42</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>01/28/2015 04:02:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>01/28/2015 04:03:16</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>01/28/2015 04:03:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/28/2015 04:02:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/28/2015 04:02:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/Tools.dll">
+      <publishTime>11/30/2016 16:32:33</publishTime>
+    </File>
+    <File Include="bower.json">
+      <publishTime>11/29/2016 15:53:42</publishTime>
+    </File>
+    <File Include="bower_components/alertifyjs/dist/css/alertify.css">
+      <publishTime>11/29/2016 15:53:42</publishTime>
+    </File>
+    <File Include="bower_components/alertifyjs/dist/js/alertify.js">
+      <publishTime>11/29/2016 15:53:42</publishTime>
+    </File>
+    <File Include="bower_components/alertifyjs/dist/js/ngAlertify.js">
+      <publishTime>11/29/2016 15:53:42</publishTime>
+    </File>
+    <File Include="bower_components/jquery/dist/jquery.js">
+      <publishTime>11/29/2016 15:53:10</publishTime>
+    </File>
+    <File Include="bower_components/jquery/dist/jquery.min.js">
+      <publishTime>11/29/2016 15:53:10</publishTime>
+    </File>
+    <File Include="bower_components/jquery/dist/jquery.min.map">
+      <publishTime>11/29/2016 15:53:10</publishTime>
+    </File>
+    <File Include="bower_components/swfobject/swfobject/expressInstall.swf">
+      <publishTime>11/29/2016 15:52:22</publishTime>
+    </File>
+    <File Include="bower_components/swfobject/swfobject/swfobject.js">
+      <publishTime>11/29/2016 15:52:22</publishTime>
+    </File>
+    <File Include="crossdomain.xml">
+      <publishTime>11/30/2016 17:12:00</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/30/2016 17:39:46</publishTime>
+    </File>
+    <File Include="Index.cshtml">
+      <publishTime>11/29/2016 18:04:04</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>11/29/2016 17:07:55</publishTime>
+    </File>
+    <File Include="Test/PhotoCapture.cshtml">
+      <publishTime>11/29/2016 23:40:56</publishTime>
+    </File>
+    <File Include="Test/PhotoCheck.cshtml">
+      <publishTime>11/29/2016 23:40:42</publishTime>
+    </File>
+    <File Include="Test/PhotoVerify.cshtml">
+      <publishTime>11/29/2016 23:41:50</publishTime>
+    </File>
+    <File Include="Test/web.config">
+      <publishTime>11/29/2016 16:14:06</publishTime>
+    </File>
+    <File Include="Test/_Photo.cshtml">
+      <publishTime>11/30/2016 17:23:33</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/01/2016 06:26:00</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

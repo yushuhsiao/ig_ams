@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "../_Layout.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+@section head {
+@*@Bundles.bootstrap.RenderStyle(false)*@
+@Bundles.RenderStyles(this)
+
+@*@Bundles.jquery.RenderScript()*@
+@*@Bundles.angular_all.RenderScript()*@
+@*@Bundles.bootstrap.RenderScript()*@
+@*@Bundles.modernizr.RenderScript()*@
+@*@Bundles.json2.RenderScript()*@
+@Bundles.RenderScripts(this)
+}
+
+Dashboard
+
+<link rel="stylesheet" href="~/css/bootstrap.less" />
+<script type="text/javascript">
+    function aaa() {
+        console.log(arguments);
+    }
+</script>

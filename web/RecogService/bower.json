@@ -1,0 +1,8 @@
+{
+  "name": "myproject",
+  "dependencies": {
+    "swfobject": "*",
+    "jquery": "1.12.4",
+    "alertifyjs": "~1.0.11"
+  }
+}

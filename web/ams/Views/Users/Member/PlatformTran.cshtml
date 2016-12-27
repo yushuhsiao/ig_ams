@@ -1,0 +1,212 @@
+﻿@using jqx
+@using ams
+@using ams.Controllers;
+@{
+    bool hist = false; if (this.Model is bool) { hist = (bool)this.Model; }
+    ViewBag.PanelBody = widgets.tran_size;
+    jqxGrid grid = new jqxGrid
+    {
+        page = ViewBag.Page,
+        scope_id = "grid1",
+        source = { id = "ID", url = Url.GetActionUrl((Type)ViewBag.apiControllerType, hist ? "hist" : "list") },
+        pager = { pagermode = pagermode.simple },
+        filter = { filterable = true, server_filtering = true, showfilterrow = false, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        editmode = editmode.selectedcell,
+        selectionmode = selectionmode.singlerow,
+        //selectedrowindex = 0,
+        //rowdetails = true,
+        //rowdetailstemplate = new { rowdetails= "<div style='margin: 10px;'><ul style='margin-left: 30px;'><li class='title'></li><li>Notes</li></ul><div class='information'></div><div class='notes'></div></div>", rowdetailsheight= 200 },
+        columns = new[] {
+            new jqxGrid._column { _datafield = { name = "SerialNumber", type = dataFieldType._string }, text = lang["SerialNumber"], width = 150 },
+            new jqxGrid._column { _datafield = { name = "LogType     ", type = dataFieldType._number }, text = lang["LogType     "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "State       ", type = dataFieldType._number }, text = lang["State       "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "CorpID      ", type = dataFieldType._number }, text = lang["CorpID      "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "CorpName    ", type = dataFieldType._string }, text = lang["CorpName    "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "PlatformID  ", type = dataFieldType._number }, text = lang["PlatformID  "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "PlatformName", type = dataFieldType._string }, text = lang["PlatformName"], width = 100 },
+            new jqxGrid._column { _datafield = { name = "UserID      ", type = dataFieldType._number }, text = lang["UserID      "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "UserName    ", type = dataFieldType._string }, text = lang["UserName    "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "Amount1     ", type = dataFieldType._number }, text = lang["Amount      "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "CurrencyA   ", type = dataFieldType._number }, text = lang["CurrencyA   "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "CurrencyB   ", type = dataFieldType._number }, text = lang["CurrencyB   "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "CurrencyX   ", type = dataFieldType._number }, text = lang["CurrencyX   "], width = 100, hidden = true },
+            new jqxGrid._columns.DateTime { _datafield = { name = "AcceptTime " }, text = lang["AcceptTime "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "AcceptUser " }, text = lang["AcceptUser "] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "RejectTime " }, text = lang["RejectTime "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "RejectUser " }, text = lang["RejectUser "] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "FinishTime " }, text = lang["FinishTime "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "FinishUser " }, text = lang["FinishUser "] },
+            new jqxGrid._column { _datafield = { name = "RequestIP   ", type = dataFieldType._string }, text = lang["RequestIP   "], width = 100 },
+            new jqxGrid._columns.DateTime { _datafield = { name = "RequestTime" }, text = lang["RequestTime"] },
+            new jqxGrid._columns.User____ { _datafield = { name = "RequestUser" }, text = lang["RequestUser"] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "LifeTime   " }, text = lang["LifeTime   "] },
+            new jqxGrid._column { _datafield = { name = "TranID      ", type = dataFieldType._string }, text = lang["TranID      "], width = 100 },
+        }
+    };
+    string lang_Accept = lang["Accept"];
+    string lang_Confirm = lang["Confirm"];
+    string lang_Reject = lang["Reject"];
+    string visible1 = widgets3._ng_show(grid, "");
+    string visible2 = widgets3._ng_show(grid, "accept");
+    string visible3 = widgets3._ng_show(grid, "confirm");
+    string visible4 = widgets3._ng_show(grid, "reject");
+    if (hist) { widgets.layout_2(this, grid); }
+    else { widgets.layout_grid_detail(this, grid); }
+}
+@if (hist)
+{
+@section head {
+    <script type="text/javascript">
+    $(document).on('ng-corp-init', function (e, $scope, $compile, $http) {
+        window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+            $scope: $scope,
+            ext: { formatData: function (data) { data.CorpName = $scope.select_corp; return data; }, },
+        });
+    });
+    </script>
+}
+@section toolbar {
+    @toolbars.CorpList(grid, "select_corp")
+    @toolbars.HistoryLink(grid, ViewBag.Link1, lang["List"])
+    @toolbars.GridRefresh(grid)
+}
+}
+else
+{
+@section head {
+    <script type="text/javascript">
+        $(document).on('ng-corp-init', function (e, $scope, $compile, $http) {
+            function OnUpdateComplete(rowid, row, data) {
+                if (data.IsDelete === true)
+                    window.setTimeout(function () {
+                        var s = $grid1.getselectedrowindex()
+                        $grid1.deleterow(rowid);
+                        $grid1.selectrow(s)
+                    }, 500);
+                else
+                    $grid1.updaterow(rowid, data);
+            }
+
+            window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                $scope: $scope,
+                ext: {
+                    grps: {
+                        '': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                data.CorpName = $scope.select_corp;
+                                settings.url = '@(Url.GetActionUrl((Type)ViewBag.apiControllerType, "set"))';
+                            },
+                        },
+                        'accept': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                this.data = { CorpName: rowdata.CorpName, TranID: rowdata.TranID };
+                                settings.url = '@(Url.GetActionUrl((Type)ViewBag.apiControllerType, "accept"))';
+                            },
+                            OnUpdateComplete: OnUpdateComplete,
+                        },
+                        'confirm': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                this.data = { CorpName: rowdata.CorpName, TranID: rowdata.TranID };
+                                settings.url = '@(Url.GetActionUrl((Type)ViewBag.apiControllerType, "confirm"))';
+                            },
+                            OnUpdateComplete: OnUpdateComplete,
+                        },
+                        'reject': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                this.data = { CorpName: rowdata.CorpName, TranID: rowdata.TranID };
+                                settings.url = '@(Url.GetActionUrl((Type)ViewBag.apiControllerType, "reject"))';
+                            },
+                            OnUpdateComplete: OnUpdateComplete,
+                        }
+                    },
+                    formatData: function (data) {
+                        data.CorpName = $scope.select_corp; return data;
+                    },
+                    OnAddingRow: function (addRow) {
+                        addRow(null, { UserName: '', Amount1: 0, CorpName: $scope.select_corp });
+                    },
+                    OnAddRow: function (row, jqXHR, settings) {
+                        settings.url = '@(Url.GetActionUrl((Type)ViewBag.apiControllerType, "add"))';
+                    },
+                },
+                //initrowdetails: function (index, parentElement, gridElement, datarecord) {
+                //    console.log('initrowdetails', arguments)
+                //}
+            });
+        });
+    </script>
+}
+@section toolbar {
+    @toolbars.CorpList(grid, "select_corp")
+    @toolbars.HistoryLink(grid, ViewBag.Link2)
+    @toolbars.GridAdd(grid)
+    @toolbars.GridRefresh(grid)
+}
+@section add_form {
+    <section class="container-fluid form-horizontal">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @widgets3.TextInput("    ", grid, "UserName      ", addonly: true)
+                        @widgets3.PlatformList(" ", grid, "PlatformName  ", addonly: true)
+                        @widgets3.NumberInput("  ", grid, "Amount1       ", addonly: true, min: 0)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @widgets3.CommandsAdd(grid, label_width: 0, btn_width: 6, hr: true)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 hidden">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section edit_form {
+    <section class="container-fluid form-horizontal">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @widgets3.TextBox("  ", grid, "SerialNumber  ")
+                        @widgets3.TextBox("  ", grid, "PlatformName  ")
+                        @widgets3.TextBox("  ", grid, "UserName      ")
+                        @widgets3.TextBox("  ", grid, "Amount1       ")
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_hide: visible2 + " || " + visible3 + " || " + visible4, grp_name: "      ")
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_show: visible2 + " || " + visible3 + " || " + visible4, grp_name: "      ", disabled: true)
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_hide: visible1 + " || " + visible3 + " || " + visible4, grp_name: "accept", text_edit: lang_Accept, text_save: lang_Accept)
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_show: visible1 + " || " + visible3 + " || " + visible4, grp_name: "accept", text_edit: lang_Accept, text_save: lang_Accept, disabled: true)
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_hide: visible1 + " || " + visible2 + " || " + visible4, grp_name: "confirm", text_edit: lang_Confirm, text_save: lang_Confirm)
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_show: visible1 + " || " + visible2 + " || " + visible4, grp_name: "confirm", text_edit: lang_Confirm, text_save: lang_Confirm, disabled: true)
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_hide: visible1 + " || " + visible2 + " || " + visible3, grp_name: "reject", text_edit: lang_Reject, text_save: lang_Reject)
+                        @widgets3.CommandsEdit(grid, label_width: 0, btn_width: 6, ng_show: visible1 + " || " + visible2 + " || " + visible3, grp_name: "reject", text_edit: lang_Reject, text_save: lang_Reject, disabled: true)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 hidden">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+}
+<div id="_grid1"></div>
+@RenderBody()

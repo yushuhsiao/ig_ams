@@ -1,0 +1,178 @@
+﻿@using jqx
+@using ams
+@using ams.Controllers;
+@{
+    ViewBag.Title = "Members";
+    jqxGrid grid = new jqxGrid<ams.Data.MemberData>
+    {
+        page = this,
+        scope_id = "grid1",
+        source = {
+            id = "ID", url = Url.GetActionUrl<MemberAccountApiController>("list"),
+            datafields = new [] { new jqxGrid.datafield { name = "Balance" } }
+        },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple },
+        filter = { filterable = true, server_filtering = true, showfilterrow = false, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        editmode = editmode.selectedcell,
+        selectionmode = selectionmode.singlerow,
+        selectedrowindex = 0,
+        columns = new[] {
+            new jqxGrid._column { _datafield = { name = "ver         ", type = dataFieldType._number }, text = lang["ver         "], width = 100, hidden = true },
+            new jqxGrid._column { _datafield = { name = "ID          ", type = dataFieldType._number }, text = lang["Member ID   "], width = 100 },
+            new jqx_column.CorpID(this),
+            new jqx_column.CorpName(this),
+            new jqx_column.ParentID(this) { hidden = true },
+            new jqx_column.ParentName(this),
+            new jqx_column.Depth(this),
+            new jqxGrid._column { _datafield = { name = "UserName    ", type = dataFieldType._string }, text = lang["UserName    "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "DisplayName ", type = dataFieldType._string }, text = lang["DisplayName "], width = 100 },
+            new jqxGrid._column { _datafield = { name = "Active      ", type = dataFieldType._number }, text = lang["State       "], width = 050, hidden = true },
+            new jqxGrid._column { _datafield = { name = "Active1     ", type = dataFieldType._bool__ }, text = lang["Active      "], width = 050, columntype = columntype.checkbox },
+            new jqxGrid._column { _datafield = { name = "Active2     ", type = dataFieldType._bool__ }, text = lang["Game        "], width = 050, columntype = columntype.checkbox },
+            new jqxGrid._column { _datafield = { name = "TotalBalance", type = dataFieldType._number }, text = lang["TotalBalance"], width = 080, hidden = true },
+            new jqx_column.Amount(this, "Balance1",lang["Balance1    "]),
+            new jqx_column.Amount(this, "Balance2",lang["Balance2    "]),
+            new jqx_column.Amount(this, "Balance3",lang["Balance3    "]) { hidden = true },
+            //new jqxGrid._column { _datafield = { name = "Balance1    ", type = dataFieldType._number, map = "Balance1" }, text = lang["Balance1    "], width = 080 },
+            //new jqxGrid._column { _datafield = { name = "Balance2    ", type = dataFieldType._number }, text = lang["Balance2    "], width = 080 },
+            //new jqxGrid._column { _datafield = { name = "Balance3    ", type = dataFieldType._number }, text = lang["Balance3    "], width = 100, hidden = true },
+            new jqxGrid._columns.DateTime { _datafield = { name = "CreateTime   " }, text = lang["CreateTime    "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "CreateUser   " }, text = lang["CreateUser    "] },
+            new jqxGrid._columns.DateTime { _datafield = { name = "ModifyTime   " }, text = lang["ModifyTime    "] },
+            new jqxGrid._columns.User____ { _datafield = { name = "ModifyUser   " }, text = lang["ModifyUser    "] },
+        }
+    };
+    widgets.layout_grid_detail(this, grid);
+}
+@section head {
+    <script type="text/javascript">
+        $(document).on('ng-corp-init', function (e, $scope, $compile, $http) {
+            window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                $scope: $scope,
+                //source : {
+                //    beforeprocessing: function (data) {
+                //    },
+                //},
+                ext: {
+                    grps: {
+                        '': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                if (data.Password1 === data.Password2) data.Password = data.Password1;
+                                data.CorpName = $scope.select_corp;
+                                data.Password1 = data.Password2 = '';
+                                settings.url = '@(Url.GetActionUrl<MemberAccountApiController>("set"))';
+                            },
+                        },
+                        'pwd': {
+                            OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                            },
+                            OnLoading: function (rowid, rowdata, jqXHR, settings) {
+                            },
+                        },
+                    },
+                    formatData: function (data) {
+                        data.CorpName = $scope.select_corp; return data;
+                    },
+                    OnAddingRow: function (addRow) {
+                        addRow(null, { CorpName: $scope.select_corp, ParentName: '', UserName: '', DisplayName: '', Password1: '', Password2: '', Active1: true, Active2: false, });
+                    },
+                    OnAddRow: function (row, jqXHR, settings) {
+                        if (row.Password1 === row.Password2)
+                            row.Password = row.Password1;
+                        else return false;
+                        settings.url = '@(Url.GetActionUrl<MemberAccountApiController>("add"))';
+                    },
+                    OnUpdateRow: function (rowid, rowdata, data, jqXHR, settings) {
+                        if (data.Password1 === data.Password2) data.Password = data.Password1;
+                        data.Password1 = data.Password2 = '';
+                        data.CorpName = $scope.select_corp;
+                        settings.url = '@(Url.GetActionUrl<MemberAccountApiController>("set"))';
+                    },
+                },
+                event: {
+                    //'*': function (event) { console.log(event.type, event); },
+                    bindingcomplete: function (event) {
+                        //event.owner.selectrow(0)
+                    },
+                },
+            });
+        });
+    </script>
+}
+@section toolbar {
+    @toolbars.CorpList(grid, "select_corp")
+    @toolbars.GridAdd(grid)
+    @toolbars.GridRefresh(grid)
+}
+@section add_form {
+    <section class="container-fluid form-horizontal">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">@lang["General"]</h3></div>
+                    <div class="panel-body">
+                        @widgets.TextBox(lang["CorpID           "], grid, "CorpName          ")
+                        @widgets.TextInput("                     ", grid, "ParentName        ", addonly: true)
+                        @widgets.TextInput("                     ", grid, "UserName          ", addonly: true)
+                        @widgets.TextInput("                     ", grid, "DisplayName       ", addonly: true)
+                        @widgets.Password(lang["Password        "], grid, "Password1         ", addonly: true)
+                        @widgets.Password(lang["Confirm Password"], grid, "Password2         ", addonly: true)
+                        @widgets.Active3(grid.GetColumn("Active").text, "", "", grid, "Active1", "Active2", addonly: true)
+                        @widgets.CommandsAdd(grid)
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 hidden">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">@lang[""]</h3></div>
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row hidden">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section edit_form {
+    <section class="container-fluid form-horizontal">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="" data-toggle="tab" data-target=".tab1">@lang["General"]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab2">@lang["Config"]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab3">@lang["Agent Settings"]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab4">@lang["Admin Settings"]</a></li>
+            <li class="hidden"><a href="" data-toggle="tab" data-target=".tab5">@lang["Member Settings"]</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab1 row tab-pane fade in active">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            @widgets.TextBox("  ", grid, "ID            ")
+                            @widgets.TextBox("  ", grid, "CorpID        ")
+                            @widgets.TextBox("  ", grid, "ParentID      ")
+                            @widgets.TextBox("  ", grid, "UserName      ")
+                            @widgets.TextInput("", grid, "DisplayName   ")
+                            @widgets.Active3(grid.GetColumn("Active").text, "", "", grid, "Active1", "Active2")
+                            @widgets.Password2(lang["Password        "], grid, "Password1")
+                            @widgets.Password2(lang["Confirm Password"], grid, "Password2")
+                            @widgets.TextBox("  ", grid, "Depth      ", width: 3)
+                            @widgets.CommandsEdit(grid)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab2 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">2</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">2</div></div></div></div>
+            <div class="tab3 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">3</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">3</div></div></div></div>
+            <div class="tab4 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">4</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">4</div></div></div></div>
+            <div class="tab5 row tab-pane fade"><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">5</div></div></div><div class="col-sm-6"><div class="panel panel-default"><div class="panel-body">5</div></div></div></div>
+        </div>
+    </section>
+}
+<div id="_grid1"></div>

@@ -1,0 +1,78 @@
+﻿@using jqx;
+@{
+    Layout = "../Shared/_Layout1.cshtml";
+    ViewBag.Title = "Agent";
+}
+@section head {
+    @Bundles.RenderStyles(this, null, false)
+    @Bundles.RenderScripts(this, null, false)
+    <script type="text/javascript">
+        $(document).on('ng-app-init', function () {
+            $scope.aaa = function () {
+                console.log('1');
+            }
+
+            $scope.grid1_opts = {
+                columns: [
+                // @(new jqxGrid.column { })
+                $.jqx.columns.row_number(),
+                //$.jqx.columns.row_command(),
+                { text: '@lang["uid       "]', dataField: { name: '@trim["uid       "]', type: '@trim["string"]' }, width: 100, align: 'center' },
+                { text: '@lang["ID        "]', dataField: { name: '@trim["ID        "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ver       "]', dataField: { name: '@trim["ver       "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["CorpID    "]', dataField: { name: '@trim["CorpID    "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ParentID  "]', dataField: { name: '@trim["ParentID  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ACNT      "]', dataField: { name: '@trim["ACNT      "]', type: '@trim["string"]' }, width: 100, align: 'center' },
+                { text: '@lang["Name      "]', dataField: { name: '@trim["Name      "]', type: '@trim["string"]' }, width: 100, align: 'center' },
+                { text: '@lang["Active    "]', dataField: { name: '@trim["Active    "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["_level    "]', dataField: { name: '@trim["_level    "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["UserLevel "]', dataField: { name: '@trim["UserLevel "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxDepth  "]', dataField: { name: '@trim["MaxDepth  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxAgent  "]', dataField: { name: '@trim["MaxAgent  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxAdmin  "]', dataField: { name: '@trim["MaxAdmin  "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["MaxMember "]', dataField: { name: '@trim["MaxMember "]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["CreateTime"]', dataField: { name: '@trim["CreateTime"]', type: '@trim["date  "]' }, width: 100, align: 'center' },
+                { text: '@lang["CreateUser"]', dataField: { name: '@trim["CreateUser"]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                { text: '@lang["ModifyTime"]', dataField: { name: '@trim["ModifyTime"]', type: '@trim["date  "]' }, width: 100, align: 'center' },
+                { text: '@lang["ModifyUser"]', dataField: { name: '@trim["ModifyUser"]', type: '@trim["number"]' }, width: 100, align: 'center' },
+                ],
+            };
+        });
+    </script>
+}
+@section top {
+    toolbar
+}
+@section left {
+    <div @(new jqxSplitter { width = "100%", height = "100%", showSplitBar = false, orientation = orientation.horizontal })>
+        <div @(new jqxSplitter.panel { size = 25 })>
+            <ul @(new jqxDropDownList { width = "100%", height = "100%", placeHolder = "select corp:", autoDropDownHeight = true, animationType = animationType.none })>
+                <li data-value="1">1</li>
+                <li data-value="2">2</li>
+                <li data-value="3">3</li>
+            </ul>
+        </div>
+        <div @(new jqxSplitter.panel { })>
+<pre>
+    + a
+    +-- aa
+    +---- aaa
+
+
+
+    class 1
+    class 2
+    class 3
+    class 4
+</pre>
+            [agent tree view] / [agent list by level]
+        </div>
+    </div>
+}
+@section bottom {
+    @* agent & member *@
+    <div @(new jqxGrid { settings = "$scope.grid1_opts", instance = "$scope.grid1", pageable = true, pagermode = pagermode.simple, filterable = true, editable = true, sortable = true, server_sorting = false, editmode = editmode.selectedcell, selectionmode = selectionmode.singlerow, showstatusbar = false, showeverpresentrow = false, })>
+        <div @(new jqxGrid.source { id = "ID", url = Url.GetActionUrlContent<ams.Controllers.AgentAccountApiController>("list") })></div>
+    </div>
+}
+details

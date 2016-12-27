@@ -1,0 +1,45 @@
+﻿@{ 
+    ams.api_client.TakePictureUrls urls = Model;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Page.Title</title>
+    <link href="~/bower_components/alertifyjs/dist/css/alertify.css" rel="stylesheet" />
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <script src="~/bower_components/alertifyjs/dist/js/alertify.js"></script>
+    <script src="~/bower_components/swfobject/swfobject/swfobject.js"></script>
+</head>
+<body>
+    <div id="capture"></div>
+    @RenderBody()
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (swfobject.getFlashPlayerVersion().major === 0) {
+                alertify.alert('<a href="https://www.adobe.com/go/getflashplayer" target="_blank">你沒有安裝 Flash Player，請點我前往安裝</a>').set('basic', true).set('movable', false).set('closable', false);
+            }
+            else {
+                var flashvars = {
+                    @*recognitionUrl: '@ConfigHelper.RecognitionApiUrl',
+                    accessToken: '@ConfigHelper.TakeAccessToken()'*@
+                    recognitionUrl: '@urls.recognitionUrl',
+                    accessToken: '@urls.accessToken'
+                };
+                function embedSwf(swfUrl, flashvars, id, width, height) {
+                    var params = {
+                        allowFullScreen: true,
+                        allowFullScreenInteractive: true,
+                        allowScriptAccess: 'always'
+                    };
+                    var attributes = { id: id };
+                    swfobject.embedSWF(swfUrl, attributes.id, width, height, '10.0.0', '/bower_components/swfobject/swfobject/expressinstall.swf', flashvars, params, attributes);
+                    //console.log(flashvars);
+                }
+                embedSwf(swfUrl, flashvars, 'capture', '550px', '550px');
+            }
+        });
+    </script>
+</body>
+</html>

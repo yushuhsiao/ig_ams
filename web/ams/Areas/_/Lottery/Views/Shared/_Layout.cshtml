@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 後臺管理</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    @RenderSection("scripts", required: false)
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <ul class="drop-down-menu">
+                <li>
+                    <a href="#">@Html.ActionLink("開獎網址調整", "Index", "URL")</a>
+                </li>
+                <li>
+                    <a href="#">@Html.ActionLink("過賬", "PassAccountIndex", "URL")</a>
+                </li>
+                <li>
+                    <a href="#">@Html.ActionLink("延遲開獎秒數", "LotteryDelayIndex", "URL")</a>
+                </li>
+                <li>
+                    <a href="#">@Html.ActionLink("賽事封盤時間", "GameCloseIndex", "URL")</a>
+                </li>
+                <li>
+                    <a href="#">賽事盤口</a>
+                    <ul>
+                        <li>
+                            <a href="#">基諾彩</a>
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        @Html.ActionLink("北京快樂8", "PCIndex", "URL", new { location="01"},null)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">@Html.ActionLink("台灣賓果賓果", "PCIndex", "URL", new { location = "02" }, null)</a>
+                                </li>
+                                <li>
+                                    <a href="#">@Html.ActionLink("加拿大", "PCIndex", "URL", new { location = "03" }, null)</a>
+                                </li>
+                                <li>
+                                    <a href="#">@Html.ActionLink("加拿大西部", "PCIndex", "URL", new { location = "04" }, null)</a>
+                                </li>
+                                <li>
+                                    <a href="#">@Html.ActionLink("斯洛伐克", "PCIndex", "URL", new { location = "05" }, null)</a>
+                                </li>
+                                <li>
+                                    <a href="#">@Html.ActionLink("俄亥俄", "PCIndex", "URL", new { location = "06" }, null)</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="#">時時彩</a>
+                            <ul>
+                                <li>
+                                    <a href="#">重慶</a>
+                                </li>
+                                <li>
+                                    <a href="#">江西</a>
+                                </li>
+                                <li>
+                                    <a href="#">天津</a>
+                                </li>
+                                <li>
+                                    <a href="#">新疆</a>
+                                </li>
+                                <li>
+                                    <a href="#">河內</a>
+                                </li>
+                                <li>
+                                    <a href="#">上海</a>
+                                </li>
+                                <li>
+                                    <a href="#">台灣三星彩</a>
+                                </li>
+                                <li>
+                                    <a href="#">台灣四星彩</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">快三</a>
+                            <ul>
+                                <li>
+                                    <a href="#">安徽快三</a>
+                                </li>
+                                <li>
+                                    <a href="#">廣西快三</a>
+                                </li>
+                                <li>
+                                    <a href="#">湖北快三</a>
+                                </li>
+                                <li>
+                                    <a href="#">北京快三</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+            </div>
+            @*
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("開獎網址調整", "Index", "URL")</li>
+                    <li>@Html.ActionLink("過賬", "PassAccountIndex", "URL")</li>
+                    <li>@Html.ActionLink("延遲開獎秒數", "LotteryDelayIndex", "URL")</li>
+                    <li>@Html.ActionLink("賽事封盤時間", "GameCloseIndex", "URL")</li>
+                    <li>@Html.ActionLink("賽事盤口", "PCIndex", "URL")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")             
+            </div>
+            <a href="#">@Html.ActionLink("登出", "Login", "Login")</a>
+        </div>
+    </div>*@
+
+    <!----start-header---->
+    <div class="header">
+        <div class="container">
+            <div class="dropdown_box">
+                <!--<select class="dropdown" tabindex="10" data-settings='{"wrapperClass":"metro"}'>
+                     <option value="0">繁中</option>
+                     <option value="1">簡中</option>
+                     <option value="2">英文</option>
+                </select>-->
+            </div>
+            <div class="clearfix"> </div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="../Login/Login"><img src="~/Image/logo.png" alt="" /></a>
+                </div>
+
+                <div class="menu">
+                    <a class="toggleMenu" href="#"><img src="images/nav_icon.png" alt="" /> </a>
+                    <ul class="drop-down-menu">
+                        <li>
+                            <a href="http://localhost:53882/URL/DSTIndex"></a><a href="http://localhost:53882/URL/DSTIndex">日光節約時間</a>
+                        </li>
+                        <li></li>
+                        <li>
+                            <a href="http://localhost:53882/URL/EnableIndex"></a><a href="http://localhost:53882/URL/EnableIndex">賽事開關設定</a>
+                            <ul>
+                                <li>
+                                    <a href="http://localhost:53882/URL/EnableIndex?gametype=01">基諾彩</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:53882/URL/EnableIndex?gametype=01">時時彩</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL">開獎網址調整</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/PassAccountIndex">過賬設定</a>
+                        </li>
+                        @*
+                        <li>
+                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/LotteryDelayIndex">延遲開獎秒數</a>
+                        </li>
+                        *@
+                        <li>
+                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/GameCloseIndex">賽事封盤時間</a>
+                        </li>
+                        <li>
+                            <a href="#">賽事盤口</a>
+                            <ul>
+                                <li>
+                                    <a href="http://localhost:53882/URL/PCIndex">基諾彩</a>
+                                    <ul>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">
+                                            </a><a href="http://localhost:53882/URL/PCIndex?location=01">北京快樂8</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/PCIndex?location=02">台灣賓果賓果</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/PCIndex?location=03">加拿大</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/PCIndex?location=04">加拿大西部</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/PCIndex?location=05">斯洛伐克</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#"></a><a href="http://localhost:53882/URL/PCIndex?location=06">俄亥俄</a>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                                <li>
+                                    <a href="http://localhost:53882/URL#">時時彩</a>
+                                    <ul>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">重慶</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">江西</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">天津</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">新疆</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">河內</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">上海</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">台灣三星彩</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">台灣四星彩</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="http://localhost:53882/URL#">快三</a>
+                                    <ul>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">安徽快三</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">廣西快三</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">湖北快三</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://localhost:53882/URL#">北京快三</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+                <!----//End-top-nav---->
+            </div>
+        </div>
+    </div>
+    <!----//End-header---->
+    <div class="container body-content">
+        @RenderBody()
+        
+        <hr />
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqwidgets")
+        <footer>
+            
+        </footer>
+    </div>
+
+    
+</body>
+</html>

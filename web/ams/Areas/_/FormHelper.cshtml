@@ -1,0 +1,330 @@
+﻿@using jqx;
+@using ams;
+@using ams.Data;
+@using System.Web.Mvc;
+@functions {
+    public const int panel_width = 6;
+    const int LABELWIDTH = 3;
+    const int HEIGHT = 25;
+    public const int toolbar_height = 27;
+    private static IHtmlString ng_model(jqxGrid grid, string field, string grp_name)
+    {
+        return grid.page.Html.Raw("{0}.data['{1}'].{2}", grid.scope_prop, grp_name, field.Trim());
+    }
+    private static IHtmlString ng_show(jqxGrid grid, string grp_name)
+    {
+        return grid.page.Html.Raw("{0}.isEditing('{1}')", grid.scope_prop, grp_name);
+    }
+    private static IHtmlString ng_change(jqxGrid grid, string grp_name)
+    {
+        if (grp_name == null) return null;
+        if (grp_name == "") return null;
+        return grid.page.Html.Raw("{0}.refreshView()", grid.scope_id);
+    }
+    private static IHtmlString error_msg(jqxGrid grid, string grp_name)
+    {
+        return grid.page.Html.Raw("{0}.errorMsg('{1}')", grid.scope_prop, grp_name);
+    }
+    private static IHtmlString hasError(jqxGrid grid, string grp_name)
+    {
+        return grid.page.Html.Raw("{0}.hasError('{1}')", grid.scope_prop, grp_name);
+    }
+    private static IHtmlString hasError_class(jqxGrid grid, string grp_name)
+    {
+        return grid.page.Html.Raw("{0}.hasError('{1}') ? 'has-error' : ''", grid.scope_prop, grp_name);
+    }
+
+    private static jqxInput _jqxInput = new jqxInput { width = "100%", height = HEIGHT };
+
+    private static jqxTree.source_item new_tree_item(ref bool s, CorpInfo corp)
+    {
+        var item = new jqxTree.source_item
+        {
+            id = corp.ID,
+            label = corp.UserName,
+            value = new { Corp = corp.UserName, Agent = corp.UserName }
+        };
+        if (!corp.ID.IsRoot)
+        {
+            item.selected = s;
+            s = false;
+        }
+        return item;
+    }
+}
+
+@helper toolbar_add(jqxGrid grid) {
+<div class="pull-left" @(new jqxButton { }) ng-click="@grid.page.Html.Raw("{0}.ext.addRow()", grid.scope_id)"><i class="fa fa-fw fa-plus"></i>@grid.page.lang["Add"]</div>
+}
+
+@helper toolbar_refresh(jqxGrid grid) {
+<div class="pull-left" @(new jqxButton { }) ng-click="@grid.page.Html.Raw("{0}.updatebounddata('data')", grid.scope_id)"><i class="fa fa-fw fa-refresh"></i>@grid.page.lang["Refresh"]</div>
+}
+
+@helper toolbar_AgentTree(_WebViewPage page, string _ng_model, int width = 100)
+{
+string id1 = "drop" + page._id["jqx1"], id2 = "tree" + page._id["jqx2"], id1_model = page._id["jqx1_model"];
+var jqx1 = new jqxDropDownButton { instance = id1 + ".instance", settings = id1, width = width, height = FormHelper.toolbar_height - 3, animationType = animationType.none };
+var jqx2 = new jqxTree { /*instance = id2 + ".instance",*/ settings = id2, };
+var source = new List<jqxTree.source_item>();
+bool s = true;
+if (_User.Current.CorpID.IsRoot)
+{
+    foreach (CorpInfo corp in CorpInfo.Cache.Value)
+    {
+        source.Add(new_tree_item(ref s, corp));
+    }
+}
+else
+{
+    CorpInfo corp = CorpInfo.GetCorpInfo(_User.Current.CorpID);
+    source.Add(new_tree_item(ref s, corp));
+}
+<script type="text/javascript">
+    $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+        $scope['@_ng_model'] = null;
+        $scope['@jqx1.settings'] = {
+            //event: { '*': function (event) { console.log(event.type, event); }, },
+        };
+        $scope['@jqx2.settings'] = {
+            //event: { '*': function (event) { console.log(event.type, event); }, },
+            select: function (event) {
+                var item = event.owner.getSelectedItem();
+                if (item != null) {
+                    $scope['@id1_model'] = item.label;
+                    $scope['@_ng_model'] = item.value;
+                    $scope.$applyAsync();
+                }
+                try { $scope['@id1'].instance.close(); } catch (e) { }
+            },
+            source: [@page.Html.JsonRaw(source)][0],
+        };
+    });
+</script>
+<div class="form-inline pull-left">
+    <div class="form-group">
+        <label class="control-label">@page.lang["Agent"]</label>
+        <div class="form-control ams-toolbar" ng-model="@id1_model" @jqx1>
+            <div @jqx2></div>
+        </div>
+    </div>
+</div>
+}
+
+
+@helper commands_edit(jqxGrid grid, string grp_name = "", int label_width = LABELWIDTH, int btn_width = 3)
+{
+    <div class="form-group form-group-sm">
+        <div class="col-xs-@btn_width col-sm-offset-@label_width" ng-hide="@ng_show(grid, grp_name)">
+            <button class="form-control" ng-click="@grid.page.Html.Raw("{0}.beginEdit('{1}')", grid.scope_prop, grp_name)">@grid.page.lang["Edit"]</button>
+        </div>
+        <div class="col-xs-@btn_width col-sm-offset-@label_width" ng-show="@ng_show(grid, grp_name)">
+            <button class="form-control" ng-click="@grid.page.Html.Raw("{0}.endEdit('{1}', false)", grid.scope_prop, grp_name)">@grid.page.lang["Cancel"]</button>
+        </div>
+        <div class="col-xs-@btn_width" ng-show="@ng_show(grid, grp_name)">
+            <button class="form-control" ng-click="@grid.page.Html.Raw("{0}.endEdit('{1}', true)", grid.scope_prop, grp_name)">@grid.page.lang["Save"]</button>
+        </div>
+        <div class="col-xs-@(12-label_width-3) col-xs-offset-@label_width" ng-class="@hasError_class(grid, "")">
+            <span class="help-block">{{@error_msg(grid, grp_name)}}</span>
+        </div>
+    </div>
+}
+@helper commands_add(jqxGrid grid, int label_width = 3, int btn_width = 3)
+{
+    <hr />
+    <div class="form-group form-group-sm">
+        <div class="col-xs-@btn_width col-xs-offset-@label_width">
+            <button class="form-control" ng-click="@grid.page.Html.Raw("{0}.endEdit('', false)", grid.scope_prop)">@grid.page.lang["Cancel"]</button>
+        </div>
+        <div class="col-xs-@btn_width">
+            <button class="form-control" ng-click="@grid.page.Html.Raw("{0}.endEdit('', true) ", grid.scope_prop)">@grid.page.lang["Save"]</button>
+        </div>
+        <div class="col-xs-@(12-label_width) col-xs-offset-@label_width" ng-class="@hasError_class(grid, "")">
+            <span class="help-block">{{@error_msg(grid, "")}}</span>
+        </div>
+    </div>
+}
+
+@helper edit_panel(jqxGrid grid, Func<jqxGrid, object> content, int width = 5) {
+    <div class="col-sm-@width">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @content(grid)
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@helper text_box(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <input @_jqxInput class="bg-dark" readonly ng-model="@ng_model(grid, field, grp_name)" />
+        </div>
+    </div>
+}
+
+
+
+@helper text_input_ww(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <input @_jqxInput ng-model="@ng_model(grid, field, grp_name)" ng-change="@ng_change(grid, grp_name)">
+        </div>
+    </div>
+}
+@helper text_input_rw(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <input @_jqxInput class="bg-dark" readonly ng-hide="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)">
+            <input @_jqxInput                          ng-show="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)">
+        </div>
+    </div>
+}
+
+
+
+@helper switch_button_rw(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 3)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+var jqx1 = new jqxSwitchButton { animationEnabled = false, width = "100%" };
+var jqx2 = new jqxSwitchButton { animationEnabled = false, width = "100%", disabled = true };
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <div @jqx1                 ng-show="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)" ng-change="@ng_change(grid, grp_name)"></div>
+            <div @jqx2 class="bg-dark" ng-hide="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)"></div>
+        </div>
+    </div>
+}
+@helper switch_button_ww(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 3)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+var jqx1 = new jqxSwitchButton { animationEnabled = false, width = "100%" };
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <div @jqx1 ng-model="@ng_model(grid, field, grp_name)"></div>
+        </div>
+    </div>
+}
+
+
+
+@helper number_input_rw(string fill, jqxGrid grid, string field, string grp_name = "", int? min = null, int? max = null, int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+var jqx1 = new jqxInput { width = "100%", height = HEIGHT };
+var jqx2 = new jqxNumberInput { spinButtons = true, spinMode = inputMode.simple, inputMode = inputMode.simple, autoValidate = false, decimalDigits = 0, width = "100%", min = min, max = max, textAlign = horizontalAlignment.left };
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <input @jqx1 class="bg-dark" readonly ng-hide="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)" />
+            <input @jqx2                          ng-show="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)" ng-change="@ng_change(grid, grp_name)">
+        </div>
+    </div>
+}
+@helper number_input_ww(string fill, jqxGrid grid, string field, string grp_name = "", int? min = 0, int? max = null, int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+var jqx2 = new jqxNumberInput { spinButtons = true, spinMode = inputMode.simple, inputMode = inputMode.simple, autoValidate = false, decimalDigits = 0, width = "100%", min = min, max = max, textAlign = horizontalAlignment.left };
+    <div class="form-group form-group-sm" @*ng-class="sel_row.hasError('', 'ID') ? 'has-error' : ''"*@>
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <div @jqx2 ng-model="@ng_model(grid, field, grp_name)" ng-change="@ng_change(grid, grp_name)"></div>
+        </div>
+    </div>
+}
+
+
+
+@helper dropdownlist_rw(string fill, jqxGrid grid, string field, string grp_name = "", List<ValueTextPair<object>> source = null, int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+var jqx2 = new jqxDropDownList { width = "100%", height = HEIGHT, animationType = animationType.none, displayMember = "text", valueMember = "value", autoDropDownHeight = true, source = source };
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <input class="bg-dark" readonly @_jqxInput ng-hide="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)" />
+            <div                            @jqx2      ng-show="@ng_show(grid, grp_name)" ng-model="@ng_model(grid, field, grp_name)" ng-change="@ng_change(grid, grp_name)"></div>
+        </div>
+    </div>
+}
+@helper dropdownlist_ww(string fill, jqxGrid grid, string field, string grp_name = "", List<ValueTextPair<object>> source = null, int label_width = LABELWIDTH, int width = 8)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+var n2 = new jqxDropDownList { width = "100%", animationType = animationType.none, displayMember = "text", valueMember = "value", autoDropDownHeight = true, source = source };
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <div @n2 ng-model="@ng_model(grid, field, grp_name)" ng-change="@ng_change(grid, grp_name)"></div>
+        </div>
+    </div>
+}
+
+@helper Currency_ww    (string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 4) { @dropdownlist_ww(null, grid, field, grp_name, LangItem.GetEnumsIn(null, CurrencyCode.TWD, CurrencyCode.CNY, CurrencyCode.HKD, CurrencyCode.USD, CurrencyCode.EUR), label_width, width) }
+@helper Active_ww      (string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 4) { @dropdownlist_ww(null, grid, field, grp_name, LangItem.GetEnums<PlatformActive>(null), label_width, width) }
+@helper Active_rw      (string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 4) { @dropdownlist_rw(null, grid, field, grp_name, LangItem.GetEnums<PlatformActive>(null), label_width, width) }
+@helper PlatformType_ww(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 8) { @dropdownlist_ww(null, grid, field, grp_name, LangItem.GetEnums(null, PlatformType.Main), label_width, width) }
+@helper PlatformType_rw(string fill, jqxGrid grid, string field, string grp_name = "", int label_width = LABELWIDTH, int width = 8) { @dropdownlist_rw(null, grid, field, grp_name, LangItem.GetEnums(null, PlatformType.Main), label_width, width) }
+
+
+
+
+
+
+@helper password2_ww(string fill, jqxGrid grid, string field1, string text1, string field2, string text2, string grp_name = "", int label_width = LABELWIDTH, int width = 4)
+{
+var jqx1 = new jqxPasswordInput { height = HEIGHT };
+var jqx2 = new jqxPasswordInput { height = HEIGHT };
+    <div class="form-group form-group-sm">
+        <div class="col-xs-12" style="padding:0;">
+            <label class="col-sm-@label_width control-label">@text1</label>
+            <div class="col-sm-@width"><input @jqx1 class="form-control" type="password" ng-model="@ng_model(grid, field1, grp_name)"></div>
+        </div>
+        <div class="col-xs-12" style="padding: 0;">
+            <label class="col-sm-@label_width control-label">@text2</label>
+            <div class="col-sm-@width"><input @jqx2 class="form-control" type="password" ng-model="@ng_model(grid, field2, grp_name)"></div>
+        </div>
+    </div>
+}
+
+
+
+@helper radio_btn_rw(string fill, jqxGrid grid, string field, string grp_name = "", List<ValueTextPair<object>> source = null, int label_width = LABELWIDTH, int width = 4)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <div ng-show="@ng_show(grid, grp_name)" class="btn-group btn-group-sm">
+                @foreach (var p in source) {
+                <label class="btn btn-sm btn-primary btn-block" ng-model="@ng_model(grid, field, grp_name)" uib-btn-radio="'@p.value'" ng-change="@ng_change(grid, grp_name)">@p.text</label> }
+            </div>
+            <input ng-hide="@ng_show(grid, grp_name)" class="form-control" value="{{@ng_model(grid, field, grp_name)}}" readonly />
+        </div>
+    </div>
+}
+@helper radio_btn_ww(string fill, jqxGrid grid, string field, string grp_name = "", List<ValueTextPair<object>> source = null, int label_width = LABELWIDTH, int width = 4)
+{
+var col = grid.GetColumn(field); if (col == null) { return; }
+    <div class="form-group form-group-sm">
+        <label class="col-sm-@label_width control-label">@col.text</label>
+        <div class="col-sm-@width">
+            <div class="btn-group btn-group-sm">
+                @foreach (var p in source) {
+                    <label class="btn btn-sm btn-primary btn-block" ng-model="@ng_model(grid, field, grp_name)" uib-btn-radio="'@p.value'" ng-change="@ng_change(grid, grp_name)">@p.text</label> }
+            </div>
+        </div>
+    </div>
+}

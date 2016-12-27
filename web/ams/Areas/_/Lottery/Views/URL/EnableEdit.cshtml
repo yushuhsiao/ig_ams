@@ -1,0 +1,44 @@
+﻿@model GameControl.ViewModels.GameEnableViewModel
+
+@{
+    ViewBag.Title = "EnableEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/table.css" rel="stylesheet" />
+<h2>遊戲啟用設定</h2>
+@using (Html.BeginForm())
+{
+    <div class="services">
+        <h2>遊戲開關設定</h2>
+        <div class="container">
+            <div class="CSSTableGenerator">
+                <table class="table">
+                    <tr>
+                        <td>遊戲名稱</td>
+                        <td>狀態</td>
+                        <td>最後更新時間</td>
+                        <td>最後更新者</td>
+                    </tr>
+                    @for (int i = 0; i < Model.GameEnables.Count; i++)
+                {
+                        <tr>
+                            <td>@Model.GameEnables[i].Game</td>
+                            <td>
+                                啟用
+                                @Html.RadioButtonFor(model => Model.GameEnables[i].Status, "1")
+                                關閉
+                                @Html.RadioButtonFor(model => Model.GameEnables[i].Status, "0")
+                                @Html.ValidationMessageFor(model => Model.GameEnables[i].Status, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => Model.GameEnables[i].SID, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td>@Model.GameEnables[i].UpdateTime</td>
+                            <td>@Model.GameEnables[i].UpdateUser</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-info btn-lg" value="儲存">儲存</button>
+    <input class="btn btn-warning btn-lg" type="button" value="回前頁" onclick="location.href='@Url.Action("EnableIndex", "URL")'" />
+}

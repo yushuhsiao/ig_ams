@@ -1,0 +1,48 @@
+﻿@inherits _WebViewPage
+@using ams.Models    
+@{ MenuItem _menu = MenuItem.Current; }
+@helper menu(MenuItem m, string dashboard_url)
+{
+string id = _id[m, 8];
+var item2 = new Dictionary<string, object>();
+item2["id"] = id;
+if (!m.HasChilds)
+{
+    if (!string.IsNullOrEmpty(m.Url))
+    {
+        try
+        {
+            string url = Url.Content(m.Url);
+            item2["url"] = url;
+            item2["d"] = string.Compare(url, dashboard_url, true) == 0;
+        }
+        catch { }
+    }
+}
+    <li>
+        <a class="btn btn-block bg-primary text-primary" ng-class="_menu.active=='@id'?'menu-active':''" ng-init="_menu.init(@Json.Encode(item2))" ng-click="_menu.click('@id')" href="{{_menu.items['@id'].url}}">
+            <i class="fa fa-fw fa-question"></i>
+            <span>@lang[m.Text]</span>
+            @if (m.HasChilds)
+            { <i class="pull-right fa fa-fw fa-caret-left" ng-class="_menu.caret('@id')"></i> }
+        </a>
+        @if (m.HasChilds)
+        {
+            <ul class="nav nav-pills nav-stacked" uib-collapse="_menu.items['@id'].collapse">
+                @foreach (MenuItem mm in m.Childs)
+                {
+                    if (mm.Order != -1)
+                    { @menu(mm, dashboard_url) }
+                }
+            </ul>
+        }
+    </li>
+}
+<div id="menu">
+    <ul class="nav nav-pills nav-stacked">
+        @foreach (MenuItem mm in _menu.Childs)
+        {
+            if (mm.Order != -1) { @menu(mm, Url.Action("Dashboard", "Home"@*, new { Area = _url.areas.Main }*@))}
+        }
+    </ul>
+</div>

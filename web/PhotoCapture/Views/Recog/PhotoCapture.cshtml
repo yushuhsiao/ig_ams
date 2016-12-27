@@ -1,0 +1,11 @@
+﻿@{ 
+    Layout = "_Photo.cshtml";
+    Page.Title = "PhotoCapture(註冊時拍照，提供未來比對的樣本)";
+}
+    <script type="text/javascript">
+        var swfUrl = 'http://asset.betis73168.com:81/webcam/PhotoCapture.swf?v=201611011136';
+
+        function takePictureDone() {
+            alertify.success('已完成拍照。');
+        }
+    </script>

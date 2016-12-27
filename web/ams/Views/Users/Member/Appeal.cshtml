@@ -1,0 +1,116 @@
+﻿@using jqx
+@using ams
+@using ams.Data;
+@using ams.Controllers;
+@{
+    popups.dialog modal_dialog = new popups.dialog(this, "_modal1");
+    ViewBag.Title = "Appeal";
+    jqxGrid grid = new jqxGrid<ams.Data.AppealData1>
+    {
+        page = this,
+        scope_id = "grid1",
+        showtoolbar = "#toolbar",
+        source = { id = "ID", url = Url.GetActionUrl<AppealApiController>("list"), },
+        pager = { pageable = true, server_paging = true, pagermode = pagermode.simple, },
+        filter = { filterable = true, server_filtering = true, showfilterrow = true, showfiltermenuitems = false, },
+        sorting = { sortable = true, server_sorting = true, },
+        selectionmode = selectionmode.singlerow,
+        columns = new jqxGrid._column[] {
+            new jqx_column.ActionPopup(this, "_popup1") { ButtonText = "Details", modal = modal_dialog, cellsalign = alignment.center },
+            new jqx_column.CorpID(this) { hidden = true },
+            new jqx_column.CorpName(this) { root = false },
+            new jqx_column.ID2(this, "ID") { hidden = true },
+            new jqx_column.DateTime(this, "RequestTime"),
+            new jqx_column._string(this, "SerialNumber"),
+            new jqx_column.AppealState(this, "State") { width = 80 },
+            new jqx_column.UserID(this) { },
+            new jqx_column.UserName(this) { },
+            new jqx_column.PlatformID(this) { },
+            new jqx_column.PlatformName(this) { },
+            new jqx_column.GameID(this) { },
+            new jqx_column.GameName(this) { },
+            new jqx_column._number(this, "GroupID"),
+        }
+    };
+    widgets.layout_1(this, grid);
+}
+@if (IsDetails)
+{
+}
+else
+{
+    popups.AddControl add = new popups.AddControl(this, grid);
+    @section head {
+        <script type="text/javascript">
+            $(document).on('ng-app-init', function (e, $scope, $compile, $http) {
+                window.$grid1 = $scope['@grid.scope_id'] = $('#_grid1').jqxGridEx($.n(@grid), {
+                    $scope: $scope,
+                    columns: [{
+                        name: '_popup1', get_url: function (data) {
+                            return '@Url.Action("AppealDetails")?' + data.ID;
+                        },
+                    }],
+                    ext: {
+                        grps: {
+                            '': {
+                                OnUpdate: function (rowid, rowdata, data, jqXHR, settings) {
+                                    data.CorpName = $scope.select_corp;
+                                    settings.url = '@(Url.GetActionUrl<AppealApiController>("set"))';
+                                },
+                            },
+                        },
+                    },
+                });
+                var add = new $.EditControl($.n(@add), {
+                    OnCreate: function () {
+                        return {
+                            CorpName: null,
+                            UserName: '',
+                            PlatformName: null,
+                            GameName: null,
+                            GroupID: null,
+                            Text: null,
+                        };
+                    },
+                    OnUpdate: function (data, jqXHR, settings) {
+                        settings.url = '@(Url.GetActionUrl<AppealApiController>("add"))';
+                    },
+                    OnUpdateComplete: function (data, textStatus, jqXHR) {
+                        $grid1.addrow(null, data, 'first');
+                    },
+                });
+            });
+        </script>
+    }
+    @helper tab_add(jqxGrid grid, popups.AddControl add)
+    {
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">General</h3></div>
+                <div class="panel-body">
+                    @add.TextBox("      CorpName    ")
+                    @add.TextInput("    UserName    ")
+                    @add.PlatformList(" PlatformName")
+                    @add.GameList("     GameName    ")
+                    @add.NumberInput("  GroupID     ", min: 1, max: 0xffff)
+                    @add.TextArea("     Text        ")
+                    @add.CommandsAdd()
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title"></h3></div>
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    }
+   <div id="toolbar" class="hidden">
+        @add.button()
+        @toolbars.GridRefresh(grid)
+    </div>
+    <div id="_grid1"></div>
+    @modal_dialog
+    @add.modal(() => tab_add(grid, add))
+}

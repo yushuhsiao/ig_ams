@@ -1,0 +1,45 @@
+﻿<script type="text/javascript">
+    app.controller('test_lang', function ($scope) {
+        $scope.url = '@(Url.GetActionUrl<ams.Controllers.LangApiController>("set"))';
+        $scope.data = {
+            path: '@this.VirtualPath',
+            name: 'aaa',
+            values: { '9': 'en-us', '31748': 'zh-hant', '4': 'zh-hans' }
+        };
+        $scope.test = function () {
+            exec($scope);
+        };
+    });
+</script>
+<section id="@ViewBag.test_lang" ng-controller="test_lang">
+    <h2>{{url}}</h2>
+    <div class="form-horizontal" style="width: 60%">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">@lang["Path"]</label>
+            <div class="col-sm-9"><input type="text" class="form-control" ng-model="data.path"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">@lang["Name"]</label>
+            <div class="col-sm-9"><input type="text" class="form-control" ng-model="data.name"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">@lang["en-us"]</label>
+            <div class="col-sm-9"><input type="text" class="form-control" ng-model="data.values[9]"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">@lang["zh-hant"]</label>
+            <div class="col-sm-9"><input type="text" class="form-control" ng-model="data.values[31748]"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">@lang["zh-hans"]</label>
+            <div class="col-sm-9"><input type="text" class="form-control" ng-model="data.values[4]"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button ng-click="test()" class="btn btn-primary">Test</button>
+                <pre class="text-info">{{data}}</pre>
+                <pre class="text-success">{{result}}</pre>
+            </div>
+        </div>
+    </div>
+</section>
