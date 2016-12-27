@@ -1,0 +1,59 @@
+	
+private function doConnect():void
+{
+	
+	socket = new XMLSocket(host, port);
+	
+	socket.addEventListener(Event.CONNECT, onConnect);
+	socket.addEventListener(IOErrorEvent.IO_ERROR, onError);
+}
+
+private function onConnect(evt:Event):void
+{
+	trace("Connected");
+	status_ = "Connected";
+	//socket.send(status_);
+
+	//socket.send(JSON.stringify({to: status_}));
+	
+// Tell the server we want to send something to the other client
+	//socket.send(JSON.stringify({Server: "Server_1", Client: guid}));
+//socket.send(JSON.stringify({amount: 2000,bet: { 0:0,1:0,2:100,3:0,4:50,5:0,6:0,7:0,8:0,9:0}}));
+
+	socket.removeEventListener(Event.CONNECT, onConnect);
+	socket.removeEventListener(IOErrorEvent.IO_ERROR, onError);
+
+	socket.addEventListener(DataEvent.DATA, onDataReceived);
+	socket.addEventListener(Event.CLOSE, onSocketClose);	
+	
+}
+		
+private function onSocketClose(evt:Event):void
+{
+	trace("Connection Closed");
+	status_ = "Connected Closed";
+	socket.removeEventListener(Event.CLOSE, onSocketClose);
+	socket.removeEventListener(DataEvent.DATA, onDataReceived);
+}
+
+private function onDataReceived(evt:DataEvent):void
+{
+	try {
+		trace( "From Server:", evt.data );
+		data_ = evt.data.toString();
+		Data_ = JSON.parse(data_);
+	}
+	catch (e:Error) {
+			trace('error');
+	}
+	
+}
+		
+private function onError(evt:IOErrorEvent):void
+{
+	trace("Connect failed");
+	status_ = "Connect failed";
+	socket.removeEventListener(Event.CONNECT, onConnect);
+	socket.removeEventListener(IOErrorEvent.IO_ERROR, onError);
+
+}
