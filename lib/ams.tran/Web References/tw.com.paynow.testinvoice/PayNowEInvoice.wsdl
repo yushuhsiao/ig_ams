@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://testinvoice.PayNow.com.tw/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://testinvoice.PayNow.com.tw/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://testinvoice.PayNow.com.tw/">
+      <s:element name="Check_invoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Check_invoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Check_invoiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Check_invoiceOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Check_invoiceOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Check_invoiceOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_InvoiceURL_O">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_InvoiceURL_OResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_InvoiceURL_OResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_InvoiceURL_I">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_InvoiceURL_IResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_InvoiceURL_IResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_Invoice_body">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kMapingCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_Invoice_bodyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sel_Invoice_bodyResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_Invoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_InvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sel_InvoiceResult" type="tns:Obj_Invoice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Obj_Invoice">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Send" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="kMapingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SalesAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FreeTaxSalesAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZeroTaxSalesAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxRate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MainRemark" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrintMark" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kInvoiceEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RandomNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SequenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remark" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierId1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierId2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NPOBAN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Period" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnStr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rtcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rtMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="batchNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnStatus" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GetStatus" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="QRCodeStr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rtmessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="deduct" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EC" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SelectInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectInvoiceResult" type="tns:Obj_Invoice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="period" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvoiceNumberResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getInvoiceTrackList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="year" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="period" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="takeValue" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getInvoiceTrackListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getInvoiceTrackListResult" type="tns:Obj_getInvoiceTrackList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Obj_getInvoiceTrackList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_idr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Period" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Size" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pos_id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rtcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rtmessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trackinfo" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnSize" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadInvoice_Body">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kMapingCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UnitPrice" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Remark" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadInvoice_BodyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadInvoice_BodyResult" type="tns:Obj_Invoice_body" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Obj_Invoice_body">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="orderno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kMapingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SequenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remark" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AllowanceStatus" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnStatus" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mem_pw" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerAdd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerPhoneNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TotalAmount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Send" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarrierType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarrierId1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarrierId2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NPOBAN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadInvoiceResult" type="tns:Obj_Invoice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Invoice_PatchData_Check">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mem_password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csvStr" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Invoice_PatchData_CheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Invoice_PatchData_CheckResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadInvoice_Patch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mem_password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csvStr" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadInvoice_PatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadInvoice_PatchResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObjInvoice" type="tns:Obj_Invoice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelInvoiceResult" type="tns:Obj_Invoice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelInvoice_I">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelInvoice_IResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelInvoice_IResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelAllowance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObjAllowance" type="tns:Obj_Allowance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Obj_Allowance">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AllowanceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllowanceDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_Identifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_PersonInCharge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_TelephoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_FacsimileNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_EmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Buyer_CustomerNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllowanceType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SequenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllowanceSequenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rtcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rtMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="batchNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnStr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CheckIP" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CancelAllowanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelAllowanceResult" type="tns:Obj_Allowance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadAllowance_Body">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AllowanceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OriginalSequenceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OriginalInvoiceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OriginalDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OriginalInvoiceDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UnitPrice" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadAllowance_BodyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadAllowance_BodyResult" type="tns:Obj_Allowance_body" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Obj_Allowance_body">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AllowanceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalInvoiceDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalInvoiceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalSequenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitPrice" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllowanceSequenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnStatus" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadAllowance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AllowanceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="invoiceNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mem_pw" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerAdd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerTel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerPhoneNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuyerPersonInCharge" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadAllowanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadAllowanceResult" type="tns:Obj_Allowance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllowanceNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllowanceNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllowanceNumberResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_AllowanceData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_AllowanceDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sel_AllowanceDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_Allowance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AllowanceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_AllowanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sel_AllowanceResult" type="tns:Obj_Allowance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_AllowanceBody_SequenceNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AllowanceNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sel_AllowanceBody_SequenceNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sel_AllowanceBody_SequenceNumberResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQRCodeKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQRCodeKeyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetQRCodeKeyResult" type="tns:Obj_getQRCodeCipherKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Obj_getQRCodeCipherKey">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_idr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rtcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rtmessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CipherKey" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetQRCodeStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQRCodeStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetQRCodeStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendInvoiceEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mem_cid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InvoiceNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendInvoiceEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendInvoiceEmailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="Check_invoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:Check_invoice" />
+  </wsdl:message>
+  <wsdl:message name="Check_invoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:Check_invoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="Check_invoiceOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:Check_invoiceOrder" />
+  </wsdl:message>
+  <wsdl:message name="Check_invoiceOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:Check_invoiceOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_InvoiceURL_OSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_InvoiceURL_O" />
+  </wsdl:message>
+  <wsdl:message name="Get_InvoiceURL_OSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_InvoiceURL_OResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_InvoiceURL_ISoapIn">
+    <wsdl:part name="parameters" element="tns:Get_InvoiceURL_I" />
+  </wsdl:message>
+  <wsdl:message name="Get_InvoiceURL_ISoapOut">
+    <wsdl:part name="parameters" element="tns:Get_InvoiceURL_IResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sel_Invoice_bodySoapIn">
+    <wsdl:part name="parameters" element="tns:Sel_Invoice_body" />
+  </wsdl:message>
+  <wsdl:message name="Sel_Invoice_bodySoapOut">
+    <wsdl:part name="parameters" element="tns:Sel_Invoice_bodyResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sel_InvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:Sel_Invoice" />
+  </wsdl:message>
+  <wsdl:message name="Sel_InvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:Sel_InvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectInvoice" />
+  </wsdl:message>
+  <wsdl:message name="SelectInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvoiceNumber" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvoiceNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="getInvoiceTrackListSoapIn">
+    <wsdl:part name="parameters" element="tns:getInvoiceTrackList" />
+  </wsdl:message>
+  <wsdl:message name="getInvoiceTrackListSoapOut">
+    <wsdl:part name="parameters" element="tns:getInvoiceTrackListResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvoice_BodySoapIn">
+    <wsdl:part name="parameters" element="tns:UploadInvoice_Body" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvoice_BodySoapOut">
+    <wsdl:part name="parameters" element="tns:UploadInvoice_BodyResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadInvoice" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="Invoice_PatchData_CheckSoapIn">
+    <wsdl:part name="parameters" element="tns:Invoice_PatchData_Check" />
+  </wsdl:message>
+  <wsdl:message name="Invoice_PatchData_CheckSoapOut">
+    <wsdl:part name="parameters" element="tns:Invoice_PatchData_CheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvoice_PatchSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadInvoice_Patch" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvoice_PatchSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadInvoice_PatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelInvoice" />
+  </wsdl:message>
+  <wsdl:message name="CancelInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelInvoice_ISoapIn">
+    <wsdl:part name="parameters" element="tns:CancelInvoice_I" />
+  </wsdl:message>
+  <wsdl:message name="CancelInvoice_ISoapOut">
+    <wsdl:part name="parameters" element="tns:CancelInvoice_IResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelAllowanceSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelAllowance" />
+  </wsdl:message>
+  <wsdl:message name="CancelAllowanceSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelAllowanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadAllowance_BodySoapIn">
+    <wsdl:part name="parameters" element="tns:UploadAllowance_Body" />
+  </wsdl:message>
+  <wsdl:message name="UploadAllowance_BodySoapOut">
+    <wsdl:part name="parameters" element="tns:UploadAllowance_BodyResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadAllowanceSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadAllowance" />
+  </wsdl:message>
+  <wsdl:message name="UploadAllowanceSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadAllowanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllowanceNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllowanceNumber" />
+  </wsdl:message>
+  <wsdl:message name="GetAllowanceNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllowanceNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sel_AllowanceDataSoapIn">
+    <wsdl:part name="parameters" element="tns:Sel_AllowanceData" />
+  </wsdl:message>
+  <wsdl:message name="Sel_AllowanceDataSoapOut">
+    <wsdl:part name="parameters" element="tns:Sel_AllowanceDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sel_AllowanceSoapIn">
+    <wsdl:part name="parameters" element="tns:Sel_Allowance" />
+  </wsdl:message>
+  <wsdl:message name="Sel_AllowanceSoapOut">
+    <wsdl:part name="parameters" element="tns:Sel_AllowanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sel_AllowanceBody_SequenceNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:Sel_AllowanceBody_SequenceNumber" />
+  </wsdl:message>
+  <wsdl:message name="Sel_AllowanceBody_SequenceNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:Sel_AllowanceBody_SequenceNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetQRCodeKeySoapIn">
+    <wsdl:part name="parameters" element="tns:GetQRCodeKey" />
+  </wsdl:message>
+  <wsdl:message name="GetQRCodeKeySoapOut">
+    <wsdl:part name="parameters" element="tns:GetQRCodeKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetQRCodeStrSoapIn">
+    <wsdl:part name="parameters" element="tns:GetQRCodeStr" />
+  </wsdl:message>
+  <wsdl:message name="GetQRCodeStrSoapOut">
+    <wsdl:part name="parameters" element="tns:GetQRCodeStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendInvoiceEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:SendInvoiceEmail" />
+  </wsdl:message>
+  <wsdl:message name="SendInvoiceEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:SendInvoiceEmailResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PayNowEInvoiceSoap">
+    <wsdl:operation name="Check_invoice">
+      <wsdl:input message="tns:Check_invoiceSoapIn" />
+      <wsdl:output message="tns:Check_invoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Check_invoiceOrder">
+      <wsdl:input message="tns:Check_invoiceOrderSoapIn" />
+      <wsdl:output message="tns:Check_invoiceOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_InvoiceURL_O">
+      <wsdl:input message="tns:Get_InvoiceURL_OSoapIn" />
+      <wsdl:output message="tns:Get_InvoiceURL_OSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_InvoiceURL_I">
+      <wsdl:input message="tns:Get_InvoiceURL_ISoapIn" />
+      <wsdl:output message="tns:Get_InvoiceURL_ISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Invoice_body">
+      <wsdl:input message="tns:Sel_Invoice_bodySoapIn" />
+      <wsdl:output message="tns:Sel_Invoice_bodySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Invoice">
+      <wsdl:input message="tns:Sel_InvoiceSoapIn" />
+      <wsdl:output message="tns:Sel_InvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectInvoice">
+      <wsdl:input message="tns:SelectInvoiceSoapIn" />
+      <wsdl:output message="tns:SelectInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceNumber">
+      <wsdl:input message="tns:GetInvoiceNumberSoapIn" />
+      <wsdl:output message="tns:GetInvoiceNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getInvoiceTrackList">
+      <wsdl:input message="tns:getInvoiceTrackListSoapIn" />
+      <wsdl:output message="tns:getInvoiceTrackListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice_Body">
+      <wsdl:input message="tns:UploadInvoice_BodySoapIn" />
+      <wsdl:output message="tns:UploadInvoice_BodySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice">
+      <wsdl:input message="tns:UploadInvoiceSoapIn" />
+      <wsdl:output message="tns:UploadInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Invoice_PatchData_Check">
+      <wsdl:input message="tns:Invoice_PatchData_CheckSoapIn" />
+      <wsdl:output message="tns:Invoice_PatchData_CheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice_Patch">
+      <wsdl:input message="tns:UploadInvoice_PatchSoapIn" />
+      <wsdl:output message="tns:UploadInvoice_PatchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelInvoice">
+      <wsdl:input message="tns:CancelInvoiceSoapIn" />
+      <wsdl:output message="tns:CancelInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelInvoice_I">
+      <wsdl:input message="tns:CancelInvoice_ISoapIn" />
+      <wsdl:output message="tns:CancelInvoice_ISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelAllowance">
+      <wsdl:input message="tns:CancelAllowanceSoapIn" />
+      <wsdl:output message="tns:CancelAllowanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadAllowance_Body">
+      <wsdl:input message="tns:UploadAllowance_BodySoapIn" />
+      <wsdl:output message="tns:UploadAllowance_BodySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadAllowance">
+      <wsdl:input message="tns:UploadAllowanceSoapIn" />
+      <wsdl:output message="tns:UploadAllowanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowanceNumber">
+      <wsdl:input message="tns:GetAllowanceNumberSoapIn" />
+      <wsdl:output message="tns:GetAllowanceNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sel_AllowanceData">
+      <wsdl:input message="tns:Sel_AllowanceDataSoapIn" />
+      <wsdl:output message="tns:Sel_AllowanceDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Allowance">
+      <wsdl:input message="tns:Sel_AllowanceSoapIn" />
+      <wsdl:output message="tns:Sel_AllowanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Sel_AllowanceBody_SequenceNumber">
+      <wsdl:input message="tns:Sel_AllowanceBody_SequenceNumberSoapIn" />
+      <wsdl:output message="tns:Sel_AllowanceBody_SequenceNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQRCodeKey">
+      <wsdl:input message="tns:GetQRCodeKeySoapIn" />
+      <wsdl:output message="tns:GetQRCodeKeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQRCodeStr">
+      <wsdl:input message="tns:GetQRCodeStrSoapIn" />
+      <wsdl:output message="tns:GetQRCodeStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendInvoiceEmail">
+      <wsdl:input message="tns:SendInvoiceEmailSoapIn" />
+      <wsdl:output message="tns:SendInvoiceEmailSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PayNowEInvoiceSoap" type="tns:PayNowEInvoiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Check_invoice">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Check_invoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Check_invoiceOrder">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Check_invoiceOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_InvoiceURL_O">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Get_InvoiceURL_O" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_InvoiceURL_I">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Get_InvoiceURL_I" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Invoice_body">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_Invoice_body" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Invoice">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_Invoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectInvoice">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/SelectInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceNumber">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/GetInvoiceNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInvoiceTrackList">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/getInvoiceTrackList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice_Body">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/UploadInvoice_Body" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/UploadInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Invoice_PatchData_Check">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Invoice_PatchData_Check" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice_Patch">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/UploadInvoice_Patch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelInvoice">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/CancelInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelInvoice_I">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/CancelInvoice_I" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelAllowance">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/CancelAllowance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAllowance_Body">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/UploadAllowance_Body" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAllowance">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/UploadAllowance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowanceNumber">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/GetAllowanceNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_AllowanceData">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_AllowanceData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Allowance">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_Allowance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_AllowanceBody_SequenceNumber">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_AllowanceBody_SequenceNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQRCodeKey">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/GetQRCodeKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQRCodeStr">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/GetQRCodeStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendInvoiceEmail">
+      <soap:operation soapAction="http://testinvoice.PayNow.com.tw/SendInvoiceEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PayNowEInvoiceSoap12" type="tns:PayNowEInvoiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Check_invoice">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Check_invoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Check_invoiceOrder">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Check_invoiceOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_InvoiceURL_O">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Get_InvoiceURL_O" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_InvoiceURL_I">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Get_InvoiceURL_I" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Invoice_body">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_Invoice_body" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Invoice">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_Invoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectInvoice">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/SelectInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceNumber">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/GetInvoiceNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInvoiceTrackList">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/getInvoiceTrackList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice_Body">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/UploadInvoice_Body" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/UploadInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Invoice_PatchData_Check">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Invoice_PatchData_Check" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvoice_Patch">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/UploadInvoice_Patch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelInvoice">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/CancelInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelInvoice_I">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/CancelInvoice_I" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelAllowance">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/CancelAllowance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAllowance_Body">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/UploadAllowance_Body" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadAllowance">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/UploadAllowance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowanceNumber">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/GetAllowanceNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_AllowanceData">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_AllowanceData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_Allowance">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_Allowance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sel_AllowanceBody_SequenceNumber">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/Sel_AllowanceBody_SequenceNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQRCodeKey">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/GetQRCodeKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQRCodeStr">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/GetQRCodeStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendInvoiceEmail">
+      <soap12:operation soapAction="http://testinvoice.PayNow.com.tw/SendInvoiceEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PayNowEInvoice">
+    <wsdl:port name="PayNowEInvoiceSoap" binding="tns:PayNowEInvoiceSoap">
+      <soap:address location="http://testinvoice.paynow.com.tw/PayNowEInvoice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PayNowEInvoiceSoap12" binding="tns:PayNowEInvoiceSoap12">
+      <soap12:address location="http://testinvoice.paynow.com.tw/PayNowEInvoice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
