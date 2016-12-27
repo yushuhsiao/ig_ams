@@ -1,0 +1,5 @@
+﻿接入参数：
+
+pocde=B45
+gocde=B45300
+token encrypt key=b45ws#edr@!

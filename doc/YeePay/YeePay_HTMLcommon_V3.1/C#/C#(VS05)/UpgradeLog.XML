@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="YeePay_HTMLcommon (2)">
+</Property><Property Name="方案檔" Value="C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\YeePay_HTMLcommon (2).sln">
+</Property><Property Name="Date" Value="2014年5月16日">
+</Property><Property Name="Time" Value="下午 16:26">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="YeePay_HTMLcommon (2).sln" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\YeePay_HTMLcommon (2).sln">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\com.yeepay.utils.csproj" Description="專案檔已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.utils\com.yeepay.utils\com.yeepay.utils.csproj">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\Digest.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.utils\com.yeepay.utils\Digest.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\FormatQueryString.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.utils\com.yeepay.utils\FormatQueryString.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\HmacMD5.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.utils\com.yeepay.utils\HmacMD5.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\HttpUtils.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.utils\com.yeepay.utils\HttpUtils.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\Properties\AssemblyInfo.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.utils\com.yeepay.utils\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\com.yeepay.utils.csproj" Description="專案轉換成功">
+</Event><Event ErrorLevel="3" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\com.yeepay.utils.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\com.yeepay.icc.csproj" Description="專案檔已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.icc\com.yeepay.icc\com.yeepay.icc.csproj">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\Buy.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.icc\com.yeepay.icc\Buy.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\BuyCallbackResult.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.icc\com.yeepay.icc\BuyCallbackResult.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\BuyQueryOrdDetailResult.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.icc\com.yeepay.icc\BuyQueryOrdDetailResult.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\ICCBuyRefundOrdResult.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.icc\com.yeepay.icc\ICCBuyRefundOrdResult.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\Properties\AssemblyInfo.cs" Description="檔案已成功備份為 C:\tengfa\documents\YeePay\YeePay_HTMLcommon_V3.1\C#\C#(VS05)\Backup\com.yeepay.icc\com.yeepay.icc\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\com.yeepay.icc.csproj" Description="專案轉換成功">
+</Event><Event ErrorLevel="3" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\com.yeepay.icc.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="YeePay_HTMLcommon (2).sln" Description="方案轉換成功">
+</Event><Event ErrorLevel="3" Project="" Source="YeePay_HTMLcommon (2).sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="com.yeepay.utils" Source="com.yeepay.utils\com.yeepay.utils\com.yeepay.utils.csproj" Description="掃描完成: 專案檔不需要升級。">
+</Event><Event ErrorLevel="0" Project="com.yeepay.icc" Source="com.yeepay.icc\com.yeepay.icc\com.yeepay.icc.csproj" Description="掃描完成: 專案檔不需要升級。">
+</Event></UpgradeLog>
