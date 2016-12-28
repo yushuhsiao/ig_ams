@@ -6,5 +6,3 @@
     CONSTRAINT [PK_MemberPlatform] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Account] ASC)
 );
 
-
-

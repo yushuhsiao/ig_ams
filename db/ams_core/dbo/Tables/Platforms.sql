@@ -13,15 +13,3 @@
     CONSTRAINT [IX_Platforms_uid] UNIQUE NONCLUSTERED ([ID] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-

@@ -20,15 +20,3 @@
     CONSTRAINT [IX_Corps_uid] UNIQUE NONCLUSTERED ([uid] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-

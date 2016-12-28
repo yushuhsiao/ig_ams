@@ -18,9 +18,3 @@
     CONSTRAINT [PK_GeniusBull_EprobTableLimit] PRIMARY KEY CLUSTERED ([GameId] ASC, [Symbol] ASC)
 );
 
-
-
-
-
-
-

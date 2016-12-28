@@ -6,5 +6,3 @@
     CONSTRAINT [PK_Menu] PRIMARY KEY CLUSTERED ([_Path] ASC)
 );
 
-
-

@@ -63,35 +63,30 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
-    <Folder Include="dbo\Views\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="dbo\Tables\Lang.sql" />
-    <Build Include="dbo\Tables\LoginUrl.sql" />
-    <Build Include="dbo\Tables\Menu.sql" />
-    <Build Include="dbo\Tables\Corps.sql" />
-    <Build Include="dbo\Tables\TableVer.sql" />
-    <Build Include="dbo\Tables\Config.sql" />
-    <Build Include="dbo\Tables\Platforms.sql" />
-    <Build Include="dbo\Tables\Games.sql" />
-    <Build Include="dbo\Tables\CurrencyHist.sql" />
-    <Build Include="dbo\Tables\Currency.sql" />
-    <Build Include="dbo\Tables\AclDefine.sql" />
-    <Build Include="dbo\Tables\UserID.sql" />
-    <Build Include="dbo\Stored Procedures\alloc_UserID.sql" />
-    <Build Include="dbo\Stored Procedures\alloc_UserID2.sql" />
-    <Build Include="dbo\Tables\MemberPlatform.sql" />
-    <Build Include="dbo\Views\TwMahjongLog.sql" />
-    <Build Include="dbo\Views\TexasLog.sql" />
-    <Build Include="dbo\Views\JackpotLog.sql" />
-    <Build Include="dbo\Views\DouDizhuLog.sql" />
-    <Build Include="dbo\Tables\PlatformGames.sql" />
-    <Build Include="dbo\Tables\Enums.sql" />
-    <Build Include="dbo\Tables\LoginLog.sql" />
-    <Build Include="dbo\Tables\GeniusBull_EprobTableLimit.sql" />
-    <Build Include="dbo\Tables\CorpPlatformGames.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ams_core.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\UserID.sql" />
+    <Build Include="dbo\Tables\TableVer.sql" />
+    <Build Include="dbo\Tables\Platforms.sql" />
+    <Build Include="dbo\Tables\PlatformGames.sql" />
+    <Build Include="dbo\Tables\Menu.sql" />
+    <Build Include="dbo\Tables\MemberPlatform.sql" />
+    <Build Include="dbo\Tables\LoginUrl.sql" />
+    <Build Include="dbo\Tables\LoginLog.sql" />
+    <Build Include="dbo\Tables\Lang.sql" />
+    <Build Include="dbo\Tables\GeniusBull_EprobTableLimit.sql" />
+    <Build Include="dbo\Tables\Games.sql" />
+    <Build Include="dbo\Tables\Enums.sql" />
+    <Build Include="dbo\Tables\CurrencyHist.sql" />
+    <Build Include="dbo\Tables\Currency.sql" />
+    <Build Include="dbo\Tables\Corps.sql" />
+    <Build Include="dbo\Tables\CorpPlatformGames.sql" />
+    <Build Include="dbo\Tables\Config.sql" />
+    <Build Include="dbo\Tables\AclDefine.sql" />
+    <Build Include="dbo\Stored Procedures\alloc_UserID2.sql" />
+    <Build Include="dbo\Stored Procedures\alloc_UserID.sql" />
   </ItemGroup>
 </Project>

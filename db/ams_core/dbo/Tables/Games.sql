@@ -11,21 +11,3 @@
     CONSTRAINT [IX_Games_Name] UNIQUE NONCLUSTERED ([Name] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

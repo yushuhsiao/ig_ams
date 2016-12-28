@@ -8,5 +8,3 @@
     CONSTRAINT [PK_Currency] PRIMARY KEY CLUSTERED ([A] ASC, [B] ASC)
 );
 
-
-

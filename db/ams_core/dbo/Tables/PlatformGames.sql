@@ -12,7 +12,3 @@
     CONSTRAINT [IX_PlatformGames] UNIQUE NONCLUSTERED ([PlatformID] ASC, [GameID] ASC, [OriginalID] ASC)
 );
 
-
-
-
-

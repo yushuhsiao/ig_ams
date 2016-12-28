@@ -11,7 +11,3 @@
     CONSTRAINT [IX_LoginUrl] UNIQUE NONCLUSTERED ([Url] ASC)
 );
 
-
-
-
-

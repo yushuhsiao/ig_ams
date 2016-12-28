@@ -8,5 +8,3 @@
     CONSTRAINT [IX_UserID] UNIQUE NONCLUSTERED ([uid] ASC)
 );
 
-
-
