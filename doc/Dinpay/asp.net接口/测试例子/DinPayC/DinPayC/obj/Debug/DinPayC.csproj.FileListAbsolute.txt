@@ -1,0 +1,5 @@
+D:\Projects\DinPay\DinPayC\DinPayC\bin\DinPayC.dll
+D:\Projects\DinPay\DinPayC\DinPayC\bin\DinPayC.pdb
+D:\Projects\DinPay\DinPayC\DinPayC\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\DinPay\DinPayC\DinPayC\obj\Debug\DinPayC.dll
+D:\Projects\DinPay\DinPayC\DinPayC\obj\Debug\DinPayC.pdb
