@@ -38,8 +38,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IISExpress", "IISExpress", 
 		..\..\Users\Administrator\Documents\IISExpress\config\redirection.config = ..\..\Users\Administrator\Documents\IISExpress\config\redirection.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{3D13D858-F686-4C5B-8766-AB61242A572A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api_test_client", "util\api_test_client\api_test_client.csproj", "{7DA14549-30D4-42A3-8A83-E7C1D12B7DBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams_api_client", "lib\api_client\ams_api_client.csproj", "{C3DD615B-C0DA-4461-ADA2-73D89BC658B8}"
@@ -105,8 +103,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecogServiceApi", "lib\RecogServiceApi\RecogServiceApi.csproj", "{F491F4BB-91B8-46E4-A3F7-13B5F4D3B77D}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tools", "lib\Tools\Tools.xproj", "{C8DE4077-3362-496C-9359-83E7250F3EB0}"
-EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ams_core", "db\ams_core\ams_core.sqlproj", "{8B823FBD-C051-49EB-B3B9-C74AECA78199}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -324,18 +320,6 @@ Global
 		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Verify|Any CPU.Build.0 = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.CodeAnalysis|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.CodeAnalysis|Any CPU.Build.0 = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.CodeAnalysis|Any CPU.Deploy.0 = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Verify|Any CPU.Build.0 = Debug|Any CPU
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199}.Verify|Any CPU.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -370,6 +354,5 @@ Global
 		{61D13FBD-3CB2-4542-AB25-AAB7C30E013D} = {02446961-CB59-47E7-949A-7A8D8E51B29D}
 		{F491F4BB-91B8-46E4-A3F7-13B5F4D3B77D} = {9DDF7172-FB24-4D86-A688-10B7ADA69D3F}
 		{C8DE4077-3362-496C-9359-83E7250F3EB0} = {785E35C2-0866-4785-A608-6B4D9AE80EE6}
-		{8B823FBD-C051-49EB-B3B9-C74AECA78199} = {3D13D858-F686-4C5B-8766-AB61242A572A}
 	EndGlobalSection
 EndGlobal
