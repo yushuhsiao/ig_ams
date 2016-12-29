@@ -18,17 +18,3 @@
     CONSTRAINT [IX_Members_ACNT] UNIQUE NONCLUSTERED ([CorpID] ASC, [UserName] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-

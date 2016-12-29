@@ -14,11 +14,3 @@
     CONSTRAINT [PK_GdMahjongGame] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

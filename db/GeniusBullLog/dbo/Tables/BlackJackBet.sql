@@ -20,11 +20,3 @@
     CONSTRAINT [PK_BlackJackBet] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

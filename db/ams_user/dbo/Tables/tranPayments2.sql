@@ -31,5 +31,3 @@
     CONSTRAINT [PK_tranPayments2] PRIMARY KEY CLUSTERED ([TranID] ASC)
 );
 
-
-

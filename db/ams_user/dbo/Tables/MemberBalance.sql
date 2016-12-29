@@ -6,5 +6,3 @@
     CONSTRAINT [PK_MemberBalance] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
-
-

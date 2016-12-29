@@ -21,16 +21,6 @@
 );
 
 
-
-
-
-
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_TexasBet]
     ON [dbo].[TexasBet]([PlatformID] ASC, [_flag] ASC, [TexasGameId] ASC);

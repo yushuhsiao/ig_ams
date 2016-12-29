@@ -10,9 +10,6 @@ FROM              dbo.SlotGameLog AS a LEFT OUTER JOIN
                             dbo.JackpotUpdateLog AS c ON a._jp_MAJOR = c.Id LEFT OUTER JOIN
                             dbo.JackpotUpdateLog AS d ON a._jp_MINOR = d.Id LEFT OUTER JOIN
                             dbo.JackpotUpdateLog AS e ON a._jp_MINI = e.Id
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotGameLog_JP';
-
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
@@ -163,4 +160,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotGameLog_JP';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotGameLog_JP';
 

@@ -8,5 +8,3 @@
     CONSTRAINT [PK_MemberPlatform_IG03] PRIMARY KEY CLUSTERED ([MemberID] ASC, [PlatformID] ASC, [n] ASC)
 );
 
-
-

@@ -10,8 +10,6 @@
 );
 
 
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_Pictures]
     ON [dbo].[Pictures]([ID] ASC, [CorpID] ASC, [CreateTime] ASC, [ImageType] ASC, [MemberID] ASC, [Success] ASC, [TakePictureKey] ASC);

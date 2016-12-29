@@ -19,16 +19,6 @@
 );
 
 
-
-
-
-
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_DouDizhuBet]
     ON [dbo].[DouDizhuBet]([PlatformID] ASC, [_flag] ASC, [DouDizhuGameId] ASC);

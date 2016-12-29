@@ -31,5 +31,3 @@
     CONSTRAINT [PK_TranLog] PRIMARY KEY CLUSTERED ([sn] ASC)
 );
 
-
-

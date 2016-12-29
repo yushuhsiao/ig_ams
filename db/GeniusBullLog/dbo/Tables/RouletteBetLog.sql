@@ -21,11 +21,3 @@
     CONSTRAINT [PK_RouletteBetLog] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

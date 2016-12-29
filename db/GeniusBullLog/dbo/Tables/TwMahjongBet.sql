@@ -21,16 +21,6 @@
 );
 
 
-
-
-
-
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_TwMahjongBet]
     ON [dbo].[TwMahjongBet]([PlatformID] ASC, [_flag] ASC, [MahjongGameId] ASC);

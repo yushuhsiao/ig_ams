@@ -21,17 +21,3 @@
     CONSTRAINT [IX_Agents_ACNT] UNIQUE NONCLUSTERED ([CorpID] ASC, [UserName] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-

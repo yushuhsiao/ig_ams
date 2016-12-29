@@ -24,11 +24,3 @@
     CONSTRAINT [PK_BaccaratGame] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

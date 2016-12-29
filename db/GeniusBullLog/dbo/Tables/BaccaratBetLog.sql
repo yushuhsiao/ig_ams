@@ -34,11 +34,3 @@
     CONSTRAINT [PK_BaccaratBetLog] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

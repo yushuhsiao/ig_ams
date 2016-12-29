@@ -14,9 +14,6 @@ FROM              (SELECT          PlatformID, 1 AS _Id, Id, _flag, _sync1, _syn
                                                         Deal_1, Deal_2, BackupCards, WinType, JPType, BetAmount, WinAmount, Balance, InsertDate, 
                                                         SyncFlag, _jp, _jp_GRAND, _jp_MAJOR, _jp_MINOR, _jp_MINI
                             FROM              dbo.FivePK) AS a
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotGameLog';
-
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
@@ -127,4 +124,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotGameLog';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotGameLog';
 

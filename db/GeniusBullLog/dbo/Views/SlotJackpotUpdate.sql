@@ -13,9 +13,6 @@ FROM              (SELECT          PlayerId, GameId, SerialNumber, COUNT(*) AS c
                             a.GameId = d.GameId AND d.JackpotType = 'MINOR' LEFT OUTER JOIN
                             dbo.JackpotUpdateLog AS e ON a.SerialNumber = e.SerialNumber AND a.PlayerId = e.PlayerId AND 
                             a.GameId = e.GameId AND e.JackpotType = 'MINI'
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotJackpotUpdate';
-
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
@@ -166,4 +163,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotJackpotUpdate';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'SlotJackpotUpdate';
 

@@ -104,27 +104,3 @@
     CONSTRAINT [IX_GameLog] UNIQUE NONCLUSTERED ([PlatformID] ASC, [GameID] ASC, [GroupID] ASC, [GroupBetID] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

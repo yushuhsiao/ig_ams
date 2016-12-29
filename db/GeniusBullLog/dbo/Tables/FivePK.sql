@@ -29,12 +29,6 @@
 );
 
 
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_FivePK]
     ON [dbo].[FivePK]([PlatformID] ASC, [_flag] ASC, [SerialNumber] ASC);

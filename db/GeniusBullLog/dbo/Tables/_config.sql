@@ -9,11 +9,3 @@
     CONSTRAINT [PK__config] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [TableName] ASC)
 );
 
-
-
-
-
-
-
-
-

@@ -6,7 +6,3 @@
     CONSTRAINT [PK_AgentBalance] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
-
-
-
-

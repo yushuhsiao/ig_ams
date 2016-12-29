@@ -17,15 +17,3 @@
     CONSTRAINT [IX_Admins_ACNT] UNIQUE NONCLUSTERED ([CorpID] ASC, [UserName] ASC)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-

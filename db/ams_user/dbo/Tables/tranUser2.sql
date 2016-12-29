@@ -27,7 +27,3 @@
     CONSTRAINT [PK_tranUser2] PRIMARY KEY CLUSTERED ([TranID] ASC)
 );
 
-
-
-
-

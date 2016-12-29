@@ -20,11 +20,3 @@
     CONSTRAINT [PK_SicboGame] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

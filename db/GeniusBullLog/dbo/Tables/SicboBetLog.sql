@@ -21,11 +21,3 @@
     CONSTRAINT [PK_SicboBetLog] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
 
-
-
-
-
-
-
-
-

@@ -15,7 +15,3 @@
     CONSTRAINT [PK_Appeal1] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
-
-
-
-

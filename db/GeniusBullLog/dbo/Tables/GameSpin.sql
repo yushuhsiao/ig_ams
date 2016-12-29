@@ -34,14 +34,6 @@
 );
 
 
-
-
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_GameSpin]
     ON [dbo].[GameSpin]([PlatformID] ASC, [_flag] ASC, [SerialNumber] ASC);

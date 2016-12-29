@@ -6,5 +6,3 @@
     CONSTRAINT [IX_TranID3] UNIQUE NONCLUSTERED ([ID] ASC)
 );
 
-
-

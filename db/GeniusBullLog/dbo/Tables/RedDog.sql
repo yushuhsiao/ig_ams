@@ -23,12 +23,6 @@
 );
 
 
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_RedDog]
     ON [dbo].[RedDog]([PlatformID] ASC, [_flag] ASC, [SerialNumber] ASC);

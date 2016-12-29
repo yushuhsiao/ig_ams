@@ -7,7 +7,3 @@
     CONSTRAINT [PK_Appeal2] PRIMARY KEY CLUSTERED ([sn] ASC)
 );
 
-
-
-
-

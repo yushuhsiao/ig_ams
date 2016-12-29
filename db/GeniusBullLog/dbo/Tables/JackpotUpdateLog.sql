@@ -15,8 +15,6 @@
 );
 
 
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_JackpotUpdateLog]
     ON [dbo].[JackpotUpdateLog]([PlatformID] ASC, [_flag] ASC, [SerialNumber] ASC);

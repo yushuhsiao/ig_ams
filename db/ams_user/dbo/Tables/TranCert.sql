@@ -10,5 +10,3 @@
     CONSTRAINT [PK_TranCert] PRIMARY KEY CLUSTERED ([CertID] ASC)
 );
 
-
-

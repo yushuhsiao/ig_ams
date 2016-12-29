@@ -21,5 +21,3 @@
     CONSTRAINT [PK_tranCorp2] PRIMARY KEY CLUSTERED ([TranID] ASC)
 );
 
-
-

@@ -5,9 +5,6 @@ SELECT          a.ID, a.CorpID, a.MemberID, a.ImageType, a.TakePictureKey, a.Suc
 FROM              dbo.Pictures AS a LEFT OUTER JOIN
                             dbo.Pictures1 AS b ON a.ID = b.ID LEFT OUTER JOIN
                             dbo.Pictures2 AS c ON a.ID = c.ID
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'PicturesX';
-
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
@@ -138,4 +135,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'PicturesX';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'PicturesX';
 

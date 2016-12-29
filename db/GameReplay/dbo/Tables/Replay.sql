@@ -6,5 +6,3 @@
     CONSTRAINT [PK_Replay] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [GameID] ASC, [GroupID] ASC)
 );
 
-
-

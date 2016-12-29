@@ -7,9 +7,6 @@ SELECT          a.PlatformID, a.Id AS Id_JP, a._flag, a._sync1, a._sync2, a.Play
                             b.GameFinished, b.Deal_1, b.Deal_2, b.BackupCards, b.WinType, b.InsertDate, a.InsertDate AS JP_InsertDate
 FROM              dbo.JackpotLog AS a LEFT OUTER JOIN
                             dbo.GameLog_Slot AS b ON a.SerialNumber = b.SerialNumber AND a.JackpotType = b.JPType
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'JackpotLogX';
-
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
@@ -130,4 +127,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'JackpotLogX';
+
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'VIEW', @level1name = N'JackpotLogX';
 

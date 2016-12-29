@@ -18,14 +18,6 @@
 );
 
 
-
-
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_TwMahjongGame]
     ON [dbo].[TwMahjongGame]([PlatformID] ASC, [_flag] ASC, [SerialNumber] ASC);

@@ -23,12 +23,6 @@
 );
 
 
-
-
-
-
-
-
 GO
 CREATE NONCLUSTERED INDEX [IX_Oasis]
     ON [dbo].[Oasis]([PlatformID] ASC, [_flag] ASC, [SerialNumber] ASC);
