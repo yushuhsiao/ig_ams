@@ -1,19 +1,17 @@
-﻿#if NET40
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
+using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
 namespace System.Security.Cryptography
 {
-    using Threading;
-    using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
-
     [_DebuggerStepThrough]
     public unsafe static class RandomValue
     {
-        public static readonly RNGCryptoServiceProvider RNG = new RNGCryptoServiceProvider();
+        public static readonly RandomNumberGenerator RNG = RandomNumberGenerator.Create();
 
         public static byte[] GetBytes(this RandomNumberGenerator rand, int size)
         {
@@ -148,62 +146,17 @@ namespace System.Security.Cryptography
             return s.ToString();
         }
 
-        public static byte[] MD5(this byte[] input) { using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider()) return md5.ComputeHash(input); }
-        public static byte[] SHA1(this byte[] input) { using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider()) return sha1.ComputeHash(input); }
+        public static byte[] MD5(this byte[] input)
+        {
+            using (var md5 = Cryptography.MD5.Create()) return md5.ComputeHash(input);
+            //using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider()) return md5.ComputeHash(input);
+        }
+        public static byte[] SHA1(this byte[] input)
+        {
+            using (var sha1 = Cryptography.SHA1.Create()) return sha1.ComputeHash(input);
+            //using (SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider()) return sha1.ComputeHash(input);
+        }
 
-
-        //public static string RSAEncrypt(this string input, string rsa_key)
-        //{
-        //    return RSAEncrypt(input, rsa_key, null);
-        //}
-        //public static string RSAEncrypt(this string input, string rsa_key, Encoding encoding)
-        //{
-        //    return Convert.ToBase64String(RSAEncrypt((encoding ?? Encoding.UTF8).GetBytes(input), rsa_key));
-        //}
-        //public static byte[] RSAEncrypt(this byte[] input, string rsa_key)
-        //{
-        //    using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
-        //    {
-        //        if (rsa_key != null)
-        //            rsa.FromXmlString(rsa_key);
-        //        return rsa.RSAEncrypt(input);
-        //    }
-        //}
-
-        //public static string RSADecrypt(this string input, string rsa_key, byte[] cspblob, RSAParameters? parameter)
-        //{
-        //    return RSADecrypt(input, rsa_key, cspblob, parameter, null);
-        //}
-        //public static string RSADecrypt(this string input, string rsa_key, byte[] cspblob, RSAParameters? parameter, Encoding encoding)
-        //{
-        //    return (encoding ?? Encoding.UTF8).GetString(RSADecrypt(Convert.FromBase64String(input), rsa_key, cspblob, parameter));
-        //}
-        //public static byte[] RSADecrypt(this byte[] input, string rsa_key, byte[] cspblob, RSAParameters? parameter)
-        //{
-        //    using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
-        //    {
-        //        if (rsa_key != null)
-        //            rsa.FromXmlString(rsa_key);
-        //        else if (cspblob != null)
-        //            rsa.ImportCspBlob(cspblob);
-        //        else if (parameter.HasValue)
-        //            rsa.ImportParameters(parameter.Value);
-        //        int keySize = rsa.KeySize / 8;
-        //        for (int offset = 0; offset < input.Length;)
-        //        {
-        //            int tmp_size = input.Length - offset;
-        //            if (tmp_size > keySize)
-        //                tmp_size = keySize;
-        //            byte[] tmp = new byte[tmp_size];
-        //            Array.Copy(input, offset, tmp, 0, tmp_size);
-        //            byte[] tmp_dec = rsa.Decrypt(tmp, false);
-        //            ms.Write(tmp_dec, 0, tmp_dec.Length);
-        //            offset += tmp_size;
-        //        }
-        //        ms.Flush();
-        //        return ms.ToArray();
-        //    }
-        //}
 
         public static void Encrypt(this RSACryptoServiceProvider rsa, byte[] input, Stream output)
         {
@@ -283,148 +236,15 @@ namespace System.Security.Cryptography
 
 
 
-        //static byte[] salt = Encoding.UTF8.GetBytes("saltValue");
-
-        //#if !NET20
-        //        public static string AesEncrypt(this string input, string password)
-        //        {
-        //            return Encrypt<AesCryptoServiceProvider>(input, password);
-        //        }
-        //        public static byte[] AesEncrypt(this string input, string password, Encoding encoding)
-        //        {
-        //            return Encrypt<AesCryptoServiceProvider>(input, password, encoding);
-        //        }
-        //        public static byte[] AesEncrypt(this byte[] input, string password)
-        //        {
-        //            return Encrypt<AesCryptoServiceProvider>(input, password);
-        //        }
-
-        //        public static string AesDecrypt(this string input, string password)
-        //        {
-        //            return Decrypt<AesCryptoServiceProvider>(input, password);
-        //        }
-        //        public static string AesDecrypt(this byte[] input, string password, Encoding encoding)
-        //        {
-        //            return Decrypt<AesCryptoServiceProvider>(input, password, encoding);
-        //        }
-        //        public static byte[] AesDecrypt(this byte[] input, string password)
-        //        {
-        //            return Decrypt<AesCryptoServiceProvider>(input, password);
-        //        }
-        //#endif
-        //        public static string DESEncrypt(this string input, string password)
-        //        {
-        //            return Encrypt<DESCryptoServiceProvider>(input, password);
-        //        }
-        //        public static byte[] DESEncrypt(this string input, string password, Encoding encoding)
-        //        {
-        //            return Encrypt<DESCryptoServiceProvider>(input, password, encoding);
-        //        }
-        //        public static byte[] DESEncrypt(this byte[] input, string password)
-        //        {
-        //            return Encrypt<DESCryptoServiceProvider>(input, password);
-        //        }
-
-        //        public static string DESDecrypt(this string input, string password)
-        //        {
-        //            return Decrypt<DESCryptoServiceProvider>(input, password);
-        //        }
-        //        public static string DESDecrypt(this byte[] input, string password, Encoding encoding)
-        //        {
-        //            return Decrypt<DESCryptoServiceProvider>(input, password, encoding);
-        //        }
-        //        public static byte[] DESDecrypt(this byte[] input, string password)
-        //        {
-        //            return Decrypt<DESCryptoServiceProvider>(input, password);
-        //        }
-
-        //        public static string TripleDESEncrypt(this string input, string password)
-        //        {
-        //            return Encrypt<TripleDESCryptoServiceProvider>(input, password);
-        //        }
-        //        public static byte[] TripleDESEncrypt(this string input, string password, Encoding encoding)
-        //        {
-        //            return Encrypt<TripleDESCryptoServiceProvider>(input, password, encoding);
-        //        }
-        //        public static byte[] TripleDESEncrypt(this byte[] input, string password)
-        //        {
-        //            return Encrypt<TripleDESCryptoServiceProvider>(input, password);
-        //        }
-
-        //        public static string TripleDESDecrypt(this string input, string password)
-        //        {
-        //            return Decrypt<TripleDESCryptoServiceProvider>(input, password);
-        //        }
-        //        public static string TripleDESDecrypt(this byte[] input, string password, Encoding encoding)
-        //        {
-        //            return Decrypt<TripleDESCryptoServiceProvider>(input, password, encoding);
-        //        }
-        //        public static byte[] TripleDESDecrypt(this byte[] input, string password)
-        //        {
-        //            return Decrypt<TripleDESCryptoServiceProvider>(input, password);
-        //        }
-
-        //        public static string Encrypt<T>(this string input, string password) where T : SymmetricAlgorithm, new()
-        //        {
-        //            return Convert.ToBase64String(Encrypt<T>(input, password, null));
-        //        }
-        //        public static byte[] Encrypt<T>(this string input, string password, Encoding encoding) where T : SymmetricAlgorithm, new()
-        //        {
-        //            return Encrypt<T>((encoding ?? Encoding.UTF8).GetBytes(input), password);
-        //        }
-        //        public static byte[] Encrypt<T>(this byte[] input, string password) where T : SymmetricAlgorithm, new()
-        //        {
-        //            using (T aes = new T())
-        //            {
-        //                Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, salt);
-        //                aes.BlockSize = aes.LegalBlockSizes[0].MaxSize;
-        //                aes.KeySize = aes.LegalKeySizes[0].MaxSize;
-        //                aes.Key = rfc.GetBytes(aes.KeySize / 8);
-        //                aes.IV = rfc.GetBytes(aes.BlockSize / 8);
-        //                using (MemoryStream ms = new MemoryStream())
-        //                using (ICryptoTransform transform = aes.CreateEncryptor())
-        //                using (CryptoStream encryptor = new CryptoStream(ms, transform, CryptoStreamMode.Write))
-        //                {
-        //                    encryptor.Write(input, 0, input.Length);
-        //                    encryptor.FlushFinalBlock();
-        //                    return ms.ToArray();
-        //                }
-        //            }
-        //        }
-
-        //        public static string Decrypt<T>(this string input, string password) where T : SymmetricAlgorithm, new()
-        //        {
-        //            return Decrypt<T>(Convert.FromBase64String(input), password, null);
-        //        }
-        //        public static string Decrypt<T>(this byte[] input, string password, Encoding encoding) where T : SymmetricAlgorithm, new()
-        //        {
-        //            return (encoding ?? Encoding.UTF8).GetString(Decrypt<T>(input, password));
-        //        }
-        //        public static byte[] Decrypt<T>(this byte[] input, string password) where T : SymmetricAlgorithm, new()
-        //        {
-        //            using (T aes = new T())
-        //            {
-        //                Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, salt);
-        //                aes.BlockSize = aes.LegalBlockSizes[0].MaxSize;
-        //                aes.KeySize = aes.LegalKeySizes[0].MaxSize;
-        //                aes.Key = rfc.GetBytes(aes.KeySize / 8);
-        //                aes.IV = rfc.GetBytes(aes.BlockSize / 8);
-        //                using (MemoryStream ms = new MemoryStream())
-        //                using (ICryptoTransform transform = aes.CreateDecryptor())
-        //                using (CryptoStream decryptor = new CryptoStream(ms, transform, CryptoStreamMode.Write))
-        //                {
-        //                    decryptor.Write(input, 0, input.Length);
-        //                    decryptor.FlushFinalBlock();
-        //                    return ms.ToArray();
-        //                }
-        //            }
-        //        }
-
-#if !NET20
+#if NET40
         public static AesCryptoServiceProvider AES = new AesCryptoServiceProvider();
-#endif
-        public static DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
         public static TripleDESCryptoServiceProvider TripleDES = new TripleDESCryptoServiceProvider();
+        public static DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
+#else
+        public static Aes AES = Aes.Create();
+        public static TripleDES TripleDES = TripleDES.Create();
+        public static DES DES = DES.Create();
+#endif
 
         public static byte[] Encrypt<T>(this T provider, string input, string password, string salt, Encoding encoding) where T : SymmetricAlgorithm
         {
@@ -513,12 +333,21 @@ namespace System.Security.Cryptography
             set { s1.Position = value; }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            using (_s1)
+            using (s2)
+                base.Dispose(disposing);
+        }
+
+#if NET40
         public override void Close()
         {
             using (_s1)
             using (s2)
                 base.Close();
         }
+#endif
 
         public override void Flush()
         {
@@ -556,9 +385,12 @@ namespace System.Security.Cryptography
             {
                 if (rsa != null)
                 {
+#if NET40
                     if (this.XmlString != null)
                         rsa.FromXmlString(this.XmlString);
-                    else if (this.CspBlob != null)
+                    else
+#endif
+                    if (this.CspBlob != null)
                         rsa.ImportCspBlob(this.CspBlob);
                     else if (this.Parameter.HasValue)
                         rsa.ImportParameters(this.Parameter.Value);
@@ -583,9 +415,12 @@ namespace System.Security.Cryptography
         {
             using (RSACryptoServiceProvider rsa = Interlocked.Exchange(ref base.rsa, null))
             {
+#if NET40
                 if (this.XmlString != null)
                     rsa.FromXmlString(this.XmlString);
-                else if (this.CspBlob != null)
+                else
+#endif
+                if (this.CspBlob != null)
                     rsa.ImportCspBlob(this.CspBlob);
                 else if (this.Parameter.HasValue)
                     rsa.ImportParameters(this.Parameter.Value);
@@ -596,4 +431,3 @@ namespace System.Security.Cryptography
         }
     }
 }
-#endif

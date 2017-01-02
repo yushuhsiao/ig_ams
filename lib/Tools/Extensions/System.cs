@@ -41,8 +41,8 @@ namespace System
     {
         public const BindingFlags BindingFlags0 = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
         public const BindingFlags BindingFlags1 = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default;
-        public const BindingFlags BindingFlags2 = BindingFlags.Public | BindingFlags.Instance |  BindingFlags.GetProperty | BindingFlags.DeclaredOnly;
-        public const BindingFlags BindingFlags3 = BindingFlags.Public | BindingFlags.Instance |  BindingFlags.GetField | BindingFlags.DeclaredOnly;
+        public const BindingFlags BindingFlags2 = BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.DeclaredOnly;
+        public const BindingFlags BindingFlags3 = BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetField | BindingFlags.DeclaredOnly;
         public const BindingFlags BindingFlags4 = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly;
 
         public static bool IsSubclassOf(this Type type, Type c, bool include_self = false)
@@ -99,10 +99,6 @@ namespace System
             else
                 throw new ArgumentException("Only accept FieldInfo or PropertyInfo !");
         }
-
-#if NET40
-        public static Type GetTypeInfo(this Type type) => type;
-#endif
     }
 
     [_DebuggerStepThrough]
@@ -236,3 +232,12 @@ namespace System
         }
     }
 }
+#if NET40
+namespace System.Reflection
+{
+    internal static class _IntrospectionExtensions
+    {
+        public static Type GetTypeInfo(this Type type) => type;
+    }
+}
+#endif

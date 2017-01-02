@@ -67,8 +67,8 @@
       <HintPath>..\..\packages\BundleTransformer.MicrosoftAjax.1.9.92\lib\net40\BundleTransformer.MicrosoftAjax.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BundleTransformer.TypeScript, Version=1.9.140.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BundleTransformer.TypeScript.1.9.140\lib\net40\BundleTransformer.TypeScript.dll</HintPath>
+    <Reference Include="BundleTransformer.TypeScript, Version=1.9.138.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BundleTransformer.TypeScript.1.9.138\lib\net40\BundleTransformer.TypeScript.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ClearScript, Version=5.4.8.0, Culture=neutral, PublicKeyToken=935d0c957da47c73, processorArchitecture=MSIL">
@@ -183,8 +183,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Tools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Tools.1.0.0\lib\net40\Tools.dll</HintPath>
+    <Reference Include="Tools">
+      <HintPath>..\..\packages\Tools.1.0.1\lib\net40\Tools.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
