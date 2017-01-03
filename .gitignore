@@ -129,3 +129,5 @@
 /web/payment_sample/obj
 /web/payment_sample/bin
 /.vs/ams/v14/.suo
+/lib/FaceSDK.NET/obj
+/lib/FaceSDK.NET/bin

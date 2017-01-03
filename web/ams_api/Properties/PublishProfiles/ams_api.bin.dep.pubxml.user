@@ -34,7 +34,7 @@
       <publishTime>01/03/2017 13:26:11</publishTime>
     </File>
     <File Include="bin/ams_api.dll">
-      <publishTime>01/03/2017 13:48:09</publishTime>
+      <publishTime>01/03/2017 13:55:49</publishTime>
     </File>
     <File Include="bin/corelib.dll">
       <publishTime>01/03/2017 13:26:10</publishTime>
@@ -97,7 +97,7 @@
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/RecogServiceApi.dll">
-      <publishTime>01/03/2017 13:48:08</publishTime>
+      <publishTime>01/03/2017 13:55:48</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>02/28/2016 23:37:54</publishTime>

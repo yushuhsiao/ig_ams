@@ -234,6 +234,7 @@ namespace RecogService
                         }
                     }
                 }
+                r_session.RequestSimilarity = (int)(similarity * 100);
                 r_session.NumberOfMatch = matches.Count;
                 r_session.MatchUsers = matches;
                 r_session.MatchUserDetails = details;

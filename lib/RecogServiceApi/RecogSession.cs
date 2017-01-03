@@ -23,7 +23,8 @@ namespace RecogService
         public DateTime? EndTime;
 
 
-
+        [JsonProperty]
+        public int RequestSimilarity;
         [JsonProperty]
         public Guid Session
         {

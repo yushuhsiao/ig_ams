@@ -1,5 +1,0 @@
-C:\ig\ams\lib\FaceSDK.NET\bin\Debug\FaceSDK.NET.dll
-C:\ig\ams\lib\FaceSDK.NET\bin\Debug\FaceSDK.NET.pdb
-C:\ig\ams\lib\FaceSDK.NET\obj\Debug\FaceSDK.NET.dll
-C:\ig\ams\lib\FaceSDK.NET\obj\Debug\FaceSDK.NET.pdb
-C:\ig\ams\lib\FaceSDK.NET\obj\Debug\FaceSDK.NET.csprojResolveAssemblyReference.cache
