@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.Http;
@@ -42,7 +43,7 @@ namespace RecogService
         Guid? RecogSessionID;
 
         [JsonProperty]
-        float? Similarity;
+        int? Similarity;
 
         [JsonProperty]
         bool? MatchUserDetails;
@@ -198,7 +199,8 @@ namespace RecogService
             if (r_session.Finish)
             {
                 List<RecogSessionItem> items = imageDB.ToList<RecogSessionItem>($"select b.* from {TableName<RecogSessionItem>.Value} a left join CompareResult b on a.ImageID1=b.ID1 and a.ImageID2=b.ID2 where a.SessionID='{RecogSessionID}'");
-                float similarity = this.Similarity ?? 0.8f;
+                float similarity = (float)(this.Similarity ?? MainPlatformInfo.Instance.DefaultSimilarity);
+                similarity /= 100;
                 r_session.NumberOfItems = items.Count;
                 List<string> matches = new List<string>();
                 List<PictureInformation> details = null;

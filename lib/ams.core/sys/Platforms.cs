@@ -246,6 +246,12 @@ select * from Platforms nolock")
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod()); }
         }
 
+        [SqlSetting(CorpID = 0, Key1 = DB.Recog_Key1, Key2 = "DefaultSimilarity"), DefaultValue(50)]
+        public int DefaultSimilarity
+        {
+            get { return app.config.GetValue<int>(MethodBase.GetCurrentMethod()); }
+        }
+
         [SqlSetting(CorpID = 0, Key1 = DB.Recog_Key1, Key2 = "AlwaysPass"), DefaultValue(false)]
         public bool Recog_AlwaysPass
         {

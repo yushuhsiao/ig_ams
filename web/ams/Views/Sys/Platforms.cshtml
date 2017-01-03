@@ -233,6 +233,7 @@ PlatformInfo row = ViewBag.row;
                     @edit.TextInput("Recog.PhotoDB", lang["Public RecognitionApiUrl  "])
                     @edit.TextInput("Recog.RecognitionApiUrl1", lang["Public RecognitionApiUrl  "])
                     @edit.TextInput("Recog.RecognitionApiUrl2", lang["Internal RecognitionApiUrl"])
+                    @edit.NumberInput("Recog.DefaultSimilarity", lang["DefaultSimilarity"], min: 0, max: 100)
                     @edit.CheckBox("Recog.AlwaysPass", lang["Always Pass on Recognition"])
                     @edit.CheckBox("Recog.SampleAlwaysPass", lang["Always Pass on Sample"])
                     @edit.CheckBox("Recog.ActionAlwaysPass", lang["Always Pass on Action"])
