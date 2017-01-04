@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 
 namespace System
 {
@@ -20,28 +16,9 @@ namespace System
                 return isCompleted ? _01 : NotCompleted;
         }
 
-        public object AsyncState
-        {
-            get;
-            set;
-        }
-
-        public WaitHandle AsyncWaitHandle
-        {
-            get;
-            set;
-        }
-
-        public bool CompletedSynchronously
-        {
-            get;
-            set;
-        }
-
-        public bool IsCompleted
-        {
-            get;
-            set;
-        }
+        public object AsyncState { get; set; }
+        public WaitHandle AsyncWaitHandle { get; set; }
+        public bool CompletedSynchronously { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

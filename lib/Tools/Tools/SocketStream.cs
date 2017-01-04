@@ -1,18 +1,18 @@
 ﻿#if NET40
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading;
+using Tools;
+using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
 namespace System.Net
 {
-    using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Net.Security;
-    using System.Security.Authentication;
-    using System.Text;
-    using Tools;
-    using System.Diagnostics;
-using System.Collections.Generic;
 
     [_DebuggerStepThrough]
     public sealed class SocketStream : Stream
