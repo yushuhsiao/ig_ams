@@ -1,4 +1,4 @@
-dotnet pack -o ..\..\pkg
+dotnet pack -o ..\..\..\packages
 
 @pause
 @exit

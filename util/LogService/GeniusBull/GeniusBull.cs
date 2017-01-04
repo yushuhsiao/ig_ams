@@ -140,17 +140,8 @@ namespace GeniusBull
             internal IEnumerable<Item> Lock()
             {
                 if (Monitor.TryEnter(this))
-                {
                     try { yield return this; }
-                    finally
-                    {
-                        //foreach (SqlCmd sqlcmd in _sqlcmd.Values)
-                        //    using (sqlcmd)
-                        //        continue;
-                        //_sqlcmd.Clear();
-                        Monitor.Exit(this);
-                    }
-                }
+                    finally { Monitor.Exit(this); }
             }
 
             internal T _new<T>() where T : _LogBase<T>, new()
