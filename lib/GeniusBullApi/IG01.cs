@@ -1,4 +1,5 @@
 ﻿using ams.Models;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -114,18 +115,9 @@ namespace ams.Data
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
-        public static IG01PlatformInfo GetImageInstance()
+        public static IG01PlatformInfo PokerInstance
         {
-            foreach (PlatformInfo p1 in PlatformInfo.Cache.Value)
-            {
-                if (p1 is IG01PlatformInfo)
-                {
-                    IG01PlatformInfo p2 = (IG01PlatformInfo)p1;
-                    if (p2.RecognitionApiUrl1 != null)
-                        return p2;
-                }
-            }
-            return null;
+            get { return IG01PlatformInfo.GetPlatformInfo<IG01PlatformInfo>(DB.PlatformID_Pokers); }
         }
 
         //public HttpStatusCode InvokeRecogApi(string url, out string response_text, string method = "GET")
@@ -502,6 +494,73 @@ select Balance from {GeniusBull.Member.TableName} nolock where Id={m1.destID}";
                 b = r.GetDecimalN("Balance");
             balance = b ?? 0;
             return b.HasValue;
+        }
+
+
+
+        public string rest_MJ_waitingPlayers()
+        {
+            string url = $"{MjServerRest}/waitingPlayers";
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            HttpWebResponse response = null;
+            string response_text;
+            try { response = (HttpWebResponse)request.GetResponse(); }
+            catch (WebException ex) { response = (HttpWebResponse)ex.Response; }
+            try
+            {
+                using (response)
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                        response_text = sr.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        response_text = WebUtility.HtmlDecode(response_text);
+                        HtmlDocument html = new HtmlDocument();
+                        html.LoadHtml(response_text);
+                        var n = html.DocumentNode.InnerText;
+                        return n;
+                    }
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        public string rest_Doudizhu_waitingPlayers()
+        {
+            string url = $"{DoudizhuRest}/waitingPlayers";
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            HttpWebResponse response = null;
+            string response_text;
+            try { response = (HttpWebResponse)request.GetResponse(); }
+            catch (WebException ex) { response = (HttpWebResponse)ex.Response; }
+            try
+            {
+                using (response)
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                        response_text = sr.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        return response_text;
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        public void InvokeDoudizhuRest()
+        {
+            var url = this.DoudizhuRest;
+        }
+        public void InvokeTexasHoldemRest()
+        {
+            var url = this.TexasHoldemRest;
+        }
+        public void InvokeMjServerRest()
+        {
+            var url = this.MjServerRest;
         }
     }
 

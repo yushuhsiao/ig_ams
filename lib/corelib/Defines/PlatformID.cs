@@ -81,10 +81,14 @@ namespace ams
                     return true;
                 if (sourceType == typeof(Int32?))
                     return true;
+                if (sourceType == typeof(string))
+                    return true;
                 return base.CanConvertFrom(context, sourceType);
             }
             public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
             {
+                if (value is string)
+                    value = ((string)value).ToInt32();
                 if (value is Int32)
                     return (PlatformID)(Int32)value;
                 if (value is Int32?)

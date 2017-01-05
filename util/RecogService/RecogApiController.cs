@@ -42,7 +42,7 @@ namespace RecogService
             if (string.IsNullOrEmpty(token) || !playerId.HasValue || !index.HasValue)
                 return RecogService._defaultImage();
 
-            var platform = IG01PlatformInfo.GetImageInstance();
+            var platform = IG01PlatformInfo.PokerInstance;
             var m1 = platform?.api_GetUser(token);
             var m2 = platform?.GetMemberByDestID(playerId.Value);
             if (m2 != null)
@@ -95,7 +95,7 @@ namespace RecogService
         [HttpGet, Route("~/getImage/{token}")]
         public HttpResponseMessage getImage(string token)
         {
-            var platform = IG01PlatformInfo.GetImageInstance();
+            var platform = IG01PlatformInfo.PokerInstance;
             if (platform == null)
                 return RecogService._defaultImage();
 

@@ -1,10 +1,10 @@
 ﻿CREATE VIEW dbo.IG_GameLog2
 AS
-SELECT          Id, SerialNumber, PlayerId, GameId, ActionType, Bets, Odds, Symbols, GameType, Param_1, Param_2, Param_3, 
-                            Param_4, Param_5, Pays, WinSpots, Deal_1, Deal_2, BackupCards, WinType, JPType, BetAmount, WinAmount, 
-                            Balance, WinAmount - BetAmount AS Amount, 0 AS JP_Balance, 0 AS JP_Base, 0 AS JP_Ratio, 0 AS JP_BaseAmount, 
-                            0 AS JP_FillAmount, 0 AS JP_GRAND, 0 AS JP_MAJOR, 0 AS JP_MINOR, 0 AS JP_MINI, 0 AS JP_Total, 
-                            InsertDate
+SELECT          Id, SerialNumber, SUBSTRING(SerialNumber, 1, 8) AS sn1, PlayerId, GameId, ActionType, Bets, Odds, Symbols, 
+                            GameType, Param_1, Param_2, Param_3, Param_4, Param_5, Pays, WinSpots, Deal_1, Deal_2, BackupCards, 
+                            WinType, JPType, BetAmount, WinAmount, Balance, WinAmount - BetAmount AS Amount, 0 AS JP_Balance, 
+                            0 AS JP_Base, 0 AS JP_Ratio, 0 AS JP_BaseAmount, 0 AS JP_FillAmount, 0 AS JP_GRAND, 0 AS JP_MAJOR, 
+                            0 AS JP_MINOR, 0 AS JP_MINI, 0 AS JP_Total, InsertDate
 FROM              (SELECT          Id, SerialNumber, PlayerId, GameId, ActionType, Bets, Odds, Symbols, GameType, Param_1, Param_2, 
                                                         Param_3, Param_4, Param_5, Pays, WinSpots, 1 AS GameFinished, NULL AS Deal_1, NULL 
                                                         AS Deal_2, NULL AS BackupCards, NULL AS WinType, JPType, BetAmount, WinAmount, Balance, 

@@ -148,7 +148,7 @@ namespace RecogService
                 ModelState.Validate(nameof(TakePictureKey), TakePictureKey, allow_null: true);
             });
 
-            IG01PlatformInfo platform = IG01PlatformInfo.GetImageInstance();
+            IG01PlatformInfo platform = IG01PlatformInfo.PokerInstance;
             MemberData member = CorpInfo.GetCorpInfo(name: CorpName, err: true).GetMemberData(UserName, err: true);
             TakePictureUrls result = new TakePictureUrls()
             {

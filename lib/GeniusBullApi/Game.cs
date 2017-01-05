@@ -82,6 +82,13 @@ namespace GeniusBull
             return this.configs;
         }
 
+        public List<TableConfig> GetTableSettings(SqlCmd gamedb = null)
+        {
+            gamedb = gamedb ?? this.Platform?.GameDB();
+            return gamedb.ToList(() => (TableConfig)Activator.CreateInstance(this.TableConfigType),
+                $"select * from {TableNameAttribute.GetTableName(this.TableConfigType)} nolock");
+        }
+
         Dictionary<string, EprobTableLimit> _EprobTableLimit;
         public Dictionary<string, EprobTableLimit> EprobTableLimit
         {

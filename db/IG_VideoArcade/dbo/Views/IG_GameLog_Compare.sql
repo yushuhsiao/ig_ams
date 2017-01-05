@@ -1,13 +1,14 @@
 ﻿CREATE VIEW dbo.IG_GameLog_Compare
 AS
-SELECT          b.PlayerId, b.GameId, b.RowsCount, a.RowsCount AS GameLog_RowCount, b.Amount, 
+SELECT          b.PlayerId, b.GameId, ISNULL(a.sn1, b.sn1) AS sn1, b.RowsCount, a.RowsCount AS GameLog_RowCount, b.Amount, 
                             a.Amount AS GameLog_Amount
-FROM              (SELECT          PlayerId, GameId, COUNT(*) AS RowsCount, SUM(Amount) AS Amount
+FROM              (SELECT          PlayerId, GameId, sn1, COUNT(*) AS RowsCount, SUM(Amount) AS Amount
                             FROM               dbo.IG_GameLog2
-                            GROUP BY    PlayerId, GameId) AS b LEFT OUTER JOIN
-                                (SELECT          PlayerId, GameId, COUNT(*) AS RowsCount, SUM(Amount) AS Amount
-                                  FROM               dbo.IG_GameLog
-                                  GROUP BY    PlayerId, GameId) AS a ON a.PlayerId = b.PlayerId AND a.GameId = b.GameId
+                            GROUP BY    PlayerId, GameId, sn1) AS b LEFT OUTER JOIN
+                                (SELECT          PlayerId, GameId, sn1, COUNT(*) AS RowsCount, SUM(Amount) AS Amount
+                                  FROM               dbo.IG_GameLog1
+                                  GROUP BY    PlayerId, GameId, sn1) AS a ON a.PlayerId = b.PlayerId AND a.GameId = b.GameId AND 
+                            a.sn1 = b.sn1
 WHERE          (a.Amount <> b.Amount) OR
                             (a.Amount IS NULL) OR
                             (b.Amount IS NULL)

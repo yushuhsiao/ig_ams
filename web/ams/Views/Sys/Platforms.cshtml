@@ -230,6 +230,7 @@ PlatformInfo row = ViewBag.row;
         <div class="col-sm-10 col-sm-offset-0">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    @edit.NumberInput("Platforms.Pokers", lang["PlatformID for Pokers"], min: 0, max: 100)
                     @edit.TextInput("Recog.PhotoDB", lang["Public RecognitionApiUrl  "])
                     @edit.TextInput("Recog.RecognitionApiUrl1", lang["Public RecognitionApiUrl  "])
                     @edit.TextInput("Recog.RecognitionApiUrl2", lang["Internal RecognitionApiUrl"])

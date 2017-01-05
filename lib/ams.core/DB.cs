@@ -17,6 +17,13 @@ namespace ams
     [_DebuggerStepThrough]
     public static class DB
     {
+        public const string Key_Platforms = "Platforms";
+        [SqlSetting(CorpID = 0, Key1 = Key_Platforms, Key2 = "Pokers"), DefaultValue(1)]
+        public static PlatformID PlatformID_Pokers
+        {
+            get { return app.config.GetValue<PlatformID>(MethodBase.GetCurrentMethod()); }
+        }
+
         public const string Key1 = "SqlConnection";
         public const string Recog_Key1 = "Recog";
         //public const string DB01R = "DB01R";

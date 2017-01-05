@@ -131,3 +131,6 @@
 /.vs/ams/v14/.suo
 /lib/FaceSDK.NET/obj
 /lib/FaceSDK.NET/bin
+/util/ViewWaitingPlayer/bin
+/util/ViewWaitingPlayer/Log
+/util/ViewWaitingPlayer/obj

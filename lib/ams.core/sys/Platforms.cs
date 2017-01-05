@@ -228,6 +228,18 @@ select * from Platforms nolock")
             get { return PlatformInfo.GetPlatformInfo<MainPlatformInfo>(0); }
         }
 
+        [SqlSetting(CorpID = 0, Key1 = DB.Key_Platforms, Key2 = "Pokers"), DefaultValue(1)]
+        public PlatformID PlatformID_Pokers
+        {
+            get { return app.config.GetValue<PlatformID>(MethodBase.GetCurrentMethod()); }
+        }
+
+        //[SqlSetting(CorpID = 0, Key1 = "Platforms", Key2 = "Slot"), DefaultValue(4)]
+        //public PlatformID PlatformID_Slot
+        //{
+        //    get { return app.config.GetValue<int>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
+        //}
+
         [SqlSetting(CorpID = 0, Key1 = DB.Recog_Key1, Key2 = "RecognitionApiUrl1")]
         public string RecognitionApiUrl1
         {

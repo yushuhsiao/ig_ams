@@ -584,6 +584,14 @@ namespace ams
         }
         #endregion
 
+        #region 取得等候人數 (視訊對戰遊戲)
+        public int GetWaitUserCount(Action<ErrorMessage> onError = null)
+        {
+            return this.invoke<int>("~/GeniusBull/GetWaitUserCount", new
+            {
+            });
+        }
+        #endregion
     }
     public class PictureInformation
     {

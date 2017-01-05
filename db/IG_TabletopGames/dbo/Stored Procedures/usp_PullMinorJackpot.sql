@@ -1,7 +1,7 @@
 ﻿
 -- =============================================
 -- Description: 提取 Minor，提取 Jackpot * @Ratio / 100，剩餘的 Jackpot 若小於打底時，補到打底值
--- Update date: 2016-11-22
+-- Update date: 2016-12-30
 -- =============================================
 CREATE PROCEDURE dbo.usp_PullMinorJackpot
     @WinAmount decimal(18, 2) OUTPUT,
@@ -57,6 +57,10 @@ BEGIN TRY
         -- 紀錄 Log
         INSERT INTO dbo.JackpotLog (PlayerId, GameId, SerialNumber, JackpotType, Jackpot, Base, Ratio, WinAmount, BaseAmount, FillAmount, InsertDate)
         VALUES (@PlayerId, @GameId, @SerialNumber, 'MINOR', @Jackpot, @Base, @Ratio, @WinAmount, @BaseAmount, @FillAmount, @Date);
+
+        -- IG Game Log
+        INSERT INTO dbo.IG_GameLog (SerialNumber, PlayerId, GameId, ActionType, GameType, JPType, BetAmount, WinAmount, Balance, Amount, JP_Balance, JP_Base, JP_Ratio, JP_BaseAmount, JP_FillAmount, JP_GRAND, JP_MAJOR, JP_MINOR, JP_MINI, InsertDate)
+        VALUES (@SerialNumber, @PlayerId, @GameId, 'PULLJP', '', 'MINOR', 0, @WinAmount, 0, @WinAmount, @Jackpot, @Base, @Ratio, @BaseAmount, @FillAmount, 0, 0, 0, 0, @Date);
 
     COMMIT TRANSACTION;
     RETURN 0;

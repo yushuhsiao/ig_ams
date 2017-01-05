@@ -95,7 +95,7 @@ namespace RecogService
                 //typeof(ams.Data.IG01PlatformInfo).ToString();
                 string path = @"C:\img";
                 DirectoryInfo n0 = new DirectoryInfo(path);
-                IG01PlatformInfo platform = IG01PlatformInfo.GetImageInstance();
+                IG01PlatformInfo platform = IG01PlatformInfo.PokerInstance;
                 foreach (DirectoryInfo n1 in n0.GetDirectories())
                 {
                     foreach (DirectoryInfo n2 in n1.GetDirectories())

@@ -356,8 +356,9 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
             });
             if (game.TableConfigType == null)
                 throw new _Exception(Status.ParameterNotAllow);
-            var ret = gamedb.ToList(() => (TableConfig)Activator.CreateInstance(game.TableConfigType),
-                $"select * from {TableNameAttribute.GetTableName(game.TableConfigType)} nolock");
+            var ret = game.GetTableSettings(gamedb);
+            //gamedb.ToList(() => (TableConfig)Activator.CreateInstance(game.TableConfigType),
+            //    $"select * from {TableNameAttribute.GetTableName(game.TableConfigType)} nolock");
             return ret;
         }
 
@@ -506,6 +507,13 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
         }
 
         #endregion
+
+        //[HttpPost, Route("~/GeniusBull/GetWaitUserCount")]
+        //public object GetWaitUserCount()
+        //{
+        //    IG01PlatformInfo p = IG01PlatformInfo.PokerInstance;
+        //    return p.rest_MJ_waitingPlayers();
+        //}
     }
 
     [TableName("MemberBlacklist"), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
