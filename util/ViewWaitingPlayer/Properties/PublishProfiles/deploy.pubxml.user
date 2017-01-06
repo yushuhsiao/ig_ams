@@ -250,7 +250,7 @@
       <publishTime>01/06/2017 17:04:02</publishTime>
     </File>
     <File Include="Views/Default/WaitingPlayers.cshtml">
-      <publishTime>01/06/2017 18:37:33</publishTime>
+      <publishTime>01/06/2017 18:49:08</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>01/06/2017 13:57:10</publishTime>
