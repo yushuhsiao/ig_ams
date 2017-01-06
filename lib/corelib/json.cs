@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace ams
@@ -587,6 +588,49 @@ namespace ams
         //        return base.Json<T>(content, serializerSettings, encoding);
         //    }
         //}
+    }
+
+    public class JsonNetResult : System.Web.Mvc.JsonResult
+    {
+        public override void ExecuteResult(System.Web.Mvc.ControllerContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+            if (this.JsonRequestBehavior == System.Web.Mvc.JsonRequestBehavior.DenyGet && string.Equals(context.HttpContext.Request.HttpMethod, "GET", StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("JSON GET is not allowed");
+
+            HttpResponseBase response = context.HttpContext.Response;
+            response.ContentType = string.IsNullOrEmpty(this.ContentType) ? "application/json" : this.ContentType;
+
+            if (this.ContentEncoding != null)
+                response.ContentEncoding = this.ContentEncoding;
+            if (this.Data == null)
+                return;
+
+            var scriptSerializer = json.GetJsonSerializer();
+            scriptSerializer.Serialize(response.Output, this.Data);
+        }
+    }
+
+    public class JsonHandlerAttribute : System.Web.Mvc.ActionFilterAttribute
+    {
+        public override void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
+        {
+            var jsonResult = filterContext.Result as System.Web.Mvc.JsonResult;
+
+            if (jsonResult != null)
+            {
+                filterContext.Result = new JsonNetResult
+                {
+                    ContentEncoding = jsonResult.ContentEncoding,
+                    ContentType = jsonResult.ContentType,
+                    Data = jsonResult.Data,
+                    JsonRequestBehavior = jsonResult.JsonRequestBehavior
+                };
+            }
+
+            base.OnActionExecuted(filterContext);
+        }
     }
 }
 namespace Newtonsoft.Json.Converters

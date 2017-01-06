@@ -35,7 +35,9 @@ namespace ams.Controllers
         #endregion
 
         [AllowAnonymous, HttpPost, Route(login_url)]
-        public IHttpActionResult login(_empty req)
+        public IHttpActionResult login(_empty req) => Ok(_login(req));
+        [NonAction]
+        public _ApiResult _login(_empty req)
         {
             _HttpContext context = _HttpContext.Current;
             this.Validate(true, req, () => { });
@@ -134,8 +136,7 @@ namespace ams.Controllers
 
             _User.Manager.SetCurrentUser(user);
 
-            return Ok(new _ApiResult() { Status = Status.Success });
-            //return _login_result(Status.Success);
+            return new _ApiResult() { Status = Status.Success };
         }
 
         [AllowAnonymous, HttpPost, Route(logout_url)]

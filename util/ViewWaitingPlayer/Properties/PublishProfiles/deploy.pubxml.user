@@ -10,13 +10,16 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/ams.core.dll">
-      <publishTime>01/05/2017 17:23:41</publishTime>
+      <publishTime>01/06/2017 16:57:49</publishTime>
+    </File>
+    <File Include="bin/ams.core_api.dll">
+      <publishTime>01/06/2017 16:57:49</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>01/05/2017 17:23:41</publishTime>
+      <publishTime>01/06/2017 16:57:49</publishTime>
     </File>
     <File Include="bin/GeniusBullApi.dll">
-      <publishTime>01/05/2017 19:08:17</publishTime>
+      <publishTime>01/06/2017 18:39:27</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
       <publishTime>07/14/2016 11:01:16</publishTime>
@@ -148,7 +151,7 @@
       <publishTime>01/05/2017 02:47:30</publishTime>
     </File>
     <File Include="bin/ViewWaitingPlayer.dll">
-      <publishTime>01/05/2017 19:08:20</publishTime>
+      <publishTime>01/06/2017 18:39:30</publishTime>
     </File>
     <File Include="bin/zh-Hant/System.Web.Helpers.resources.dll">
       <publishTime>01/28/2015 04:04:34</publishTime>
@@ -214,7 +217,16 @@
       <publishTime>01/05/2017 18:31:33</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>01/05/2017 18:33:56</publishTime>
+      <publishTime>01/06/2017 14:32:11</publishTime>
+    </File>
+    <File Include="Scripts/angular-mocks.js">
+      <publishTime>01/06/2017 13:13:59</publishTime>
+    </File>
+    <File Include="Scripts/angular.js">
+      <publishTime>01/06/2017 13:13:59</publishTime>
+    </File>
+    <File Include="Scripts/angular.min.js">
+      <publishTime>01/06/2017 13:13:59</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/05/2017 15:46:09</publishTime>
@@ -234,8 +246,17 @@
     <File Include="Show.cshtml">
       <publishTime>01/05/2017 17:14:05</publishTime>
     </File>
+    <File Include="Views/Default/Login.cshtml">
+      <publishTime>01/06/2017 17:04:02</publishTime>
+    </File>
+    <File Include="Views/Default/WaitingPlayers.cshtml">
+      <publishTime>01/06/2017 18:37:33</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>01/06/2017 13:57:10</publishTime>
+    </File>
     <File Include="Web.config">
-      <publishTime>01/05/2017 18:34:12</publishTime>
+      <publishTime>01/06/2017 16:57:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

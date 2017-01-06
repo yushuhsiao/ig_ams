@@ -427,6 +427,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
             }
             string s = $"update {TableNameAttribute.GetTableName(game.TableConfigType)}{sql._update_set()}{sql._where()}";
             gamedb.ExecuteNonQuery(true, s);
+            game.TableSettings_Updated();
             return GetTableSetting(args);
         }
 

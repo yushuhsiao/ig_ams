@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using ams;
 using GeniusBull;
+using System.Web;
 
 namespace GeniusBull
 {
@@ -82,12 +83,34 @@ namespace GeniusBull
             return this.configs;
         }
 
+        readonly object _game_sync = new object();
+        RedisVer<List<TableConfig>> _tableSettings;
         public List<TableConfig> GetTableSettings(SqlCmd gamedb = null)
         {
-            gamedb = gamedb ?? this.Platform?.GameDB();
-            return gamedb.ToList(() => (TableConfig)Activator.CreateInstance(this.TableConfigType),
-                $"select * from {TableNameAttribute.GetTableName(this.TableConfigType)} nolock");
+            if (gamedb != null) return ReadTableSettings(gamedb, this.Id);
+            RedisVer<List<TableConfig>> _tableSettings;
+            lock (_game_sync)
+            {
+                if (this._tableSettings == null)
+                    this._tableSettings = new RedisVer<List<TableConfig>>("GeniusBull_TableSettings", index: this.Id) { ReadData = ReadTableSettings };
+                _tableSettings = this._tableSettings;
+            }
+            return _tableSettings.Value;
         }
+        public void TableSettings_Updated()
+        {
+            lock (_game_sync) this._tableSettings?.UpdateVersion();
+        }
+
+        List<TableConfig> ReadTableSettings(SqlCmd sqlcmd, int index)
+        {
+            SqlCmd gamedb = this.Platform?.GameDB();
+            using (_HttpContext.GetSqlCmd(out gamedb, null, this.Platform.ApiUrl))
+                return gamedb.ToList(
+                    () => (TableConfig)Activator.CreateInstance(this.TableConfigType),
+                    $"select * from {TableNameAttribute.GetTableName(this.TableConfigType)} nolock");
+        }
+
 
         Dictionary<string, EprobTableLimit> _EprobTableLimit;
         public Dictionary<string, EprobTableLimit> EprobTableLimit

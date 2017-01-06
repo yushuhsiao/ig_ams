@@ -1,0 +1,50 @@
+﻿@using ams.Data;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+@{
+}
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>線上等候人數</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.js"></script>
+    <script type="text/javascript">
+        angular.module('app',[]).controller('main', function ($scope, $http, $window) {
+            $scope.login = { username: '', password: '' };
+            $scope.do_login = function () {
+                $http({
+                    method: 'POST',
+                    url: '@Url.Content("~/Login")',
+                    data: $scope.login
+                }).then(function successCallback(response) {
+                    if (response.data.Status == '@((int)ams.Status.Success)') {
+                        location.reload(true);
+                    } else {
+                        //$scope.msg.submit.show(data.Message);
+                        //$scope.$apply();
+                    }
+                    //console.log('successCallback', arguments);
+                }, function errorCallback(response) {
+                    //console.log('errorCallback', arguments);
+                });
+            }
+        });
+    </script>
+</head>
+<body ng-controller="main">
+    <form class="form-inline" method="post">
+        <div class="form-group">
+            <label for="a">UserName</label>
+            <input ng-model="login.username" id="a" class="form-control" placeholder="UserName" type="text">
+        </div>
+        <div class="form-group">
+            <label for="b">Password</label>
+            <input ng-model="login.password" id="b" class="form-control" placeholder="Password" type="password">
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="do_login()">Login</button>
+    </form>
+</body>
+</html>

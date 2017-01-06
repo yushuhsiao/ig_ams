@@ -214,7 +214,7 @@ CorpInfo corp = row.CorpInfo;
 }
     @helper tab4()
     {
-IG01PlatformInfo p = IG01PlatformInfo.GetImageInstance();
+IG01PlatformInfo p = IG01PlatformInfo.PokerInstance;
 MemberData member = ViewBag.row;
 IG01MemberPlatformData member_p = p.GetMember(member);
 var urls = RecogService.PhotoApiController.GetImageUrl(member.CorpName, member.UserName, null);

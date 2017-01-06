@@ -1,0 +1,131 @@
+﻿@using ams.Data;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+@{
+    Page.Title = "線上等候人數";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@Page.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script type="text/javascript">
+        angular.module('app', []).controller('main', function ($scope, $http, $window) {
+            window.$scope = $scope;
+            window.$http = $http;
+
+            $scope.do_logout = function () {
+                $http({
+                    method: 'POST',
+                    url: '@Url.Content("~/Logout")',
+                    data: $scope.login
+                }).then(function successCallback(response) {
+                    if (response.data.Status == '@((int)ams.Status.Success)') {
+                        location.reload(true);
+                    } else {
+                        //$scope.msg.submit.show(data.Message);
+                        //$scope.$apply();
+                    }
+                    //console.log('successCallback', arguments);
+                }, function errorCallback(response) {
+                    //console.log('errorCallback', arguments);
+                });
+            }
+            $scope.data = {};
+            $scope.busy = false;
+
+            function GetData() {
+                $scope.busy = true;
+                $http({
+                    method: 'POST',
+                    url: '@Url.Content("~/GetData")',
+                    data: {}
+                }).then(function successCallback(response) {
+                    console.log('successCallback', arguments);
+                    $scope.data = response.data;
+                    //$scope.$apply();
+                    window.setTimeout(GetData, 10000);
+                    $scope.busy = false;
+                }, function errorCallback(response) {
+                    console.log('errorCallback', arguments);
+                    window.setTimeout(GetData, 10000);
+                    $scope.busy = false;
+                });
+            };
+
+            GetData();
+        });
+    </script>
+</head>
+<body ng-controller="main">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">@Page.Title</a>
+            </div>
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-click="do_logout()"><a href=""><span class="glyphicon glyphicon-log-out"></span> Log out </a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">麻將</div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>底/台</th>
+                        <th>等待人數</th>
+                    </tr>
+                    <tr ng-repeat="obj in data[1093]">
+                        <td>{{obj.Title}}</td>
+                        <td>{{obj.waitingPlayers}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">鬥地主</div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>底</th>
+                        <th>等待人數</th>
+                    </tr>
+                    <tr ng-repeat="obj in data[1092]">
+                        <td>{{obj.Title}}</td>
+                        <td>{{obj.waitingPlayers}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">德州撲克</div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>大盲/小盲</th>
+                        <th>等待人數</th>
+                    </tr>
+                    <tr ng-repeat="obj in data[1091]">
+                        <td>{{obj.Title}}</td>
+                        <td>{{obj.waitingPlayers}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div ng-show="busy" class="bg-info col-sm-12"><label class="text-info"> Loading... </label></div>
+</body>
+</html>
