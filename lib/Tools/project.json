@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2-*",
+  "version": "1.0.3",
   "authors": ["Yushu Hsiao"],
 
   "dependencies": {
@@ -35,6 +35,7 @@
         "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
         "Microsoft.AspNetCore.Http.Features": "1.1.0",
         "Microsoft.Extensions.Configuration": "1.1.0",
+        "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
         "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
         "System.AppDomain": "2.0.11",
         "System.Collections.Specialized": "4.3.0",
@@ -46,7 +47,10 @@
         "System.Dynamic.Runtime": "4.3.0",
         "System.Runtime.Extensions": "4.3.0",
         "System.Security.Claims": "4.3.0",
-        "System.Security.Cryptography.Csp": "4.3.0"
+        "System.Security.Cryptography.Csp": "4.3.0",
+        "Microsoft.Extensions.Configuration.FileExtensions": "1.1.0",
+        "Microsoft.Extensions.Configuration.Json": "1.1.0",
+        "Microsoft.Extensions.Configuration.Abstractions": "1.1.0"
       }
     }
   }

@@ -56,9 +56,15 @@ namespace ViewWaitingPlayer.Controllers
             catch (Exception ex) { return Json(ex.ToString()); }
         }
 
+        static Tools.TimeCounter _t = new Tools.TimeCounter(true);
+        static Dictionary<int, List<WaitingInfo>> _datas = null;
+
         [HttpPost, Route("~/GetData")]
         public JsonResult GetData()
         {
+            lock (_t)
+                if ((_datas != null) && (!_t.IsTimeout(10000)))
+                    return Json(_datas);
             IG01PlatformInfo ig01 = IG01PlatformInfo.PokerInstance;
             GeniusBull.Game game1 = ig01.GetGame(1091);
             GeniusBull.Game game2 = ig01.GetGame(1092);
@@ -81,6 +87,7 @@ namespace ViewWaitingPlayer.Controllers
             merge(datas[game2.Id], () => ig01?.rest_Doudizhu_waitingPlayers());
             merge(datas[game3.Id], () => ig01?.rest_MJ_waitingPlayers());
 
+            _t.Reset();
             return Json(datas);
         }
 

@@ -81,7 +81,7 @@ namespace System.ComponentModel
 
         static bool ConvertFrom(MemberInfo m, Type srcType, object srcValue, Type dstType, out object result)
         {
-            if (srcType == dstType)
+            if ((srcType == dstType) || (dstType == typeof(object)))
             {
                 result = srcValue;
                 return true;

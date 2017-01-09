@@ -1,5 +1,4 @@
-﻿#if NET40
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
@@ -34,8 +33,9 @@ namespace System
 		public abstract string file_ext { get; }
 		string BuildPath(DateTime time, string category, int retry_index)
 		{
-			StringBuilder s = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory);
-			char c = Path.DirectorySeparatorChar;
+            //StringBuilder s = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory);
+            StringBuilder s = new StringBuilder(Assembly.GetEntryAssembly().Location);
+            char c = Path.DirectorySeparatorChar;
 			if (s[s.Length - 1] != c) s.Append(c);
 			s.AppendFormat(this.path_format, time, string.IsNullOrEmpty(category) ? "" : "-", category);
 			if (retry_index > 0)
@@ -45,47 +45,52 @@ namespace System
 		}
 
 		const int retry_open = 5;
-		void IAsyncLogWriter.Tick(ILogWriterContext context)
-		{
-			log.MessageItem item;
-			string path1 = null, path2 = null;
-			StreamWriter writer1 = null, writer2 = null;
-			try
-			{
+        void IAsyncLogWriter.Tick(ILogWriterContext context)
+        {
+            log.MessageItem item;
+            string path1 = null, path2 = null;
+            FileStream file1 = null, file2 = null;
+            StreamWriter writer1 = null, writer2 = null;
+            try
+            {
 
-				while (context.GetMessage(out item))
-				{
-					for (int r1 = 0; ; r1++)
-					{
-						path2 = this.BuildPath(item.time, item.category, r1);
-						if (path1 == path2) break;
-						string dir = Path.GetDirectoryName(path2);
-						if (!Directory.Exists(dir))
-							Directory.CreateDirectory(dir);
-						try
-						{
-							writer2 = new StreamWriter(path2, true, Encoding.UTF8);
-							using (writer1) path1 = null;
-							writer1 = writer2;
-							path1 = path2;
-							break;
-						}
-						catch
-						{
-							if (r1 < retry_open)
-								continue;
-							context.Retry(item);
-							throw;
-						}
-					}
-					WriteMessage(writer1, item);
-				}
-			}
-			finally
-			{
-				using (writer1) path1 = null;
-			}
-		}
+                while (context.GetMessage(out item))
+                {
+                    for (int r1 = 0; ; r1++)
+                    {
+                        path2 = this.BuildPath(item.time, item.category, r1);
+                        if (path1 == path2) break;
+                        string dir = Path.GetDirectoryName(path2);
+                        if (!Directory.Exists(dir))
+                            Directory.CreateDirectory(dir);
+                        try
+                        {
+                            file2 = new FileStream(path2, FileMode.OpenOrCreate);
+                            writer2 = new StreamWriter(file2, Encoding.UTF8);
+                            using (writer1) path1 = null;
+                            file1 = file2;
+                            writer1 = writer2;
+                            path1 = path2;
+                            break;
+                        }
+                        catch
+                        {
+                            if (r1 < retry_open)
+                                continue;
+                            context.Retry(item);
+                            throw;
+                        }
+                    }
+                    WriteMessage(writer1, item);
+                }
+            }
+            finally
+            {
+                using (file1)
+                using (writer1)
+                    path1 = null;
+            }
+        }
 
 		protected virtual void OnExitProcess() { }
 		internal abstract void WriteMessage(StreamWriter writer, log.MessageItem msg);
@@ -96,7 +101,7 @@ namespace System
 		[AppSetting("LogPath"), DefaultValue("Log\\{0:yyyy-MM}\\{0:yyyy-MM-dd_HH}{1}{2}")]
 		public override string path_format
 		{
-			get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod()); }
+			get { return app.config.GetValue<string>(this); }
 		}
 		public override string file_ext
 		{
@@ -115,7 +120,7 @@ namespace System
 	public sealed class JsonTextLogWriter : TextFileLogWriter<JsonTextLogWriter>
 	{
 		[AppSetting("JsonLogPathFormat"), DefaultValue("Log\\{0:yyyy-MM}\\{0:yyyy-MM-dd_HH}")]
-		public override string path_format { get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod()); } }
+		public override string path_format { get { return app.config.GetValue<string>(this); } }
 		public override string file_ext { get { return "json.txt"; } }
 
 		internal override void WriteMessage(StreamWriter writer, log.MessageItem msg)
@@ -125,4 +130,3 @@ namespace System
 		}
 	}
 }
-#endif
