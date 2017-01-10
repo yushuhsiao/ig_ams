@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +27,28 @@ namespace ApiServer
                 config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
                 config.MapHttpAttributeRoutes();
             });
+        }
+
+        static int getGameID(int defaultValue, [CallerMemberName] string key = null)
+        {
+            string value = ConfigurationManager.AppSettings[key];
+            int result;
+            if (int.TryParse(value, out result))
+                return result;
+            return defaultValue;
+        }
+
+        public static int GameID_TaiwanMahjong
+        {
+            get { return getGameID(1093); }
+        }
+        public static int GameID_DouDizhu
+        {
+            get { return getGameID(1092); }
+        }
+        public static int GameID_TexasHoldem
+        {
+            get { return getGameID(1091); }
         }
     }
 }

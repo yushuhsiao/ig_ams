@@ -106,6 +106,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tools", "lib\Tools\Tools.xp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewWaitingPlayer", "util\ViewWaitingPlayer\ViewWaitingPlayer.csproj", "{0976F0A5-7DEC-45B8-BF97-FA80E8CF3694}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServer", "web\GeniusBullInternalApi\ApiServer.csproj", "{10A573C5-2922-492D-848C-EB542A9C3C0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysis|Any CPU = CodeAnalysis|Any CPU
@@ -330,6 +332,14 @@ Global
 		{0976F0A5-7DEC-45B8-BF97-FA80E8CF3694}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0976F0A5-7DEC-45B8-BF97-FA80E8CF3694}.Verify|Any CPU.ActiveCfg = Release|Any CPU
 		{0976F0A5-7DEC-45B8-BF97-FA80E8CF3694}.Verify|Any CPU.Build.0 = Release|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.Verify|Any CPU.ActiveCfg = Release|Any CPU
+		{10A573C5-2922-492D-848C-EB542A9C3C0E}.Verify|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -365,5 +375,6 @@ Global
 		{F491F4BB-91B8-46E4-A3F7-13B5F4D3B77D} = {9DDF7172-FB24-4D86-A688-10B7ADA69D3F}
 		{C8DE4077-3362-496C-9359-83E7250F3EB0} = {785E35C2-0866-4785-A608-6B4D9AE80EE6}
 		{0976F0A5-7DEC-45B8-BF97-FA80E8CF3694} = {90645519-2300-46F6-A28B-7BBED19FC34D}
+		{10A573C5-2922-492D-848C-EB542A9C3C0E} = {02446961-CB59-47E7-949A-7A8D8E51B29D}
 	EndGlobalSection
 EndGlobal
