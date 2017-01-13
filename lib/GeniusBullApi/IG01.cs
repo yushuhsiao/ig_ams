@@ -52,7 +52,7 @@ namespace ams.Data
         [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "AssetServerUrl"), DefaultValue("http://asset.betis73168.com:81")]
         public string AssetServerUrl
         {
-            get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod()); }
+            get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
         [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "RecognitionApiUrl1"), DefaultValue("http://gs1.betis73168.com:9080/recognitionservice/rest")]

@@ -12,17 +12,17 @@ namespace api_test_client
         {
             api_client api = new api_client()
             {
-                //AUTH_SITE = "ig02",
-                //AUTH_USER = "_website",
-                //API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQAZLz/8Gl9LLTnS8KzceC+Y4bHdplgcyCzLsE17L1du8/P8g20Y9w3hCoiy63ziIyshig2eOjpQZfm1b7F+5YUUURuOTlAU552a0+U4Js9BVEh5PLUHmkqUULv+paXpIjC98HweAuOX4EBZI6w9riwgErz3Q9Dv1ddgMJUbka7QwA==",
-                AUTH_SITE = "ig07",
-                AUTH_USER = "_api_user",
-                API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQArS1TqSr1Te3J5iaSDzERfjyhFfpNrTYkNAmyyQkK7k0spsJ9CWuOKlJM4j9kFWZrqJK9rOsY0GQVOitGgIa5uVeZAGacsL3G8T7jXHN2Xv5tbkUCULwErJImJC7GcYXSSt9KxjLW9Elpe4lOazrnJfJ0X+OoX52tegbjGhN89qQ==",
+                AUTH_SITE = "ig02",
+                AUTH_USER = "_website",
+                API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQAZLz/8Gl9LLTnS8KzceC+Y4bHdplgcyCzLsE17L1du8/P8g20Y9w3hCoiy63ziIyshig2eOjpQZfm1b7F+5YUUURuOTlAU552a0+U4Js9BVEh5PLUHmkqUULv+paXpIjC98HweAuOX4EBZI6w9riwgErz3Q9Dv1ddgMJUbka7QwA==",
+                //AUTH_SITE = "ig07",
+                //AUTH_USER = "_api_user",
+                //API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQArS1TqSr1Te3J5iaSDzERfjyhFfpNrTYkNAmyyQkK7k0spsJ9CWuOKlJM4j9kFWZrqJK9rOsY0GQVOitGgIa5uVeZAGacsL3G8T7jXHN2Xv5tbkUCULwErJImJC7GcYXSSt9KxjLW9Elpe4lOazrnJfJ0X+OoX52tegbjGhN89qQ==",
                 BASE_URL = "http://ams.betis73168.com:7001",
             };
             
             object n = null;
-            n = api.GetWaitUserCount();
+            //n = api.GetWaitUserCount();
             //n = api.CreateMember("test38");
             //n = api.PlatformDepositEx("appeal", "test37", 100);
             //n = ams.api_client.ImageUrl.GetValue(api, "yushu");
@@ -35,8 +35,8 @@ namespace api_test_client
             //n = api.GetRecogResult(recog_id, MatchUserDetails: true);
             //n = api.GetRecogResult(recog_id);
             //n = api.GetBlackList("andy168", "geniusbull");
-            //n = api_client.TakePictureUrls.GetValue(api, "yushu111", "action", true);
-            //Debugger.Break();
+            n = api_client.TakePictureUrls.GetValue(api, "yushu", "sample", true);
+            Debugger.Break();
             //n = api.PhotoUnregister("yushu");
             //n = api.GetBalance("aaa568", "agltd");
             //Debugger.Break();
