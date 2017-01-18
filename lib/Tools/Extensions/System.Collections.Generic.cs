@@ -1,4 +1,5 @@
-﻿using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
+﻿using System.Threading;
+using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System.Collections.Generic
 {
@@ -78,12 +79,21 @@ namespace System.Collections.Generic
         }
 
         [_DebuggerStepThrough]
-        public static bool AddOnce<T>(this List<T> list, T item)
+        public static bool AddOnce<T>(this List<T> list, T item, bool sync_lock = false)
         {
-            if (list.Contains(item))
-                return false;
-            list.Add(item);
-            return true;
+            if (sync_lock) Monitor.Enter(list);
+            try
+            {
+                if (list.Contains(item))
+                    return false;
+                list.Add(item);
+                return true;
+            }
+            finally
+            {
+                if (sync_lock)
+                    Monitor.Exit(list);
+            }
         }
 
 
@@ -112,6 +122,22 @@ namespace System.Collections.Generic
             return list;
         }
 
+        [_DebuggerStepThrough]
+        public static IEnumerable<T> ForEach<T>(this List<T> users, bool sync_lock = true)
+        {
+            if (sync_lock)
+                Monitor.Enter(users);
+            try
+            {
+                for (int i = users.Count - 1; i >= 0; i--)
+                    yield return users[i];
+            }
+            finally
+            {
+                if (sync_lock)
+                    Monitor.Exit(users);
+            }
+        }
 
         [_DebuggerStepThrough]
         public static int AddOnce<T>(this List<T> list, IEnumerable<T> items)
