@@ -173,7 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AjaxController2.cs" />
+    <Compile Include="Controllers\_AjaxController.cs" />
     <Compile Include="Controllers\PlayGameController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
