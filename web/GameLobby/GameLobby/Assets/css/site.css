@@ -1,0 +1,164 @@
+﻿html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+body {
+    font-family: 'Microsoft JhengHei',STHeitiTC-Light,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+}
+
+.container {
+    width: 1220px;
+    margin: 0 auto;
+}
+
+.waterflow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background: url(../images/bg.jpg) repeat;
+}
+
+.nav {
+    background: url(../images/nav-bg.png) repeat-x;
+    height: 75px;
+    min-width: 1220px;
+}
+
+    .nav .profile {
+        margin-top: 15px;
+        float: right;
+    }
+
+    .nav .username,
+    .nav .balance {
+        height: 35px;
+        padding-left: 25px;
+        margin-left: 5px;
+        float: left;
+        border-radius: 3px;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        line-height: 35px;
+        text-align: center;
+    }
+
+    .nav .username {
+        width: 145px;
+        background-image: url(../images/icon-member.png);
+    }
+
+    .nav .balance {
+        width: 165px;
+        background-image: url(../images/icon-money.png);
+        color: #ba3301;
+    }
+
+.footer {
+    height: 54px;
+    background-color: #252525;
+    border-top: 4px solid #111111;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+}
+
+.content {
+    background-color: rgba(214,214,214,1);
+    background-image: url(../images/flower.png);
+    background-repeat: no-repeat;
+}
+
+.logo {
+    background: url(../images/logo.png) no-repeat;
+    width: 120px;
+    height: 120px;
+    margin: 60px auto 0;
+}
+
+.slogan {
+    background: url(../images/live-text.png) no-repeat;
+    width: 900px;
+    height: 150px;
+    margin: 40px auto;
+}
+
+.hr {
+    background: url(../images/level.png) no-repeat top center;
+    height: 45px;
+}
+
+.games {
+    margin: 30px auto 35px;
+    width: 1218px;
+}
+
+.game {
+    float: left;
+    margin: 0 68px;
+}
+
+    .game .cover {
+        background-repeat: no-repeat;
+        width: 270px;
+        height: 270px;
+        border-radius: 6px;
+    }
+
+    .game .enter {
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: block;
+        width: 270px;
+        height: 99px;
+        margin-top: 5px;
+        text-indent: -9999px;
+        cursor: pointer;
+    }
+
+    .game.mahjong .cover {
+        background-image: url(../images/lobby-mahjong.png);
+    }
+
+    .game.mahjong .enter {
+        background-image: url(../images/btn-mahjong.png);
+    }
+
+    .game.doudizhu .cover {
+        background-image: url(../images/lobby-doudizhu.png);
+    }
+
+    .game.doudizhu .enter {
+        background-image: url(../images/btn-doudizhu.png);
+    }
+
+    .game.texasholdem .cover {
+        background-image: url(../images/lobby-texasholdem.png);
+    }
+
+    .game.texasholdem .enter {
+        background-image: url(../images/btn-texasholdem.png);
+    }

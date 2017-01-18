@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photo Check</title>
+    <link href="~/assets/css/normalize.min.css" rel="stylesheet" />
+    <link href="~/assets/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/assets/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
+    <link href="~/assets/css/site-game.css" rel="stylesheet" />
+    <script src="~/assets/js/jquery-2.2.4.min.js"></script>
+    <script src="~/assets/js/vue.min.js"></script>
+    <script src="~/assets/js/js.cookie.min.js"></script>
+    <script src="~/assets/alertifyjs/alertify.min.js"></script>
+    <script src="~/assets/swfobject/swfobject.min.js"></script>
+    <script src="~/assets/js/site-game.js"></script>
+</head>
+<body>
+    <div class="game-wrapper">
+        <div id="capture"></div>
+    </div>
+    <script>
+        function startCapture() {
+            if (!isFlashPlayerInstalled()) {
+                window.location = 'https://get.adobe.com/tw/flashplayer';
+                return;
+            }
+
+            var swfUrl = '@String.Format("{0}/webcam/PhotoCheck.swf?v=201611011136", ConfigHelper.AssetServerUrl)';
+            var flashvars = {
+                recognitionUrl: '@ConfigHelper.RecognitionApiUrl',
+                accessToken: '@User.TakeAccessToken()'
+            };
+
+            embedSwf(swfUrl, flashvars, 'capture', '550px', '550px');
+        }
+
+        function verifyPhotoSuccess() {
+            parent.verifyPhotoSuccess();
+        }
+
+        function verifyPhotoFail() {
+            parent.verifyPhotoFail();
+        }
+
+        $(document).ready(function () {
+            startCapture();
+        });
+    </script>
+</body>
+</html>
