@@ -76,11 +76,16 @@ namespace IG.Lobby.TG
 
     public static class _Config
     {
-        [ConnectionString]
+        public static string IGEntities_
+        {
+            [DebuggerStepThrough]
+            get { return new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["IGEntities"].ConnectionString).ProviderConnectionString; }
+        }
+        [AppSetting("IGEntities")]
         public static string IGEntities
         {
             [DebuggerStepThrough]
-            get { return new EntityConnectionStringBuilder(app.config.GetValue<string>(MethodBase.GetCurrentMethod())).ProviderConnectionString; }
+            get { return new EntityConnectionStringBuilder(app.config.GetValue<string>(typeof(_Config))).ProviderConnectionString; }
         }
     }
 }

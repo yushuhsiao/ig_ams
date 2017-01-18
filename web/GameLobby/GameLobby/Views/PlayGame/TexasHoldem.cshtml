@@ -1,4 +1,5 @@
-﻿
+﻿@model IG.Lobby.TG.Models.PlayTexasHoldemViewModel
+
 @{
     Layout = null;
 }
@@ -7,12 +8,46 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>TexasHoldem</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@TransHelper.Ui(String.Format("GameName_{0}", Model.GameName))</title>
+    <link href="~/assets/css/normalize.min.css" rel="stylesheet" />
+    <link href="~/assets/css/site-game.css" rel="stylesheet" />
+    <script src="~/assets/swfobject/swfobject.min.js"></script>
+    <script src="~/assets/js/site-game.js"></script>
 </head>
 <body>
-    <div> 
-        @Request.QueryString["tableId"]
-    </div>
+    <div class="game-wrapper"><div id="game"></div></div>
+    <script type="text/javascript">
+        function startGame(tableId) {
+            if (!isFlashPlayerInstalled()) {
+                window.location = 'https://get.adobe.com/tw/flashplayer';
+                return;
+            }
+
+            var swfUrl = '@String.Format("{0}/games/{1}/Main.swf?v={2}", ConfigHelper.AssetServerUrl, Model.GameName, Model.GameToken)';
+            var flashvars = {
+                gameUrl: '@String.Format("{0}/games/{1}", ConfigHelper.AssetServerUrl, Model.GameName)',
+                gameName: '@Model.GameName',
+                gameCulture: '@Model.Culture',
+                gameFileToken: '@Model.GameToken',
+                serverUrl: '@Model.ServerUrl',
+                serverPort: '@Model.ServerPort',
+                accessToken: '@Model.AccessToken',
+                rtmpUrl: '@ConfigHelper.RtmpServerUrl',
+                recognitionUrl: '@ConfigHelper.RecognitionApiUrl',
+                tableId: tableId
+            };
+
+            embedSwf(swfUrl, flashvars, 'game', '100%', '100%');
+        }
+
+        function returnToLobby() {
+            removeSWF('game');
+            window.close();
+        }
+        startGame(@(Request.Form["tableId"] ?? Request.QueryString["tableId"]));
+    </script>
 </body>
 </html>
