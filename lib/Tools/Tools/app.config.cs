@@ -87,10 +87,10 @@ namespace System.Configuration
         }
 
         [_DebuggerStepThrough]
-        public static class config<TClassType>
+        public static class config<TClass>
         {
-            public static object GetValue([CallerMemberName] string name = null, params object[] index) => prop.get_prop(typeof(TClassType), name).GetValue(name, index);
-            public static T GetValue<T>([CallerMemberName] string name = null, params object[] index) => prop.get_prop(typeof(TClassType), name).GetValue<T>(name, index);
+            public static object GetValue([CallerMemberName] string name = null, params object[] index) => prop.get_prop(typeof(TClass), name).GetValue(name, index);
+            public static T GetValue<T>([CallerMemberName] string name = null, params object[] index) => prop.get_prop(typeof(TClass), name).GetValue<T>(name, index);
         }
 
         [_DebuggerStepThrough]

@@ -138,3 +138,11 @@
 /web/GeniusBull_CashService/obj
 /web/GeniusBullInternalApi/obj
 /web/GeniusBullInternalApi/bin
+/web/GeniusBull_ApiServer/bin
+/web/GameLobby/GameLobby/bin
+/web/GameLobby/GameLobby/obj
+/web/GameLobby/packages
+/web/GeniusBull_ApiServer/.svn
+/web/GeniusBull_ApiServer/obj
+/web/GeniusBull_ApiServer/packages
+/web/GeniusBull_ApiServer/_

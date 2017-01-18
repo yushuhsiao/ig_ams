@@ -1,4 +1,5 @@
-﻿using System.Data.SqlTypes;
+﻿using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 

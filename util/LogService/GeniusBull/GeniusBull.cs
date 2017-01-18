@@ -249,7 +249,7 @@ namespace GeniusBull
             {
                 MemberData member;
                 string sql_GameLog1;
-                if (GameLogAttribute.CreateGameLog(data, group, config.platform, gameInfo, out member, out sql_GameLog1))
+                if (GameLogAttribute.CreateGameLog(config, data, group, config.platform, gameInfo, out member, out sql_GameLog1))
                 {
                     data.GameLog_sqlstr = sql_GameLog1;
                     data.GameLog_SqlCmd = util.GetSqlCmd(member.CorpInfo.DB_Log01W);// util.SqlCmd_UserLog(member.CorpInfo);

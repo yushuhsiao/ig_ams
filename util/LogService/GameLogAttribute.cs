@@ -1,5 +1,6 @@
 ﻿using ams;
 using ams.Data;
+using GeniusBull;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -63,10 +64,10 @@ namespace LogService
             }
         }
 
-        public static bool CreateGameLog(GeniusBull._LogBase item, GeniusBull._LogBase group, IG01PlatformInfo platform, GameInfo gameInfo, out MemberData member, out string sql_string)
+        public static bool CreateGameLog(_Config.Item config, GeniusBull._LogBase item, GeniusBull._LogBase group, IG01PlatformInfo platform, GameInfo gameInfo, out MemberData member, out string sql_string)
         {
             AgentData agent;
-            if (item.GetMember(platform, out member, out agent))
+            if (item.GetMember(config, out member, out agent))
             {
                 decimal cx = Currency.QueryExchangeRate(member.CorpInfo.Currency, platform.Currency);
                 //if (member.CorpInfo.ID == 2)

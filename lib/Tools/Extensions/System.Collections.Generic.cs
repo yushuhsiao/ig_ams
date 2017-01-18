@@ -24,19 +24,31 @@ namespace System.Collections.Generic
             }
         }
 
+        //[_DebuggerStepThrough]
+        //public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, bool remove = false)
+        //{
+        //    if (dict == null) return default(TValue);
+        //    TValue result;
+        //    if (dict.ContainsKey(key))
+        //    {
+        //        result = dict[key];
+        //        if (remove) dict.Remove(key);
+        //        return result;
+        //    }
+        //    return default(TValue);
+        //}
+
         [_DebuggerStepThrough]
-        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, bool remove = false)
+        public static bool TryGetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, out TValue value, bool remove = false)
         {
-            if (dict == null) return default(TValue);
-            TValue result;
-            if (dict.ContainsKey(key))
+            bool result;
+            if (result = dict.TryGetValue(key, out value))
             {
-                result = dict[key];
-                if (remove) dict.Remove(key);
-                return result;
+                if (remove) dict.TryRemove(key);
             }
-            return default(TValue);
+            return result;
         }
+
 
         [_DebuggerStepThrough]
         public static bool TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
@@ -45,6 +57,15 @@ namespace System.Collections.Generic
                 return false;
             dict[key] = value;
             return true;
+        }
+
+        [_DebuggerStepThrough]
+        public static bool TryRemove<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key)
+        {
+            bool result = false;
+            while (dict.ContainsKey(key))
+                result |= dict.Remove(key);
+            return result;
         }
 
         [_DebuggerStepThrough]

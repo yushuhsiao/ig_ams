@@ -176,12 +176,16 @@ namespace LogService
             catch (SqlException ex) when (ex.IsDuplicateKey()) { return 1; }
         }
 
-        public static bool GetMember(this _LogBase data, IG01PlatformInfo platform, out MemberData member, out AgentData agent)
+        public static bool GetMember(this _LogBase data, _Config.Item config, out MemberData member, out AgentData agent)
         {
             int playerID = data.GetPlayerID();
             if (playerID > 0)
             {
-                member = platform.GetMember(playerID);
+                int? ownerId = config.gameDB.ExecuteNonQuery($"select OwnerId from MemberAvatar nolock where PlayerId={playerID}") as int?;
+                ownerId = ownerId ?? 0;
+                if (ownerId != 0)
+                    playerID = ownerId.Value;
+                member = config.platform.GetMember(playerID);
                 agent = member?.GetAgent();
                 return member != null;
             }

@@ -15,6 +15,7 @@ namespace ams
         public Global()
         {
             typeof(ams.Data.IG01PlatformInfo).ToString();
+            typeof(ams.Data.AppealPlatformInfo).ToString();
             typeof(SunTech.PaymentInfo_SunTech).ToString();
         }
 
