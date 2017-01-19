@@ -25,19 +25,20 @@ namespace System.Collections.Generic
             }
         }
 
-        //[_DebuggerStepThrough]
-        //public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, bool remove = false)
-        //{
-        //    if (dict == null) return default(TValue);
-        //    TValue result;
-        //    if (dict.ContainsKey(key))
-        //    {
-        //        result = dict[key];
-        //        if (remove) dict.Remove(key);
-        //        return result;
-        //    }
-        //    return default(TValue);
-        //}
+        [_DebuggerStepThrough]
+        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, bool remove = false)
+        {
+            TValue result; dict.TryGetValue(key, out result, remove); return result;
+            //if (dict == null) return default(TValue);
+            //TValue result;
+            //if (dict.ContainsKey(key))
+            //{
+            //    result = dict[key];
+            //    if (remove) dict.Remove(key);
+            //    return result;
+            //}
+            //return default(TValue);
+        }
 
         [_DebuggerStepThrough]
         public static bool TryGetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, out TValue value, bool remove = false)

@@ -1,55 +1,72 @@
-﻿
--- =============================================
+﻿-- =============================================
 -- Description: 把玩家電子錢包所有的錢轉到戶頭
--- Update date: 2016-05-27
+-- Update date: 2016-01-18
 -- =============================================
-CREATE PROCEDURE dbo.usp_CashOutAll
+CREATE PROCEDURE [dbo].[usp_CashOutAll]
     @PlayerBalance decimal(18, 2) OUTPUT,
     @WalletBalance decimal(18, 2) OUTPUT,
     @PlayerId int,
     @GameId int,
+
     @Date Datetime = NULL
 AS
 SET NOCOUNT ON;
+declare
+	@TableId int, @JoinCount int, @OwnerId int,
+	@prevPlayerBalance decimal(18, 2), 
+	@prevWalletBalance decimal(18, 2)
 
-DECLARE @Balance decimal(18, 2);
+	select @TableId = TableId from MemberJoinTable with(nolock) where PlayerId = @PlayerId and GameId = @GameId
 
-IF @Date IS NULL SET @Date = GETDATE();
+	-- 取得帳號分身資訊
+	set @OwnerId = dbo.GetAvatarOwnerId(@PlayerId)
 
-BEGIN TRY
-    BEGIN TRANSACTION;
+	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Date]) values ('CashOutAll',@PlayerId,@GameId,@TableId,@OwnerId,@Date )
 
-        SET @PlayerBalance = (SELECT Balance FROM dbo.Member WITH (UPDLOCK) WHERE Id = @PlayerId);
-        SET @WalletBalance = (SELECT Balance FROM dbo.Wallet WITH (UPDLOCK) WHERE PlayerId = @PlayerId AND GameId = @GameId);
+	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
+	select @prevPlayerBalance = Balance from dbo.Member with(updlock) where Id = @OwnerId
+	if @prevPlayerBalance is null goto _exit2
 
-        -- 查無此玩家或查無此玩家的錢包時 RETURN 2 後跳出
-        IF @PlayerBalance IS NULL OR @WalletBalance IS NULL
-        BEGIN
-            SET @PlayerBalance = 0;
-            SET @WalletBalance = 0;
-            ROLLBACK TRANSACTION;
-            RETURN 2;
-        END;
+	-- 取得錢包原有點數, 錢包不存在時 RETURN 2 跳出
+	select @prevWalletBalance = Balance FROM dbo.Wallet with(updlock) WHERE PlayerId = @PlayerId AND GameId = @GameId
+	if @prevWalletBalance is null goto _exit2
+	if @Date is null set @Date = getdate();
 
-        -- 扣掉玩家錢包所有的錢，加到玩家戶頭
-        SET @Balance = @WalletBalance
-        SET @PlayerBalance = @PlayerBalance + @Balance;
-        SET @WalletBalance = @WalletBalance - @Balance;
+	begin try
+		begin tran
 
-        UPDATE dbo.Member SET Balance = @PlayerBalance
-        WHERE Id = @PlayerId;
+		update dbo.Member set Balance = Balance + @prevWalletBalance
+		where Id = @OwnerId
 
-        UPDATE dbo.Wallet SET Balance = @WalletBalance, ModifyDate = @Date
-        WHERE PlayerId = @PlayerId AND GameId = @GameId;
+		update dbo.Wallet set Balance = Balance - @prevWalletBalance, ModifyDate = @Date
+		where PlayerId = @PlayerId and GameId = @GameId
 
-        -- 紀錄 Log
-        INSERT INTO dbo.WalletTranLog (PlayerId, GameId, Type, Amount, AccountBalance, WalletBalance, TransactionTime)
-        VALUES (@PlayerId, @GameId, 1, @Balance, @PlayerBalance, @WalletBalance, @Date);
+		-- 取得更新後的點數
+		select @PlayerBalance = Balance from dbo.Member
+		where Id = @OwnerId
 
-    COMMIT TRANSACTION;
-    RETURN 0;
-END TRY
-BEGIN CATCH
-    IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
-    RETURN ERROR_NUMBER();
-END CATCH;
+		select @WalletBalance = Balance from dbo.Wallet
+		where PlayerId = @PlayerId and GameId = @GameId
+
+		if @PlayerBalance < 0 or @WalletBalance < 0 goto _exit2x; -- 更新後的點數小於 0 時返回錯誤
+
+		-- 紀錄 Log
+		insert into dbo.WalletTranLog (PlayerId, GameId, [Type], Amount, AccountBalance, WalletBalance, TransactionTime)
+		values (@PlayerId, @GameId, 0, @PlayerBalance - @prevPlayerBalance, @PlayerBalance, @WalletBalance, @Date);
+
+		if @TableId > 0
+			update MemberJoinTable set [State]=0 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
+
+		commit tran
+		return 0;
+	end try
+	begin catch
+		if @@trancount > 0 rollback tran;
+		return error_number();
+	end catch
+
+_exit2x:
+	rollback tran
+_exit2:
+	select @PlayerBalance=0, @WalletBalance=0
+	return 2

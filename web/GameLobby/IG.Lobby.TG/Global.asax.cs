@@ -2,6 +2,7 @@
 using IG.Lobby.TG.Helpers;
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
@@ -90,6 +91,12 @@ namespace IG.Lobby.TG
             var n1 = ConfigurationManager.ConnectionStrings["IGEntities"];
             var n2 = new EntityConnectionStringBuilder(n1.ConnectionString);
             return new SqlCmd(n2.ProviderConnectionString);
+        }
+
+        [AppSetting, DefaultValue(8)]
+        public static int MaxAvatarCount
+        {
+            get { return app.config<MvcApplication>.GetValue<int>(); }
         }
     }
 }

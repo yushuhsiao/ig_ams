@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SunTech", "SunTech", "{22C2
 		doc\SunTech\紅陽科技-Paycode代碼繳費流程圖(四大超商).pdf = doc\SunTech\紅陽科技-Paycode代碼繳費流程圖(四大超商).pdf
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{3C8B5DD8-6264-4462-9152-3D0FEA6DDADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysis|Any CPU = CodeAnalysis|Any CPU
@@ -98,6 +100,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6} = {3C8B5DD8-6264-4462-9152-3D0FEA6DDADB}
+		{C3DD615B-C0DA-4461-ADA2-73D89BC658B8} = {3C8B5DD8-6264-4462-9152-3D0FEA6DDADB}
+		{F8BD8A7F-7ABD-402B-8F77-F2AD084DA7B7} = {3C8B5DD8-6264-4462-9152-3D0FEA6DDADB}
 		{22C228E7-8D4C-448F-B61A-8CAEC08E3A09} = {658ACEE8-00AD-4D4F-91C3-8FAA8386BA19}
 	EndGlobalSection
 EndGlobal

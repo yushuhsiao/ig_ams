@@ -4,6 +4,7 @@ using IG.Lobby.TG.Helpers;
 using IG.Lobby.TG.Models;
 using System;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -31,8 +32,65 @@ namespace IG.Lobby.TG.Controllers
             base.Dispose(disposing);
         }
 
-        [Authenticate]
-        public ActionResult TexasHoldem()
+        [Authenticate, ActionName("TexasHoldem"), Route("~/TexasHoldem/Tables")]
+        public ActionResult TexasHoldem_Tables()
+        {
+            var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
+            if (game == null)
+                return new HttpNotFoundResult();
+
+            UpdateGameClick(game);
+            SetKeepAliveKey(User.TakeId(), game.Id);
+
+            return View(game);
+        }
+
+        [Authenticate, Route("~/TexasHoldem/Play")]
+        public ActionResult TexasHoldem_Play()
+        {
+            var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
+            if (game == null)
+                return new HttpNotFoundResult();
+
+            PlayTexasHoldemViewModelEx model = new PlayTexasHoldemViewModelEx
+            {
+                PlayerId = User.TakeId(),
+                GameId = game.Id,
+                TableId = (Request.Form["tableId"] ?? Request.QueryString["tableId"]).ToInt32() ?? -1,
+
+                GameName = game.Name,
+                GameToken = game.FileToken,
+                Culture = CultureHelper.GetCurrentGameCulture(),
+                ServerUrl = game.ServerUrl,
+                ServerPort = game.ServerPort,
+                //AccessToken = base.User.TakeAccessToken()
+            };
+            if (model.TableId < 0)
+                return new HttpNotFoundResult();
+
+            using (SqlCmd sqlcmd = MvcApplication.GetSqlCmd())
+            {
+                for (int i = 1; i <= MvcApplication.MaxAvatarCount; i++)
+                {
+                    model.AccessToken = $"{model.PlayerId}|{Guid.NewGuid().ToString("N")}";
+                    model.AccessToken = $"{Guid.NewGuid().ToString("N")}";
+                    string sqlstr = $"exec dbo.sp_GetMemberAvatar @PlayerId = {model.PlayerId}, @GameId = {model.GameId}, @TableId = {model.TableId}, @Account = '{User.TakeAccount()}_{i}', @AccessToken = '{model.AccessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
+                    try
+                    {
+                        foreach (Action commit in sqlcmd.BeginTran())
+                        {
+                            sqlcmd.ExecuteNonQuery(sqlstr);
+                            commit();
+                            return View(model);
+                        }
+                    }
+                    catch (SqlException ex) when (ex.Class == 14 && ex.Number == 2601) { }
+                }
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
+        }
+
+        private ActionResult TexasHoldem()
         {
             var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -174,5 +232,14 @@ namespace IG.Lobby.TG.Controllers
 
             return keepAliveKey;
         }
+    }
+}
+namespace IG.Lobby.TG.Models
+{
+    public class PlayTexasHoldemViewModelEx : PlayTexasHoldemViewModel
+    {
+        public int PlayerId { get; set; }
+        public int GameId { get; set; }
+        public int TableId { get; set; }
     }
 }

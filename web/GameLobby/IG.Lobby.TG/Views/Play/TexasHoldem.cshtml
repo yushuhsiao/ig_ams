@@ -1,4 +1,4 @@
-﻿@model IG.Lobby.TG.Models.PlayTexasHoldemViewModel
+﻿@model IG.Dal.Game
 
 @{
     Layout = null;
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@TransHelper.Ui(String.Format("GameName_{0}", Model.GameName))</title>
+    <title>@TransHelper.Ui(String.Format("GameName_{0}", Model.Name))</title>
     <link href="~/assets/css/normalize.min.css" rel="stylesheet" />
     <link href="~/assets/alertifyjs/css/alertify.min.css" rel="stylesheet" />
     <link href="~/assets/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
@@ -104,7 +104,7 @@
         });
 
         function startGame(tableId) {
-            window.open('@Url.Action("TexasHoldem", "PlayGame")?tableId=' + tableId, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + 1280 + ',height=' + 720);
+            window.open('@Url.Action("TexasHoldem_Play")?tableId=' + tableId, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + 1280 + ',height=' + 720);
         }
 
         $(document).ready(function () {

@@ -181,7 +181,7 @@ namespace LogService
             int playerID = data.GetPlayerID();
             if (playerID > 0)
             {
-                int? ownerId = config.gameDB.ExecuteScalar($"select OwnerId from MemberAvatar nolock where PlayerId={playerID}") as int?;
+                int? ownerId = config.gameDB.ExecuteScalar($"select dbo.GetAvatarOwnerId({playerID})") as int?;
                 ownerId = ownerId ?? 0;
                 if (ownerId != 0)
                     playerID = ownerId.Value;

@@ -7,6 +7,7 @@ CREATE PROCEDURE [dbo].[usp_CashOutAll]
     @WalletBalance decimal(18, 2) OUTPUT,
     @PlayerId int,
     @GameId int,
+
     @Date Datetime = NULL
 AS
 SET NOCOUNT ON;
@@ -15,17 +16,19 @@ declare
 	@prevPlayerBalance decimal(18, 2), 
 	@prevWalletBalance decimal(18, 2)
 
-	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[Date]) values ('CashOutAll',@PlayerId ,@GameId ,@Date )
+	select @TableId = TableId from MemberJoinTable with(nolock) where PlayerId = @PlayerId and GameId = @GameId
 
 	-- 取得帳號分身資訊
-	set @OwnerId = isnull((select OwnerId from MemberAvatar nolock where PlayerId = @PlayerId), @PlayerId)
+	set @OwnerId = dbo.GetAvatarOwnerId(@PlayerId)
+
+	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Date]) values ('CashOutAll',@PlayerId,@GameId,@TableId,@OwnerId,@Date )
 
 	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
 	select @prevPlayerBalance = Balance from dbo.Member with(updlock) where Id = @OwnerId
 	if @prevPlayerBalance is null goto _exit2
 
 	-- 取得錢包原有點數, 錢包不存在時 RETURN 2 跳出
-	select @prevWalletBalance = Balance FROM dbo.Wallet WITH (UPDLOCK) WHERE PlayerId = @PlayerId AND GameId = @GameId
+	select @prevWalletBalance = Balance FROM dbo.Wallet with(updlock) WHERE PlayerId = @PlayerId AND GameId = @GameId
 	if @prevWalletBalance is null goto _exit2
 	if @Date is null set @Date = getdate();
 
@@ -35,7 +38,7 @@ declare
 		update dbo.Member set Balance = Balance + @prevWalletBalance
 		where Id = @OwnerId
 
-		update dbo.Wallet set Balance = 0, ModifyDate = @Date
+		update dbo.Wallet set Balance = Balance - @prevWalletBalance, ModifyDate = @Date
 		where PlayerId = @PlayerId and GameId = @GameId
 
 		-- 取得更新後的點數
@@ -50,6 +53,9 @@ declare
 		-- 紀錄 Log
 		insert into dbo.WalletTranLog (PlayerId, GameId, [Type], Amount, AccountBalance, WalletBalance, TransactionTime)
 		values (@PlayerId, @GameId, 0, @PlayerBalance - @prevPlayerBalance, @PlayerBalance, @WalletBalance, @Date);
+
+		if @TableId > 0
+			update MemberJoinTable set [State]=0 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
 
 		commit tran
 		return 0;

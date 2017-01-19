@@ -161,7 +161,6 @@
     <Compile Include="Controllers\GuangdongMahjongController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlayController.cs" />
-    <Compile Include="Controllers\PlayGameController.cs" />
     <Compile Include="Controllers\ReplayController.cs" />
     <Compile Include="Controllers\TaiwanMahjongController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -215,6 +214,10 @@
     <Content Include="Assets\alertifyjs\css\themes\semantic.min.css" />
     <Content Include="Assets\alertifyjs\css\themes\semantic.rtl.css" />
     <Content Include="Assets\alertifyjs\css\themes\semantic.rtl.min.css" />
+    <Content Include="Assets\angular\angular-csp.css" />
+    <Content Include="Assets\angular\angular.js" />
+    <Content Include="Assets\angular\angular.min.js" />
+    <Content Include="Assets\angular\index.js" />
     <Content Include="Assets\css\bootstrap-theme.css" />
     <Content Include="Assets\css\bootstrap-theme.min.css" />
     <Content Include="Assets\css\bootstrap.css" />
@@ -290,6 +293,13 @@
     <Content Include="Assets\css\bootstrap.css.map" />
     <Content Include="Assets\css\bootstrap.min.css.map" />
     <Content Include="Assets\css\normalize.min.css.map" />
+    <Content Include="Assets\angular\.bower.json" />
+    <Content Include="Assets\angular\angular.min.js.gzip" />
+    <Content Include="Assets\angular\angular.min.js.map" />
+    <Content Include="Assets\angular\bower.json" />
+    <Content Include="Assets\angular\LICENSE.md" />
+    <Content Include="Assets\angular\package.json" />
+    <Content Include="Assets\angular\README.md" />
     <None Include="Assets\js\jquery.validate-vsdoc.js" />
     <None Include="Assets\js\jquery-2.2.4.intellisense.js" />
     <Content Include="Assets\js\jquery-2.2.4.js" />
@@ -351,7 +361,7 @@
     <Content Include="Views\Replay\GuangdongMahjong.cshtml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\Qa.pubxml" />
-    <Content Include="Views\PlayGame\TexasHoldem.cshtml" />
+    <Content Include="Views\Play\TexasHoldem_Play.cshtml" />
     <None Include="Web.Product.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

@@ -16,18 +16,28 @@ declare
 	@prevPlayerBalance decimal(18, 2), 
 	@prevWalletBalance decimal(18, 2)
 
-	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[Balance],[Date]) values ('CashOut',@PlayerId ,@GameId ,@Balance ,@Date )
-	if @Balance < 0 goto _exit2;
+	select @TableId = TableId from MemberJoinTable with(nolock) where PlayerId = @PlayerId and GameId = @GameId
 
 	-- 取得帳號分身資訊
-	set @OwnerId = isnull((select OwnerId from MemberAvatar nolock where PlayerId = @PlayerId), @PlayerId)
+	set @OwnerId = dbo.GetAvatarOwnerId(@PlayerId)
 
-	-- 取得玩家點數以及所屬上級, 查無此玩家時 RETURN 2 後跳出
+	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Balance],[Date]) values ('CashOut',@PlayerId,@GameId,@TableId,@OwnerId,@Balance,@Date )
+
+	if @Balance < 0 goto _exit2;
+
+	if @TableId >= 0
+	begin
+		select @JoinCount = count(*) from MemberJoinTable with(nolock)
+		where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
+		if @JoinCount > 0 goto _exit2
+	end
+	
+	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
 	select @prevPlayerBalance = Balance from dbo.Member with(updlock) where Id = @OwnerId
 	if @prevPlayerBalance is null goto _exit2
 
 	-- 取得錢包原有點數, 錢包不存在時 RETURN 2 跳出
-	select @prevWalletBalance = Balance FROM dbo.Wallet WITH (UPDLOCK) WHERE PlayerId = @OwnerId AND GameId = @GameId
+	select @prevWalletBalance = Balance FROM dbo.Wallet with(updlock) WHERE PlayerId = @OwnerId AND GameId = @GameId
 	if @prevWalletBalance is null goto _exit2
 	if @Date is null set @Date = getdate();
 
@@ -52,6 +62,9 @@ declare
 		-- 紀錄 Log
 		insert into dbo.WalletTranLog (PlayerId, GameId, [Type], Amount, AccountBalance, WalletBalance, TransactionTime)
 		values (@PlayerId, @GameId, 0, @PlayerBalance - @prevPlayerBalance, @PlayerBalance, @WalletBalance, @Date);
+
+		if @TableId > 0
+			update MemberJoinTable set [State]=1 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
 
 		commit tran
 		return 0;

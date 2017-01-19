@@ -16,27 +16,29 @@ declare
 	@prevPlayerBalance decimal(18, 2), 
 	@prevWalletBalance decimal(18, 2)
 
-	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[Balance],[Date]) values ('CashIn', @PlayerId ,@GameId ,@Balance ,@Date )
-	if @Balance < 0 goto _exit2;
+	select @TableId = TableId from MemberJoinTable with(nolock) where PlayerId = @PlayerId and GameId = @GameId
 
 	-- 取得帳號分身資訊
-	set @OwnerId = isnull((select OwnerId from MemberAvatar nolock where PlayerId = @PlayerId), @PlayerId)
+	set @OwnerId = dbo.GetAvatarOwnerId(@PlayerId)
+
+	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Balance],[Date]) values ('CashIn',@PlayerId,@GameId,@TableId,@OwnerId,@Balance,@Date )
+
+	if @Balance < 0 goto _exit2;
+	
+	if @TableId >= 0
+	begin
+		select @JoinCount = count(*) from MemberJoinTable with(nolock)
+		where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
+		if @JoinCount > 0 goto _exit2
+	end
 
 	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
 	select @prevPlayerBalance = Balance from dbo.Member with(updlock) where Id = @OwnerId
 	if @prevPlayerBalance is null goto _exit2
 
-	-- MemberJoinTable.State, 在 dbo.usp_CashOutAll 時設為 0
-	select @TableId = TableId from MemberJoinTable with(updlock) where PlayerId = @PlayerId and GameId = @GameId
-	if @TableId > 0
-	begin
-		select @JoinCount = count(*) from MemberJoinTable with(updlock)
-		where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State] <> 0 
-		if @JoinCount > 0 goto _exit2
-	end
-
 	-- 取得錢包原有點數
-	select @prevWalletBalance = Balance FROM dbo.Wallet WITH (UPDLOCK) WHERE PlayerId = @PlayerId AND GameId = @GameId
+	select @prevWalletBalance = Balance FROM dbo.Wallet with(updlock) WHERE PlayerId = @PlayerId AND GameId = @GameId
+	
 	if @Date is null set @Date = getdate();
 
 	begin try
@@ -47,7 +49,7 @@ declare
 
 		if @prevWalletBalance is null
 			insert into dbo.Wallet (PlayerId, GameId, Balance, InsertDate, ModifyDate)
-			values (@PlayerId, @GameId, 0, getdate(), getdate());
+			values (@PlayerId, @GameId, @Balance, getdate(), getdate());
 		else
 			update dbo.Wallet set Balance = Balance + @Balance, ModifyDate = @Date
 			where PlayerId = @PlayerId and GameId = @GameId
@@ -64,6 +66,9 @@ declare
 		-- 紀錄 Log
 		insert into dbo.WalletTranLog (PlayerId, GameId, [Type], Amount, AccountBalance, WalletBalance, TransactionTime)
 		values (@PlayerId, @GameId, 0, @prevPlayerBalance - @PlayerBalance, @PlayerBalance, @WalletBalance, @Date);
+
+		if @TableId > 0
+			update MemberJoinTable set [State]=1 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
 
 		commit tran
 		return 0;
