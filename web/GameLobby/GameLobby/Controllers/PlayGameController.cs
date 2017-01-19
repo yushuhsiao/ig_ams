@@ -3,6 +3,7 @@ using IG.Lobby.TG.Extends;
 using IG.Lobby.TG.Helpers;
 using IG.Lobby.TG.Models;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -38,8 +39,12 @@ namespace IG.Lobby.TG.Controllers
                 return new HttpNotFoundResult();
             //this.UpdateGameClick(game);
             //this.SetKeepAliveKey(base.User.TakeId(), game.Id);
-            PlayTexasHoldemViewModel model = new PlayTexasHoldemViewModel
+            PlayTexasHoldemViewModelEx model = new PlayTexasHoldemViewModelEx
             {
+                PlayerId = User.TakeId(),
+                GameId = game.Id,
+                TableId = (Request.Form["tableId"] ?? Request.QueryString["tableId"]).ToInt32() ?? 0,
+
                 GameName = game.Name,
                 GameToken = game.FileToken,
                 Culture = CultureHelper.GetCurrentGameCulture(),
@@ -47,7 +52,30 @@ namespace IG.Lobby.TG.Controllers
                 ServerPort = game.ServerPort,
                 AccessToken = base.User.TakeAccessToken()
             };
-            return base.View(model);
+            using (SqlCmd sqlcmd = _Config.GetSqlCmd())
+            {
+                int avatar_index = 1;
+                string accessToken = $"{model.PlayerId}|{Guid.NewGuid().ToString("N")}";
+                string sqlstr = $@"exec sp_AllocMemberAvatar @PlayerId = {model.PlayerId}, @GameId = {model.GameId}, @TableId = {model.TableId}
+declare @PlayerId int, @GameId int, @TableId int, @PlayerAvatarId int
+select @PlayerId = {model.PlayerId}, @GameId = {model.GameId}, @TableId = {model.TableId}
+
+insert into dbo.Member (Account , ParentId, [Password], Nickname, Balance, Stock, [Role], [Type], [Status], Email, RegisterTime, LastLoginIp, LastLoginTime, AccessToken)
+select Account+'_{avatar_index}', ParentId, [Password], Nickname,       0, Stock, [Role], [Type], [Status], Email,    getdate(), LastLoginIp, LastLoginTime, '{accessToken}'
+from dbo.Member nolock where Id = @PlayerId
+set @PlayerAvatarId = @@IDENTITY
+insert into dbo.MemberAvatar (PlayerId, OwnerId) values (@PlayerAvatarId, @PlayerId)
+
+delete from dbo.MemberJoinTable where PlayerId = @PlayerId, GameId = @GameId
+insert into dbo.MemberJoinTable (PlayerId, GameId, OwnerId, TableId, [State])
+values (@PlayerAvatarId, @GameId, @PlayerId, @TableId, 0)
+
+select * from dbo.Member where Id = @PlayerAvatarId
+select * from dbo.MemberAvatar where PlayerId=@PlayerAvatarId
+
+";
+                return base.View(model);
+            }
         }
 
         private string SetKeepAliveKey(int playerId, int gameId)
@@ -81,5 +109,14 @@ namespace IG.Lobby.TG.Controllers
             this.dbContext.Entry(game).State = System.Data.Entity.EntityState.Modified;
             this.dbContext.SaveChanges();
         }
+    }
+}
+namespace IG.Lobby.TG.Models
+{
+    public class PlayTexasHoldemViewModelEx : PlayTexasHoldemViewModel
+    {
+        public int PlayerId { get; set; }
+        public int GameId { get; set; }
+        public int TableId { get; set; }
     }
 }

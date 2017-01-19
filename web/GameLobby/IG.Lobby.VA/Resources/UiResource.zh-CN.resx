@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="GameName_7PKGOBLIN" xml:space="preserve">
+    <value>7PK 哥布尔</value>
+  </data>
+  <data name="GameName_7PKNINJA" xml:space="preserve">
+    <value>7PK 忍者</value>
+  </data>
+  <data name="GameName_AFTERSCHOOL" xml:space="preserve">
+    <value>放课后</value>
+  </data>
+  <data name="GameName_AFTERSCHOOL_S" xml:space="preserve">
+    <value>放课后 (S)</value>
+  </data>
+  <data name="GameName_AIUEHARA" xml:space="preserve">
+    <value>上原亚衣</value>
+  </data>
+  <data name="GameName_AIUEHARA_S" xml:space="preserve">
+    <value>上原亚衣 (S)</value>
+  </data>
+  <data name="GameName_ASTRALLUCK" xml:space="preserve">
+    <value>幸运星座</value>
+  </data>
+  <data name="GameName_ATOMICTGE" xml:space="preserve">
+    <value>原子时代</value>
+  </data>
+  <data name="GameName_AVBUSTYBABIES" xml:space="preserve">
+    <value>童颜巨乳</value>
+  </data>
+  <data name="GameName_AVBUSTYBABIES_S" xml:space="preserve">
+    <value>童颜巨乳 (S)</value>
+  </data>
+  <data name="GameName_AVHATANOYUI" xml:space="preserve">
+    <value>波多野结衣</value>
+  </data>
+  <data name="GameName_AVHATANOYUI_S" xml:space="preserve">
+    <value>波多野结衣 (S)</value>
+  </data>
+  <data name="GameName_AXEGANG" xml:space="preserve">
+    <value>5PK 斧头帮</value>
+  </data>
+  <data name="GameName_BEAUTYANDTHENERD" xml:space="preserve">
+    <value>正妹爱阿宅</value>
+  </data>
+  <data name="GameName_BESTOFLUCK" xml:space="preserve">
+    <value>吉星高照</value>
+  </data>
+  <data name="GameName_BRUCELEE" xml:space="preserve">
+    <value>功夫</value>
+  </data>
+  <data name="GameName_CANDYCOTTAGE" xml:space="preserve">
+    <value>糖果屋</value>
+  </data>
+  <data name="GameName_CARS" xml:space="preserve">
+    <value>Cars 小玛莉</value>
+  </data>
+  <data name="GameName_CLEOPATRASCOINS" xml:space="preserve">
+    <value>埃及艳后的钱币</value>
+  </data>
+  <data name="GameName_COLLECTOR" xml:space="preserve">
+    <value>收藏家</value>
+  </data>
+  <data name="GameName_DIAMONDTEMPLE" xml:space="preserve">
+    <value>钻石神庙</value>
+  </data>
+  <data name="GameName_DOUDIZHUSLOT" xml:space="preserve">
+    <value>斗地主 Slot</value>
+  </data>
+  <data name="GameName_DREAMSCOMETRUE" xml:space="preserve">
+    <value>淫梦成真</value>
+  </data>
+  <data name="GameName_DREAMSCOMETRUE_S" xml:space="preserve">
+    <value>淫梦成真 (S)</value>
+  </data>
+  <data name="GameName_FLYINGCOLORS" xml:space="preserve">
+    <value>彩色大机战</value>
+  </data>
+  <data name="GameName_GODDESSOFNERDS" xml:space="preserve">
+    <value>宅男女神</value>
+  </data>
+  <data name="GameName_GODDESSOFNERDS_S" xml:space="preserve">
+    <value>宅男女神 (S)</value>
+  </data>
+  <data name="GameName_GUSHERSGOLD" xml:space="preserve">
+    <value>油田大富翁</value>
+  </data>
+  <data name="GameName_ICEPICKS" xml:space="preserve">
+    <value>突破冰原</value>
+  </data>
+  <data name="GameName_KING5PK" xml:space="preserve">
+    <value>国王 5PK</value>
+  </data>
+  <data name="GameName_LOUNGEBAR" xml:space="preserve">
+    <value>水果盘 Lounge</value>
+  </data>
+  <data name="GameName_MAGIC" xml:space="preserve">
+    <value>魔法少女</value>
+  </data>
+  <data name="GameName_MARIOSISTERS" xml:space="preserve">
+    <value>玛莉欧姊妹小玛莉</value>
+  </data>
+  <data name="GameName_MONSTER" xml:space="preserve">
+    <value>怪物村</value>
+  </data>
+  <data name="GameName_MYSECRETGARDEN" xml:space="preserve">
+    <value>我的秘密花园</value>
+  </data>
+  <data name="GameName_MYSECRETGARDEN_S" xml:space="preserve">
+    <value>我的秘密花园 (S)</value>
+  </data>
+  <data name="GameName_NIGHTOFSHANGHAI" xml:space="preserve">
+    <value>7PK 夜上海</value>
+  </data>
+  <data name="GameName_NUCLEARFISHIN" xml:space="preserve">
+    <value>疯狂辐射鱼</value>
+  </data>
+  <data name="GameName_OASISPOKERADVANCE" xml:space="preserve">
+    <value>绿洲扑克：高阶</value>
+  </data>
+  <data name="GameName_OASISPOKERBASIC" xml:space="preserve">
+    <value>绿洲扑克：初阶</value>
+  </data>
+  <data name="GameName_OASISPOKERINTERMEDIATE" xml:space="preserve">
+    <value>绿洲扑克：中阶</value>
+  </data>
+  <data name="GameName_OCEANTREASURE" xml:space="preserve">
+    <value>海底宝藏</value>
+  </data>
+  <data name="GameName_OPERANIGHT" xml:space="preserve">
+    <value>歌剧夜晚</value>
+  </data>
+  <data name="GameName_PREHISTORICPARK" xml:space="preserve">
+    <value>史前公园</value>
+  </data>
+  <data name="GameName_RACINGQUEEN" xml:space="preserve">
+    <value>超跑女王</value>
+  </data>
+  <data name="GameName_RACINGQUEEN_S" xml:space="preserve">
+    <value>超跑女王 (S)</value>
+  </data>
+  <data name="GameName_REDDOGPOKERADVANCE" xml:space="preserve">
+    <value>红狗扑克：高阶</value>
+  </data>
+  <data name="GameName_REDDOGPOKERBASIC" xml:space="preserve">
+    <value>红狗扑克：初阶</value>
+  </data>
+  <data name="GameName_REDDOGPOKERINTERMEDIATE" xml:space="preserve">
+    <value>红狗扑克：中阶</value>
+  </data>
+  <data name="GameName_REELOFFORTUNE" xml:space="preserve">
+    <value>时来运转</value>
+  </data>
+  <data name="GameName_ROCKET" xml:space="preserve">
+    <value>水果盘 Rocket</value>
+  </data>
+  <data name="GameName_ROLLOUTTHEBARRELS" xml:space="preserve">
+    <value>啤酒狂欢节</value>
+  </data>
+  <data name="GameName_SCARYRICH" xml:space="preserve">
+    <value>万圣夜惊魂</value>
+  </data>
+  <data name="GameName_SECRETGARDEN" xml:space="preserve">
+    <value>秘密花园</value>
+  </data>
+  <data name="GameName_SPECIALTUITION" xml:space="preserve">
+    <value>特别授业</value>
+  </data>
+  <data name="GameName_SPECIALTUITION_S" xml:space="preserve">
+    <value>特别授业 (S)</value>
+  </data>
+  <data name="GameName_STARTEAMS5PK" xml:space="preserve">
+    <value>星际战队</value>
+  </data>
+  <data name="GameName_SUMMEREASE" xml:space="preserve">
+    <value>夏日派对</value>
+  </data>
+  <data name="GameName_TRUEILLUSIONS" xml:space="preserve">
+    <value>大魔法师</value>
+  </data>
+  <data name="GameName_WATCHTHEBIRDIE" xml:space="preserve">
+    <value>探索鸟任务</value>
+  </data>
+  <data name="GameName_WINTERWONDERS" xml:space="preserve">
+    <value>圣诞奇迹</value>
+  </data>
+  <data name="GameName_YOSHIZAWAAKIHO" xml:space="preserve">
+    <value>吉泽明步</value>
+  </data>
+  <data name="GameName_YOSHIZAWAAKIHO_S" xml:space="preserve">
+    <value>吉泽明步 (S)</value>
+  </data>
+  <data name="GameName_ZOMBIEZEEMONEY" xml:space="preserve">
+    <value>钱进尸乐园</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="SystemNotification" xml:space="preserve">
+    <value>系统通知</value>
+  </data>
+  <data name="WinJackpot" xml:space="preserve">
+    <value>&lt;span&gt;{0}&lt;/span&gt; 在 &lt;span&gt;{1}&lt;/span&gt; 赢得彩金 &lt;span&gt;{2}&lt;/span&gt;</value>
+  </data>
+</root>

@@ -1,0 +1,133 @@
+﻿.lobby {
+    background: url(../images/guangdongmahjong/lobby_bg.jpg) no-repeat;
+    width: 1280px;
+    height: 720px;
+    color: #DBD3D0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.logo {
+    background: url(../images/guangdongmahjong/logo.png) no-repeat;
+    width: 456px;
+    height: 128px;
+    position: absolute;
+    top: 24px;
+    left: 412px;
+}
+
+.table {
+    width: 1023px;
+    height: 475px;
+    margin-top: 187px;
+    margin-left: 107px;
+    text-align: center;
+    position: relative;
+}
+
+    .table ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .table li {
+        float: left;
+        width: 25%;
+    }
+
+.thead {
+    font-size: 28px;
+    color: #998C86;
+    line-height: 80px;
+}
+
+    .thead ul li {
+        height: 80px;
+    }
+
+        .thead ul li:nth-child(2n+1) {
+            background: rgba(33, 24, 19, .6);
+        }
+
+        .thead ul li:nth-child(2n) {
+            background: rgba(35, 26, 21, .6);
+        }
+
+.tbody {
+    max-height: 395px;
+    font-size: 26px;
+    line-height: 70px;
+}
+
+    .tbody ul li {
+        height: 70px;
+    }
+
+    .tbody ul:nth-child(2n+1) li:nth-child(2n+1) {
+        background: rgba(47, 38, 33, .6);
+    }
+
+    .tbody ul:nth-child(2n+1) li:nth-child(2n) {
+        background: rgba(54, 45, 40, .6);
+    }
+
+    .tbody ul:nth-child(2n) li:nth-child(2n+1) {
+        background: rgba(40, 31, 26, .6);
+    }
+
+    .tbody ul:nth-child(2n) li:nth-child(2n) {
+        background: rgba(42, 33, 28, .6);
+    }
+
+.btn-play {
+    background: url(../images/guangdongmahjong/btn_enter.png) no-repeat;
+    width: 199px;
+    height: 58px;
+    display: block;
+    outline: none;
+    line-height: 58px;
+    cursor: pointer;
+    color: #ECE1DC;
+    margin: 6px auto;
+}
+
+    .btn-play:hover,
+    .btn-play:focus {
+        background-image: url(../images/guangdongmahjong/btn_enter_hover.png);
+    }
+
+    .btn-play:active {
+        background-image: url(../images/guangdongmahjong/btn_enter_active.png);
+    }
+
+.external-scroll_y {
+    cursor: pointer;
+    display: none;
+    position: absolute;
+}
+
+    .external-scroll_y.scroll-scrolly_visible {
+        display: block;
+        height: 420px;
+        width: 14px;
+        top: 28px;
+        right: -35px;
+    }
+
+    .external-scroll_y div {
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+    .external-scroll_y .scroll-bar {
+        background: linear-gradient(to bottom, #5C544B, #38332D);
+        border-radius: 15px;
+        border-left: 1px solid #696055;
+        z-index: 12;
+        height: 110px;
+    }

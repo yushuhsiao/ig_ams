@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ConfigHelper.SiteName</title>
+    <link href="~/assets/css/normalize.min.css" rel="stylesheet" />
+    <link href="~/assets/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/assets/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
+    <link href="~/assets/css/site.css" rel="stylesheet" />
+    <script src="~/assets/js/jquery-2.2.4.min.js"></script>
+    <script src="~/assets/js/vue.min.js"></script>
+    <script src="~/assets/js/js.cookie.min.js"></script>
+    <script src="~/assets/alertifyjs/alertify.min.js"></script>
+    <script src="~/assets/js/site.js"></script>
+</head>
+<body>
+    <div class="waterflow"></div>
+    <div class="nav">
+        <div class="container clearfix">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="profile">
+                    <div class="username" id="username"></div>
+                    <div class="balance" id="balance"></div>
+                </div>
+                <script>
+                    function getMemberProfile() {
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetMemberProfile", "Ajax")'
+                        }).done(function (result) {
+                            if (result.status === 'success') {
+                                $('#username').text(result.data.Nickname);
+                                $('#balance').text(formatMoney(result.data.Balance));
+                                setTimeout(getMemberProfile, 3000);
+                            }
+                        });
+                    }
+
+                    $(document).ready(function () {
+                        getMemberProfile();
+                    });
+                </script>
+            }
+        </div>
+    </div>
+    <div class="container clearfix content">
+        @RenderBody()
+    </div>
+    <div class="footer container">
+        Copyright &copy; @DateTime.Now.Year 菲達實境娛樂城 Inc. All rights reserved
+    </div>
+    <script>
+        alertify.defaults.glossary.title = '@TransHelper.Ui("SystemNotification")';
+        alertify.defaults.glossary.ok = '@TransHelper.Ui("Ok")';
+        alertify.defaults.glossary.cancel = '@TransHelper.Ui("Cancel")';
+
+        $(document).ready(function () {
+            @if (TempData["NOTY_MESSAGE"] != null)
+            {
+                <text>alertify.message('@TempData["NOTY_MESSAGE"]');</text>
+            }
+            @if (TempData["NOTY_SUCCESS"] != null)
+            {
+                <text>alertify.success('@TempData["NOTY_SUCCESS"]');</text>
+            }
+            @if (TempData["NOTY_ERROR"] != null)
+            {
+                <text>alertify.error('@TempData["NOTY_ERROR"]');</text>
+            }
+            @if (TempData["NOTY_WARNING"] != null)
+            {
+                <text>alertify.warning('@TempData["NOTY_WARNING"]');</text>
+            }
+            @if (TempData["ALERT"] != null)
+            {
+                <text>alertify.alert('@TempData["ALERT"]');</text>
+            }
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

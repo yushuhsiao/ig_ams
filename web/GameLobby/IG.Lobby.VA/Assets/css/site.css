@@ -1,0 +1,254 @@
+﻿html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+body {
+    font-family: 'Microsoft JhengHei',STHeitiTC-Light,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+}
+
+.container {
+    width: 1220px;
+    margin: 0 auto;
+}
+
+.waterflow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background: url(../images/bg.jpg) repeat;
+}
+
+.nav {
+    background: url(../images/nav-bg.png) repeat-x;
+    height: 75px;
+    min-width: 1220px;
+}
+
+    .nav .profile {
+        margin-top: 15px;
+        float: right;
+    }
+
+    .nav .username,
+    .nav .balance {
+        height: 35px;
+        padding-left: 25px;
+        margin-left: 5px;
+        float: left;
+        border-radius: 3px;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        line-height: 35px;
+        text-align: center;
+    }
+
+    .nav .username {
+        width: 145px;
+        background-image: url(../images/icon-member.png);
+    }
+
+    .nav .balance {
+        width: 165px;
+        background-image: url(../images/icon-money.png);
+        color: #ba3301;
+    }
+
+.footer {
+    height: 54px;
+    background-color: #252525;
+    border-top: 4px solid #111111;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+}
+
+.content {
+    background-color: rgba(214,214,214,1);
+    background-image: url(../images/flower.png);
+    background-repeat: no-repeat;
+}
+
+.logo {
+    background: url(../images/logo.png) no-repeat;
+    width: 120px;
+    height: 120px;
+    margin: 60px auto 0;
+}
+
+.jackpot-lobby {
+    width: 930px;
+    margin: 20px auto 35px;
+}
+
+    .jackpot-lobby > div {
+        float: left;
+        background-repeat: no-repeat;
+    }
+
+    .jackpot-lobby .grand,
+    .jackpot-lobby .major {
+        width: 275px;
+        overflow: hidden;
+        font-family: "Times New Roman";
+        font-size: 54px;
+        padding-top: 38px;
+        margin-top: 5px;
+    }
+
+    .jackpot-lobby .grand {
+        background-image: url(../images/jackpot-grand.png);
+    }
+
+    .jackpot-lobby .major {
+        background-image: url(../images/jackpot-major.png);
+    }
+
+    .jackpot-lobby .winners {
+        background-image: url(../images/jackpot-winners.png);
+        width: 350px;
+        height: 123px;
+        margin: 0 15px;
+        padding: 10px 1px 1px;
+    }
+
+        .jackpot-lobby .winners .inner {
+            width: 348px;
+            height: 112px;
+            overflow: hidden;
+        }
+
+        .jackpot-lobby .winners ul {
+            margin: 0 10px;
+            padding: 0;
+            list-style: none;
+            line-height: 28px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .jackpot-lobby .winners span {
+            color: #e39103;
+            font-weight: bold;
+        }
+
+.title {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+    .title.slots {
+        background-image: url(../images/title-slots.png);
+    }
+
+    .title.pokers {
+        background-image: url(../images/title-pokers.png);
+    }
+
+.games {
+    margin: 10px auto 30px;
+    width: 1188px;
+}
+
+.game {
+    float: left;
+    border: 6px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    background-color: #000;
+    position: relative;
+    margin: 10px;
+    box-shadow: 0px 6px 5px -2px rgba(0,0,0,0.6);
+}
+
+    .game:nth-child(4n+1) {
+        margin-left: 0;
+    }
+
+    .game:nth-child(4n) {
+        margin-right: 0;
+    }
+
+    .game .cover {
+        width: 270px;
+        height: 128px;
+        display: block;
+    }
+
+    .game .minor {
+        font-size: 18px;
+        color: #FFF;
+        text-shadow: 1px 1px 1px #3d3d3d;
+        text-align: center;
+        line-height: 38px;
+        height: 40px;
+        background-color: #1AB19A;
+        border: 1px solid #1AB19A;
+        border-top-color: #3FC6B1;
+        border-right-color: #3FC6B1;
+    }
+
+        .game .minor.disabled {
+            background-color: #666;
+            border-color: #666;
+            border-top-color: #777;
+            border-right-color: #777;
+        }
+
+    .game .btns {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        right: 0;
+        -webkit-transition: all .8s ease;
+        -moz-transition: all .8s ease;
+        -o-transition: all .8s ease;
+        transition: all .8s ease;
+        background-color: rgba(0, 0, 0, .6);
+        opacity: 0;
+    }
+
+    .game:hover .btns,
+    .game:focus .btns {
+        opacity: 1;
+    }
+
+    .game .btns .play-game {
+        cursor: pointer;
+        outline: none;
+        text-align: center;
+        font-size: 20px;
+        color: #FFF;
+        border: 1px solid #FFF;
+        line-height: 40px;
+        display: block;
+        width: 180px;
+        height: 42px;
+        margin: 10px auto;
+        text-shadow: 1px 1px 1px #3d3d3d;
+    }

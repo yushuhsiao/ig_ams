@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Configuration;
 using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -80,6 +81,13 @@ namespace IG.Lobby.TG
         {
             [DebuggerStepThrough]
             get { return new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["IGEntities"].ConnectionString).ProviderConnectionString; }
+        }
+
+        public static SqlCmd GetSqlCmd()
+        {
+            var n1 = ConfigurationManager.ConnectionStrings["IGEntities"];
+            var n2 = new EntityConnectionStringBuilder(n1.ConnectionString);
+            return new SqlCmd(n2.ProviderConnectionString);
         }
     }
 }

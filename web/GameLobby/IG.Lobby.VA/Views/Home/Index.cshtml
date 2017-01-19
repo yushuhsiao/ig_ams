@@ -1,0 +1,165 @@
+﻿<div class="logo"></div>
+<div class="jackpot-lobby clearfix" id="jackpot">
+    <div class="grand">{{ grand | money }}</div>
+    <div class="winners">
+        <div class="inner">
+            <ul id="jackpot-winner">
+                <li v-for="winner in winners" track-by="$index">{{{ winner }}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="major">{{ major | money }}</div>
+</div>
+<div class="title slots"></div>
+<div class="games clearfix" id="slots">
+    <game-component v-for="game in games" track-by="Name" v-bind:name="game.Name" v-bind:route="game.Route" v-bind:width="game.Width" v-bind:height="game.Height" v-bind:jackpot="game.Jackpot"></game-component>
+</div>
+<div class="title pokers"></div>
+<div class="games clearfix" id="pokers">
+    <game-component v-for="game in games" track-by="Name" v-bind:name="game.Name" v-bind:route="game.Route" v-bind:width="game.Width" v-bind:height="game.Height" v-bind:jackpot="game.Jackpot"></game-component>
+</div>
+<template id="game-component">
+    <div class="game" v-bind:id="'game-' + name">
+        <img class="cover" v-bind:src="'@String.Format("{0}/covers/", ConfigHelper.AssetServerUrl)' + name + '.png'">
+        <div class="minor" v-if="jackpot">{{ minor | money }}</div>
+        <div class="minor disabled" v-else></div>
+        <div class="btns">
+            <a class="play-game" v-on:click="playGame">Play Game</a>
+        </div>
+    </div>
+</template>
+@section Scripts {
+    <script src="~/assets/js/jquery.newsTicker.min.js"></script>
+    <script>
+        Vue.filter('money', function (value) {
+            return formatMoney(value);
+        })
+
+        Vue.component('game-component', {
+            template: '#game-component',
+            props: ['name', 'route', 'width', 'height', 'jackpot'],
+            data: function () {
+                return {
+                    minor: 0
+                };
+            },
+            methods: {
+                playGame: function () {
+                    openNewWindow('/Play/' + this.route + '?Name=' + this.name, this.width, this.height);
+                }
+            }
+        });
+
+        var slotsVm = new Vue({
+            el: '#slots',
+            data: {
+                games: []
+            },
+            methods: {
+                fetchGames: function () {
+                    var self = this;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("Slots", "VideoArcade")'
+                    }).done(function (data) {
+                        self.games = data;
+                    });
+                },
+                fetchMinors: function () {
+                    var self = this;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("Minor", "Jackpot")'
+                    }).done(function (data) {
+                        data.forEach(function (jackpot) {
+                            var el = document.getElementById('game-' + jackpot.Name);
+
+                            if (el) {
+                                el.__vue__.minor = jackpot.Amount;
+                            }
+                        });
+
+                        setTimeout(self.fetchMinors, 3000);
+                    });
+                }
+            },
+            created: function () {
+                this.fetchGames();
+            },
+            ready: function () {
+                this.fetchMinors();
+            }
+        });
+
+        var pokersVm = new Vue({
+            el: '#pokers',
+            data: {
+                games: []
+            },
+            methods: {
+                fetchGames: function () {
+                    var self = this;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("Pokers", "VideoArcade")'
+                    }).done(function (data) {
+                        self.games = data;
+                    });
+                }
+            },
+            created: function () {
+                this.fetchGames();
+            }
+        });
+
+        var jackpotVm = new Vue({
+            el: '#jackpot',
+            data: {
+                grand: 0,
+                major: 0,
+                winners: []
+            },
+            methods: {
+                fetchGrandMajor: function () {
+                    var self = this;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GrandMajor", "Jackpot")'
+                    }).done(function (data) {
+                        self.grand = data.Grand;
+                        self.major = data.Major;
+
+                        setTimeout(self.fetchGrandMajor, 3000);
+                    });
+                },
+                fetchWinners: function () {
+                    var self = this;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("Winner", "Jackpot")'
+                    }).done(function (data) {
+                        console.log(data);
+                        self.winners = data;
+                    });
+                }
+            },
+            ready: function () {
+                this.fetchGrandMajor();
+                this.fetchWinners();
+            },
+            watch: {
+                winners: function () {
+                    $('#jackpot-winner').newsTicker({
+                        row_height: 28,
+                        max_rows: 4
+                    });
+                }
+            }
+        });
+    </script>
+}

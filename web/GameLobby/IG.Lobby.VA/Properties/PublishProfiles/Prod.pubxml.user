@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案是由您 Web 專案的發行/封裝處理程序所使用。您可以編輯此 MSBuild 檔案，
+以自訂此處理程序的行為。若要深入了解，請造訪 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Greene\aspnet\IG\Deploy\IG.Lobby.VA</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Assets/alertifyjs/alertify.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/alertify.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/alertify.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/alertify.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/alertify.rtl.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/alertify.rtl.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/bootstrap.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/bootstrap.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/bootstrap.rtl.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/bootstrap.rtl.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/default.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/default.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/default.rtl.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/default.rtl.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/semantic.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/semantic.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/semantic.rtl.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/alertifyjs/css/themes/semantic.rtl.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap-theme.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap-theme.css.map">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap-theme.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap-theme.min.css.map">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap.css.map">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/bootstrap.min.css.map">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/normalize.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/normalize.min.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/normalize.min.css.map">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/css/site-game.css">
+      <publishTime>12/14/2016 15:22:18</publishTime>
+    </File>
+    <File Include="Assets/css/site.css">
+      <publishTime>01/13/2017 18:11:15</publishTime>
+    </File>
+    <File Include="Assets/fancybox/blank.gif">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/fancybox_loading%402x.gif">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/fancybox_loading.gif">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/fancybox_overlay.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/fancybox_sprite%402x.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/fancybox_sprite.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/helpers/fancybox_buttons.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/helpers/jquery.fancybox-buttons.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/helpers/jquery.fancybox-buttons.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/helpers/jquery.fancybox-media.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/helpers/jquery.fancybox-thumbs.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/helpers/jquery.fancybox-thumbs.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/jquery.fancybox.css">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/jquery.fancybox.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fancybox/jquery.fancybox.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/bg.jpg">
+      <publishTime>01/13/2017 18:09:15</publishTime>
+    </File>
+    <File Include="Assets/images/flower.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/icon-member.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/icon-money.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/jackpot-grand.png">
+      <publishTime>11/08/2016 18:28:27</publishTime>
+    </File>
+    <File Include="Assets/images/jackpot-major.png">
+      <publishTime>11/08/2016 18:28:27</publishTime>
+    </File>
+    <File Include="Assets/images/jackpot-winners.png">
+      <publishTime>11/08/2016 18:28:31</publishTime>
+    </File>
+    <File Include="Assets/images/logo.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/nav-bg.png">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/title-pokers.png">
+      <publishTime>11/08/2016 18:28:30</publishTime>
+    </File>
+    <File Include="Assets/images/title-slots.png">
+      <publishTime>11/08/2016 18:28:30</publishTime>
+    </File>
+    <File Include="Assets/images/waterflow.jpg">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/images/waterflow.mp4">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/bootstrap.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/bootstrap.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery-2.2.4.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery-2.2.4.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery-2.2.4.min.map">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.newsTicker.js">
+      <publishTime>11/10/2016 15:07:58</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.newsTicker.min.js">
+      <publishTime>11/10/2016 15:07:51</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.signalR-2.2.1.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.signalR-2.2.1.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.validate.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.validate.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.validate.unobtrusive.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/jquery.validate.unobtrusive.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/js.cookie.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/js.cookie.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/site-game.js">
+      <publishTime>12/14/2016 15:39:43</publishTime>
+    </File>
+    <File Include="Assets/js/site.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/vue.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/js/vue.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/swfobject/expressInstall.swf">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/swfobject/swfobject.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="Assets/swfobject/swfobject.min.js">
+      <publishTime>11/08/2016 17:15:17</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>11/08/2016 17:13:05</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>11/08/2016 17:13:05</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>11/08/2016 17:11:42</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>11/08/2016 17:11:42</publishTime>
+    </File>
+    <File Include="bin/IG.Dal.dll">
+      <publishTime>12/15/2016 17:21:36</publishTime>
+    </File>
+    <File Include="bin/IG.Dal.pdb">
+      <publishTime>12/15/2016 17:21:36</publishTime>
+    </File>
+    <File Include="bin/IG.Lobby.VA.dll">
+      <publishTime>01/13/2017 18:20:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>11/08/2016 17:12:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>11/08/2016 17:12:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>11/08/2016 17:13:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>11/08/2016 17:13:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>11/08/2016 17:13:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/08/2016 17:13:06</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/08/2016 17:12:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>11/08/2016 17:10:05</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>11/08/2016 17:13:06</publishTime>
+    </File>
+    <File Include="bin/zh-CN/IG.Lobby.VA.resources.dll">
+      <publishTime>01/13/2017 18:20:42</publishTime>
+    </File>
+    <File Include="bin/zh-TW/IG.Lobby.VA.resources.dll">
+      <publishTime>01/13/2017 18:20:42</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>11/08/2016 18:26:52</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/08/2016 17:10:03</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>11/08/2016 17:13:38</publishTime>
+    </File>
+    <File Include="robots.txt">
+      <publishTime>11/08/2016 17:10:46</publishTime>
+    </File>
+    <File Include="Views/Auth/PleaseLogin.cshtml">
+      <publishTime>11/08/2016 17:32:36</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>11/11/2016 15:30:43</publishTime>
+    </File>
+    <File Include="Views/Play/Html5.cshtml">
+      <publishTime>12/14/2016 12:32:59</publishTime>
+    </File>
+    <File Include="Views/Play/Legacy.cshtml">
+      <publishTime>12/14/2016 15:42:36</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>11/08/2016 17:10:03</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>01/13/2017 18:13:38</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>12/27/2016 14:45:24</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>11/08/2016 17:10:03</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>01/13/2017 18:20:43</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

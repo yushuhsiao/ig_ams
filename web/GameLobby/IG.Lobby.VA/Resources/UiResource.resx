@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="GameName_7PKGOBLIN" xml:space="preserve">
+    <value>7PK Goblin</value>
+  </data>
+  <data name="GameName_7PKNINJA" xml:space="preserve">
+    <value>7PK Ninja</value>
+  </data>
+  <data name="GameName_AFTERSCHOOL" xml:space="preserve">
+    <value>After School</value>
+  </data>
+  <data name="GameName_AFTERSCHOOL_S" xml:space="preserve">
+    <value>After School (S)</value>
+  </data>
+  <data name="GameName_AIUEHARA" xml:space="preserve">
+    <value>Ai Uehara</value>
+  </data>
+  <data name="GameName_AIUEHARA_S" xml:space="preserve">
+    <value>Ai Uehara (S)</value>
+  </data>
+  <data name="GameName_ASTRALLUCK" xml:space="preserve">
+    <value>Astral Luck</value>
+  </data>
+  <data name="GameName_ATOMICTGE" xml:space="preserve">
+    <value>Atomic Age</value>
+  </data>
+  <data name="GameName_AVBUSTYBABIES" xml:space="preserve">
+    <value>Busty Babies</value>
+  </data>
+  <data name="GameName_AVBUSTYBABIES_S" xml:space="preserve">
+    <value>Busty Babies (S)</value>
+  </data>
+  <data name="GameName_AVHATANOYUI" xml:space="preserve">
+    <value>Hatano Yui</value>
+  </data>
+  <data name="GameName_AVHATANOYUI_S" xml:space="preserve">
+    <value>Hatano Yui (S)</value>
+  </data>
+  <data name="GameName_AXEGANG" xml:space="preserve">
+    <value>Axe Gang</value>
+  </data>
+  <data name="GameName_BEAUTYANDTHENERD" xml:space="preserve">
+    <value>Beauty And The Nerd</value>
+  </data>
+  <data name="GameName_BESTOFLUCK" xml:space="preserve">
+    <value>Best Of Luck</value>
+  </data>
+  <data name="GameName_BRUCELEE" xml:space="preserve">
+    <value>Bruce Lee</value>
+  </data>
+  <data name="GameName_CANDYCOTTAGE" xml:space="preserve">
+    <value>Candy Cottage</value>
+  </data>
+  <data name="GameName_CARS" xml:space="preserve">
+    <value>Cars</value>
+  </data>
+  <data name="GameName_CLEOPATRASCOINS" xml:space="preserve">
+    <value>Cleopatra Coins</value>
+  </data>
+  <data name="GameName_COLLECTOR" xml:space="preserve">
+    <value>Collector</value>
+  </data>
+  <data name="GameName_DIAMONDTEMPLE" xml:space="preserve">
+    <value>Diamond Temple</value>
+  </data>
+  <data name="GameName_DOUDIZHUSLOT" xml:space="preserve">
+    <value>Dou Dizhu Slot</value>
+  </data>
+  <data name="GameName_DREAMSCOMETRUE" xml:space="preserve">
+    <value>Dreams Come True</value>
+  </data>
+  <data name="GameName_DREAMSCOMETRUE_S" xml:space="preserve">
+    <value>Dreams Come True (S)</value>
+  </data>
+  <data name="GameName_FLYINGCOLORS" xml:space="preserve">
+    <value>Flying Colors</value>
+  </data>
+  <data name="GameName_GODDESSOFNERDS" xml:space="preserve">
+    <value>Goddess Of Nerds</value>
+  </data>
+  <data name="GameName_GODDESSOFNERDS_S" xml:space="preserve">
+    <value>Goddess Of Nerds (S)</value>
+  </data>
+  <data name="GameName_GUSHERSGOLD" xml:space="preserve">
+    <value>Gushers Gold</value>
+  </data>
+  <data name="GameName_ICEPICKS" xml:space="preserve">
+    <value>Ice Picks</value>
+  </data>
+  <data name="GameName_KING5PK" xml:space="preserve">
+    <value>King 5PK</value>
+  </data>
+  <data name="GameName_LOUNGEBAR" xml:space="preserve">
+    <value>Lounge Bar</value>
+  </data>
+  <data name="GameName_MAGIC" xml:space="preserve">
+    <value>Magic</value>
+  </data>
+  <data name="GameName_MARIOSISTERS" xml:space="preserve">
+    <value>Mario Sisters</value>
+  </data>
+  <data name="GameName_MONSTER" xml:space="preserve">
+    <value>Monster</value>
+  </data>
+  <data name="GameName_MYSECRETGARDEN" xml:space="preserve">
+    <value>My Secret Garden</value>
+  </data>
+  <data name="GameName_MYSECRETGARDEN_S" xml:space="preserve">
+    <value>My Secret Garden (S)</value>
+  </data>
+  <data name="GameName_NIGHTOFSHANGHAI" xml:space="preserve">
+    <value>Night Of Shanghai</value>
+  </data>
+  <data name="GameName_NUCLEARFISHIN" xml:space="preserve">
+    <value>Nuclear Fishin'</value>
+  </data>
+  <data name="GameName_OASISPOKERADVANCE" xml:space="preserve">
+    <value>Oasis Poker Advance</value>
+  </data>
+  <data name="GameName_OASISPOKERBASIC" xml:space="preserve">
+    <value>Oasis Poker Basic</value>
+  </data>
+  <data name="GameName_OASISPOKERINTERMEDIATE" xml:space="preserve">
+    <value>Oasis Poker Intermediate</value>
+  </data>
+  <data name="GameName_OCEANTREASURE" xml:space="preserve">
+    <value>Ocean Treasure</value>
+  </data>
+  <data name="GameName_OPERANIGHT" xml:space="preserve">
+    <value>Opera Night</value>
+  </data>
+  <data name="GameName_PREHISTORICPARK" xml:space="preserve">
+    <value>Prehistoric Park</value>
+  </data>
+  <data name="GameName_RACINGQUEEN" xml:space="preserve">
+    <value>Racing Queen</value>
+  </data>
+  <data name="GameName_RACINGQUEEN_S" xml:space="preserve">
+    <value>Racing Queen (S)</value>
+  </data>
+  <data name="GameName_REDDOGPOKERADVANCE" xml:space="preserve">
+    <value>Red Dog Poker Advance</value>
+  </data>
+  <data name="GameName_REDDOGPOKERBASIC" xml:space="preserve">
+    <value>Red Dog Poker Basic</value>
+  </data>
+  <data name="GameName_REDDOGPOKERINTERMEDIATE" xml:space="preserve">
+    <value>Red Dog Poker Intermediate</value>
+  </data>
+  <data name="GameName_REELOFFORTUNE" xml:space="preserve">
+    <value>Reel Of Fortune</value>
+  </data>
+  <data name="GameName_ROCKET" xml:space="preserve">
+    <value>Rocket</value>
+  </data>
+  <data name="GameName_ROLLOUTTHEBARRELS" xml:space="preserve">
+    <value>Roll Out The Barrels</value>
+  </data>
+  <data name="GameName_SCARYRICH" xml:space="preserve">
+    <value>Scary Rich</value>
+  </data>
+  <data name="GameName_SECRETGARDEN" xml:space="preserve">
+    <value>Secret Garden</value>
+  </data>
+  <data name="GameName_SPECIALTUITION" xml:space="preserve">
+    <value>Special Tutor</value>
+  </data>
+  <data name="GameName_SPECIALTUITION_S" xml:space="preserve">
+    <value>Special Tutor (S)</value>
+  </data>
+  <data name="GameName_STARTEAMS5PK" xml:space="preserve">
+    <value>Star Teams</value>
+  </data>
+  <data name="GameName_SUMMEREASE" xml:space="preserve">
+    <value>Summer Ease</value>
+  </data>
+  <data name="GameName_TRUEILLUSIONS" xml:space="preserve">
+    <value>True Illusions</value>
+  </data>
+  <data name="GameName_WATCHTHEBIRDIE" xml:space="preserve">
+    <value>Watch the birdie</value>
+  </data>
+  <data name="GameName_WINTERWONDERS" xml:space="preserve">
+    <value>Winter Wonders</value>
+  </data>
+  <data name="GameName_YOSHIZAWAAKIHO" xml:space="preserve">
+    <value>Yoshizawa Akiho</value>
+  </data>
+  <data name="GameName_YOSHIZAWAAKIHO_S" xml:space="preserve">
+    <value>Yoshizawa Akiho (S)</value>
+  </data>
+  <data name="GameName_ZOMBIEZEEMONEY" xml:space="preserve">
+    <value>Zombiezee Money</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SystemNotification" xml:space="preserve">
+    <value>System notification</value>
+  </data>
+  <data name="WinJackpot" xml:space="preserve">
+    <value>&lt;span&gt;{0}&lt;/span&gt; won jackpot &lt;span&gt;{2}&lt;/span&gt; at &lt;span&gt;{1}&lt;/span&gt;</value>
+  </data>
+</root>
