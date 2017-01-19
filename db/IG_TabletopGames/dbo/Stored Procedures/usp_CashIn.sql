@@ -25,7 +25,7 @@ declare
 
 	if @Balance < 0 goto _exit2;
 	
-	if @TableId >= 0
+	if @GameId=1091 and @TableId >= 0
 	begin
 		select @JoinCount = count(*) from MemberJoinTable with(nolock)
 		where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
