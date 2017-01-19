@@ -146,3 +146,11 @@
 /web/GeniusBull_ApiServer/obj
 /web/GeniusBull_ApiServer/packages
 /web/GeniusBull_ApiServer/_
+/web/GameLobby/IG.Lobby.VA/obj
+/web/GameLobby/IG.Lobby.VA/Bin
+/web/GameLobby/IG.Lobby.TG/bin
+/web/GameLobby/IG.Lobby.TG/obj
+/web/GameLobby/IG.Lobby.LC/obj
+/web/GameLobby/IG.Lobby.LC/bin
+/web/GameLobby/IG.Dal/obj
+/web/GameLobby/IG.Dal/bin

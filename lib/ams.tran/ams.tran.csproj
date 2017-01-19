@@ -92,10 +92,6 @@
       <Project>{8f5e46b1-fd54-40a8-88d9-37e722feeee6}</Project>
       <Name>corelib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uiHelpers\ams.ui.csproj">
-      <Project>{a801a84e-ea83-4d1a-bcda-1afce3eea891}</Project>
-      <Name>ams.ui</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
