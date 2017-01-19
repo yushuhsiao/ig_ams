@@ -346,7 +346,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Auth\PleaseLogin.cshtml" />
-    <Content Include="Views\Play\TexasHoldem.cshtml" />
+    <Content Include="Views\Play\TexasHoldem_Tables.cshtml" />
     <Content Include="Views\Play\DouDizhu.cshtml" />
     <Content Include="Views\Play\TaiwanMahjong.cshtml" />
     <Content Include="Views\Play\GuangdongMahjong.cshtml" />
@@ -362,6 +362,11 @@
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\Qa.pubxml" />
     <Content Include="Views\Play\TexasHoldem_Play.cshtml" />
+    <Content Include="Views\Play\TexasHoldem.cshtml" />
+    <Content Include="Views\Play\TaiwanMahjong_Tables.cshtml" />
+    <Content Include="Views\Play\TaiwanMahjong_Play.cshtml" />
+    <Content Include="Views\Play\DouDizhu_Tables.cshtml" />
+    <Content Include="Views\Play\DouDizhu_Play.cshtml" />
     <None Include="Web.Product.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

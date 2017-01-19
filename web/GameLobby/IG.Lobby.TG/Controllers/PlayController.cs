@@ -32,48 +32,31 @@ namespace IG.Lobby.TG.Controllers
             base.Dispose(disposing);
         }
 
-        [Authenticate, ActionName("TexasHoldem"), Route("~/TexasHoldem/Tables")]
-        public ActionResult TexasHoldem_Tables()
+
+        ActionResult playGame(Game game, bool group_token, int tableId, string viewName)
         {
-            var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
-            if (game == null)
-                return new HttpNotFoundResult();
-
-            UpdateGameClick(game);
-            SetKeepAliveKey(User.TakeId(), game.Id);
-
-            return View(game);
-        }
-
-        [Authenticate, Route("~/TexasHoldem/Play")]
-        public ActionResult TexasHoldem_Play()
-        {
-            var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
-            if (game == null)
-                return new HttpNotFoundResult();
-
-            PlayTexasHoldemViewModelEx model = new PlayTexasHoldemViewModelEx
-            {
-                PlayerId = User.TakeId(),
-                GameId = game.Id,
-                TableId = (Request.Form["tableId"] ?? Request.QueryString["tableId"]).ToInt32() ?? -1,
-
-                GameName = game.Name,
-                GameToken = game.FileToken,
-                Culture = CultureHelper.GetCurrentGameCulture(),
-                ServerUrl = game.ServerUrl,
-                ServerPort = game.ServerPort,
-                //AccessToken = base.User.TakeAccessToken()
-            };
-            if (model.TableId < 0)
-                return new HttpNotFoundResult();
-
             using (SqlCmd sqlcmd = MvcApplication.GetSqlCmd())
             {
+                var model = new PlayGameViewModel()
+                {
+                    PlayerId = User.TakeId(),
+                    GameId = game.Id,
+                    TableId = tableId,
+
+                    GameName = game.Name,
+                    GameToken = game.FileToken,
+                    Culture = CultureHelper.GetCurrentGameCulture(),
+                    ServerUrl = game.ServerUrl,
+                    ServerPort = game.ServerPort,
+                };
+
+
                 for (int i = 1; i <= MvcApplication.MaxAvatarCount; i++)
                 {
-                    model.AccessToken = $"{model.PlayerId}|{Guid.NewGuid().ToString("N")}";
-                    model.AccessToken = $"{Guid.NewGuid().ToString("N")}";
+                    if (group_token)
+                        model.AccessToken = $"{model.PlayerId}|{Guid.NewGuid().ToString("N")}";
+                    else
+                        model.AccessToken = $"{Guid.NewGuid().ToString("N")}";
                     string sqlstr = $"exec dbo.sp_GetMemberAvatar @PlayerId = {model.PlayerId}, @GameId = {model.GameId}, @TableId = {model.TableId}, @Account = '{User.TakeAccount()}_{i}', @AccessToken = '{model.AccessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
                     try
                     {
@@ -81,7 +64,7 @@ namespace IG.Lobby.TG.Controllers
                         {
                             sqlcmd.ExecuteNonQuery(sqlstr);
                             commit();
-                            return View(model);
+                            return View(viewName, model);
                         }
                     }
                     catch (SqlException ex) when (ex.Class == 14 && ex.Number == 2601) { }
@@ -90,7 +73,30 @@ namespace IG.Lobby.TG.Controllers
             }
         }
 
-        private ActionResult TexasHoldem()
+        [Authenticate, Route("~/Play/TexasHoldem/{tableId?}")]
+        public ActionResult TexasHoldem(int? tableId = null)
+        {
+            var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
+
+            if (game == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            if (tableId.HasValue && tableId >= 0)
+            {
+                return playGame(game, false, tableId.Value, "TexasHoldem_Play");
+            }
+            else
+            {
+                UpdateGameClick(game);
+                SetKeepAliveKey(User.TakeId(), game.Id);
+                return View("TexasHoldem_Tables", game);
+            }
+        }
+
+        [Authenticate]
+        private ActionResult _TexasHoldem()
         {
             var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -115,8 +121,31 @@ namespace IG.Lobby.TG.Controllers
             return View(viewModel);
         }
 
+
+
+        [Authenticate, Route("~/Play/DouDizhu/{tableId?}")]
+        public ActionResult DouDizhu(int? tableId = null)
+        {
+            var game = dbContext.Game.Where(x => x.Name == "DOUDIZHUVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
+
+            if (game == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            if (tableId.HasValue && tableId >= 0)
+            {
+                return playGame(game, true, tableId.Value, "DouDizhu_Play");
+            }
+            else
+            {
+                UpdateGameClick(game);
+                SetKeepAliveKey(User.TakeId(), game.Id);
+                return View("DouDizhu_Tables", game);
+            }
+        }
+
         [Authenticate]
-        public ActionResult DouDizhu()
+        public ActionResult _DouDizhu()
         {
             var game = dbContext.Game.Where(x => x.Name == "DOUDIZHUVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -140,9 +169,33 @@ namespace IG.Lobby.TG.Controllers
 
             return View(viewModel);
         }
+        
+
+
+        [Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
+        public ActionResult TaiwanMahjong(int? tableId = null)
+        {
+            var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
+
+            if (game == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            if (tableId.HasValue && tableId >= 0)
+            {
+                return playGame(game, true, tableId.Value, "TaiwanMahjong_Play");
+            }
+            else
+            {
+                UpdateGameClick(game);
+                SetKeepAliveKey(User.TakeId(), game.Id);
+                return View("TaiwanMahjong_Tables", game);
+            }
+        }
 
         [Authenticate]
-        public ActionResult TaiwanMahjong()
+        public ActionResult _TaiwanMahjong()
         {
             var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -166,6 +219,8 @@ namespace IG.Lobby.TG.Controllers
 
             return View(viewModel);
         }
+
+
 
         [Authenticate]
         public ActionResult GuangdongMahjong()
@@ -236,10 +291,17 @@ namespace IG.Lobby.TG.Controllers
 }
 namespace IG.Lobby.TG.Models
 {
-    public class PlayTexasHoldemViewModelEx : PlayTexasHoldemViewModel
+    public class PlayGameViewModel
     {
         public int PlayerId { get; set; }
         public int GameId { get; set; }
         public int TableId { get; set; }
+
+        public string GameName { get; set; }
+        public string GameToken { get; set; }
+        public string Culture { get; set; }
+        public string ServerUrl { get; set; }
+        public int ServerPort { get; set; }
+        public string AccessToken { get; set; }
     }
 }

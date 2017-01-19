@@ -1,4 +1,4 @@
-﻿@model IG.Dal.Game
+﻿@model IG.Lobby.TG.Models.PlayTexasHoldemViewModel
 
 @{
     Layout = null;
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@TransHelper.Ui(String.Format("GameName_{0}", Model.Name))</title>
+    <title>@TransHelper.Ui(String.Format("GameName_{0}", Model.GameName))</title>
     <link href="~/assets/css/normalize.min.css" rel="stylesheet" />
     <link href="~/assets/alertifyjs/css/alertify.min.css" rel="stylesheet" />
     <link href="~/assets/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
@@ -59,7 +59,7 @@
     </div>
     <template id="table-component">
         <ul class="clearfix">
-            <li style="width:18%">{{ tableName }} ({{tableId}})</li>
+            <li style="width:18%">{{ tableName }}</li>
             <li style="width:20%">{{ smallBlind | money }} / {{ bigBlind | money }}</li>
             <li style="width:16%">
                 <div class="bar" v-bind:class="'bar-' + playerAmount">
@@ -104,7 +104,32 @@
         });
 
         function startGame(tableId) {
-            window.open('@Url.Action("TexasHoldem_Play")?tableId=' + tableId, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + 1280 + ',height=' + 720);
+            if (!isFlashPlayerInstalled()) {
+                window.location = 'https://get.adobe.com/tw/flashplayer';
+                return;
+            }
+
+            var swfUrl = '@String.Format("{0}/games/{1}/Main.swf?v={2}", ConfigHelper.AssetServerUrl, Model.GameName, Model.GameToken)';
+            var flashvars = {
+                gameUrl: '@String.Format("{0}/games/{1}", ConfigHelper.AssetServerUrl, Model.GameName)',
+                gameName: '@Model.GameName',
+                gameCulture: '@Model.Culture',
+                gameFileToken: '@Model.GameToken',
+                serverUrl: '@Model.ServerUrl',
+                serverPort: '@Model.ServerPort',
+                accessToken: '@Model.AccessToken',
+                rtmpUrl: '@ConfigHelper.RtmpServerUrl',
+                recognitionUrl: '@ConfigHelper.RecognitionApiUrl',
+                tableId: tableId
+            };
+
+            $('#lobby').remove();
+            embedSwf(swfUrl, flashvars, 'game', '100%', '100%');
+        }
+
+        function returnToLobby() {
+            removeSWF('game');
+            location.reload();
         }
 
         $(document).ready(function () {
