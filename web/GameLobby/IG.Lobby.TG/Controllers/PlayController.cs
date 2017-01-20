@@ -100,7 +100,8 @@ namespace IG.Lobby.TG.Controllers
             }
         }
 
-        [NonAction, Authenticate]
+        [NonAction]
+        [Authenticate]
         public ActionResult TexasHoldem()
         {
             var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -128,7 +129,8 @@ namespace IG.Lobby.TG.Controllers
 
 
 
-        [Authenticate, Route("~/Play/DouDizhu/{tableId?}")]
+        [NonAction]
+        //[Authenticate, Route("~/Play/DouDizhu/{tableId?}")]
         public ActionResult DouDizhu(int? tableId = null)
         {
             var game = dbContext.Game.Where(x => x.Name == "DOUDIZHUVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -149,7 +151,7 @@ namespace IG.Lobby.TG.Controllers
             }
         }
 
-        [NonAction, Authenticate]
+        [Authenticate]
         public ActionResult DouDizhu()
         {
             var game = dbContext.Game.Where(x => x.Name == "DOUDIZHUVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -177,7 +179,8 @@ namespace IG.Lobby.TG.Controllers
         
 
 
-        [Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
+        [NonAction]
+        //[Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
         public ActionResult TaiwanMahjong(int? tableId = null)
         {
             var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -199,7 +202,7 @@ namespace IG.Lobby.TG.Controllers
             }
         }
 
-        [NonAction, Authenticate]
+        [Authenticate]
         public ActionResult TaiwanMahjong()
         {
             var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -227,6 +230,7 @@ namespace IG.Lobby.TG.Controllers
 
 
 
+        [NonAction]
         [Authenticate]
         public ActionResult GuangdongMahjong()
         {
@@ -296,20 +300,6 @@ namespace IG.Lobby.TG.Controllers
 }
 namespace IG.Lobby.TG.Models
 {
-    public class PlayGameViewModel
-    {
-        public int PlayerId { get; set; }
-        public int GameId { get; set; }
-        public int TableId { get; set; }
-
-        public string GameName { get; set; }
-        public string GameToken { get; set; }
-        public string Culture { get; set; }
-        public string ServerUrl { get; set; }
-        public int ServerPort { get; set; }
-        public string AccessToken { get; set; }
-    }
-
     public class MemberJoinTable
     {
         [DbImport]

@@ -41,4 +41,5 @@ declare
 	end
 	insert into dbo.MemberJoinTable (PlayerId, GameId, OwnerId, TableId, [State])
 	values (@AvatarId, @GameId, @PlayerId, @TableId, 0)
+	select * from dbo.MemberJoinTable with(nolock) where PlayerId=@AvatarId and GameId=@GameId and OwnerId=@PlayerId and TableId=@TableId
 END

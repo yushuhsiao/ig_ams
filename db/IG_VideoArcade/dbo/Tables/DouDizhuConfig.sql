@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[DouDizhuConfig] (
-    [Id]                 INT           IDENTITY (1, 1) NOT NULL,
+    [Id]                 INT           NOT NULL,
     [TableName_EN]       NVARCHAR (20) NOT NULL,
     [TableName_CHS]      NVARCHAR (20) NOT NULL,
     [TableName_CHT]      NVARCHAR (20) NOT NULL,
@@ -15,4 +15,6 @@
     [ModifyDate]         DATETIME      NULL,
     CONSTRAINT [PK_DouDizhuConfig] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 

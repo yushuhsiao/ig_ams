@@ -349,16 +349,10 @@
     <Content Include="Views\Play\TexasHoldem_Tables.cshtml" />
     <Content Include="Views\Play\DouDizhu.cshtml" />
     <Content Include="Views\Play\TaiwanMahjong.cshtml" />
-    <Content Include="Views\Play\GuangdongMahjong.cshtml" />
-    <Content Include="Views\Webcam\PhotoCheck.cshtml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
-    <Content Include="Views\Test\PhotoCapture.cshtml" />
-    <Content Include="Views\Test\PhotoVerify.cshtml" />
-    <Content Include="Views\Test\PhotoCheck.cshtml" />
     <Content Include="Views\Replay\TexasHoldem.cshtml" />
     <Content Include="Views\Replay\DouDizhu.cshtml" />
     <Content Include="Views\Replay\TaiwanMahjong.cshtml" />
-    <Content Include="Views\Replay\GuangdongMahjong.cshtml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\Qa.pubxml" />
     <Content Include="Views\Play\TexasHoldem_Play.cshtml" />

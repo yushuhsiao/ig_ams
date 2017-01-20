@@ -15,6 +15,10 @@
 );
 
 
+
+
+
+
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_EprobTab_GameId_Eprob_Symbol]
     ON [dbo].[EprobTable]([GameId] ASC, [Eprob] ASC, [Symbol] ASC);
