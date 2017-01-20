@@ -26,13 +26,13 @@ declare
 	end
 	else
 	begin
-		select top(1) @AvatarId = a.Id, @Nickname = a.Account, @LastLoginIp = a.LastLoginIp
+		select top(1) @AvatarId = a.Id, @Nickname = a.Nickname, @LastLoginIp = a.LastLoginIp
 		from MemberAvatar b with(nolock)
 		left join Member a with(nolock) on a.Id = b.PlayerId
 		left join MemberJoinTable c with(nolock) on a.Id = c.PlayerId and c.GameId = @GameId
 		where b.OwnerId = @PlayerId and c.[State] = 0 order by a.LastLoginTime asc
 		if @AvatarId is null
-			RAISERROR (0, 18, 255, 'unable to alloc AvatarId, AvatarId is null')			
+			RAISERROR (2147483647, 18, 255, 'unable to alloc AvatarId, AvatarId is null')
 
 		update dbo.Member set Nickname = @Nickname, LastLoginIp = @LastLoginIp, LastLoginTime = getdate(), AccessToken=@AccessToken
 		where Id = @AvatarId

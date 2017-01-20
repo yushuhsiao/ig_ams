@@ -6,503 +6,560 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Greene\aspnet\IG\Deploy\IG.Lobby.TG</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\ig\release\IG.Lobby.TG</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Assets/alertifyjs/alertify.js">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/alertify.min.js">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/alertify.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/alertify.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/alertify.rtl.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/alertify.rtl.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/bootstrap.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/bootstrap.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/bootstrap.rtl.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/bootstrap.rtl.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/default.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/default.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/default.rtl.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/default.rtl.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/semantic.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/semantic.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/semantic.rtl.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
     </File>
     <File Include="Assets/alertifyjs/css/themes/semantic.rtl.min.css">
-      <publishTime>11/07/2016 16:19:02</publishTime>
+      <publishTime>11/07/2016 16:19:04</publishTime>
+    </File>
+    <File Include="Assets/angular/.bower.json">
+      <publishTime>01/20/2017 03:10:03</publishTime>
+    </File>
+    <File Include="Assets/angular/angular-csp.css">
+      <publishTime>01/20/2017 03:10:03</publishTime>
+    </File>
+    <File Include="Assets/angular/angular.js">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/angular.min.js">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/angular.min.js.gzip">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/angular.min.js.map">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/bower.json">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/index.js">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/LICENSE.md">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/package.json">
+      <publishTime>01/20/2017 03:10:04</publishTime>
+    </File>
+    <File Include="Assets/angular/README.md">
+      <publishTime>01/20/2017 03:10:04</publishTime>
     </File>
     <File Include="Assets/css/bootstrap-theme.css">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap-theme.css.map">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap-theme.min.css">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap-theme.min.css.map">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap.css">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap.css.map">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap.min.css">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/bootstrap.min.css.map">
-      <publishTime>11/07/2016 16:21:10</publishTime>
+      <publishTime>11/07/2016 16:21:12</publishTime>
     </File>
     <File Include="Assets/css/doudizhu.css">
-      <publishTime>11/07/2016 16:21:18</publishTime>
+      <publishTime>11/07/2016 16:21:20</publishTime>
     </File>
     <File Include="Assets/css/guangdong-mahjong.css">
-      <publishTime>11/07/2016 16:21:18</publishTime>
+      <publishTime>11/07/2016 16:21:20</publishTime>
     </File>
     <File Include="Assets/css/normalize.css">
-      <publishTime>11/07/2016 16:21:17</publishTime>
+      <publishTime>11/07/2016 16:21:18</publishTime>
     </File>
     <File Include="Assets/css/normalize.min.css">
-      <publishTime>11/07/2016 16:21:18</publishTime>
+      <publishTime>11/07/2016 16:21:20</publishTime>
     </File>
     <File Include="Assets/css/normalize.min.css.map">
-      <publishTime>11/07/2016 16:21:18</publishTime>
+      <publishTime>11/07/2016 16:21:20</publishTime>
     </File>
     <File Include="Assets/css/site-game.css">
-      <publishTime>12/14/2016 15:31:26</publishTime>
+      <publishTime>12/14/2016 15:31:28</publishTime>
     </File>
     <File Include="Assets/css/site.css">
-      <publishTime>01/13/2017 18:18:23</publishTime>
+      <publishTime>01/13/2017 18:18:24</publishTime>
     </File>
     <File Include="Assets/css/taiwan-mahjong.css">
-      <publishTime>11/07/2016 16:21:24</publishTime>
+      <publishTime>11/07/2016 16:21:26</publishTime>
     </File>
     <File Include="Assets/css/texasholdem.css">
-      <publishTime>11/07/2016 16:21:24</publishTime>
+      <publishTime>11/07/2016 16:21:26</publishTime>
     </File>
     <File Include="Assets/fancybox/blank.gif">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/fancybox_loading%402x.gif">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/fancybox_loading.gif">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/fancybox_overlay.png">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/fancybox_sprite%402x.png">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/fancybox_sprite.png">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/helpers/fancybox_buttons.png">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/helpers/jquery.fancybox-buttons.css">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/helpers/jquery.fancybox-buttons.js">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/helpers/jquery.fancybox-media.js">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/helpers/jquery.fancybox-thumbs.css">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/helpers/jquery.fancybox-thumbs.js">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/jquery.fancybox.css">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/jquery.fancybox.js">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fancybox/jquery.fancybox.min.js">
-      <publishTime>11/07/2016 16:19:00</publishTime>
+      <publishTime>11/07/2016 16:19:02</publishTime>
     </File>
     <File Include="Assets/fonts/glyphicons-halflings-regular.eot">
-      <publishTime>11/07/2016 16:18:52</publishTime>
+      <publishTime>11/07/2016 16:18:54</publishTime>
     </File>
     <File Include="Assets/fonts/glyphicons-halflings-regular.svg">
-      <publishTime>11/07/2016 16:18:52</publishTime>
+      <publishTime>11/07/2016 16:18:54</publishTime>
     </File>
     <File Include="Assets/fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>11/07/2016 16:18:52</publishTime>
+      <publishTime>11/07/2016 16:18:54</publishTime>
     </File>
     <File Include="Assets/fonts/glyphicons-halflings-regular.woff">
-      <publishTime>11/07/2016 16:18:52</publishTime>
+      <publishTime>11/07/2016 16:18:54</publishTime>
     </File>
     <File Include="Assets/fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>11/07/2016 16:18:52</publishTime>
+      <publishTime>11/07/2016 16:18:54</publishTime>
     </File>
     <File Include="Assets/images/bg.jpg">
-      <publishTime>01/13/2017 18:16:02</publishTime>
+      <publishTime>01/13/2017 18:16:04</publishTime>
     </File>
     <File Include="Assets/images/btn-doudizhu.png">
-      <publishTime>11/07/2016 17:52:54</publishTime>
+      <publishTime>11/07/2016 17:52:56</publishTime>
     </File>
     <File Include="Assets/images/btn-mahjong.png">
-      <publishTime>11/07/2016 17:52:54</publishTime>
+      <publishTime>11/07/2016 17:52:56</publishTime>
     </File>
     <File Include="Assets/images/btn-texasholdem.png">
-      <publishTime>11/07/2016 17:52:54</publishTime>
+      <publishTime>11/07/2016 17:52:56</publishTime>
     </File>
     <File Include="Assets/images/doudizhu/btn_enter.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/doudizhu/btn_enter_active.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/doudizhu/btn_enter_hover.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/doudizhu/lobby_bg.jpg">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/doudizhu/logo.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/flower.png">
-      <publishTime>11/07/2016 17:53:06</publishTime>
+      <publishTime>11/07/2016 17:53:08</publishTime>
     </File>
     <File Include="Assets/images/guangdongmahjong/btn_enter.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/guangdongmahjong/btn_enter_active.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/guangdongmahjong/btn_enter_hover.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/guangdongmahjong/lobby_bg.jpg">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/guangdongmahjong/logo.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/icon-member.png">
-      <publishTime>11/07/2016 17:52:52</publishTime>
+      <publishTime>11/07/2016 17:52:54</publishTime>
     </File>
     <File Include="Assets/images/icon-money.png">
-      <publishTime>11/07/2016 17:52:52</publishTime>
+      <publishTime>11/07/2016 17:52:54</publishTime>
     </File>
     <File Include="Assets/images/level.png">
-      <publishTime>11/07/2016 17:52:51</publishTime>
+      <publishTime>11/07/2016 17:52:52</publishTime>
     </File>
     <File Include="Assets/images/live-text.png">
-      <publishTime>11/07/2016 17:52:51</publishTime>
+      <publishTime>11/07/2016 17:52:52</publishTime>
     </File>
     <File Include="Assets/images/lobby-doudizhu.png">
-      <publishTime>11/07/2016 17:52:50</publishTime>
+      <publishTime>11/07/2016 17:52:52</publishTime>
     </File>
     <File Include="Assets/images/lobby-mahjong.png">
-      <publishTime>11/07/2016 17:52:50</publishTime>
+      <publishTime>11/07/2016 17:52:52</publishTime>
     </File>
     <File Include="Assets/images/lobby-texasholdem.png">
-      <publishTime>11/07/2016 17:52:53</publishTime>
+      <publishTime>11/07/2016 17:52:54</publishTime>
     </File>
     <File Include="Assets/images/logo.png">
-      <publishTime>11/07/2016 17:52:52</publishTime>
+      <publishTime>11/07/2016 17:52:54</publishTime>
     </File>
     <File Include="Assets/images/nav-bg.png">
-      <publishTime>11/07/2016 17:52:52</publishTime>
+      <publishTime>11/07/2016 17:52:54</publishTime>
     </File>
     <File Include="Assets/images/taiwanmahjong/btn_enter.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/taiwanmahjong/btn_enter_active.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/taiwanmahjong/btn_enter_hover.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/taiwanmahjong/lobby_bg.jpg">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/taiwanmahjong/logo.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/bar_line.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/btn_enter.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/btn_enter_active.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/btn_enter_hover.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/lobby_bg.jpg">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/logo.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/people_bar.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/texasholdem/people_barline.png">
-      <publishTime>11/08/2016 16:00:45</publishTime>
+      <publishTime>11/08/2016 16:00:46</publishTime>
     </File>
     <File Include="Assets/images/waterflow.jpg">
-      <publishTime>11/08/2016 11:53:07</publishTime>
+      <publishTime>11/08/2016 11:53:08</publishTime>
     </File>
     <File Include="Assets/images/waterflow.mp4">
-      <publishTime>11/07/2016 18:06:50</publishTime>
+      <publishTime>11/07/2016 18:06:52</publishTime>
     </File>
     <File Include="Assets/js/bootstrap.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/bootstrap.min.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery-2.2.4.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery-2.2.4.min.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery-2.2.4.min.map">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery.signalR-2.2.1.js">
-      <publishTime>11/07/2016 16:16:58</publishTime>
+      <publishTime>11/07/2016 16:17:00</publishTime>
     </File>
     <File Include="Assets/js/jquery.signalR-2.2.1.min.js">
-      <publishTime>11/07/2016 16:16:58</publishTime>
+      <publishTime>11/07/2016 16:17:00</publishTime>
     </File>
     <File Include="Assets/js/jquery.validate.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery.validate.min.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery.validate.unobtrusive.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/jquery.validate.unobtrusive.min.js">
-      <publishTime>11/07/2016 16:19:53</publishTime>
+      <publishTime>11/07/2016 16:19:54</publishTime>
     </File>
     <File Include="Assets/js/js.cookie.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/js.cookie.min.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/site-game.js">
-      <publishTime>12/14/2016 15:36:18</publishTime>
+      <publishTime>12/14/2016 15:36:20</publishTime>
     </File>
     <File Include="Assets/js/site.js">
-      <publishTime>11/08/2016 15:41:53</publishTime>
+      <publishTime>11/08/2016 15:41:54</publishTime>
     </File>
     <File Include="Assets/js/vue.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/js/vue.min.js">
-      <publishTime>11/07/2016 16:19:55</publishTime>
+      <publishTime>11/07/2016 16:19:56</publishTime>
     </File>
     <File Include="Assets/scrollbar/jquery.scrollbar.css">
-      <publishTime>11/07/2016 16:18:57</publishTime>
+      <publishTime>11/07/2016 16:18:58</publishTime>
     </File>
     <File Include="Assets/scrollbar/jquery.scrollbar.js">
-      <publishTime>11/07/2016 16:18:57</publishTime>
+      <publishTime>11/07/2016 16:18:58</publishTime>
     </File>
     <File Include="Assets/scrollbar/jquery.scrollbar.min.js">
-      <publishTime>11/07/2016 16:18:57</publishTime>
+      <publishTime>11/07/2016 16:18:58</publishTime>
     </File>
     <File Include="Assets/swfobject/expressInstall.swf">
-      <publishTime>11/07/2016 16:18:57</publishTime>
+      <publishTime>11/07/2016 16:18:58</publishTime>
     </File>
     <File Include="Assets/swfobject/swfobject.js">
-      <publishTime>11/07/2016 16:18:57</publishTime>
+      <publishTime>11/07/2016 16:18:58</publishTime>
     </File>
     <File Include="Assets/swfobject/swfobject.min.js">
-      <publishTime>11/07/2016 16:18:57</publishTime>
+      <publishTime>11/07/2016 16:18:58</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
-      <publishTime>11/07/2016 16:17:16</publishTime>
+      <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.pdb">
-      <publishTime>11/07/2016 16:17:16</publishTime>
+      <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>11/07/2016 16:15:28</publishTime>
+      <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>11/07/2016 16:15:28</publishTime>
+      <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/IG.Dal.dll">
-      <publishTime>12/15/2016 17:21:36</publishTime>
+      <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/IG.Dal.pdb">
-      <publishTime>12/15/2016 17:21:36</publishTime>
+      <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/IG.Lobby.TG.dll">
-      <publishTime>01/13/2017 18:21:15</publishTime>
+      <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
-      <publishTime>11/07/2016 16:16:55</publishTime>
+      <publishTime>07/14/2016 02:35:18</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
-      <publishTime>11/07/2016 16:16:56</publishTime>
+      <publishTime>07/14/2016 02:35:22</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.dll">
-      <publishTime>11/07/2016 16:17:17</publishTime>
+      <publishTime>02/13/2015 13:16:30</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
-      <publishTime>11/07/2016 16:17:17</publishTime>
+      <publishTime>02/13/2015 13:16:34</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.dll">
-      <publishTime>11/07/2016 16:17:17</publishTime>
+      <publishTime>02/13/2015 13:16:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>11/07/2016 16:08:19</publishTime>
+      <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>11/07/2016 16:17:17</publishTime>
+      <publishTime>06/13/2016 23:06:14</publishTime>
     </File>
     <File Include="bin/Owin.dll">
-      <publishTime>11/07/2016 16:16:55</publishTime>
+      <publishTime>11/13/2012 12:19:34</publishTime>
+    </File>
+    <File Include="bin/StackExchange.Redis.StrongName.dll">
+      <publishTime>10/06/2016 13:42:50</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>11/07/2016 16:08:18</publishTime>
+      <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>11/07/2016 16:08:19</publishTime>
+      <publishTime>01/28/2015 04:02:18</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>11/07/2016 16:08:18</publishTime>
+      <publishTime>02/11/2014 15:26:04</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>11/07/2016 16:08:18</publishTime>
+      <publishTime>01/28/2015 04:02:32</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Deployment.dll">
-      <publishTime>11/07/2016 16:08:18</publishTime>
+      <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.dll">
-      <publishTime>11/07/2016 16:08:19</publishTime>
+      <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
-      <publishTime>11/07/2016 16:08:19</publishTime>
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/Tools.dll">
+      <publishTime>01/18/2017 22:07:26</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
-      <publishTime>11/07/2016 16:17:17</publishTime>
+      <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/zh-CN/IG.Lobby.TG.resources.dll">
-      <publishTime>01/13/2017 18:21:15</publishTime>
+      <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/zh-TW/IG.Lobby.TG.resources.dll">
-      <publishTime>01/13/2017 18:21:16</publishTime>
+      <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>11/08/2016 18:27:07</publishTime>
+      <publishTime>11/08/2016 18:27:08</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>11/07/2016 16:08:14</publishTime>
+      <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/07/2016 16:17:21</publishTime>
+      <publishTime>01/19/2017 15:57:44</publishTime>
     </File>
     <File Include="robots.txt">
-      <publishTime>11/07/2016 16:21:48</publishTime>
+      <publishTime>11/07/2016 16:21:50</publishTime>
     </File>
     <File Include="Views/Auth/PleaseLogin.cshtml">
-      <publishTime>11/08/2016 14:49:28</publishTime>
+      <publishTime>11/08/2016 14:49:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/01/2016 14:44:51</publishTime>
+      <publishTime>01/20/2017 04:36:33</publishTime>
     </File>
     <File Include="Views/Play/DouDizhu.cshtml">
-      <publishTime>12/27/2016 11:49:39</publishTime>
+      <publishTime>12/27/2016 11:49:40</publishTime>
+    </File>
+    <File Include="Views/Play/DouDizhu_Play.cshtml">
+      <publishTime>01/20/2017 04:28:41</publishTime>
+    </File>
+    <File Include="Views/Play/DouDizhu_Tables.cshtml">
+      <publishTime>01/20/2017 04:13:00</publishTime>
     </File>
     <File Include="Views/Play/GuangdongMahjong.cshtml">
-      <publishTime>12/27/2016 11:38:48</publishTime>
+      <publishTime>12/27/2016 11:38:50</publishTime>
     </File>
     <File Include="Views/Play/TaiwanMahjong.cshtml">
-      <publishTime>12/27/2016 11:49:44</publishTime>
+      <publishTime>12/27/2016 11:49:46</publishTime>
+    </File>
+    <File Include="Views/Play/TaiwanMahjong_Play.cshtml">
+      <publishTime>01/20/2017 04:40:28</publishTime>
+    </File>
+    <File Include="Views/Play/TaiwanMahjong_Tables.cshtml">
+      <publishTime>01/20/2017 04:39:04</publishTime>
     </File>
     <File Include="Views/Play/TexasHoldem.cshtml">
-      <publishTime>01/04/2017 15:21:05</publishTime>
+      <publishTime>01/04/2017 15:21:06</publishTime>
+    </File>
+    <File Include="Views/Play/TexasHoldem_Play.cshtml">
+      <publishTime>01/20/2017 04:29:02</publishTime>
+    </File>
+    <File Include="Views/Play/TexasHoldem_Tables.cshtml">
+      <publishTime>01/20/2017 04:01:26</publishTime>
     </File>
     <File Include="Views/Replay/DouDizhu.cshtml">
-      <publishTime>12/16/2016 11:13:13</publishTime>
+      <publishTime>12/16/2016 11:13:14</publishTime>
     </File>
     <File Include="Views/Replay/GuangdongMahjong.cshtml">
-      <publishTime>12/16/2016 11:13:44</publishTime>
+      <publishTime>12/16/2016 11:13:46</publishTime>
     </File>
     <File Include="Views/Replay/TaiwanMahjong.cshtml">
-      <publishTime>12/16/2016 11:13:27</publishTime>
+      <publishTime>12/16/2016 11:13:28</publishTime>
     </File>
     <File Include="Views/Replay/TexasHoldem.cshtml">
-      <publishTime>12/16/2016 11:13:51</publishTime>
+      <publishTime>12/16/2016 11:13:52</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>11/07/2016 16:08:14</publishTime>
+      <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>01/13/2017 18:16:28</publishTime>
+      <publishTime>01/20/2017 03:38:02</publishTime>
     </File>
     <File Include="Views/Test/PhotoCapture.cshtml">
-      <publishTime>12/16/2016 11:13:55</publishTime>
+      <publishTime>12/16/2016 11:13:56</publishTime>
     </File>
     <File Include="Views/Test/PhotoCheck.cshtml">
-      <publishTime>12/16/2016 11:14:02</publishTime>
+      <publishTime>12/16/2016 11:14:04</publishTime>
     </File>
     <File Include="Views/Test/PhotoVerify.cshtml">
-      <publishTime>12/16/2016 11:14:52</publishTime>
+      <publishTime>12/16/2016 11:14:54</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>01/04/2017 15:40:08</publishTime>
+      <publishTime>01/13/2017 18:22:28</publishTime>
     </File>
     <File Include="Views/Webcam/PhotoCheck.cshtml">
-      <publishTime>12/16/2016 11:14:36</publishTime>
+      <publishTime>12/16/2016 11:14:38</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>11/07/2016 16:08:14</publishTime>
+      <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/13/2017 18:21:16</publishTime>
+      <publishTime>01/20/2017 14:47:35</publishTime>
     </File>
   </ItemGroup>
 </Project>
