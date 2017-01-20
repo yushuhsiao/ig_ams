@@ -3,6 +3,7 @@ using IG.Lobby.TG.Extends;
 using IG.Lobby.TG.Helpers;
 using IG.Lobby.TG.Models;
 using System;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -62,9 +63,13 @@ namespace IG.Lobby.TG.Controllers
                     {
                         foreach (Action commit in sqlcmd.BeginTran())
                         {
-                            sqlcmd.ExecuteNonQuery(sqlstr);
-                            commit();
-                            return View(viewName, model);
+                            MemberJoinTable info = sqlcmd.ToObject<MemberJoinTable>(sqlstr);
+                            if (info != null)
+                            {
+                                commit();
+                                SetKeepAliveKey(info.PlayerId, game.Id);
+                                return View(viewName, model);
+                            }
                         }
                     }
                     catch (SqlException ex) when (ex.Class == 14 && ex.Number == 2601) { }
@@ -90,13 +95,13 @@ namespace IG.Lobby.TG.Controllers
             else
             {
                 UpdateGameClick(game);
-                SetKeepAliveKey(User.TakeId(), game.Id);
+                //SetKeepAliveKey(User.TakeId(), game.Id);
                 return View("TexasHoldem_Tables", game);
             }
         }
 
-        [Authenticate]
-        private ActionResult _TexasHoldem()
+        [NonAction, Authenticate]
+        public ActionResult TexasHoldem()
         {
             var game = dbContext.Game.Where(x => x.Name == "TEXASHOLDEMVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -139,13 +144,13 @@ namespace IG.Lobby.TG.Controllers
             else
             {
                 UpdateGameClick(game);
-                SetKeepAliveKey(User.TakeId(), game.Id);
+                //SetKeepAliveKey(User.TakeId(), game.Id);
                 return View("DouDizhu_Tables", game);
             }
         }
 
-        [Authenticate]
-        public ActionResult _DouDizhu()
+        [NonAction, Authenticate]
+        public ActionResult DouDizhu()
         {
             var game = dbContext.Game.Where(x => x.Name == "DOUDIZHUVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -189,13 +194,13 @@ namespace IG.Lobby.TG.Controllers
             else
             {
                 UpdateGameClick(game);
-                SetKeepAliveKey(User.TakeId(), game.Id);
+                //SetKeepAliveKey(User.TakeId(), game.Id);
                 return View("TaiwanMahjong_Tables", game);
             }
         }
 
-        [Authenticate]
-        public ActionResult _TaiwanMahjong()
+        [NonAction, Authenticate]
+        public ActionResult TaiwanMahjong()
         {
             var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
 
@@ -303,5 +308,23 @@ namespace IG.Lobby.TG.Models
         public string ServerUrl { get; set; }
         public int ServerPort { get; set; }
         public string AccessToken { get; set; }
+    }
+
+    public class MemberJoinTable
+    {
+        [DbImport]
+        public int PlayerId;
+        [DbImport]
+        public int GameId;
+        [DbImport]
+        public int OwnerId;
+        [DbImport]
+        public int TableId;
+        [DbImport]
+        public StateCode State;
+        [DbImport]
+        public DateTime JoinTime;
+
+        public enum StateCode : byte { None = 0, Busy = 1 }
     }
 }
