@@ -90,7 +90,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, false, tableId.Value, "TexasHoldem_Play");
+                return playGame(game, true, tableId.Value, "TexasHoldem_Play");
             }
             else
             {
