@@ -15,9 +15,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GeniusBullLog", "db\GeniusB
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GameReplay", "db\GameReplay\GameReplay.sqlproj", "{E4BF6B12-8264-4458-A09E-48C276E3E7A3}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "IG_TabletopGames", "db\IG_TabletopGames\IG_TabletopGames.sqlproj", "{11F6B26B-C736-40B8-A83C-1FB73151DF84}"
-EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "IG_VideoArcade", "db\IG_VideoArcade\IG_VideoArcade.sqlproj", "{27551E28-A442-41C5-BF90-60411A3ECA4D}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GeniusBull", "db\GeniusBull\GeniusBull.sqlproj", "{251135D3-E35B-4A73-AEEE-A7D7E21890B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,30 +97,18 @@ Global
 		{E4BF6B12-8264-4458-A09E-48C276E3E7A3}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
 		{E4BF6B12-8264-4458-A09E-48C276E3E7A3}.Verify|Any CPU.Build.0 = Debug|Any CPU
 		{E4BF6B12-8264-4458-A09E-48C276E3E7A3}.Verify|Any CPU.Deploy.0 = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.CodeAnalysis|Any CPU.ActiveCfg = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.CodeAnalysis|Any CPU.Build.0 = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.CodeAnalysis|Any CPU.Deploy.0 = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Verify|Any CPU.Build.0 = Debug|Any CPU
-		{11F6B26B-C736-40B8-A83C-1FB73151DF84}.Verify|Any CPU.Deploy.0 = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.CodeAnalysis|Any CPU.ActiveCfg = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.CodeAnalysis|Any CPU.Build.0 = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.CodeAnalysis|Any CPU.Deploy.0 = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Verify|Any CPU.Build.0 = Debug|Any CPU
-		{27551E28-A442-41C5-BF90-60411A3ECA4D}.Verify|Any CPU.Deploy.0 = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.CodeAnalysis|Any CPU.ActiveCfg = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.CodeAnalysis|Any CPU.Build.0 = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.CodeAnalysis|Any CPU.Deploy.0 = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Verify|Any CPU.Build.0 = Debug|Any CPU
+		{251135D3-E35B-4A73-AEEE-A7D7E21890B8}.Verify|Any CPU.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
