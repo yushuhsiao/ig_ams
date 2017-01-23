@@ -412,7 +412,7 @@
       <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/IG.Lobby.TG.dll">
-      <publishTime>01/20/2017 14:47:34</publishTime>
+      <publishTime>01/23/2017 18:10:59</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>07/14/2016 02:35:18</publishTime>
@@ -463,16 +463,16 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>01/18/2017 22:07:26</publishTime>
+      <publishTime>01/23/2017 13:24:36</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/zh-CN/IG.Lobby.TG.resources.dll">
-      <publishTime>01/20/2017 14:47:34</publishTime>
+      <publishTime>01/23/2017 18:10:59</publishTime>
     </File>
     <File Include="bin/zh-TW/IG.Lobby.TG.resources.dll">
-      <publishTime>01/20/2017 14:47:34</publishTime>
+      <publishTime>01/23/2017 18:10:59</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/08/2016 18:27:08</publishTime>
@@ -481,7 +481,7 @@
       <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>01/19/2017 15:57:44</publishTime>
+      <publishTime>01/23/2017 17:00:42</publishTime>
     </File>
     <File Include="robots.txt">
       <publishTime>11/07/2016 16:21:50</publishTime>
@@ -490,7 +490,7 @@
       <publishTime>11/08/2016 14:49:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/20/2017 04:36:33</publishTime>
+      <publishTime>01/23/2017 15:37:47</publishTime>
     </File>
     <File Include="Views/Play/DouDizhu.cshtml">
       <publishTime>12/27/2016 11:49:40</publishTime>
@@ -520,7 +520,7 @@
       <publishTime>01/20/2017 04:29:02</publishTime>
     </File>
     <File Include="Views/Play/TexasHoldem_Tables.cshtml">
-      <publishTime>01/20/2017 04:01:26</publishTime>
+      <publishTime>01/23/2017 18:02:25</publishTime>
     </File>
     <File Include="Views/Replay/DouDizhu.cshtml">
       <publishTime>12/16/2016 11:13:14</publishTime>
@@ -559,7 +559,7 @@
       <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/20/2017 14:47:35</publishTime>
+      <publishTime>01/23/2017 18:10:59</publishTime>
     </File>
   </ItemGroup>
 </Project>

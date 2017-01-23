@@ -48,7 +48,12 @@ namespace IG.Lobby.TG
         private void PushTexasHoldemLobby(Object source, ElapsedEventArgs e)
         {
             texasHoldemTables = GetTexasHoldemTables();
-            clients.Group(ConfigHelper.TexasHoldemGroupName).updateTables(texasHoldemTables);
+            foreach (dynamic conn in LobbyHub.TexasHoldemConnections())
+            {
+                conn.updateTables(texasHoldemTables);
+            }
+
+            //clients.Group(ConfigHelper.TexasHoldemGroupName).updateTables(texasHoldemTables);
         }
 
         private void PushDouDizhuLobby(Object source, ElapsedEventArgs e)

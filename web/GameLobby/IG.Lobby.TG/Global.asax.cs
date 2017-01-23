@@ -99,5 +99,17 @@ namespace IG.Lobby.TG
         {
             get { return app.config<MvcApplication>.GetValue<int>(); }
         }
+
+        [AppSetting, DefaultValue(false)]
+        public static bool Avatar_TaiwanMahjong
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
+
+        [AppSetting, DefaultValue(false)]
+        public static bool Avatar_DouDizhu
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
     }
 }

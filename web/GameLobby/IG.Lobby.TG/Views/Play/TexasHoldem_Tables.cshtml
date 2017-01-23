@@ -5,7 +5,7 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,37 +16,38 @@
     <link href="~/assets/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
     <link href="~/assets/css/site-game.css" rel="stylesheet" />
     <script src="~/assets/js/jquery-2.2.4.min.js"></script>
-    <script src="~/assets/js/vue.min.js"></script>
+    <script src="~/Assets/angular/angular.min.js"></script>
     <script src="~/assets/js/js.cookie.min.js"></script>
     <script src="~/assets/alertifyjs/alertify.min.js"></script>
     <script src="~/assets/swfobject/swfobject.min.js"></script>
     <script src="~/assets/js/site-game.js"></script>
 </head>
-<body>
-    <div class="game-wrapper">
-        <div id="game"></div>
-    </div>
+<body ng-controller="main">
     <div class="lobby" id="lobby">
         <div class="logo"></div>
         <div class="table scrollbar-external_wrapper">
             <div class="thead">
                 <ul class="clearfix">
                     <li style="width:18%">@TransHelper.Ui("TableName")</li>
-                    <li style="width:20%;cursor:pointer" v-on:click="order = order * -1">@TransHelper.Ui("SmallBigBlind")</li>
+                    <li style="width:20%;cursor:pointer" ng-click="order_desc = !order_desc">@TransHelper.Ui("SmallBigBlind")</li>
                     <li style="width:16%">@TransHelper.Ui("NumOfPlayer")</li>
                     <li style="width:26%">@TransHelper.Ui("MaxMinBuyIn")</li>
                     <li style="width:20%">&nbsp;</li>
                 </ul>
             </div>
             <div class="tbody scrollbar-external">
-                <table-component v-for="table in tables | orderBy 'SmallBlind' order"
-                                 track-by="TableId"
-                                 v-bind:table-id="table.TableId"
-                                 v-bind:table-name="table.TableName_@CultureHelper.GetCurrentLanguages()"
-                                 v-bind:small-blind="table.SmallBlind"
-                                 v-bind:big-blind="table.BigBlind"
-                                 v-bind:seconds-to-countdown="table.SecondsToCountdown"
-                                 v-bind:player-amount="table.PlayerAmount"></table-component>
+                <ul class="clearfix" ng-repeat="table in tables | orderBy : 'SmallBlind' : order_desc">
+                    <li style="width:18%">{{ table.TableName_@CultureHelper.GetCurrentLanguages() }}</li>
+                    <li style="width:20%">{{ table.SmallBlind | money }} / {{ table.BigBlind | money }}</li>
+                    <li style="width:16%">
+                        <div class="bar" v-bind:class="'bar-' + playerAmount">
+                            <div class="bar-line" ng-class="'bar-line-' + table.PlayerAmount"></div>
+                            <div class="player-amount">{{ table.PlayerAmount }} / 7</div>
+                        </div>
+                    </li>
+                    <li style="width:26%">{{ table.BigBlind * 10 | money }} / {{ table.BigBlind * 200 | money }}</li>
+                    <li style="width:20%"><a class="btn-play" ng-click="startGame(table.TableId)">@TransHelper.Ui("PlayGame")</a></li>
+                </ul>
             </div>
             <div class="external-scroll_y">
                 <div class="scroll-element_outer">
@@ -57,20 +58,6 @@
             </div>
         </div>
     </div>
-    <template id="table-component">
-        <ul class="clearfix">
-            <li style="width:18%">{{ tableName }} ({{tableId}})</li>
-            <li style="width:20%">{{ smallBlind | money }} / {{ bigBlind | money }}</li>
-            <li style="width:16%">
-                <div class="bar" v-bind:class="'bar-' + playerAmount">
-                    <div class="bar-line" v-bind:class="'bar-line-' + playerAmount"></div>
-                    <div class="player-amount">{{ playerAmount }} / 7</div>
-                </div>
-            </li>
-            <li style="width:26%">{{ bigBlind * 10 | money }} / {{ bigBlind * 200 | money }}</li>
-            <li style="width:20%"><a class="btn-play" v-on:click="playGame">@TransHelper.Ui("PlayGame")</a></li>
-        </ul>
-    </template>
     <link href="~/assets/scrollbar/jquery.scrollbar.css" rel="stylesheet" />
     <link href="~/assets/css/texasholdem.css" rel="stylesheet" />
     <script src="~/assets/scrollbar/jquery.scrollbar.min.js"></script>
@@ -81,58 +68,46 @@
         alertify.defaults.glossary.ok = '@TransHelper.Ui("Ok")';
         alertify.defaults.glossary.cancel = '@TransHelper.Ui("Cancel")';
 
-        Vue.filter('money', function (value) {
-            return formatMoney(value);
-        })
+        var app = angular.module('app', []
+            ).filter('money', function () {
+                return formatMoney;
+            }).controller('main', function ($scope, $http, $filter) {
+                $scope.tables = [];
 
-        Vue.component('table-component', {
-            template: '#table-component',
-            props: ['tableId', 'tableName', 'smallBlind', 'bigBlind', 'secondsToCountdown', 'playerAmount'],
-            methods: {
-                playGame: function () {
-                    startGame(this.tableId);
+                $scope.order_desc = false;
+
+                $scope.startGame = function (tableId) {
+                    window.open('@Url.Action("TexasHoldem", "Play")?tableId=' + tableId, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + 1280 + ',height=' + 720);
                 }
-            }
-        });
 
-        var lobbyVm = new Vue({
-            el: '#lobby',
-            data: {
-                order: 1,
-                tables: []
-            }
-        });
+                $(document).ready(function () {
+                    var lobbyHub = $.connection.lobbyHub;
 
-        function startGame(tableId) {
-            window.open('@Url.Action("TexasHoldem", "Play")?tableId=' + tableId, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + 1280 + ',height=' + 720);
-        }
+                    lobbyHub.client.notice = function (message, type, wait) {
+                        if (type === 'alert') {
+                            alertify.alert(message);
+                        } else {
+                            alertify.notify(message, type, wait);
+                        }
+                    };
 
-        $(document).ready(function () {
-            var lobbyHub = $.connection.lobbyHub;
+                    lobbyHub.client.updateTables = function (tables) {
+                        $scope.tables = tables;
+                        $scope.$applyAsync();
+                    };
 
-            lobbyHub.client.notice = function (message, type, wait) {
-                if (type === 'alert') {
-                    alertify.alert(message);
-                } else {
-                    alertify.notify(message, type, wait);
-                }
-            };
+                    $.connection.hub.start().done(function () {
+                        lobbyHub.server.joinGroup('@ConfigHelper.NoticeGroupName');
+                        lobbyHub.server.joinGroup('@ConfigHelper.TexasHoldemGroupName');
+                    });
 
-            lobbyHub.client.updateTables = function (tables) {
-                lobbyVm.tables = tables;
-            };
-
-            $.connection.hub.start().done(function () {
-                lobbyHub.server.joinGroup('@ConfigHelper.NoticeGroupName');
-                lobbyHub.server.joinGroup('@ConfigHelper.TexasHoldemGroupName');
+                    $('.scrollbar-external').scrollbar({
+                        'autoScrollSize': false,
+                        'scrollx': $('.external-scroll_x'),
+                        'scrolly': $('.external-scroll_y')
+                    });
+                });
             });
-
-            $('.scrollbar-external').scrollbar({
-                'autoScrollSize': false,
-                'scrollx': $('.external-scroll_x'),
-                'scrolly': $('.external-scroll_y')
-            });
-        });
     </script>
 </body>
 </html>

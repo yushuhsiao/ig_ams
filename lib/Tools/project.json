@@ -1,6 +1,6 @@
 {
-  "version": "1.0.4",
-  "authors": ["Yushu Hsiao"],
+  "version": "1.0.8",
+  "authors": [ "Innate Glory" ],
 
   "dependencies": {
     "Newtonsoft.Json": "9.0.1",
@@ -25,7 +25,7 @@
         "System.Runtime.Remoting": "4.0.0.0",
         "System.Web": "4.0.0.0",
         "System.Windows.Forms": "4.0.0.0",
-        "System.Xml": "4.0.0.0",
+        "System.Xml": "4.0.0.0"
       }
     },
     "netstandard1.6": {
@@ -40,7 +40,7 @@
         "System.ComponentModel.TypeConverter": "4.3.0",
         "System.Data.Common": "4.3.0",
         "System.Data.SqlClient": "4.3.0",
-        "System.Diagnostics.TraceSource": "4.0.0",
+        "System.Diagnostics.TraceSource": "4.3.0",
         "System.Security.Cryptography.Csp": "4.3.0"
       }
     }

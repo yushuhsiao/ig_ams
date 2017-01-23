@@ -34,23 +34,28 @@ namespace IG.Lobby.TG.Controllers
         }
 
 
-        ActionResult playGame(Game game, bool group_token, int tableId, string viewName)
+
+        ActionResult playGame(Game game, bool group_token, int tableId, string viewName, bool use_avatar)
         {
+            var model = new PlayGameViewModel()
+            {
+                PlayerId = User.TakeId(),
+                GameId = game.Id,
+                TableId = tableId,
+
+                GameName = game.Name,
+                GameToken = game.FileToken,
+                Culture = CultureHelper.GetCurrentGameCulture(),
+                ServerUrl = game.ServerUrl,
+                ServerPort = game.ServerPort,
+            };
+            if (!use_avatar)
+            {
+                SetKeepAliveKey(model.PlayerId, game.Id);
+                return View(viewName, model);
+            }
             using (SqlCmd sqlcmd = MvcApplication.GetSqlCmd())
             {
-                var model = new PlayGameViewModel()
-                {
-                    PlayerId = User.TakeId(),
-                    GameId = game.Id,
-                    TableId = tableId,
-
-                    GameName = game.Name,
-                    GameToken = game.FileToken,
-                    Culture = CultureHelper.GetCurrentGameCulture(),
-                    ServerUrl = game.ServerUrl,
-                    ServerPort = game.ServerPort,
-                };
-
 
                 for (int i = 1; i <= MvcApplication.MaxAvatarCount; i++)
                 {
@@ -90,7 +95,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, true, tableId.Value, "TexasHoldem_Play");
+                return playGame(game, true, tableId.Value, "TexasHoldem_Play", true);
             }
             else
             {
@@ -141,7 +146,7 @@ namespace IG.Lobby.TG.Controllers
             }
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, true, tableId.Value, "DouDizhu_Play");
+                return playGame(game, true, tableId.Value, "DouDizhu_Play", MvcApplication.Avatar_DouDizhu);
             }
             else
             {
@@ -179,8 +184,7 @@ namespace IG.Lobby.TG.Controllers
         
 
 
-        [NonAction]
-        //[Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
+        [Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
         public ActionResult TaiwanMahjong(int? tableId = null)
         {
             var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -192,7 +196,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, true, tableId.Value, "TaiwanMahjong_Play");
+                return playGame(game, true, tableId.Value, "TaiwanMahjong_Play", MvcApplication.Avatar_TaiwanMahjong);
             }
             else
             {
@@ -202,6 +206,7 @@ namespace IG.Lobby.TG.Controllers
             }
         }
 
+        [NonAction]
         [Authenticate]
         public ActionResult TaiwanMahjong()
         {

@@ -20,13 +20,13 @@ namespace ams
         public string SortField { get; set; }
         public Type ClassType { get; private set; }
         public SortOrder SortOrder { get; set; }
-        public SqlBuilder.str sqlTableName { get; private set; }
+        //public SqlBuilder.str sqlTableName { get; private set; }
         private List<SortableAttribute> sortables = new List<SortableAttribute>();
         private List<FilterableAttribute> filterables = new List<FilterableAttribute>();
         public TableNameAttribute(string tableName)
         {
             this.TableName = tableName;
-            this.sqlTableName = tableName;
+            //this.sqlTableName = tableName;
             this.SortField = "CreateTime";
             this.SortOrder = SortOrder.desc;
         }
