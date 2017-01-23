@@ -52,6 +52,7 @@ namespace IG.Lobby.TG.Controllers
             if (!use_avatar)
             {
                 SetKeepAliveKey(model.PlayerId, game.Id);
+                model.AccessToken = User.TakeAccessToken();
                 return View(viewName, model);
             }
             using (SqlCmd sqlcmd = MvcApplication.GetSqlCmd())
@@ -95,7 +96,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, true, tableId.Value, "TexasHoldem_Play", true);
+                return playGame(game, false, tableId.Value, "TexasHoldem_Play", true);
             }
             else
             {
@@ -146,7 +147,7 @@ namespace IG.Lobby.TG.Controllers
             }
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, true, tableId.Value, "DouDizhu_Play", MvcApplication.Avatar_DouDizhu);
+                return playGame(game, false, tableId.Value, "DouDizhu_Play", MvcApplication.Avatar_DouDizhu);
             }
             else
             {
@@ -184,7 +185,8 @@ namespace IG.Lobby.TG.Controllers
         
 
 
-        [Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
+        [NonAction]
+        //[Authenticate, Route("~/Play/TaiwanMahjong/{tableId?}")]
         public ActionResult TaiwanMahjong(int? tableId = null)
         {
             var game = dbContext.Game.Where(x => x.Name == "TWMAHJONGVIDEO" && x.Status == GameStatus.Public).FirstOrDefault();
@@ -196,7 +198,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, true, tableId.Value, "TaiwanMahjong_Play", MvcApplication.Avatar_TaiwanMahjong);
+                return playGame(game, false, tableId.Value, "TaiwanMahjong_Play", MvcApplication.Avatar_TaiwanMahjong);
             }
             else
             {
@@ -206,7 +208,6 @@ namespace IG.Lobby.TG.Controllers
             }
         }
 
-        [NonAction]
         [Authenticate]
         public ActionResult TaiwanMahjong()
         {

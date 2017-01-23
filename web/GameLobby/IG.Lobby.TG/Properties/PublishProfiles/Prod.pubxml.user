@@ -412,7 +412,7 @@
       <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/IG.Lobby.TG.dll">
-      <publishTime>01/23/2017 18:10:59</publishTime>
+      <publishTime>01/23/2017 21:06:18</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>07/14/2016 02:35:18</publishTime>
@@ -469,10 +469,10 @@
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/zh-CN/IG.Lobby.TG.resources.dll">
-      <publishTime>01/23/2017 18:10:59</publishTime>
+      <publishTime>01/23/2017 21:06:18</publishTime>
     </File>
     <File Include="bin/zh-TW/IG.Lobby.TG.resources.dll">
-      <publishTime>01/23/2017 18:10:59</publishTime>
+      <publishTime>01/23/2017 21:06:18</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/08/2016 18:27:08</publishTime>
@@ -490,7 +490,7 @@
       <publishTime>11/08/2016 14:49:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/23/2017 15:37:47</publishTime>
+      <publishTime>01/23/2017 21:02:28</publishTime>
     </File>
     <File Include="Views/Play/DouDizhu.cshtml">
       <publishTime>12/27/2016 11:49:40</publishTime>
