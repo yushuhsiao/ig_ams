@@ -544,31 +544,31 @@
       <publishTime>01/28/2015 14:36:58</publishTime>
     </File>
     <File Include="bin/ams.core.dll">
-      <publishTime>01/06/2017 16:57:49</publishTime>
+      <publishTime>01/24/2017 02:50:33</publishTime>
     </File>
     <File Include="bin/ams.core_api.dll">
-      <publishTime>01/06/2017 16:57:49</publishTime>
+      <publishTime>01/24/2017 02:50:34</publishTime>
     </File>
     <File Include="bin/ams.dll">
-      <publishTime>01/12/2017 13:58:38</publishTime>
+      <publishTime>01/24/2017 02:50:36</publishTime>
     </File>
     <File Include="bin/ams.extra.dll">
-      <publishTime>01/06/2017 18:48:49</publishTime>
+      <publishTime>01/24/2017 02:50:34</publishTime>
     </File>
     <File Include="bin/ams.payments.dll">
-      <publishTime>01/06/2017 18:48:50</publishTime>
+      <publishTime>01/24/2017 02:50:35</publishTime>
     </File>
     <File Include="bin/ams.platforms.dll">
-      <publishTime>01/06/2017 16:57:49</publishTime>
+      <publishTime>01/24/2017 02:50:33</publishTime>
     </File>
     <File Include="bin/ams.tran.dll">
-      <publishTime>01/06/2017 18:48:49</publishTime>
+      <publishTime>01/24/2017 02:50:34</publishTime>
     </File>
     <File Include="bin/ams.tran.XmlSerializers.dll">
-      <publishTime>01/06/2017 18:48:49</publishTime>
+      <publishTime>01/24/2017 02:50:34</publishTime>
     </File>
     <File Include="bin/ams.ui.dll">
-      <publishTime>01/06/2017 18:48:48</publishTime>
+      <publishTime>01/24/2017 02:50:34</publishTime>
     </File>
     <File Include="bin/ams_api.dll">
       <publishTime>08/22/2016 04:15:02</publishTime>
@@ -592,7 +592,7 @@
       <publishTime>12/20/2016 17:22:52</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>01/06/2017 16:57:49</publishTime>
+      <publishTime>01/24/2017 02:50:32</publishTime>
     </File>
     <File Include="bin/FaceSDK.NET.dll">
       <publishTime>09/14/2016 22:19:50</publishTime>
@@ -604,7 +604,7 @@
       <publishTime>08/24/2016 16:43:24</publishTime>
     </File>
     <File Include="bin/GeniusBullApi.dll">
-      <publishTime>01/12/2017 13:58:37</publishTime>
+      <publishTime>01/24/2017 02:50:33</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
       <publishTime>07/14/2016 11:01:16</publishTime>
@@ -658,13 +658,13 @@
       <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/MongoDB.Bson.dll">
-      <publishTime>11/29/2016 19:13:50</publishTime>
+      <publishTime>01/03/2017 03:42:36</publishTime>
     </File>
     <File Include="bin/MongoDB.Driver.Core.dll">
-      <publishTime>11/29/2016 19:13:50</publishTime>
+      <publishTime>01/03/2017 03:42:38</publishTime>
     </File>
     <File Include="bin/MongoDB.Driver.dll">
-      <publishTime>11/29/2016 19:13:52</publishTime>
+      <publishTime>01/03/2017 03:42:40</publishTime>
     </File>
     <File Include="bin/MsieJavaScriptEngine.dll">
       <publishTime>12/19/2016 20:09:34</publishTime>
@@ -679,7 +679,7 @@
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/RecogServiceApi.dll">
-      <publishTime>01/12/2017 13:58:37</publishTime>
+      <publishTime>01/24/2017 02:50:34</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>02/28/2016 23:37:54</publishTime>
@@ -783,6 +783,9 @@
     <File Include="bin/StackExchange.Redis.dll">
       <publishTime>10/06/2016 13:42:00</publishTime>
     </File>
+    <File Include="bin/StackExchange.Redis.StrongName.dll">
+      <publishTime>10/06/2016 13:42:50</publishTime>
+    </File>
     <File Include="bin/System.Net.Http.dll">
       <publishTime>05/28/2014 04:35:42</publishTime>
     </File>
@@ -823,7 +826,7 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>01/05/2017 02:47:30</publishTime>
+      <publishTime>01/24/2017 02:30:58</publishTime>
     </File>
     <File Include="bin/uiHelpers.dll">
       <publishTime>08/30/2016 19:40:37</publishTime>
@@ -9733,7 +9736,7 @@
       <publishTime>02/19/2016 21:04:00</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>01/05/2017 13:43:03</publishTime>
+      <publishTime>01/24/2017 02:35:44</publishTime>
     </File>
     <File Include="Scripts/angular-animate.js">
       <publishTime>01/02/2017 23:25:51</publishTime>
@@ -12814,7 +12817,7 @@
       <publishTime>01/09/2016 23:55:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/05/2017 18:54:09</publishTime>
+      <publishTime>01/24/2017 02:50:37</publishTime>
     </File>
   </ItemGroup>
 </Project>

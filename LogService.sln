@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "corelib", "lib\corelib\corelib.csproj", "{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "lib\Tools\Tools.csproj", "{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogService", "util\LogService\LogService.csproj", "{AC51D375-10D7-468A-A3B5-CC5EB1B99F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams.core", "lib\ams.core\ams.core.csproj", "{F8BD8A7F-7ABD-402B-8F77-F2AD084DA7B7}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams.tran", "lib\ams.tran\ams.tran.csproj", "{1783CCFC-10AC-4F38-9E87-0EBDBEFC41D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeniusBullApi", "lib\GeniusBullApi\GeniusBullApi.csproj", "{61D13FBD-3CB2-4542-AB25-AAB7C30E013D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tools", "lib\Tools\Tools.xproj", "{C8DE4077-3362-496C-9359-83E7250F3EB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,6 @@ Global
 		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}.Verify|Any CPU.ActiveCfg = Release|Any CPU
 		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}.Verify|Any CPU.Build.0 = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Verify|Any CPU.ActiveCfg = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Verify|Any CPU.Build.0 = Release|Any CPU
 		{AC51D375-10D7-468A-A3B5-CC5EB1B99F9D}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
 		{AC51D375-10D7-468A-A3B5-CC5EB1B99F9D}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
 		{AC51D375-10D7-468A-A3B5-CC5EB1B99F9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -81,6 +73,14 @@ Global
 		{61D13FBD-3CB2-4542-AB25-AAB7C30E013D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61D13FBD-3CB2-4542-AB25-AAB7C30E013D}.Verify|Any CPU.ActiveCfg = Release|Any CPU
 		{61D13FBD-3CB2-4542-AB25-AAB7C30E013D}.Verify|Any CPU.Build.0 = Release|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.CodeAnalysis|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.CodeAnalysis|Any CPU.Build.0 = Debug|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Verify|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DE4077-3362-496C-9359-83E7250F3EB0}.Verify|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

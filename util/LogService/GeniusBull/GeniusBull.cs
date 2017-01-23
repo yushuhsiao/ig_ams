@@ -266,10 +266,13 @@ namespace GeniusBull
             T data = (T)this;
             if (createGameLog)
                 CreateGameLog(config, group);
-            if (data.GameLog_sqlstr == null) return false;
-            if (data.GameLog_SqlCmd == null) return false;
-            if (!data.GameLog_Flag.HasValue) return false;
-            if (data.GameLog_Flag == Sync_Flag.Success)
+            //if (data.GameLog_sqlstr == null) return false;
+            //if (data.GameLog_SqlCmd == null) return false;
+            //if (!data.GameLog_Flag.HasValue) return false;
+            if (data.GameLog_Flag.HasValue &&
+                (data.GameLog_Flag == Sync_Flag.Success) &&
+                (data.GameLog_sqlstr != null) &&
+                (data.GameLog_SqlCmd != null))
             {
                 foreach (Action commit2 in data.GameLog_SqlCmd.BeginTran())
                 {

@@ -4,6 +4,9 @@ using GeniusBull;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 using Tools;
 
@@ -23,6 +26,16 @@ namespace LogService
 
         static void Main(string[] args)
         {
+            //StringBuilder s;
+            //s = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory);
+            //DirectoryInfo dir = new DirectoryInfo(Assembly.GetEntryAssembly().Location);
+            //s = new StringBuilder(Assembly.GetEntryAssembly().Location);
+            //var ss=Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //char c = Path.DirectorySeparatorChar;
+            //if (s[s.Length - 1] != c) s.Append(c);
+
+            //Debugger.Break();
+
             try
             {
                 typeof(IG01PlatformInfo).GetType();
