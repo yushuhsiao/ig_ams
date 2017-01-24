@@ -24,6 +24,11 @@
 </head>
 <body ng-controller="main">
     <div class="lobby" id="lobby">
+        <div style="position: absolute; top: 0; left: 0; display: none;">
+            <div ng-repeat="table in table_groups | orderBy : 'BigBlind' : order_desc">
+                <button ng-click="set_active(table)">{{ table.TableName_@CultureHelper.GetCurrentLanguages() }}</button>
+            </div>
+        </div>
         <div class="logo"></div>
         <div class="table scrollbar-external_wrapper">
             <div class="thead">
@@ -36,7 +41,7 @@
                 </ul>
             </div>
             <div class="tbody scrollbar-external">
-                <ul class="clearfix" ng-repeat="table in tables | orderBy : 'SmallBlind' : order_desc">
+                <ul class="clearfix" ng-repeat="table in tables | orderBy : 'BigBlind' : order_desc" ng-show="table_show(table)">
                     <li style="width:18%">{{ table.TableName_@CultureHelper.GetCurrentLanguages() }}</li>
                     <li style="width:20%">{{ table.SmallBlind | money }} / {{ table.BigBlind | money }}</li>
                     <li style="width:16%">
@@ -71,8 +76,18 @@
         var app = angular.module('app', []
             ).filter('money', function () {
                 return formatMoney;
-            }).controller('main', function ($scope, $http, $filter) {
+            }).controller('main', function ($scope, $http) {
                 $scope.tables = [];
+                table_group_index = null;
+                $scope.set_active = function (table) {
+                    table_group_index = table.BigBlind;
+                    console.log(table);
+                }
+                $scope.table_show = function (table) {
+                    if (table_group_index == null) return true;
+                    return table_group_index == table.BigBlind
+                }
+                window.$scope = $scope;
 
                 $scope.order_desc = false;
 
@@ -92,7 +107,31 @@
                     };
 
                     lobbyHub.client.updateTables = function (tables) {
+                        var table_groups = new Array();
+                        for (var i = 0; i < tables.length; i++) {
+                            var t0 = tables[i];
+                            var t1 = table_groups.find(function (t2) {
+                                return t0.BigBlind == t2.BigBlind;
+                            });
+                            if (t1 == undefined) {
+                                table_groups.push({
+                                    BigBlind: t0.BigBlind,
+                                    SmallBlind: t0.SmallBlind,
+                                    TableName_CHS: t0.TableName_CHS,
+                                    TableName_CHT: t0.TableName_CHT,
+                                    TableName_EN: t0.TableName_EN
+                                });
+                            }
+                        }
+                        table_groups.push({
+                            BigBlind: null,
+                            SmallBlind: null,
+                            TableName_CHS: 'Show_All',
+                            TableName_CHT: 'Show_All',
+                            TableName_EN: 'Show_All'
+                        });
                         $scope.tables = tables;
+                        $scope.table_groups = table_groups;
                         $scope.$applyAsync();
                     };
 

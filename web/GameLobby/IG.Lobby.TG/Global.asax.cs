@@ -111,5 +111,23 @@ namespace IG.Lobby.TG
         {
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
+
+        [AppSetting, DefaultValue(false)]
+        public static bool GroupID_TaiwanMahjong
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
+
+        [AppSetting, DefaultValue(false)]
+        public static bool GroupID_DouDizhu
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
+
+        [AppSetting, DefaultValue(false)]
+        public static bool GroupID_TexasHoldem
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
     }
 }

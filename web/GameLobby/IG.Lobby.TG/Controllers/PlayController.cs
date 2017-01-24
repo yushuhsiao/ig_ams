@@ -96,7 +96,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, false, tableId.Value, "TexasHoldem_Play", true);
+                return playGame(game, MvcApplication.GroupID_TexasHoldem, tableId.Value, "TexasHoldem_Play", true);
             }
             else
             {
@@ -147,7 +147,7 @@ namespace IG.Lobby.TG.Controllers
             }
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, false, tableId.Value, "DouDizhu_Play", MvcApplication.Avatar_DouDizhu);
+                return playGame(game, MvcApplication.GroupID_DouDizhu, tableId.Value, "DouDizhu_Play", MvcApplication.Avatar_DouDizhu);
             }
             else
             {
@@ -198,7 +198,7 @@ namespace IG.Lobby.TG.Controllers
 
             if (tableId.HasValue && tableId >= 0)
             {
-                return playGame(game, false, tableId.Value, "TaiwanMahjong_Play", MvcApplication.Avatar_TaiwanMahjong);
+                return playGame(game, MvcApplication.GroupID_TaiwanMahjong, tableId.Value, "TaiwanMahjong_Play", MvcApplication.Avatar_TaiwanMahjong);
             }
             else
             {
