@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams.core", "lib\ams.core\am
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "corelib", "lib\corelib\corelib.csproj", "{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "lib\Tools\Tools.csproj", "{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams_api_client", "lib\api_client\ams_api_client.csproj", "{C3DD615B-C0DA-4461-ADA2-73D89BC658B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams.platforms", "lib\ams.platforms\ams.platforms.csproj", "{CDADB758-1496-4E1C-A07D-00F7833616B3}"
@@ -77,14 +75,6 @@ Global
 		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}.Verify|Any CPU.ActiveCfg = Release|Any CPU
 		{8F5E46B1-FD54-40A8-88D9-37E722FEEEE6}.Verify|Any CPU.Build.0 = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Verify|Any CPU.ActiveCfg = Release|Any CPU
-		{994AC2E9-6860-4F4A-8DE0-8041CBE31BDC}.Verify|Any CPU.Build.0 = Release|Any CPU
 		{C3DD615B-C0DA-4461-ADA2-73D89BC658B8}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
 		{C3DD615B-C0DA-4461-ADA2-73D89BC658B8}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
 		{C3DD615B-C0DA-4461-ADA2-73D89BC658B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
