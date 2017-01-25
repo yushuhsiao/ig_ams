@@ -6,7 +6,7 @@ using System.Data;
 
 namespace GeniusBull
 {
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("GameConfig")]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("GameConfig")]
     public class GameConfig
     {
         [DbImport, JsonProperty]
@@ -36,7 +36,7 @@ namespace GeniusBull
         [DbImport, JsonProperty]
         public DateTime? ModifyDate;
     }
-    [TableName("DouDizhuConfig")]
+    [ams.TableName("DouDizhuConfig")]
     public class DouDizhuConfig : TableConfig
     {
         [DbImport, JsonProperty]
@@ -62,7 +62,7 @@ namespace GeniusBull
         [DbImport, JsonProperty]
         public int FakePlayerNum;
     }
-    [TableName("TexasConfig")]
+    [ams.TableName("TexasConfig")]
     public class TexasConfig : TableConfig
     {
         [DbImport, JsonProperty]
@@ -82,7 +82,7 @@ namespace GeniusBull
         [DbImport, JsonProperty]
         public int TableMax;
     }
-    [TableName("TwMahjongConfig")]
+    [ams.TableName("TwMahjongConfig")]
     public class TwMahjongConfig : TableConfig
     {
         [DbImport, JsonProperty]

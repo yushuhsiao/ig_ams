@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GeniusBull
 {
-    [TableName("Member")]
+    [ams.TableName("Member")]
     public partial class Member
     {
         public static readonly SqlBuilder.str TableName = "Member";

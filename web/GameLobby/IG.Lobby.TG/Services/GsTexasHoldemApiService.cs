@@ -48,6 +48,23 @@ namespace IG.Lobby.TG.Services
 
         public string TableName_CHT { get; set; }
 
+        public string RandomID { get; set; }
+
+        public string TableNameEx_EN
+        {
+            get { return $"{TableName_EN} {RandomID}"; }
+        }
+
+        public string TableNameEx_CHS
+        {
+            get { return $"{TableName_CHS} {RandomID}"; }
+        }
+
+        public string TableNameEx_CHT
+        {
+            get { return $"{TableName_CHT} {RandomID}"; }
+        }
+
         public int SmallBlind { get; set; }
 
         public int BigBlind { get; set; }

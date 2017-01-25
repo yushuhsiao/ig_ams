@@ -101,31 +101,43 @@ namespace IG.Lobby.TG
         }
 
         [AppSetting, DefaultValue(false)]
-        public static bool Avatar_TaiwanMahjong
+        public static bool TaiwanMahjong_UseAvatar
         {
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
 
         [AppSetting, DefaultValue(false)]
-        public static bool Avatar_DouDizhu
+        public static bool TaiwanMahjong_UseGroupID
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
+
+        [AppSetting, DefaultValue(true)]
+        public static bool TaiwanMahjong_OpenNewWindow
         {
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
 
         [AppSetting, DefaultValue(false)]
-        public static bool GroupID_TaiwanMahjong
+        public static bool DouDizhu_UseAvatar
         {
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
 
         [AppSetting, DefaultValue(false)]
-        public static bool GroupID_DouDizhu
+        public static bool DouDizhu_UseGroupID
+        {
+            get { return app.config<MvcApplication>.GetValue<bool>(); }
+        }
+
+        [AppSetting, DefaultValue(true)]
+        public static bool DouDizhu_OpenNewWindow
         {
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
 
         [AppSetting, DefaultValue(false)]
-        public static bool GroupID_TexasHoldem
+        public static bool TexasHoldem_UseGroupID
         {
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }

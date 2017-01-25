@@ -112,7 +112,7 @@ namespace GeniusBull
             {
                 ModelState.Validate(nameof(ID), ID);
             });
-            string sql = $@"select GameId, Eprob, Selected from {TableName<EprobTable>.Value}
+            string sql = $@"select GameId, Eprob, Selected from {ams.TableName<EprobTable>.Value}
 where GameId={p1.OriginalID}
 group by GameId, Eprob, Selected";
             return gamedb.ToList<EprobTable.Group>(sql);
@@ -152,8 +152,8 @@ select count(*) from (
                 ModelState.Validate(nameof(ID), ID);
                 ModelState.Validate(nameof(Eprob), Eprob);
             });
-            string sql = $@"select a.*, b.Name as SymbolName from {TableName<EprobTable>.Value} a
-left join {TableName<EprobSymbol>.Value} b
+            string sql = $@"select a.*, b.Name as SymbolName from {ams.TableName<EprobTable>.Value} a
+left join {ams.TableName<EprobSymbol>.Value} b
 on a.Symbol = b.Symbol
 where a.GameId={game.Id} and a.Eprob={Eprob}
 order by a.Symbol";
@@ -208,13 +208,13 @@ order by a.Symbol";
                             if (n2.Reel[i] > n1.Max[i]) n2.Reel[i] = n1.Max[i];
                             sql["u", $"Reel_{i + 1}"] = n2.Reel[i];
                         }
-                        sql1.AppendLine($@"if exists (select Id from {TableName<EprobTable>.Value} nolock {sql._where()})
-     update {TableName<EprobTable>.Value}{sql._update_set()}{sql._where()}
-else insert into {TableName<EprobTable>.Value}{sql._insert()}");
+                        sql1.AppendLine($@"if exists (select Id from {ams.TableName<EprobTable>.Value} nolock {sql._where()})
+     update {ams.TableName<EprobTable>.Value}{sql._update_set()}{sql._where()}
+else insert into {ams.TableName<EprobTable>.Value}{sql._insert()}");
                     }
                     if (sql1.Length > 0)
                     {
-                        sql1.Append($"select sum(Reel_1) as Reel_1, sum(Reel_2) as Reel_2, sum(Reel_3) as Reel_3, sum(Reel_4) as Reel_4, sum(Reel_5) as Reel_5 from {TableName<EprobTable>.Value} nolock where GameId={game.Id} and Eprob={Eprob}");
+                        sql1.Append($"select sum(Reel_1) as Reel_1, sum(Reel_2) as Reel_2, sum(Reel_3) as Reel_3, sum(Reel_4) as Reel_4, sum(Reel_5) as Reel_5 from {ams.TableName<EprobTable>.Value} nolock where GameId={game.Id} and Eprob={Eprob}");
                         string sql2 = sql1.ToString();
                         foreach (Action commit in gamedb.BeginTran())
                         {
@@ -247,7 +247,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
             Dictionary<string, GameConfig> ret = null;
             if (game.ConfigKeys.Length > 0)
             {
-                StringBuilder sql1 = new StringBuilder($"select * from {TableName<GameConfig>.Value} nolock where Name in ");
+                StringBuilder sql1 = new StringBuilder($"select * from {ams.TableName<GameConfig>.Value} nolock where Name in ");
                 game.ConfigKeys.ToSqlString(sql1);
                 List<GameConfig> tmp = gamedb.ToList<GameConfig>($"{sql1}");
                 if (tmp.Count > 0)
@@ -280,7 +280,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
                         GameConfig n1 = ConfigValue[name];
                         if (!game.ConfigKeys.Contains(name)) continue;
                         if (string.IsNullOrEmpty(n1.Value)) continue;
-                        sql1.AppendLine($@"update {TableName<GameConfig>.Value} set Value=N'{SqlCmd.magic_quote(n1.Value)}' where Name='{name}'");
+                        sql1.AppendLine($@"update {ams.TableName<GameConfig>.Value} set Value=N'{SqlCmd.magic_quote(n1.Value)}' where Name='{name}'");
                     }
                     int cnt = gamedb.ExecuteNonQuery(true, sql1.ToString());
                 }
@@ -374,7 +374,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
                 ModelState.Validate(nameof(ParamID), ParamID);
             });
             return gamedb.ToObject(() => (TableConfig)Activator.CreateInstance(game.TableConfigType),
-                $"select * from {TableNameAttribute.GetTableName(game.TableConfigType)} nolock where Id={ParamID}");
+                $"select * from {ams.TableNameAttribute.GetTableName(game.TableConfigType)} nolock where Id={ParamID}");
         }
 
         [HttpPost, Route("~/GeniusBull/TableSettings/SetValue")]
@@ -425,7 +425,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
                 sql[" u", nameof(TwMahjongConfig.MoneyLimit), "   "] = TableSetting.MoneyLimit;
                 sql[" u", nameof(TwMahjongConfig.ModifyDate), "   "] = SqlBuilder.str.getdate;
             }
-            string s = $"update {TableNameAttribute.GetTableName(game.TableConfigType)}{sql._update_set()}{sql._where()}";
+            string s = $"update {ams.TableNameAttribute.GetTableName(game.TableConfigType)}{sql._update_set()}{sql._where()}";
             gamedb.ExecuteNonQuery(true, s);
             game.TableSettings_Updated();
             return GetTableSetting(args);
@@ -447,7 +447,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
         [JsonProperty]
         JackpotConfigArguments JackpotRow;
 
-        [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("JackpotConfig")]
+        [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("JackpotConfig")]
         public class JackpotConfigArguments
         {
             [JsonProperty]
@@ -467,7 +467,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
             {
                 ModelState.Validate(nameof(PlatformName), PlatformName);
             });
-            return jackpot_p.GameDB().ToList<JackpotConfig>($"select * from {TableName<JackpotConfig>.Value} nolock");
+            return jackpot_p.GameDB().ToList<JackpotConfig>($"select * from {ams.TableName<JackpotConfig>.Value} nolock");
         }
 
         [HttpPost, Route("~/GeniusBull/JackpotConfig/get")]
@@ -478,7 +478,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
                 ModelState.Validate(nameof(PlatformName), PlatformName);
                 ModelState.Validate(nameof(JackpotType), JackpotType);
             });
-            return jackpot_p.GameDB().ToObject<JackpotConfig>($"select * from {TableName<JackpotConfig>.Value} nolock where JackpotType='{SqlCmd.magic_quote(JackpotType)}'");
+            return jackpot_p.GameDB().ToObject<JackpotConfig>($"select * from {ams.TableName<JackpotConfig>.Value} nolock where JackpotType='{SqlCmd.magic_quote(JackpotType)}'");
         }
 
         [HttpPost, Route("~/GeniusBull/JackpotConfig/set")]
@@ -503,7 +503,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
             sql["u", nameof(JackpotConfigArguments.Goal)] = JackpotRow.Goal;
             sql["u", nameof(JackpotConfigArguments.Base)] = JackpotRow.Base;
             if (sql.UpdateCount > 0)
-                jackpot_p.GameDB().ExecuteNonQuery(true, $"update {TableName<JackpotConfig>.Value}{sql._update_set()}{sql._where()}");
+                jackpot_p.GameDB().ExecuteNonQuery(true, $"update {ams.TableName<JackpotConfig>.Value}{sql._update_set()}{sql._where()}");
             return GetJackpotConfig(args);
         }
 
@@ -517,7 +517,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
         //}
     }
 
-    [TableName("MemberBlacklist"), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    [ams.TableName("MemberBlacklist"), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class MemberBlacklist
     {
         [DbImport, JsonProperty]
@@ -564,7 +564,7 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
             MemberData m1 = corp.GetMemberData(name: UserName, err: true);
             IG01PlatformInfo platform = PlatformInfo.GetPlatformInfo<IG01PlatformInfo>(this.PlatformName, err: true);
             IG01MemberPlatformData m2 = platform.GetMember(m1, false);
-            List<MemberBlacklist> ret = platform.GameDB().ToList<MemberBlacklist>($"select * from {TableName<MemberBlacklist>.Value} nolock where MemberId={m2.destID}");
+            List<MemberBlacklist> ret = platform.GameDB().ToList<MemberBlacklist>($"select * from {ams.TableName<MemberBlacklist>.Value} nolock where MemberId={m2.destID}");
             for (int i = ret.Count - 1; i >= 0; i--)
             {
                 var n = ret[i];
@@ -616,12 +616,12 @@ else insert into {TableName<EprobTable>.Value}{sql._insert()}");
 
         [HttpPost, Route("~/Users/Member/BlackList/Add")]
         public bool AddBlackList(_empty args)
-            => ModifyBlackList(args, (m3, m4) => $@"if not exists (select Id from {TableName<MemberBlacklist>.Value} where MemberId={m3.destID} and BlacklistId={m4.destID})
-insert into {TableName<MemberBlacklist>.Value} (MemberId,BlacklistId,BlacklistTime) values ({m3.destID},{m4.destID},getdate())");
+            => ModifyBlackList(args, (m3, m4) => $@"if not exists (select Id from {ams.TableName<MemberBlacklist>.Value} where MemberId={m3.destID} and BlacklistId={m4.destID})
+insert into {ams.TableName<MemberBlacklist>.Value} (MemberId,BlacklistId,BlacklistTime) values ({m3.destID},{m4.destID},getdate())");
 
         [HttpPost, Route("~/Users/Member/BlackList/Remove")]
         public bool RemoveBlackList(_empty args)
-            => ModifyBlackList(args, (m3, m4) => $"delete from {TableName<MemberBlacklist>.Value} where MemberId={m3.destID} and BlacklistId={m4.destID}");
+            => ModifyBlackList(args, (m3, m4) => $"delete from {ams.TableName<MemberBlacklist>.Value} where MemberId={m3.destID} and BlacklistId={m4.destID}");
         //public bool RemoveBlackList(_empty args)
         //{
         //    this.Validate(true, args, () =>

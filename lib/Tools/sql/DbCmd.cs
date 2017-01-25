@@ -542,16 +542,21 @@ namespace System.Data
             this.owning_connection = owning_connection;
         }
 
-        public string ctorConnectionString { get; private set; }
-        public DbCmd(TConnection connection) : this(connection, false) { }
-        public DbCmd(string connectionString) : this(GetConnection(connectionString), true)
+        public DbConnectionString ConnectionString { get; }
+
+        public DbCmd(TConnection connection) : this(connection, false)
         {
-            this.ctorConnectionString = connectionString;
+            this.ConnectionString = connection.ConnectionString;
         }
-        static TConnection GetConnection(string connectionString)
+        public DbCmd(string connectionString) : this((DbConnectionString)connectionString) { }
+        public DbCmd(DbConnectionString connectionString) : this(GetConnection(connectionString), true)
+        {
+            this.ConnectionString = connectionString;
+        }
+        static TConnection GetConnection(DbConnectionString connectionString)
         {
             TConnection connection = new TConnection();
-            connection.ConnectionString = connectionString;
+            connection.ConnectionString = connectionString.Value;
             connection.Open();
             return connection;
         }
@@ -581,7 +586,7 @@ namespace System.Data
     }
 
     [_DebuggerStepThrough]
-    public static class DbDataReaderExtension
+    public static class DbCmdExtension
     {
         delegate T get1_<T>(int ordinal) where T : struct;
         static Nullable<T> get1<T>(DbDataReader r, get1_<T> getvalue, string name) where T : struct
@@ -811,5 +816,41 @@ namespace System.Data
         public static bool GetInt64(this DbDataReader r, string name, out long result) /*                        */ { return get3(r, r.GetInt64, name, out result); }
         public static bool GetInt64(this DbDataReader r, int index, out long result) /*                          */ { return get3(r, r.GetInt64, index, out result); }
         public static long GetInt64(this DbDataReader r, string name) /*                                         */ { return r.GetInt64(r.GetOrdinal(name)); }
+    }
+}
+namespace System.Data
+{
+    public struct DbConnectionString
+    {
+        public int Index { get; }
+        public string Value { get; }
+        public DbConnectionString(string value, int index = 0)
+        {
+            this.Value = value.Trim(true);
+            this.Index = 0;
+        }
+        public override string ToString() { return this.Value; }
+
+        public static implicit operator string(DbConnectionString value) { return value.Value; }
+        public static implicit operator DbConnectionString(string value) { return new DbConnectionString(value); }
+
+        public static bool operator ==(DbConnectionString src, DbConnectionString obj) => src.Equals(obj);
+        public static bool operator !=(DbConnectionString src, DbConnectionString obj) => !src.Equals(obj);
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is DbConnectionString)
+            {
+                DbConnectionString a = this;
+                DbConnectionString b = (DbConnectionString)obj;
+                return a.Value == b.Value && a.Index == b.Index;
+            }
+            return false;
+        }
     }
 }

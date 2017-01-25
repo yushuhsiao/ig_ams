@@ -11,6 +11,7 @@ namespace System.Data.SqlClient
     {
         public SqlCmd(SqlConnection connection) : base(connection) { }
         public SqlCmd(string connectString) : base(connectString) { }
+        public SqlCmd(DbConnectionString connectString) : base(connectString) { }
 
         public const string varchar = "varchar";
         public const string nvarchar = "nvarchar";
@@ -21,7 +22,7 @@ namespace System.Data.SqlClient
     }
 
     [_DebuggerStepThrough]
-    public static class SqlDataReaderExtension
+    public static class SqlCmdExtension
     {
         public static DateTimeOffset? GetDateTimeOffsetN(this SqlDataReader r, string name)
         {

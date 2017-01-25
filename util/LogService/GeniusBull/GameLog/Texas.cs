@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GeniusBull
 {
-    [TableName("TexasGame"), FieldName(CreateTime = "InsertDate", GroupID = "TexasGameId", Finished = nameof(IsResult))]
+    [ams.TableName("TexasGame"), FieldName(CreateTime = "InsertDate", GroupID = "TexasGameId", Finished = nameof(IsResult))]
     public partial class TexasGame : _LogBase<TexasGame, TexasBet>.Grp, IGameReplay//, IFinished
     {
         #region Fields
@@ -78,7 +78,7 @@ namespace GeniusBull
 
         public decimal? TotalFees { get { return Players?.Sum((n) => n.Fee); } }
     }
-    [TableName("TexasBet"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("TexasBet"), FieldName(CreateTime = "InsertDate")]
     public partial class TexasBet : _LogBase<TexasGame, TexasBet>.Bet
     {
         #region Fields

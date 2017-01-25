@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace GeniusBull
 {
-    [TableName("GameSpin"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("GameSpin"), FieldName(CreateTime = "InsertDate")]
     public partial class GameSpin : _LogBase_JP<GameSpin>
     {
         #region Fields

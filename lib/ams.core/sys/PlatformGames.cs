@@ -14,7 +14,7 @@ namespace ams.Data
     /// 平台遊戲名稱定義
     /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    [TableName("PlatformGames", SortField = nameof(GameID), SortOrder = SortOrder.asc)]
+    [ams.TableName("PlatformGames", SortField = nameof(GameID), SortOrder = SortOrder.asc)]
     public class PlatformGameInfo
     {
         //public static readonly SqlBuilder.str TableName = TableName<PlatformGameInfo>._.TableName;

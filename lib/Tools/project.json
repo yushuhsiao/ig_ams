@@ -1,5 +1,5 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   "authors": [ "Innate Glory" ],
 
   "dependencies": {
@@ -29,7 +29,7 @@
       }
     },
     "netstandard1.6": {
-      "define": [ "FEATURE_CRYPTO", "INSIDE_CORLIB" ],
+      "define": [ "netcore", "FEATURE_CRYPTO", "INSIDE_CORLIB" ],
       "dependencies": {
         "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0",
         "Microsoft.Extensions.Configuration": "1.1.0",

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GeniusBull
 {
-    [TableName("TwMahjongGame"), FieldName(CreateTime = "InsertDate", GroupID = "MahjongGameId")]
+    [ams.TableName("TwMahjongGame"), FieldName(CreateTime = "InsertDate", GroupID = "MahjongGameId")]
     public partial class TwMahjongGame : _LogBase<TwMahjongGame, TwMahjongBet>.Grp
     {
         #region Fields
@@ -85,7 +85,7 @@ namespace GeniusBull
         [GameLog(nameof(GameLog.TotalFees), ApplyExchangeRate = true)]
         public decimal? TotalFees { get { return Players?.Sum((n) => n.Fee); } }
     }
-    [TableName("TwMahjongBet"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("TwMahjongBet"), FieldName(CreateTime = "InsertDate")]
     public partial class TwMahjongBet : _LogBase<TwMahjongGame, TwMahjongBet>.Bet
     {
         #region Fields

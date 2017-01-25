@@ -24,7 +24,7 @@ namespace ams.Data
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    [UserData(UserType = UserType.Admin), TableName("Admins", SortField = nameof(CreateTime))]
+    [UserData(UserType = UserType.Admin), ams.TableName("Admins", SortField = nameof(CreateTime))]
     public class AdminData : UserData<AdminData>
     {
         public AdminData(CorpInfo corpInfo) : base(corpInfo) { }

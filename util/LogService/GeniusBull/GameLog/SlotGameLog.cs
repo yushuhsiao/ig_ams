@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace GeniusBull
 {
-    [TableName("IG_GameLog"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("IG_GameLog"), FieldName(CreateTime = "InsertDate")]
     public partial class SlotGameLog : _LogBase<SlotGameLog>
     {
         #region Fields

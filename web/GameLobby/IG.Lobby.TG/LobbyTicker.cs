@@ -4,6 +4,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Timers;
 
 namespace IG.Lobby.TG
@@ -45,12 +46,40 @@ namespace IG.Lobby.TG
             timer.Enabled = false;
         }
 
+        static List<ApiTexasHoldemTable> prev_list = new List<ApiTexasHoldemTable>();
+
         private void PushTexasHoldemLobby(Object source, ElapsedEventArgs e)
         {
-            texasHoldemTables = GetTexasHoldemTables();
+            List<ApiTexasHoldemTable> list1 = new List<ApiTexasHoldemTable>(GetTexasHoldemTables());
+
+            lock (prev_list)
+            {
+                foreach (var n1 in list1)
+                {
+                    n1.RandomID = prev_list.Find(n_find => n1.TableId == n_find.TableId)?.RandomID;
+                }
+                foreach (var n1 in list1)
+                {
+                    if (n1.PlayerAmount == 0)
+                        n1.RandomID = "    ";
+                    else if (n1.RandomID == "    ")
+                        n1.RandomID = null;
+
+                    while (n1.RandomID == null)
+                    {
+                        string tmp = string.Format("{0:0000}", RandomValue.GetInt32() % 10000);
+                        if (null == list1.Find(n2 => n2.RandomID == tmp))
+                            n1.RandomID = tmp;
+                    }
+                }
+
+                prev_list.Clear();
+                prev_list.AddRange(list1);
+            }
+
             foreach (dynamic conn in LobbyHub.TexasHoldemConnections())
             {
-                conn.updateTables(texasHoldemTables);
+                conn.updateTables(list1);
             }
 
             //clients.Group(ConfigHelper.TexasHoldemGroupName).updateTables(texasHoldemTables);

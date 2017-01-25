@@ -54,7 +54,7 @@ namespace ams.Data
     /// <summary>
     /// 平台定義
     /// </summary>
-    [TableName("Platforms", SortField = nameof(ID), SortOrder = SortOrder.asc), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    [ams.TableName("Platforms", SortField = nameof(ID), SortOrder = SortOrder.asc), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class PlatformInfo
     {
         #region Cache

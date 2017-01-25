@@ -30,7 +30,7 @@ namespace ams.Data
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    [UserData(UserType = UserType.Agent, Balance = "AgentBalance"), TableName("Agents", SortField = nameof(CreateTime))]
+    [UserData(UserType = UserType.Agent, Balance = "AgentBalance"), ams.TableName("Agents", SortField = nameof(CreateTime))]
     public class AgentData : UserData<AgentData>
     {
         public AgentData(CorpInfo corpInfo) : base(corpInfo) { }

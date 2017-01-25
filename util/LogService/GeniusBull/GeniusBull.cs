@@ -104,7 +104,7 @@ namespace GeniusBull
                 {
                     if (parent.config_items.TryGetValue(key, out value))
                         return value;
-                    value = parent.config_items[key] = new Item() { parent = parent, _TableName = TableName<T>.Value };
+                    value = parent.config_items[key] = new Item() { parent = parent, _TableName = ams.TableName<T>.Value };
                     value.Reload();
                 }
                 return value;
@@ -216,7 +216,7 @@ namespace GeniusBull
         {
             foreach (Action commit in config.archiveDB.BeginTran())
             {
-                config.archiveDB.ExecuteNonQuery($"update {TableName<T>.Value} set _flag={(int)flag} where PlatformID={config.platform.ID} and Id={Id}");
+                config.archiveDB.ExecuteNonQuery($"update {ams.TableName<T>.Value} set _flag={(int)flag} where PlatformID={config.platform.ID} and Id={Id}");
                 commit();
             }
         }
@@ -230,7 +230,7 @@ namespace GeniusBull
                 List<long> id = new List<long>();
                 foreach (T n in list)
                     id.Add(n.Id);
-                config.archiveDB.ExecuteNonQuery($"update {TableName<T>.Value} set _flag={(int)flag} where PlatformID={config.platform.ID} and Id in {id.ToSqlString()}");
+                config.archiveDB.ExecuteNonQuery($"update {ams.TableName<T>.Value} set _flag={(int)flag} where PlatformID={config.platform.ID} and Id in {id.ToSqlString()}");
                 commit();
             }
         }
@@ -356,7 +356,7 @@ namespace GeniusBull
 
         static List<T> getSource(_Config.Item config, string op)
         {
-            string sql = $@"select top({util.TopN}) * from {TableName<T>.Value} nolock where datediff(ms,{util.CreateTime<T>()},getdate()) > {config.Reserved} and {util.CreateTime<T>()} {op} '{config.NewTimeStr}' order by {util.CreateTime<T>()} asc";
+            string sql = $@"select top({util.TopN}) * from {ams.TableName<T>.Value} nolock where datediff(ms,{util.CreateTime<T>()},getdate()) > {config.Reserved} and {util.CreateTime<T>()} {op} '{config.NewTimeStr}' order by {util.CreateTime<T>()} asc";
             return config.gameDB.ToList(config._new<T>, sql);
         }
         internal static int ArchiveData(_Config.Item config)
@@ -397,9 +397,9 @@ namespace GeniusBull
             {
                 string sql_archive;
                 if (delete_exists)
-                    sql_archive = $"delete from {TableName<T>.Value} where PlatformID={config.platform.ID} and Id={data.Id} {data.sql_Archive._insert(TableName<T>.Value)}";
+                    sql_archive = $"delete from {ams.TableName<T>.Value} where PlatformID={config.platform.ID} and Id={data.Id} {data.sql_Archive._insert(ams.TableName<T>.Value)}";
                 else
-                    sql_archive = $"if not exists (select Id from {TableName<T>.Value} nolock where PlatformID={config.platform.ID} and Id={data.Id}) {data.sql_Archive._insert(TableName<T>.Value)}";
+                    sql_archive = $"if not exists (select Id from {ams.TableName<T>.Value} nolock where PlatformID={config.platform.ID} and Id={data.Id}) {data.sql_Archive._insert(ams.TableName<T>.Value)}";
                 string sql_replay = null;
                 IGameReplay _replay = data as IGameReplay;
                 if (_replay != null)
@@ -446,7 +446,7 @@ namespace GeniusBull
             return false;
         }
 
-        internal T GetSourceData(_Config.Item config) => config.gameDB.ToObject(config._new<T>, $"select * from {TableName<T>.Value} nolock where Id={this.Id}");
+        internal T GetSourceData(_Config.Item config) => config.gameDB.ToObject(config._new<T>, $"select * from {ams.TableName<T>.Value} nolock where Id={this.Id}");
 
         internal T ArchiveDataAgain(_Config.Item config, T row2 = null, Sync_Flag? setFlag = null)
         {
@@ -473,7 +473,7 @@ namespace GeniusBull
                     if (active)
                     {
                         int count = _LogBase<T>.ArchiveData(config);
-                        string sqlstr = $"select top({util.TopN}) * from {TableName<T>.Value} nolock where PlatformID={platform.ID} and _flag is null {Null.gameIDs(platform)}";
+                        string sqlstr = $"select top({util.TopN}) * from {ams.TableName<T>.Value} nolock where PlatformID={platform.ID} and _flag is null {Null.gameIDs(platform)}";
                         var datas = config.archiveDB.ToList<T>(sqlstr);
                         foreach (T row1 in datas)
                         {
@@ -520,11 +520,11 @@ namespace GeniusBull
         }
         static JackpotLog getJackpotLog(_Config.Item config, int PlayerId, int GameId, string SerialNumber, bool? flag_is_null = null)
         {
-            return config.archiveDB.ToObject<JackpotLog>($"select * from {TableName<JackpotLog>.Value} nolock {(sql_getJackpot(config, PlayerId, GameId, SerialNumber, flag_is_null))}");
+            return config.archiveDB.ToObject<JackpotLog>($"select * from {ams.TableName<JackpotLog>.Value} nolock {(sql_getJackpot(config, PlayerId, GameId, SerialNumber, flag_is_null))}");
         }
         static List<JackpotUpdateLog> getJackpotUpdateLog(_Config.Item config, int PlayerId, int GameId, string SerialNumber, bool? flag_is_null = null)
         {
-            return config.archiveDB.ToList<JackpotUpdateLog>($"select * from {TableName<JackpotUpdateLog>.Value} nolock {(sql_getJackpot(config, PlayerId, GameId, SerialNumber, flag_is_null))} order by {util.CreateTime<JackpotUpdateLog>()}");
+            return config.archiveDB.ToList<JackpotUpdateLog>($"select * from {ams.TableName<JackpotUpdateLog>.Value} nolock {(sql_getJackpot(config, PlayerId, GameId, SerialNumber, flag_is_null))} order by {util.CreateTime<JackpotUpdateLog>()}");
         }
 
         internal static void Proc_Jackpot(_Config logItems)
@@ -590,7 +590,7 @@ namespace GeniusBull
 
         static bool proc3(_Config.Item config, _Config.Item config_a)
         {
-            string sqlstr = $"select top({util.TopN}) PlayerId,GameId,SerialNumber from {TableName<T>.Value} nolock where PlatformID={config.platform.ID} and _flag is null {config.platform.GameIDs(true)} group by PlayerId,GameId,SerialNumber";
+            string sqlstr = $"select top({util.TopN}) PlayerId,GameId,SerialNumber from {ams.TableName<T>.Value} nolock where PlatformID={config.platform.ID} and _flag is null {config.platform.GameIDs(true)} group by PlayerId,GameId,SerialNumber";
             List<T> list0 = config.archiveDB.ToList<T>(sqlstr);
             List<T> list1 = new List<T>(list0);
             while (list1.Count > 0)
@@ -604,7 +604,7 @@ namespace GeniusBull
 
         static bool proc3(_Config.Item config, _Config.Item config_a, List<T> list1, int PlayerId, int GameId, string SerialNumber, JackpotLog _jp1 = null, List<JackpotUpdateLog> _jp2 = null)
         {
-            List<T> rows = config.archiveDB.ToList<T>($"select * from {TableName<T>.Value} nolock where PlatformID={config.platform.ID} and PlayerId={PlayerId} and GameId={GameId} and SerialNumber='{SerialNumber}' and _flag is null");
+            List<T> rows = config.archiveDB.ToList<T>($"select * from {ams.TableName<T>.Value} nolock where PlatformID={config.platform.ID} and PlayerId={PlayerId} and GameId={GameId} and SerialNumber='{SerialNumber}' and _flag is null");
             if (rows.Count == 0) return false;
             if (rows.Count > 1)
             {
@@ -905,7 +905,7 @@ namespace GeniusBull
                         int grp_count = _LogBase<TGrp>.ArchiveData(config_g);
                         int bet_count = _LogBase<TBet>.ArchiveData(config_b);
 
-                        List<TGrp> grps = config_g.archiveDB.ToList<TGrp>($"select top({util.TopN}) * from {TableName<TGrp>.Value} nolock where PlatformID={config_g.platform.ID} and _flag is null");// {util.sql_Finished<TGrp>()}");
+                        List<TGrp> grps = config_g.archiveDB.ToList<TGrp>($"select top({util.TopN}) * from {ams.TableName<TGrp>.Value} nolock where PlatformID={config_g.platform.ID} and _flag is null");// {util.sql_Finished<TGrp>()}");
                         foreach (TGrp grp in grps)
                             proc1(config_g, grp);
                         //gamelog(config_g, grp, bet);
@@ -947,7 +947,7 @@ namespace GeniusBull
             }
 
             grp.Players = config.archiveDB.ToList(() => new TBet() { Group = grp },
-                $"select * from {TableName<TBet>.Value} nolock where {util.GroupID<TGrp>()}={grp.Id}");
+                $"select * from {ams.TableName<TBet>.Value} nolock where {util.GroupID<TGrp>()}={grp.Id}");
             if ((grp.Players.Count > 0) && (grp.Players.Count == grp.TotalPlayerCount))
             {
                 grp2 = grp.ArchiveDataAgain(config, grp2);
@@ -1018,7 +1018,7 @@ namespace GeniusBull
                     Group = tmp as TGrp;
                     if (Group != null) return Group;
                 }
-                Group = (sqlcmd ?? util.GetSqlCmd(ams.DB.GeniusBullLogR)).ToObject<TGrp>($"select * from {TableName<TGrp>.Value} nolock where Id={this.GroupID}");
+                Group = (sqlcmd ?? util.GetSqlCmd(ams.DB.GeniusBullLogR)).ToObject<TGrp>($"select * from {ams.TableName<TGrp>.Value} nolock where Id={this.GroupID}");
                 if ((Group != null) && (grps != null))
                     grps[this.GroupID] = Group;
                 return Group;

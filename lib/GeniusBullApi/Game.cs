@@ -14,7 +14,7 @@ using System.Web;
 
 namespace GeniusBull
 {
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("Game")]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("Game")]
     public class Game
     {
         [DbImport, JsonProperty]
@@ -72,7 +72,7 @@ namespace GeniusBull
             {
                 if (this.ConfigKeys.Length > 0)
                 {
-                    StringBuilder sql1 = new StringBuilder($"select * from {TableName<GameConfig>.Value} nolock where Name in ");
+                    StringBuilder sql1 = new StringBuilder($"select * from {ams.TableName<GameConfig>.Value} nolock where Name in ");
                     this.ConfigKeys.ToSqlString(sql1);
                     List<GameConfig> tmp = this.Platform.GameDB().ToList<GameConfig>($"{sql1}");
                     if (tmp.Count > 0)
@@ -108,7 +108,7 @@ namespace GeniusBull
             using (_HttpContext.GetSqlCmd(out gamedb, null, this.Platform.ApiUrl))
                 return gamedb.ToList(
                     () => (TableConfig)Activator.CreateInstance(this.TableConfigType),
-                    $"select * from {TableNameAttribute.GetTableName(this.TableConfigType)} nolock");
+                    $"select * from {ams.TableNameAttribute.GetTableName(this.TableConfigType)} nolock");
         }
 
 
@@ -212,11 +212,11 @@ namespace GeniusBull
             p2 = p2 ?? p1.GetPlatformInfo() as IG01PlatformInfo;
             if (p2 == null) return null;
             gamedb = gamedb ?? p2.GameDB();
-            return gamedb.ToObject(() => new Game(p2, gamedb.DataReader.GetInt32("Id")), $"select * from {TableName<Game>.Value} nolock where Id={p1.OriginalID}");
+            return gamedb.ToObject(() => new Game(p2, gamedb.DataReader.GetInt32("Id")), $"select * from {ams.TableName<Game>.Value} nolock where Id={p1.OriginalID}");
         }
     }
 
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("JackpotConfig")]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("JackpotConfig")]
     public class JackpotConfig
     {
         [DbImport, JsonProperty]

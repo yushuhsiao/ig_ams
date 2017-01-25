@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace ams.Data
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    [TableName("TranLog", SortField = nameof(CreateTime), SortOrder = SortOrder.desc)]
+    [ams.TableName("TranLog", SortField = nameof(CreateTime), SortOrder = SortOrder.desc)]
     public class TranLog
     {
         [DbImport, JsonProperty]

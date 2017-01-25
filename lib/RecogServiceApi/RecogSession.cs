@@ -6,7 +6,7 @@ using System.Data;
 
 namespace RecogService
 {
-    [TableName("RecogSession"), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    [ams.TableName("RecogSession"), JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class RecogSession
     {
         [DbImport]

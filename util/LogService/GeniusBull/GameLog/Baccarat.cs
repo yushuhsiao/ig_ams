@@ -5,7 +5,7 @@ using System.Data;
 
 namespace GeniusBull
 {
-    [TableName("BaccaratGame"), FieldName(CreateTime = "CreateTime", GroupID = "BaccaratGameId")]
+    [ams.TableName("BaccaratGame"), FieldName(CreateTime = "CreateTime", GroupID = "BaccaratGameId")]
     public partial class BaccaratGame : _LogBase<BaccaratGame, BaccaratBetLog>.Grp //_xxxxGame
     {
         #region Fields
@@ -80,7 +80,7 @@ namespace GeniusBull
 
         internal override int GetGameID(grp_cache grps = null) { throw new NotImplementedException(); }
     }
-    [TableName("BaccaratBetLog"), FieldName(CreateTime = "CreateTime")]
+    [ams.TableName("BaccaratBetLog"), FieldName(CreateTime = "CreateTime")]
     public partial class BaccaratBetLog : _LogBase<BaccaratGame, BaccaratBetLog>.Bet //_xxxxBet<BaccaratGame>
     {
         #region Fields

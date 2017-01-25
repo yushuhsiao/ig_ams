@@ -4,7 +4,7 @@ using System.Data;
 
 namespace RecogService
 {
-    [TableName("RecogSessionItem")]
+    [ams.TableName("RecogSessionItem")]
     public class RecogSessionItem
     {
         [DbImport]

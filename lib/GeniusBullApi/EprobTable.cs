@@ -6,7 +6,7 @@ using System.Data;
 
 namespace GeniusBull
 {
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("EprobTable")]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("EprobTable")]
     public class EprobTable
     {
         [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
@@ -50,7 +50,7 @@ namespace GeniusBull
         public Dictionary<string, decimal> PayRate = new Dictionary<string, decimal>();
     }
 
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("EprobSymbol")]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("EprobSymbol")]
     public class EprobSymbol
     {
         public static RedisVer<List<EprobSymbol>>.Dict Cache = new RedisVer<List<EprobSymbol>>.Dict("EprobSymbol")
@@ -59,7 +59,7 @@ namespace GeniusBull
             {
                 IG01PlatformInfo p = PlatformInfo.GetPlatformInfo(index) as IG01PlatformInfo;
                 if (p == null) return null;
-                return p.GameDB().ToList<EprobSymbol>($"select * from {TableName<EprobSymbol>.Value} nolock");
+                return p.GameDB().ToList<EprobSymbol>($"select * from {ams.TableName<EprobSymbol>.Value} nolock");
             }
         };
 
@@ -69,14 +69,14 @@ namespace GeniusBull
         public string Name;
     }
 
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn), TableName("GeniusBull_EprobTableLimit")]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn), ams.TableName("GeniusBull_EprobTableLimit")]
     public class EprobTableLimit
     {
         public static RedisVer<List<EprobTableLimit>>.Dict Cache = new RedisVer<List<EprobTableLimit>>.Dict("EprobTableLimit")
         {
             ReadData = (sqlcmd, index) =>
             {
-                var ret = sqlcmd.ToList<EprobTableLimit>($"select * from {TableName<EprobTableLimit>.Value} nolock");
+                var ret = sqlcmd.ToList<EprobTableLimit>($"select * from {ams.TableName<EprobTableLimit>.Value} nolock");
                 foreach (var n in ret)
                     n.SymbolCode = (n._Symbol = EprobSymbol.Cache[index].Value.Find((n2) => n.Symbol == n2.Name))?.Symbol ?? 0;
                 return ret;

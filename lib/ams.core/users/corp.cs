@@ -164,7 +164,7 @@ select * from {TableName} nolock", SqlBuilder.op.where);
 namespace ams.Data
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    [TableName("Corps", SortField = nameof(ID), SortOrder = SortOrder.asc)]
+    [ams.TableName("Corps", SortField = nameof(ID), SortOrder = SortOrder.asc)]
     public partial class CorpInfo
     {
         [DbImport, JsonProperty, Sortable]

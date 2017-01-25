@@ -91,7 +91,7 @@ namespace LogService
                 sql["n", nameof(GameLog.GameName), "        "] = gameInfo.Name;
                 GameLogAttribute.MapValue(sql, item, 1 / cx);
                 GameLogAttribute.MapValue(sql, group, 1 / cx);
-                sql_string = sql._insert(TableName<GameLog>.Value);
+                sql_string = sql._insert(ams.TableName<GameLog>.Value);
                 return true;
             }
             else return _null.noop(false, out sql_string);

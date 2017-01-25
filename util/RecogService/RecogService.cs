@@ -226,20 +226,20 @@ select @id
                 {
                     foreach (Action commit in imageDB.BeginTran())
                     {
-                        if (imageDB.ExecuteNonQuery($"update {TableName<RecogSession>.Value} set BeginTime=getdate() where ID='{item.ID}' and BeginTime is null and EndTime is null") != 1)
+                        if (imageDB.ExecuteNonQuery($"update {ams.TableName<RecogSession>.Value} set BeginTime=getdate() where ID='{item.ID}' and BeginTime is null and EndTime is null") != 1)
                             return true;
                         commit();
                     }
                     if (proc(item, imageDB))
                     {
-                        imageDB.ExecuteNonQuery($"update {TableName<RecogSession>.Value} set EndTime=getdate() where ID='{item.ID}'");
+                        imageDB.ExecuteNonQuery($"update {ams.TableName<RecogSession>.Value} set EndTime=getdate() where ID='{item.ID}'");
                         item.EndTime = DateTime.Now;
                     }
                 }
                 finally
                 {
                     if (!item.EndTime.HasValue)
-                        imageDB.ExecuteNonQuery($"update {TableName<RecogSession>.Value} set BeginTime=null, EndTime=null where ID='{item.ID}'");
+                        imageDB.ExecuteNonQuery($"update {ams.TableName<RecogSession>.Value} set BeginTime=null, EndTime=null where ID='{item.ID}'");
                     TimeSpan t2 = DateTime.Now - t1;
                     log.message(null, $"Recognition session {item.ID}, {t2.TotalMilliseconds}ms");
                     //Thread.Sleep(10000);
@@ -272,7 +272,7 @@ delete from RecogSessionItem where SessionID=@SessionID and ImageID1=@ID1 and Im
 insert into RecogSessionItem(SessionID,ImageID1,ImageID2) values (@SessionID,@ID1,@ID2)
 delete from CompareResult where ID1=@ID1 and ID2=@ID2
 insert into CompareResult (ID1,ID2,UserID1,UserID2,Similarity) values (@ID1,@ID2,{memberID1},{memberID2},{similarity})");
-                    log.message(TableName<RecogSession>.Value, $"{t2.TotalMilliseconds}ms, {memberID1}<=>{memberID2}");
+                    log.message(ams.TableName<RecogSession>.Value, $"{t2.TotalMilliseconds}ms, {memberID1}<=>{memberID2}");
                 }
             }
             return true;

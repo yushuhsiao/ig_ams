@@ -6,7 +6,7 @@ using System.Data;
 
 namespace GeniusBull
 {
-    [TableName("JackpotLog"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("JackpotLog"), FieldName(CreateTime = "InsertDate")]
     public partial class JackpotLog : _LogBase<JackpotLog>
     {
         #region Fields
@@ -80,7 +80,7 @@ namespace GeniusBull
         public int TotalPlayerCount { get { return 1; } }
     }
 
-    [TableName("JackpotUpdateLog"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("JackpotUpdateLog"), FieldName(CreateTime = "InsertDate")]
     public partial class JackpotUpdateLog : _LogBase<JackpotUpdateLog>
     {
         #region Fields

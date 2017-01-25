@@ -6,7 +6,7 @@ using System.Data;
 
 namespace GeniusBull
 {
-    [TableName("FivePK"), FieldName(CreateTime = "InsertDate", Finished = nameof(GameFinished))]
+    [ams.TableName("FivePK"), FieldName(CreateTime = "InsertDate", Finished = nameof(GameFinished))]
     public partial class FivePK : _LogBase_JP<FivePK>//, IFinished
     {
         #region Fields

@@ -25,7 +25,7 @@ namespace ams.Data
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    [TableName("Members", SortField = nameof(CreateTime))]
+    [ams.TableName("Members", SortField = nameof(CreateTime))]
     [UserData(UserType = UserType.Member, Balance = "MemberBalance")]
     public class MemberData : UserData<MemberData>
     {

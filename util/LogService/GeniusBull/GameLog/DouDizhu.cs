@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GeniusBull
 {
-    [TableName("DouDizhuGame"), FieldName(CreateTime = "InsertDate", GroupID = "DouDizhuGameId", Finished = nameof(IsResult))]
+    [ams.TableName("DouDizhuGame"), FieldName(CreateTime = "InsertDate", GroupID = "DouDizhuGameId", Finished = nameof(IsResult))]
     public partial class DouDizhuGame : _LogBase<DouDizhuGame, DouDizhuBet>.Grp, IGameReplay//, IFinished
     {
         #region Fields
@@ -112,7 +112,7 @@ namespace GeniusBull
 
         internal override int GetGameID(grp_cache grps = null) => this.GameId;
     }
-    [TableName("DouDizhuBet"), FieldName(CreateTime = "InsertDate")]
+    [ams.TableName("DouDizhuBet"), FieldName(CreateTime = "InsertDate")]
     public partial class DouDizhuBet : _LogBase<DouDizhuGame, DouDizhuBet>.Bet
     {
         #region Fields
