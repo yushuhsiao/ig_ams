@@ -157,11 +157,14 @@
     <Build Include="dbo\Stored Procedures\usp_CashIn_old.sql" />
     <Build Include="dbo\Stored Procedures\usp_CashIn.sql" />
     <Build Include="dbo\Stored Procedures\test_slot_amount.sql" />
-    <Build Include="dbo\Stored Procedures\sp_WriteGameLogWithJackpot.sql" />
     <Build Include="dbo\Stored Procedures\sp_WriteGameLog.sql" />
     <Build Include="dbo\Stored Procedures\sp_PlayerExitGame.sql" />
     <Build Include="dbo\Stored Procedures\sp_JackpotReset.sql" />
     <Build Include="dbo\Stored Procedures\sp_GetMemberAvatar.sql" />
     <Build Include="dbo\Stored Procedures\sp_AddBlackList.sql" />
+    <Build Include="dbo\Functions\Cash_Check.sql" />
+    <Build Include="dbo\Stored Procedures\sp_PlayerEnterGame.sql" />
+    <Build Include="dbo\Stored Procedures\sp_MemberJoinTable.sql" />
+    <Build Include="dbo\Stored Procedures\sp_MemberAvatar_Add.sql" />
   </ItemGroup>
 </Project>

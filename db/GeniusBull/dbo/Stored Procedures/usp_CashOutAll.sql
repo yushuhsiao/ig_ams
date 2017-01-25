@@ -21,7 +21,7 @@ declare
 	-- 取得帳號分身資訊
 	set @OwnerId = dbo.GetAvatarOwnerId(@PlayerId)
 
-	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Date]) values ('CashOutAll',@PlayerId,@GameId,@TableId,@OwnerId,@Date )
+	--insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Date]) values ('CashOutAll',@PlayerId,@GameId,@TableId,@OwnerId,@Date )
 
 	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
 	select @prevPlayerBalance = Balance from dbo.Member with(updlock) where Id = @OwnerId

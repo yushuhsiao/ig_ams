@@ -12,7 +12,7 @@ CREATE PROCEDURE [dbo].[usp_CashOut]
 AS
 SET NOCOUNT ON;
 declare
-	@TableId int, @JoinCount int, @OwnerId int,
+	@TableId int, /*@JoinCount int, */@OwnerId int, @Join_Check int,
 	@prevPlayerBalance decimal(18, 2), 
 	@prevWalletBalance decimal(18, 2)
 
@@ -21,15 +21,18 @@ declare
 	-- 取得帳號分身資訊
 	set @OwnerId = dbo.GetAvatarOwnerId(@PlayerId)
 
-	insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Balance],[Date]) values ('CashOut',@PlayerId,@GameId,@TableId,@OwnerId,@Balance,@Date )
+	--insert into WalletTranRequestLog ([Type],[PlayerId],[GameId],[TableId],OwnerId,[Balance],[Date]) values ('CashOut',@PlayerId,@GameId,@TableId,@OwnerId,@Balance,@Date )
 
 	if @Balance < 0 goto _exit2;
 
 	if @GameId=1091 and @TableId >= 0
 	begin
-		select @JoinCount = count(*) from MemberJoinTable with(nolock)
-		where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
-		if @JoinCount > 0 goto _exit2
+		set @Join_Check = dbo.Cash_Check(@PlayerId, @GameId, @TableId, @OwnerId, 6)
+		if @Join_Check = -1 goto _exit2;
+		if @Join_Check = -2 goto _exit2;
+		--select @JoinCount = count(*) from MemberJoinTable with(nolock)
+		--where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
+		--if @JoinCount > 0 goto _exit2
 	end
 	
 	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
