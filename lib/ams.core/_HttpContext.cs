@@ -253,8 +253,8 @@ namespace System.Web
         public static IDisposable GetSqlCmd(out SqlCmd result, SqlCmd existing, string connectionString, params string[] connectionStrings)
         {
             if ((existing != null) && (
-                (connectionString == existing.ctorConnectionString) ||
-                (connectionStrings.Contains(existing.ctorConnectionString))))
+                (connectionString == existing.ConnectionString) ||
+                (connectionStrings.Contains(existing.ConnectionString))))
             { result = existing; return null; }
             _HttpContext context = _HttpContext.Current;
             if (context == null)

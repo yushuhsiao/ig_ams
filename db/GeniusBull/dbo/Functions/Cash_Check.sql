@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION Cash_Check
+﻿CREATE FUNCTION [dbo].[Cash_Check]
 (
 	@PlayerId int,
     @GameId int,
@@ -10,15 +10,15 @@ AS
 BEGIN
 	declare @JoinCount int
 	select @JoinCount = count(*) from MemberJoinTable with(nolock)
-	where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
+	where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State] <> 0
 	if @JoinCount > 0
-		set @JoinCount = -1
+		return -1
 	else
 	begin
 		select @JoinCount = count(*) from MemberJoinTable with(nolock)
-		where PlayerId <> @PlayerId and OwnerId = @OwnerId and GameId = @GameId
+		where PlayerId <> @PlayerId and OwnerId = @OwnerId and GameId = @GameId and [State] <> 0
 		if @JoinCount >= @MaxCount
-			set @JoinCount = -2
+			return -2
 	end
 	return @JoinCount
 END

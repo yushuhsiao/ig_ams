@@ -7,7 +7,7 @@ using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System
 {
-	[_DebuggerStepThrough]
+	//[_DebuggerStepThrough]
 	public abstract class TextFileLogWriter<T> : IAsyncLogWriter where T : TextFileLogWriter<T>, new()
 	{
 		static readonly T Instance = new T();
@@ -33,8 +33,11 @@ namespace System
 		public abstract string file_ext { get; }
 		string BuildPath(DateTime time, string category, int retry_index)
 		{
-            //StringBuilder s = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory);
+#if NET40
+            StringBuilder s = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory);
+#else
             StringBuilder s = new StringBuilder(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+#endif
             char c = Path.DirectorySeparatorChar;
 			if (s[s.Length - 1] != c) s.Append(c);
 			s.AppendFormat(this.path_format, time, string.IsNullOrEmpty(category) ? "" : "-", category);
