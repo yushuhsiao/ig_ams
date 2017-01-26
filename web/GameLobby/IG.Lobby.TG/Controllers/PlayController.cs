@@ -81,27 +81,28 @@ namespace IG.Lobby.TG.Controllers
                     accessToken = $"{Guid.NewGuid().ToString("N")}";
                 string sqlstr1 = $"exec dbo.sp_MemberJoinTable @PlayerId = {playerId}, @GameId = {gameId}, @TableId = {tableId}, @AccessToken = '{accessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
 
-                for (int t = 0; t < 2; t++)
+                foreach (Action commit in sqlcmd.BeginTran())
                 {
-                    foreach (Action commit in sqlcmd.BeginTran())
+                    MemberJoinTable info = sqlcmd.ToObject<MemberJoinTable>(sqlstr1);
+                    if (info == null)
                     {
-                        MemberJoinTable info = sqlcmd.ToObject<MemberJoinTable>(sqlstr1);
-                        if (info != null)
-                        {
-                            commit();
-                            info.AccessToken = accessToken;
-                            return info;
-                        }
-                        if (t != 0) break;
                         for (int i = 1; i <= MvcApplication.MaxAvatarCount; i++)
                         {
                             try
                             {
                                 string sqlstr2 = $"exec dbo.sp_MemberAvatar_Add @PlayerId = {playerId}, @Account = '{User.TakeAccount()}_{i}', @MaxCount = {MvcApplication.MaxAvatarCount}";
                                 sqlcmd.ExecuteNonQuery(sqlstr2);
+                                break;
                             }
                             catch (SqlException ex) when (ex.Class == 14 && ex.Number == 2601) { }
                         }
+                        info = sqlcmd.ToObject<MemberJoinTable>(sqlstr1);
+                    }
+                    if (info != null)
+                    {
+                        commit();
+                        info.AccessToken = accessToken;
+                        return info;
                     }
                 }
             }

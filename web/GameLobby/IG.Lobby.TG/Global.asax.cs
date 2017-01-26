@@ -21,7 +21,7 @@ namespace IG.Lobby.TG
     {
         protected void Application_Start()
         {
-            ConsoleLogWriter.Enabled = true;
+            TextLogWriter.Enabled = true;
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

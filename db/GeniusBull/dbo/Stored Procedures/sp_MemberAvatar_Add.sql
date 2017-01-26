@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [sp_MemberAvatar_Add] (
+﻿CREATE PROCEDURE [dbo].[sp_MemberAvatar_Add] (
 	@PlayerId int, 
 	@Account varchar(50), 
 	@MaxCount int=5)

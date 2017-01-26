@@ -7,20 +7,20 @@
 	@MaxCount int=6)
 AS
 BEGIN
-	SET NOCOUNT ON;
-	 
-	declare @JoinCount int, @AvatarId int, @Nickname nvarchar(50)
+	declare @JoinCount int, @AvatarId int, @Nickname nvarchar(50), @State int
 	select @JoinCount = count(*) from MemberJoinTable with(nolock) where OwnerId = @PlayerId and GameId = @GameId and [State] <> 0
 	if @JoinCount >= @MaxCount return
 
-	select b.* from MemberAvatar a with(nolock) left join MemberJoinTable b with(nolock) on a.PlayerId = b.PlayerId
-	where a.OwnerId = @PlayerId and b.GameId = @GameId
-	order by b.JoinTime asc
+	--select *
+	--from MemberAvatar a with(nolock)
+	--left join MemberJoinTable b with(nolock) on a.PlayerId = b.PlayerId and b.GameId = @GameId
+	--where a.OwnerId = @PlayerId
+	--order by b.JoinTime asc
 
-	select top(1) @AvatarId = a.PlayerId
+	select top(1) @AvatarId = a.PlayerId, @State = isnull([State], 0)
 	from MemberAvatar a with(nolock)
-	left join MemberJoinTable b with(nolock) on a.PlayerId = b.PlayerId
-	where a.OwnerId = @PlayerId and b.GameId = @GameId and (b.[State] is null or b.[State] = 0)
+	left join MemberJoinTable b with(nolock) on a.PlayerId = b.PlayerId and b.GameId = @GameId
+	where a.OwnerId = @PlayerId and (b.[State] is null or b.[State] = 0)
 	order by b.JoinTime asc
 
 	if @AvatarId is null return

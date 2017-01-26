@@ -66,8 +66,19 @@ namespace ams.Controllers
             public UserName UserName;
             [JsonProperty]
             public string NickName;
+            public string Password
+            {
+                get
+                {
+                    if (Password1 == Password2)
+                        return Password1;
+                    return null;
+                }
+            }
             [JsonProperty]
-            public string Password;
+            public string Password1;
+            [JsonProperty]
+            public string Password2;
             [JsonProperty("Active1")]
             bool? AccountActive;
             [JsonProperty("Active2")]

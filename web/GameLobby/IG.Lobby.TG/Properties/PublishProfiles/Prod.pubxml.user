@@ -412,7 +412,7 @@
       <publishTime>01/20/2017 14:47:34</publishTime>
     </File>
     <File Include="bin/IG.Lobby.TG.dll">
-      <publishTime>01/25/2017 17:38:10</publishTime>
+      <publishTime>01/26/2017 15:55:28</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>07/14/2016 02:35:18</publishTime>
@@ -463,16 +463,16 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>01/24/2017 02:30:58</publishTime>
+      <publishTime>01/26/2017 15:26:10</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/zh-CN/IG.Lobby.TG.resources.dll">
-      <publishTime>01/25/2017 17:38:11</publishTime>
+      <publishTime>01/26/2017 15:55:28</publishTime>
     </File>
     <File Include="bin/zh-TW/IG.Lobby.TG.resources.dll">
-      <publishTime>01/25/2017 17:38:11</publishTime>
+      <publishTime>01/26/2017 15:55:29</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/08/2016 18:27:08</publishTime>
@@ -481,7 +481,7 @@
       <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>01/24/2017 02:35:09</publishTime>
+      <publishTime>01/26/2017 15:26:44</publishTime>
     </File>
     <File Include="robots.txt">
       <publishTime>11/07/2016 16:21:50</publishTime>
@@ -559,7 +559,7 @@
       <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/25/2017 17:38:11</publishTime>
+      <publishTime>01/26/2017 15:55:29</publishTime>
     </File>
   </ItemGroup>
 </Project>

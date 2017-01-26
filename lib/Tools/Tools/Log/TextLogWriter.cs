@@ -31,7 +31,7 @@ namespace System
 
 		public abstract string path_format { get; }
 		public abstract string file_ext { get; }
-		string BuildPath(DateTime time, string category, int retry_index)
+        string BuildPath(DateTime time, string category, int retry_index)
 		{
 #if NET40
             StringBuilder s = new StringBuilder(System.AppDomain.CurrentDomain.BaseDirectory);
@@ -47,7 +47,48 @@ namespace System
 			return s.ToString();
 		}
 
-		const int retry_open = 5;
+        //void IAsyncLogWriter.Tick(ILogWriterContext context)
+        //{
+        //    log.MessageItem item;
+        //    string path1 = null, path2 = null;
+        //    StreamWriter writer1 = null, writer2 = null;
+        //    try
+        //    {
+
+        //        while (context.GetMessage(out item))
+        //        {
+        //            for (int r1 = 0; ; r1++)
+        //            {
+        //                path2 = this.BuildPath(item.time, item.category, r1);
+        //                if (path1 == path2) break;
+        //                string dir = Path.GetDirectoryName(path2);
+        //                if (!Directory.Exists(dir))
+        //                    Directory.CreateDirectory(dir);
+        //                try
+        //                {
+        //                    writer2 = new StreamWriter(path2, true, Encoding.UTF8);
+        //                    using (writer1) path1 = null;
+        //                    writer1 = writer2;
+        //                    path1 = path2;
+        //                    break;
+        //                }
+        //                catch
+        //                {
+        //                    if (r1 < retry_open)
+        //                        continue;
+        //                    context.Retry(item);
+        //                    throw;
+        //                }
+        //            }
+        //            WriteMessage(writer1, item);
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        using (writer1) path1 = null;
+        //    }
+        //}
+        const int retry_open = 5;
         void IAsyncLogWriter.Tick(ILogWriterContext context)
         {
             log.MessageItem item;
@@ -68,9 +109,11 @@ namespace System
                             Directory.CreateDirectory(dir);
                         try
                         {
-                            file2 = new FileStream(path2, FileMode.OpenOrCreate);
+                            file2 = new FileStream(path2, FileMode.Append);
                             writer2 = new StreamWriter(file2, Encoding.UTF8);
-                            using (writer1) path1 = null;
+                            using (writer1)
+                            using (file1)
+                                path1 = null;
                             file1 = file2;
                             writer1 = writer2;
                             path1 = path2;
@@ -95,7 +138,7 @@ namespace System
             }
         }
 
-		protected virtual void OnExitProcess() { }
+        protected virtual void OnExitProcess() { }
 		internal abstract void WriteMessage(StreamWriter writer, log.MessageItem msg);
 	}
 
