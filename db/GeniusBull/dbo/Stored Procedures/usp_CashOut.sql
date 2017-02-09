@@ -25,15 +25,15 @@ declare
 
 	if @Balance < 0 goto _exit2;
 
-	if @GameId=1091 and @TableId >= 0
-	begin
-		set @Join_Check = dbo.Cash_Check(@PlayerId, @GameId, @TableId, @OwnerId, 6)
-		if @Join_Check = -1 goto _exit2;
-		if @Join_Check = -2 goto _exit2;
-		--select @JoinCount = count(*) from MemberJoinTable with(nolock)
-		--where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
-		--if @JoinCount > 0 goto _exit2
-	end
+	--if @GameId=1091 and @TableId >= 0
+	--begin
+	--	set @Join_Check = dbo.Cash_Check(@PlayerId, @GameId, @TableId, @OwnerId, 6)
+	--	if @Join_Check = -1 goto _exit2;
+	--	if @Join_Check = -2 goto _exit2;
+	--	--select @JoinCount = count(*) from MemberJoinTable with(nolock)
+	--	--where PlayerId <> @PlayerId and GameId = @GameId and TableId = @TableId and OwnerId = @OwnerId and [State]=1
+	--	--if @JoinCount > 0 goto _exit2
+	--end
 	
 	-- 取得玩家點數, 查無此玩家時 RETURN 2 後跳出
 	select @prevPlayerBalance = Balance from dbo.Member with(updlock) where Id = @OwnerId
@@ -67,7 +67,7 @@ declare
 		values (@PlayerId, @GameId, 0, @PlayerBalance - @prevPlayerBalance, @PlayerBalance, @WalletBalance, @Date);
 
 		if @TableId > 0
-			update MemberJoinTable set [State]=1 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
+			update MemberJoinTable set [State]=2 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
 
 		commit tran
 		return 0;

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using Tools;
 
 namespace ViewWaitingPlayer
 {
@@ -17,6 +18,7 @@ namespace ViewWaitingPlayer
         {
             base.Init();
             _User.Manager.Init(this);
+            Tick.OnTick += Controllers.GetDataResult.Tick;
         }
 
         protected void Application_Start(object sender, EventArgs e)

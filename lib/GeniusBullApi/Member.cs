@@ -54,4 +54,23 @@ namespace GeniusBull
         [DbImport]
         public string AccessToken;
     }
+
+    [ams.TableName("MemberJoinTable")]
+    public class MemberJoinTable
+    {
+        [DbImport]
+        public int PlayerId;
+        [DbImport]
+        public int GameId;
+        [DbImport]
+        public int OwnerId;
+        [DbImport]
+        public int TableId;
+        [DbImport]
+        public int State;
+        [DbImport]
+        public DateTime JoinTime;
+        [DbImport]
+        public DateTime JoinExpire;
+    }
 }

@@ -55,7 +55,7 @@ declare
 		values (@PlayerId, @GameId, 0, @PlayerBalance - @prevPlayerBalance, @PlayerBalance, @WalletBalance, @Date);
 
 		if @TableId > 0
-			update MemberJoinTable set [State]=0 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
+			update MemberJoinTable set [State]=1 where PlayerId = @PlayerId and GameId = @GameId and TableId = @TableId
 
 		commit tran
 		return 0;

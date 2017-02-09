@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Threading;
 
 namespace api_test_client
@@ -9,6 +11,37 @@ namespace api_test_client
     static class Program
     {
         static void Main(string[] args)
+        {
+            string n = @"[ {  Id: 1220,  PlayerName: ""c469092f5f224ac08c9cc16261a28fa0"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:3:1"" } {  Id: 1337,  PlayerName: ""db1cb4d58bde42b89845695fb2229878"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:4:14"" } {  Id: 1202,  PlayerName: ""04774cc9b5dc4daa8c5d70ac15d23990"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:26:43"" } {  Id: 14,  PlayerName: ""2ffdd9c5efe64566b91ec7c599d15659"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:26:45"" } {  Id: 1316,  PlayerName: ""148f2bf778fc49459a98bc7a8544ef85"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:22:36"" } {  Id: 16,  PlayerName: ""9ebc73af83eb4eb08af693ddd70c14e0"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:26:46"" } {  Id: 5,  PlayerName: ""844bf5eb9d984e0b83e0bbd73d7b8486"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:21:23"" } {  Id: 1314,  PlayerName: ""95baae6143824c129fe4e8e7a38c0d38"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:23:14"" } {  Id: 1339,  PlayerName: ""63432b49b00841a59c6d43a1d89b61a0"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:26:46"" } {  Id: 26,  PlayerName: ""07b2936f2a63431081adc3c8c8fcc24b"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:23:47"" } {  Id: 1288,  PlayerName: ""458fb26b122943b6ae48a765016a291d"",  GameId: 1093,  GameName: ""TWMAHJONGVIDEO"",  LoginIp: ""10.10.10.254"",  LoginTime: ""2017 / 2 / 9 2:34:8"" }]";
+            StringBuilder s1 = new StringBuilder(n);
+            for (int i = 0; i < s1.Length; i++)
+            {
+                char c = s1[i];
+                if (c == '}')
+                {
+                    Debugger.Break();
+                    bool n1 = false;
+                    i++;
+                    for (; i < s1.Length; i++)
+                    {
+                        c = s1[i];
+                        n1 |= c == ',';
+                        if (c == '{')
+                        {
+                            if (n1 == false)
+                                s1.Insert(i, ',');
+                            Debugger.Break();
+                            break;
+                        }
+                    }
+                }
+            }
+            n = s1.ToString();
+            var nn = JsonConvert.DeserializeObject(n);
+
+            Debugger.Break();
+        }
+        static void Main1(string[] args)
         {
             api_client api = new api_client()
             {
@@ -20,7 +53,7 @@ namespace api_test_client
                 API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQArS1TqSr1Te3J5iaSDzERfjyhFfpNrTYkNAmyyQkK7k0spsJ9CWuOKlJM4j9kFWZrqJK9rOsY0GQVOitGgIa5uVeZAGacsL3G8T7jXHN2Xv5tbkUCULwErJImJC7GcYXSSt9KxjLW9Elpe4lOazrnJfJ0X+OoX52tegbjGhN89qQ==",
                 BASE_URL = "http://192.168.5.51",
             };
-            
+
             object n = null;
             //n = api.GetWaitUserCount();
             //n = api.CreateMember("test38");

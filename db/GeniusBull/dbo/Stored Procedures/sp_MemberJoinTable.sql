@@ -7,8 +7,8 @@
 	@MaxCount int=6)
 AS
 BEGIN
-	declare @JoinCount int, @AvatarId int, @Nickname nvarchar(50), @State int
-	select @JoinCount = count(*) from MemberJoinTable with(nolock) where OwnerId = @PlayerId and GameId = @GameId and [State] <> 0
+	declare @JoinCount int, @AvatarId int, @Nickname nvarchar(50)--, @State int
+	select @JoinCount = count(*) from MemberJoinTable with(nolock) where OwnerId = @PlayerId and GameId = @GameId-- and [State] <> 0
 	if @JoinCount >= @MaxCount return
 
 	--select *
@@ -17,11 +17,12 @@ BEGIN
 	--where a.OwnerId = @PlayerId
 	--order by b.JoinTime asc
 
-	select top(1) @AvatarId = a.PlayerId, @State = isnull([State], 0)
+	select top(1) @AvatarId = a.PlayerId--, @State = isnull([State], 0)
 	from MemberAvatar a with(nolock)
 	left join MemberJoinTable b with(nolock) on a.PlayerId = b.PlayerId and b.GameId = @GameId
-	where a.OwnerId = @PlayerId and (b.[State] is null or b.[State] = 0)
-	order by b.JoinTime asc
+	--where a.OwnerId = @PlayerId and (b.[State] is null or b.[State] = 0)
+	where a.OwnerId = @PlayerId and b.[State] is null
+	--order by b.JoinTime asc
 
 	if @AvatarId is null return
 

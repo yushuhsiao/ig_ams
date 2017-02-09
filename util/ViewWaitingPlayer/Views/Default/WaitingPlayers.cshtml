@@ -83,11 +83,11 @@
                         <th>底/台</th>
                         <th>等待人數</th>
                     </tr>
-                    <tr ng-repeat="obj in data[1093]">
-                        <td>{{obj.Title}}</td>
-                        <td>{{obj.waitingPlayers}}</td>
-                    </tr>
+                    <tr ng-repeat="obj in data['w1093']"><td>{{obj.Title}}</td><td>{{obj.waitingPlayers}}</td></tr>
                 </table>
+                <div>
+                    <div ng-repeat="obj in data['p1093']"><div>{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div></div>
+                </div>
             </div>
         </div>
     </div>
@@ -100,11 +100,11 @@
                         <th>底</th>
                         <th>等待人數</th>
                     </tr>
-                    <tr ng-repeat="obj in data[1092]">
-                        <td>{{obj.Title}}</td>
-                        <td>{{obj.waitingPlayers}}</td>
-                    </tr>
+                    <tr ng-repeat="obj in data['w1092']"><td>{{obj.Title}}</td><td>{{obj.waitingPlayers}}</td></tr>
                 </table>
+                <div>
+                    <div ng-repeat="obj in data['p1092']"><div>{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div></div>
+                </div>
             </div>
         </div>
     </div>
@@ -117,11 +117,11 @@
                         <th>大盲/小盲</th>
                         <th>等待人數</th>
                     </tr>
-                    <tr ng-repeat="obj in data[1091]">
-                        <td>{{obj.Title}}</td>
-                        <td>{{obj.waitingPlayers}}</td>
-                    </tr>
+                    <tr ng-repeat="obj in data['w1091']"><td>{{obj.Title}}</td><td>{{obj.waitingPlayers}}</td></tr>
                 </table>
+                <div>
+                    <div ng-repeat="obj in data['p1091']"><div>{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div></div>
+                </div>
             </div>
         </div>
     </div>

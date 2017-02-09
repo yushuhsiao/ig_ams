@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 [assembly: ams.Data.PlatformInfo]
@@ -496,13 +497,37 @@ select Balance from {GeniusBull.Member.TableName} nolock where Id={m1.destID}";
             return b.HasValue;
         }
 
-
-
-        public string rest_MJ_waitingPlayers()
+        static string _json_fix(string json)
         {
-            string url = $"{MjServerRest}/waitingPlayers";
+            StringBuilder tmp = new StringBuilder(json);
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                char c = tmp[i];
+                if (c == '}')
+                {
+                    bool n1 = false;
+                    i++;
+                    for (; i < tmp.Length; i++)
+                    {
+                        c = tmp[i];
+                        if (c == ',') n1 = true;
+                        else if (c == '{')
+                        {
+                            if (n1 == false)
+                                tmp.Insert(i, ',');
+                            break;
+                        }
+                    }
+                }
+            }
+            return tmp.ToString();
+        }
+
+        public string rest_MJ(string function, string method = "GET", bool json_fix = false)
+        {
+            string url = $"{MjServerRest}/{function}";
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-            request.Method = "GET";
+            request.Method = method;
             HttpWebResponse response = null;
             string response_text;
             try { response = (HttpWebResponse)request.GetResponse(); }
@@ -519,6 +544,8 @@ select Balance from {GeniusBull.Member.TableName} nolock where Id={m1.destID}";
                         HtmlDocument html = new HtmlDocument();
                         html.LoadHtml(response_text);
                         var n = html.DocumentNode.InnerText;
+                        if (json_fix) n = _json_fix(n);
+                        log.message("rest", $"{url}\r\n{n}");
                         return n;
                     }
                 }
@@ -527,11 +554,17 @@ select Balance from {GeniusBull.Member.TableName} nolock where Id={m1.destID}";
             return null;
         }
 
-        public string rest_Doudizhu_waitingPlayers()
+        public string rest_MJ_waitingPlayers() => rest_MJ("waitingPlayers");
+
+        public string rest_MJ_onlinePlayers() => rest_MJ("onlinePlayers", json_fix: true);
+
+
+
+        public string rest_Doudizhu(string function, string method = "GET")
         {
-            string url = $"{DoudizhuRest}/waitingPlayers";
+            string url = $"{DoudizhuRest}/{function}";
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-            request.Method = "GET";
+            request.Method = method;
             HttpWebResponse response = null;
             string response_text;
             try { response = (HttpWebResponse)request.GetResponse(); }
@@ -550,18 +583,40 @@ select Balance from {GeniusBull.Member.TableName} nolock where Id={m1.destID}";
             return null;
         }
 
-        public void InvokeDoudizhuRest()
+        public string rest_Doudizhu_waitingPlayers() => rest_Doudizhu("waitingPlayers");
+
+        public string rest_Doudizhu_onlinePlayers() => rest_Doudizhu("onlinePlayers");
+
+
+
+        public string rest_TexasHoldem(string function, string method = "GET")
         {
-            var url = this.DoudizhuRest;
+            string url = $"{TexasHoldemRest}/{function}";
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = method;
+            HttpWebResponse response = null;
+            string response_text;
+            try { response = (HttpWebResponse)request.GetResponse(); }
+            catch (WebException ex) { response = (HttpWebResponse)ex.Response; }
+            try
+            {
+                using (response)
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                        response_text = sr.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        return response_text;
+                }
+            }
+            catch { }
+            return null;
         }
-        public void InvokeTexasHoldemRest()
-        {
-            var url = this.TexasHoldemRest;
-        }
-        public void InvokeMjServerRest()
-        {
-            var url = this.MjServerRest;
-        }
+
+        public string rest_TexasHoldem_onlinePlayers() => rest_TexasHoldem("onlinePlayers");
+
+        //public void InvokeDoudizhuRest() { var url = this.DoudizhuRest; }
+        //public void InvokeTexasHoldemRest() { var url = this.TexasHoldemRest; }
+        //public void InvokeMjServerRest() { var url = this.MjServerRest; }
     }
 
     [TableName("MemberPlatform_IG01")]

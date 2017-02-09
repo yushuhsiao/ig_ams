@@ -109,8 +109,12 @@ namespace System
                             Directory.CreateDirectory(dir);
                         try
                         {
+#if NET40
+                            writer2 = new StreamWriter(path2, true, Encoding.UTF8);
+#else
                             file2 = new FileStream(path2, FileMode.Append);
                             writer2 = new StreamWriter(file2, Encoding.UTF8);
+#endif
                             using (writer1)
                             using (file1)
                                 path1 = null;
@@ -133,7 +137,9 @@ namespace System
             finally
             {
                 using (file1)
+                using (file2)
                 using (writer1)
+                using (writer2)
                     path1 = null;
             }
         }
