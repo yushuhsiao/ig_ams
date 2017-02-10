@@ -72,5 +72,7 @@ namespace GeniusBull
         public DateTime JoinTime;
         [DbImport]
         public DateTime JoinExpire;
+        [DbImport]
+        public DateTime CurrentTime;
     }
 }

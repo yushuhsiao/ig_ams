@@ -214,7 +214,7 @@ namespace ViewWaitingPlayer.Controllers
             {
                 try
                 {
-                    string sql1 = $"select * from {ams.TableName<GeniusBull.MemberJoinTable>.Value} nolock where GameId={g1091.Id}";
+                    string sql1 = $"select *, getdate() CurrentTime from {ams.TableName<GeniusBull.MemberJoinTable>.Value} nolock where GameId={g1091.Id}";
                     StringBuilder sql2 = new StringBuilder();
                     List<GeniusBull.MemberJoinTable> jointable = gamedb.ToList<GeniusBull.MemberJoinTable>(sql1) ?? _null<GeniusBull.MemberJoinTable>.list;
                     foreach (var x1 in jointable)
@@ -222,7 +222,7 @@ namespace ViewWaitingPlayer.Controllers
                         var x2 = p1091.Find(x3 => x3.Id == x1.PlayerId);
                         if (x2 == null)
                         {
-                            if ((x1.State == 0) && (x1.JoinTime < x1.JoinExpire))
+                            if ((x1.State == 0) && (x1.CurrentTime < x1.JoinExpire))
                                 continue;
                             sql2.AppendLine($"delete from {ams.TableName<GeniusBull.MemberJoinTable>.Value} where GameId={g1091.Id} and PlayerId ={x1.PlayerId}");
                         }
