@@ -101,7 +101,7 @@ namespace ams.tran2
                 cert.SerialNumber = data.SerialNumber;
                 foreach (Action commit in userDB.BeginTran())
                 {
-                    cert.Save(userDB);
+                    cert = cert.Save(userDB);
                     this.certID = cert.CertID;
                     if (success)
                     {

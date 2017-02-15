@@ -112,11 +112,11 @@ namespace IG.Lobby.TG
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
 
-        [AppSetting, DefaultValue(true)]
-        public static bool TaiwanMahjong_OpenNewWindow
-        {
-            get { return app.config<MvcApplication>.GetValue<bool>(); }
-        }
+        //[AppSetting, DefaultValue(true)]
+        //public static bool TaiwanMahjong_OpenNewWindow
+        //{
+        //    get { return app.config<MvcApplication>.GetValue<bool>(); }
+        //}
 
         [AppSetting, DefaultValue(false)]
         public static bool DouDizhu_UseAvatar
@@ -130,11 +130,11 @@ namespace IG.Lobby.TG
             get { return app.config<MvcApplication>.GetValue<bool>(); }
         }
 
-        [AppSetting, DefaultValue(true)]
-        public static bool DouDizhu_OpenNewWindow
-        {
-            get { return app.config<MvcApplication>.GetValue<bool>(); }
-        }
+        //[AppSetting, DefaultValue(true)]
+        //public static bool DouDizhu_OpenNewWindow
+        //{
+        //    get { return app.config<MvcApplication>.GetValue<bool>(); }
+        //}
 
         [AppSetting, DefaultValue(false)]
         public static bool TexasHoldem_UseGroupID

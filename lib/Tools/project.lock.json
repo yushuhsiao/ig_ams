@@ -50,7 +50,7 @@
           "lib/net40/Newtonsoft.Json.dll": {}
         }
       },
-      "StackExchange.Redis.StrongName/1.1.608": {
+      "StackExchange.Redis.StrongName/1.2.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl": "1.1.10",
@@ -627,7 +627,7 @@
           }
         }
       },
-      "StackExchange.Redis.StrongName/1.1.608": {
+      "StackExchange.Redis.StrongName/1.2.0": {
         "type": "package",
         "dependencies": {
           "System.Collections": "4.0.11",
@@ -2911,12 +2911,12 @@
         "runtimes/win7-x86/native/sni.dll"
       ]
     },
-    "StackExchange.Redis.StrongName/1.1.608": {
-      "sha512": "n1Nt4JiBTPmObCTRWoFgfYFl2UfiPSZAbvEYSypgO64da8XD4G4cT4aLoAUIPrDMSXbrIZTTyYlrPO29SvxtKQ==",
+    "StackExchange.Redis.StrongName/1.2.0": {
+      "sha512": "P51eRSQjrx8DrJ2r7Edo7E6iawyFYtKPwRN8hxSnzCLIHtHv2iWPswXeuxAjD/MxmziZxXlsB4CSH4J74NHuGw==",
       "type": "package",
-      "path": "StackExchange.Redis.StrongName/1.1.608",
+      "path": "StackExchange.Redis.StrongName/1.2.0",
       "files": [
-        "StackExchange.Redis.StrongName.1.1.608.nupkg.sha512",
+        "StackExchange.Redis.StrongName.1.2.0.nupkg.sha512",
         "StackExchange.Redis.StrongName.nuspec",
         "lib/net40/StackExchange.Redis.StrongName.dll",
         "lib/net40/StackExchange.Redis.StrongName.xml",
@@ -6764,9 +6764,10 @@
   "projectFileDependencyGroups": {
     "": [
       "Newtonsoft.Json >= 9.0.1",
-      "StackExchange.Redis.StrongName >= 1.1.608"
+      "StackExchange.Redis.StrongName >= 1.2.0"
     ],
     ".NETFramework,Version=v4.0": [
+      "Microsoft.Bcl >= 1.1.10",
       "System.Configuration >= 4.0.0",
       "System.Core >= 4.0.0",
       "System.Data >= 4.0.0",
@@ -6787,6 +6788,7 @@
       "System.Data.Common >= 4.3.0",
       "System.Data.SqlClient >= 4.3.0",
       "System.Diagnostics.TraceSource >= 4.3.0",
+      "System.Runtime >= 4.3.0",
       "System.Security.Cryptography.Csp >= 4.3.0"
     ]
   },

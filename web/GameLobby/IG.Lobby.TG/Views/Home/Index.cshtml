@@ -4,38 +4,23 @@
 <div class="games clearfix">
     <div class="game mahjong">
         <div class="cover"></div>
-        <a class="enter" onclick="openTableWindow(@(MvcApplication.TaiwanMahjong_OpenNewWindow ? "true" : "false"), '@Url.Action("TaiwanMahjong", "Play")', 1280, 720)">Taiwan Mahjong</a>
+        <a class="enter" onclick="openTableWindow('@Url.Action("TaiwanMahjong", "Play")', 1280, 720)">Taiwan Mahjong</a>
     </div>
     <div class="game doudizhu">
         <div class="cover"></div>
-        <a class="enter" onclick="openTableWindow(@(MvcApplication.DouDizhu_OpenNewWindow ? "true" : "false"), '@Url.Action("DouDizhu", "Play")', 1280, 720)">Dou Dizhu</a>
+        <a class="enter" onclick="openTableWindow('@Url.Action("DouDizhu", "Play")', 1280, 720)">Dou Dizhu</a>
     </div>
     <div class="game texasholdem">
         <div class="cover"></div>
-        <a class="enter" onclick="openTableWindow(false, '@Url.Action("TexasHoldem", "Play")', 1280, 720)">Texas Holdem</a>
+        <a class="enter" onclick="openTableWindow('@Url.Action("TexasHoldem", "Play")', 1280, 720)">Texas Holdem</a>
     </div>
 </div>
 @section Scripts {
     <link href="~/assets/fancybox/jquery.fancybox.css" rel="stylesheet" />
     <script src="~/assets/fancybox/jquery.fancybox.min.js"></script>
     <script>
-        function openTableWindow(newWindow, url, width, height) {
-            if (newWindow == true) {
-                return window.open(url, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + width + ',height=' + height);
-            }
-            else {
-                $.fancybox({
-                    type: 'iframe',
-                    href: url,
-                    fitToView: false,
-                    autoSize: false,
-                    closeBtn: true,
-                    autoCenter: true,
-                    width: width,
-                    height: height,
-                    padding: 0
-                });
-            }
+        function openTableWindow(url, width, height) {
+            return window.open(url, '_blank', 'resizable=yes,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,width=' + width + ',height=' + height);
         }
 
         var lobby = null;

@@ -20,8 +20,10 @@ namespace ams.tran2
         where TController : tranApi<TController, TData>.Controller
         where TData : tranApi<TController, TData>.Data, new()
     {
-        static string SerialNumberPrefix(ModelStateDictionary modelState, LogType logType, bool err = true)
+        static string SerialNumberPrefix(ModelStateDictionary modelState, LogType logType, PaymentType? paymentType, out string len, bool err = true)
         {
+            len = null;
+            DateTime myDate = DateTime.Now;
             switch (logType)
             {
                 case LogType.CorpBalanceIn: return "A1";
@@ -37,7 +39,17 @@ namespace ams.tran2
                 case LogType.PlatformWithdrawal: return "E1";
                 case LogType.InPlatformDeposit: return "F1";
                 case LogType.InPlatformWithdrawal: return "F0";
-                case LogType.PaymentAPI: return "G1";
+                case LogType.PaymentAPI:
+                    string prefix;
+                    switch (paymentType)
+                    {
+                        case PaymentType.SunTech_WebATM: prefix = string.Format("WA{0:0000}", myDate.Year); break;
+                        case PaymentType.SunTech_BuySafe: prefix = string.Format("CA{0:0000}", myDate.Year); break;
+                        default: prefix = "G1"; break;
+                    }
+                    if (prefix != null)
+                        len = $", @len = {prefix.Length + 8}";
+                    return prefix;
                 default: modelState.AddModelError("LogType", Status.InvalidParameter, throw_exception: err); break;
             }
             return null;
@@ -94,8 +106,9 @@ namespace ams.tran2
                 sql[" ", nameof(Data.RequestTime), "    "] = SqlBuilder.str.getdate;
                 sql[" ", nameof(Data.RequestUser), "    "] = _User.Current.ID;
                 sql[" ", nameof(Data.RequestIP), "      "] = this.RequestIP ?? _HttpContext.RequestIP;
-                string prefix = SerialNumberPrefix(ModelState, this.LogTypes[0]);
-                string sqlstr = ($@"declare @sn varchar(16), @TranID uniqueidentifier exec alloc_TranID @prefix={prefix}, @group=1, @sn=@sn output, @ID=@TranID output
+                string len;   
+                string prefix = SerialNumberPrefix(ModelState, this.LogTypes[0], this.paymentInfo?.PaymentType, out len);
+                string sqlstr = ($@"declare @sn varchar(16), @TranID uniqueidentifier exec alloc_TranID @prefix={prefix}, @group=1{len}, @sn=@sn output, @ID=@TranID output
 insert into {TableName1}{sql._insert()}
 select * from {TableName1} nolock where TranID=@TranID");
                 return userDB.ToObject<TData>(true, sqlstr);
@@ -262,8 +275,6 @@ where TranID='{tranID}'";
                 }
                 return null;
             }
-
-
 
             SqlCmd _userDB;
             SqlCmd _logDB;

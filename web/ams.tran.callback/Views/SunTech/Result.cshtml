@@ -16,6 +16,7 @@
     @if (data != null)
     {
         <input type="hidden" name="TranID" value="@data.TranID" />
+        <input type="hidden" name="SerialNumber" value="@data.SerialNumber" />
         <input type="hidden" name="UserName" value="@data.UserName" />
         <input type="hidden" name="Success" value="@((data.Finished ?? false) ? "true" : "false")" />
     }

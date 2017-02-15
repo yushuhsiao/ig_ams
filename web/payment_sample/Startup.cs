@@ -28,7 +28,7 @@ namespace payment_sample
             //AUTH_SITE = "ig05",
             //AUTH_USER = "_acc",
             //API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQC7EXGp7klm5zCsaJEfHcltz2ZQHHEWNeKVhgtBscW0FITNBZHu1ceVeEnOQJZdxOiTu7c7jmSZD9Ts7TazHeKCiJCrZPkvZ/iqNOzkIOXrRnMW+aIu860P8LBtvcofXS95Qbi4Cn39A7/Ph7cwc64hRYL5ZNp2YcsOsAn7F8mtzw==",
-            BASE_URL = "http://10.10.10.250:7001",
+            BASE_URL = "http://127.0.0.1:7001",
         };
 
         public static ForwardGameResult submit(string PaymentType, string ResultUrl)
@@ -37,7 +37,7 @@ namespace payment_sample
                 HttpContext.Current.Request.Form["name"],
                 HttpContext.Current.Request.Form["mn"].ToInt32() ?? 0,
                 PaymentType,
-                null, //"http://10.10.10.250:7001/payment_sample/Notify",
+                null, //"http://10.10.10.86:7001/payment_sample/Notify",
                 "http://ams.betis73168.com:7001/payment_sample/" + ResultUrl);
         }
 

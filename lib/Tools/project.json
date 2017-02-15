@@ -1,10 +1,10 @@
 {
-  "version": "1.0.13",
+  "version": "1.0.14",
   "authors": [ "Innate Glory" ],
 
   "dependencies": {
     "Newtonsoft.Json": "9.0.1",
-    "StackExchange.Redis.StrongName": "1.1.608"
+    "StackExchange.Redis.StrongName": "1.2.0"
   },
   "buildOptions": {
     "allowUnsafe": true,
@@ -16,6 +16,7 @@
   "frameworks": {
     "net40": {
       "dependencies": {
+        "Microsoft.Bcl": "1.1.10"
       },
       "frameworkAssemblies": {
         "System.Configuration": "4.0.0.0",
@@ -41,6 +42,7 @@
         "System.Data.Common": "4.3.0",
         "System.Data.SqlClient": "4.3.0",
         "System.Diagnostics.TraceSource": "4.3.0",
+        "System.Runtime": "4.3.0",
         "System.Security.Cryptography.Csp": "4.3.0"
       }
     }

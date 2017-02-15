@@ -179,7 +179,7 @@ namespace SunTech
 
         public string ChkValue_Local
         {
-            get { return $"{web}{Password}{MN}{buysafeno}{errcode}".SHA1Hex(Encoding.ASCII); }
+            get { return $"{web}{Password}{buysafeno}{MN}{errcode}".SHA1Hex(Encoding.ASCII); }
         }
 
         [JsonIgnore]

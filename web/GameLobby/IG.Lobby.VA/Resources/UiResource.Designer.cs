@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IG.Lobby.VA.Resources
-{
-
-
+namespace IG.Lobby.VA.Resources {
+    using System;
+    
+    
     /// <summary>
     ///   用於查詢當地語系化字串等的強類型資源類別。
     /// </summary>
