@@ -182,6 +182,7 @@ select * from dbo.MemberJoinTable with(nolock) where PlayerId = {member_a.Id} an
                     serverUrl = game.ServerUrl,
                     serverPort = game.ServerPort,
                     accessToken = info.AccessToken,
+                    rtmpUrl = ConfigHelper.RtmpServerUrl,
                     tableId = info.TableId
                 }
             });
