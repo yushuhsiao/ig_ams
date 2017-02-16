@@ -406,10 +406,10 @@
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/GeniusBull.dll">
-      <publishTime>02/16/2017 11:56:46</publishTime>
+      <publishTime>02/16/2017 14:30:46</publishTime>
     </File>
     <File Include="bin/GeniusBull.pdb">
-      <publishTime>02/16/2017 11:56:46</publishTime>
+      <publishTime>02/16/2017 14:30:46</publishTime>
     </File>
     <File Include="bin/IG.Dal.dll">
       <publishTime>02/13/2017 05:32:32</publishTime>
@@ -418,7 +418,7 @@
       <publishTime>02/13/2017 05:32:32</publishTime>
     </File>
     <File Include="bin/IG.Lobby.TG.dll">
-      <publishTime>02/16/2017 11:56:47</publishTime>
+      <publishTime>02/16/2017 14:30:46</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>07/14/2016 02:35:18</publishTime>
@@ -475,10 +475,10 @@
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/zh-CN/IG.Lobby.TG.resources.dll">
-      <publishTime>02/16/2017 11:56:47</publishTime>
+      <publishTime>02/16/2017 14:30:47</publishTime>
     </File>
     <File Include="bin/zh-TW/IG.Lobby.TG.resources.dll">
-      <publishTime>02/16/2017 11:56:47</publishTime>
+      <publishTime>02/16/2017 14:30:47</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/08/2016 18:27:08</publishTime>

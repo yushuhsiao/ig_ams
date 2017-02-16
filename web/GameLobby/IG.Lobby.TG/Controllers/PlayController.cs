@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace IG.Lobby.TG.Controllers
@@ -106,7 +107,7 @@ namespace IG.Lobby.TG.Controllers
 
 
 
-        GeniusBull.MemberJoinTable alloc_avatar(Game game, bool useGroupID, int tableId)
+        async Task<GeniusBull.MemberJoinTable> alloc_avatar(Game game, bool useGroupID, int tableId)
         {
             int playerId = User.TakeId();
             int gameId = game.Id;
@@ -115,7 +116,7 @@ namespace IG.Lobby.TG.Controllers
 
             using (SqlCmd gamedb = MvcApplication.GetSqlCmd())
             {
-                GeniusBull.OnlinePlayerInfo.Cleanup(game, gamedb, LobbyTicker.Instance.gsTexasHoldem.onlinePlayers);
+                await GeniusBull.OnlinePlayerInfo.Cleanup(game, gamedb, LobbyTicker.Instance.gsTexasHoldem.onlinePlayersa);
                 //string sqlstr1 = $"exec dbo.sp_MemberJoinTable @PlayerId = {playerId}, @GameId = {gameId}, @TableId = {tableId}, @AccessToken = '{accessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
 
                 string sql1 = $@"select * from MemberJoinTable with(nolock) where OwnerId = {playerId} and GameId = {gameId}";
@@ -161,13 +162,13 @@ select * from dbo.MemberJoinTable with(nolock) where PlayerId = {member_a.Id} an
         }
 
         [HttpPost, Authenticate, Route("~/Play/TexasHoldem")]
-        public ActionResult TexasHoldem_JoinGroup(int? tableId)
+        public async Task<ActionResult> TexasHoldem_JoinGroup(int? tableId)
         {
             var game = Game_TEXASHOLDEMVIDEO();
             if (game == null)
                 return new HttpNotFoundResult();
           
-            GeniusBull.MemberJoinTable info = alloc_avatar(game, MvcApplication.TexasHoldem_UseGroupID, tableId.Value);
+            GeniusBull.MemberJoinTable info = await alloc_avatar(game, MvcApplication.TexasHoldem_UseGroupID, tableId.Value);
             if (info == null) return Json(new { success = false });
             return Json(new
             {

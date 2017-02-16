@@ -10,16 +10,16 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/ams.core.dll">
-      <publishTime>02/16/2017 11:47:49</publishTime>
+      <publishTime>02/16/2017 15:59:00</publishTime>
     </File>
     <File Include="bin/ams.core_api.dll">
-      <publishTime>02/16/2017 11:47:50</publishTime>
+      <publishTime>02/16/2017 15:59:00</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>02/16/2017 11:47:49</publishTime>
+      <publishTime>02/16/2017 15:59:00</publishTime>
     </File>
     <File Include="bin/GeniusBullApi.dll">
-      <publishTime>02/16/2017 11:47:50</publishTime>
+      <publishTime>02/16/2017 15:59:01</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
       <publishTime>07/14/2016 11:01:16</publishTime>
@@ -121,7 +121,7 @@
       <publishTime>10/06/2016 13:42:00</publishTime>
     </File>
     <File Include="bin/StackExchange.Redis.StrongName.dll">
-      <publishTime>10/06/2016 13:42:50</publishTime>
+      <publishTime>01/11/2017 10:36:24</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>01/28/2015 04:02:42</publishTime>
@@ -151,10 +151,10 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>02/10/2017 02:55:50</publishTime>
+      <publishTime>02/16/2017 13:29:40</publishTime>
     </File>
     <File Include="bin/ViewWaitingPlayer.dll">
-      <publishTime>02/16/2017 11:47:53</publishTime>
+      <publishTime>02/16/2017 15:59:04</publishTime>
     </File>
     <File Include="bin/zh-Hant/System.Web.Helpers.resources.dll">
       <publishTime>01/28/2015 04:04:34</publishTime>
@@ -220,7 +220,7 @@
       <publishTime>01/05/2017 18:31:33</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>02/10/2017 02:56:31</publishTime>
+      <publishTime>02/16/2017 15:18:31</publishTime>
     </File>
     <File Include="Scripts/angular-mocks.js">
       <publishTime>01/06/2017 13:13:59</publishTime>
@@ -259,7 +259,7 @@
       <publishTime>01/06/2017 13:57:10</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/10/2017 02:59:16</publishTime>
+      <publishTime>02/16/2017 15:59:04</publishTime>
     </File>
   </ItemGroup>
 </Project>
