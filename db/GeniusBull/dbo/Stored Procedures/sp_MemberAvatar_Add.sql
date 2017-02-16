@@ -8,6 +8,8 @@ declare
 	@AvatarId int, 
 	@AvatarCount int
 
+	if exists (select Id from dbo.Member where Account = @Account) return
+
 	select @AvatarCount = count(*) from dbo.MemberAvatar with(nolock) where OwnerId = @PlayerId
 	if @AvatarCount >= @MaxCount return
 
@@ -18,5 +20,5 @@ declare
 	set @AvatarId = @@IDENTITY
 
 	insert into dbo.MemberAvatar (PlayerId, OwnerId) values (@AvatarId, @PlayerId)
-	select * from dbo.Member nolock where Id = @AvatarId
+	select @PlayerId as OwnerID, * from dbo.Member nolock where Id = @AvatarId
 END

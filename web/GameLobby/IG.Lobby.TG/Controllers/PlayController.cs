@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 namespace IG.Lobby.TG.Controllers
@@ -33,6 +34,7 @@ namespace IG.Lobby.TG.Controllers
 
             base.Dispose(disposing);
         }
+
 
 
 
@@ -69,139 +71,119 @@ namespace IG.Lobby.TG.Controllers
         //    return null;
         //}
 
-        MemberJoinTable alloc_avatar2(Game game, bool useGroupID, int tableId)
+        //ActionResult playGame(Game game, bool useGroupID, int tableId, string viewName, bool use_avatar)
+        //{
+        //    var model = new GeniusBull.PlayGameViewModel()
+        //    {
+        //        PlayerId = User.TakeId(),
+        //        GameId = game.Id,
+        //        TableId = tableId,
+
+        //        GameName = game.Name,
+        //        GameToken = game.FileToken,
+        //        Culture = CultureHelper.GetCurrentGameCulture(),
+        //        ServerUrl = game.ServerUrl,
+        //        ServerPort = game.ServerPort,
+        //    };
+        //    //if (use_avatar)
+        //    //{
+        //    //    MemberJoinTable info = alloc_avatar(game, useGroupID, tableId);
+        //    //    if (info != null)
+        //    //    {
+        //    //        model.AccessToken = info.AccessToken;
+        //    //        SetKeepAliveKey(info.PlayerId, game.Id);
+        //    //        return View(viewName, model);
+        //    //    }
+        //    //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+        //    //}
+        //    //else
+        //    //{
+        //    SetKeepAliveKey(model.PlayerId, game.Id);
+        //    model.AccessToken = User.TakeAccessToken();
+        //    return View(viewName, model);
+        //    //}
+        //}
+
+
+
+        GeniusBull.MemberJoinTable alloc_avatar(Game game, bool useGroupID, int tableId)
         {
             int playerId = User.TakeId();
             int gameId = game.Id;
-            string accessToken;
-            using (SqlCmd sqlcmd = MvcApplication.GetSqlCmd())
+            string accessToken = $"{(useGroupID ? $"{playerId}|" : "")}{Guid.NewGuid().ToString("N")}";
+            int maxcount = MvcApplication.MaxAvatarCount;
+
+            using (SqlCmd gamedb = MvcApplication.GetSqlCmd())
             {
-                if (useGroupID)
-                    accessToken = $"{playerId}|{Guid.NewGuid().ToString("N")}";
-                else
-                    accessToken = $"{Guid.NewGuid().ToString("N")}";
-                string sqlstr1 = $"exec dbo.sp_MemberJoinTable @PlayerId = {playerId}, @GameId = {gameId}, @TableId = {tableId}, @AccessToken = '{accessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
+                GeniusBull.OnlinePlayerInfo.Cleanup(game, gamedb, LobbyTicker.Instance.gsTexasHoldem.onlinePlayers);
+                //string sqlstr1 = $"exec dbo.sp_MemberJoinTable @PlayerId = {playerId}, @GameId = {gameId}, @TableId = {tableId}, @AccessToken = '{accessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
 
-                foreach (Action commit in sqlcmd.BeginTran())
+                string sql1 = $@"select * from MemberJoinTable with(nolock) where OwnerId = {playerId} and GameId = {gameId}";
+                string sql2 = $@"select a.OwnerId, b.* from MemberAvatar a with(nolock) left join Member b with(nolock) on a.PlayerId = b.Id where a.OwnerId = {playerId} order by b.RegisterTime";
+
+                foreach (Action commit in gamedb.BeginTran())
                 {
+                    var member = gamedb.ToObject<GeniusBull.Member>($"select * from Member nolock where Id={playerId}");
+
                     // clean up and get join table state
-                    var list1 = sqlcmd.ToList<MemberJoinTableRow>($@"delete MemberJoinTable where JoinExpire < getdate() and OwnerId = {playerId} and GameId = {gameId} and [State] = 0
-select * from MemberJoinTable with(nolock) where OwnerId = {playerId} and GameId = {gameId}") ?? _null<MemberJoinTableRow>.list;
-                    if (list1.Count >= MvcApplication.MaxAvatarCount)
+                    var list1 = gamedb.ToList<GeniusBull.MemberJoinTable>(sql1) ?? _null<GeniusBull.MemberJoinTable>.list;
+                    if (list1.Count >= maxcount)
                         return null;
+
                     // get avatars
-                    List<MemberRow> list2 = sqlcmd.ToList<MemberRow>($@"select * from MemberAvatar a with(nolock) left join Member b with(nolock) on a.PlayerId = b.Id where a.OwnerId = {playerId}");
+                    List<GeniusBull.Member> list2 = gamedb.ToList<GeniusBull.Member>(sql2) ?? _null<GeniusBull.Member>.list;
+                    int avatar_count = list2.Count;
+                    foreach (var n1 in list1)
+                        list2.RemoveWhen(n2 => n1.PlayerId == n2.Id);
 
-                    foreach (var n2 in list2)
+                    var member_a = list2.FirstOrDefault();
+
+                    for (int i = 1; (member_a == null) && (i < maxcount * 10); i++)
                     {
-                        var n1 = list1.Find(_n1 => n2.Id == _n1.PlayerId);
+                        member_a = gamedb.ToObject<GeniusBull.Member>(
+                            $"exec dbo.sp_MemberAvatar_Add @PlayerId = {playerId}, @Account = '{User.TakeAccount()}_{i}', @MaxCount = {maxcount}");
                     }
 
-                    MemberJoinTable info = sqlcmd.ToObject<MemberJoinTable>(sqlstr1);
-                    if (info == null)
-                    {
-                        for (int i = 1; i <= MvcApplication.MaxAvatarCount; i++)
-                        {
-                            try
-                            {
-                                string sqlstr2 = $"exec dbo.sp_MemberAvatar_Add @PlayerId = {playerId}, @Account = '{User.TakeAccount()}_{i}', @MaxCount = {MvcApplication.MaxAvatarCount}";
-                                sqlcmd.ExecuteNonQuery(sqlstr2);
-                                break;
-                            }
-                            catch (SqlException ex) when (ex.Class == 14 && ex.Number == 2601) { }
-                        }
-                        info = sqlcmd.ToObject<MemberJoinTable>(sqlstr1);
-                    }
-                    if (info != null)
-                    {
-                        commit();
-                        info.AccessToken = accessToken;
-                        return info;
-                    }
+                    if (member_a == null) return null;
+                    string sql5 = $@"
+update Member set Nickname = Member.Nickname, LastLoginIp=Member.LastLoginIp, AccessToken='{accessToken}' from Member where Member.Id={member_a.Id}
+delete from dbo.MemberJoinTable where PlayerId = {member_a.Id} and GameId = {gameId}
+insert into dbo.MemberJoinTable (PlayerId, OwnerId, GameId, TableId, [State])values ({member_a.Id}, {playerId}, {gameId}, {tableId}, 0)
+select * from dbo.MemberJoinTable with(nolock) where PlayerId = {member_a.Id} and GameId = {gameId}";
+                    var info = gamedb.ToObject<GeniusBull.MemberJoinTable>(sql5);
+                    if (info == null) return null;
+                    commit();
+                    info.AccessToken = accessToken;
+                    return info;
                 }
             }
             return null;
         }
 
-        ActionResult playGame(Game game, bool useGroupID, int tableId, string viewName, bool use_avatar)
-        {
-            var model = new PlayGameViewModel()
-            {
-                PlayerId = User.TakeId(),
-                GameId = game.Id,
-                TableId = tableId,
-
-                GameName = game.Name,
-                GameToken = game.FileToken,
-                Culture = CultureHelper.GetCurrentGameCulture(),
-                ServerUrl = game.ServerUrl,
-                ServerPort = game.ServerPort,
-            };
-            //if (use_avatar)
-            //{
-            //    MemberJoinTable info = alloc_avatar(game, useGroupID, tableId);
-            //    if (info != null)
-            //    {
-            //        model.AccessToken = info.AccessToken;
-            //        SetKeepAliveKey(info.PlayerId, game.Id);
-            //        return View(viewName, model);
-            //    }
-            //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            //}
-            //else
-            //{
-            SetKeepAliveKey(model.PlayerId, game.Id);
-            model.AccessToken = User.TakeAccessToken();
-            return View(viewName, model);
-            //}
-        }
-
         [HttpPost, Authenticate, Route("~/Play/TexasHoldem")]
-        public ActionResult TexasHoldem_JoinGroup(int? tableId, string accessToken)
+        public ActionResult TexasHoldem_JoinGroup(int? tableId)
         {
             var game = Game_TEXASHOLDEMVIDEO();
             if (game == null)
                 return new HttpNotFoundResult();
-
-            //if (tableId.HasValue && tableId >= 0)
-            //{
-            if (string.IsNullOrEmpty(accessToken))
+          
+            GeniusBull.MemberJoinTable info = alloc_avatar(game, MvcApplication.TexasHoldem_UseGroupID, tableId.Value);
+            if (info == null) return Json(new { success = false });
+            return Json(new
             {
-                MemberJoinTable info = alloc_avatar2(game, MvcApplication.TexasHoldem_UseGroupID, tableId.Value);
-                return Json(new
+                success = true,
+                flashvars = new
                 {
-                    success = info != null,
-                    accessToken = info?.AccessToken
-                });
-            }
-            else
-            {
-                var member = dbContext.Member.FirstOrDefault(x => x.AccessToken == accessToken);
-                if (member == null)
-                    return new HttpNotFoundResult();
-
-                PlayGameViewModel model = new PlayGameViewModel()
-                {
-                    PlayerId = member.Id,
-                    TableId = tableId.Value,
-                    GameId = game.Id,
-
-                    GameName = game.Name,
-                    GameToken = game.FileToken,
-                    Culture = CultureHelper.GetCurrentGameCulture(),
-                    ServerUrl = game.ServerUrl,
-                    ServerPort = game.ServerPort,
-                    AccessToken = accessToken,
-                };
-                SetKeepAliveKey(member.Id, game.Id);
-                return View("TexasHoldem_Play", model);
-            }
-            //}
-            //else
-            //{
-            //    UpdateGameClick(game);
-            //    return View("TexasHoldem", game);
-            //}
+                    gameUrl = $"{ConfigHelper.AssetServerUrl}/games/{game.Name}",
+                    gameName = game.Name,
+                    gameCulture = CultureHelper.GetCurrentGameCulture(),
+                    gameFileToken = game.FileToken,
+                    serverUrl = game.ServerUrl,
+                    serverPort = game.ServerPort,
+                    accessToken = info.AccessToken,
+                    tableId = info.TableId
+                }
+            });
         }
 
 
@@ -213,7 +195,7 @@ select * from MemberJoinTable with(nolock) where OwnerId = {playerId} and GameId
 
             UpdateGameClick(game);
             SetKeepAliveKey(User.TakeId(), game.Id);
-            return View(new PlayGameViewModel
+            return View(new GeniusBull.PlayGameViewModel
             {
                 GameName = game.Name,
                 GameToken = game.FileToken,
@@ -226,10 +208,8 @@ select * from MemberJoinTable with(nolock) where OwnerId = {playerId} and GameId
 
         [HttpGet, Authenticate, Route("~/Play/TexasHoldem")]
         public ActionResult TexasHoldem() => GameTables(Game_TEXASHOLDEMVIDEO());
-
         [HttpGet, Authenticate, Route("~/Play/DouDizhu")]
         public ActionResult DouDizhu() => GameTables(Game_DOUDIZHUVIDEO());
-
         [HttpGet, Authenticate, Route("~/Play/TaiwanMahjong")]
         public ActionResult TaiwanMahjong() => GameTables(Game_TWMAHJONGVIDEO());
 
@@ -278,27 +258,5 @@ select * from MemberJoinTable with(nolock) where OwnerId = {playerId} and GameId
 
             return keepAliveKey;
         }
-    }
-}
-namespace IG.Lobby.TG.Models
-{
-    public class MemberJoinTable
-    {
-        [DbImport]
-        public int PlayerId;
-        [DbImport]
-        public int GameId;
-        [DbImport]
-        public int OwnerId;
-        [DbImport]
-        public int TableId;
-        [DbImport]
-        public StateCode State;
-        [DbImport]
-        public DateTime JoinTime;
-
-        public string AccessToken;
-
-        public enum StateCode : byte { None = 0, Busy = 1 }
     }
 }

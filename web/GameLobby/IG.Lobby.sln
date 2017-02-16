@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG.Lobby.TG", "IG.Lobby.TG\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG.Lobby.VA", "IG.Lobby.VA\IG.Lobby.VA.csproj", "{22C72EF4-AD33-4BA5-8FA4-548891E6D64E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeniusBull", "..\..\..\gms\GeniusBull\GeniusBull\GeniusBull\GeniusBull.csproj", "{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,12 @@ Global
 		{22C72EF4-AD33-4BA5-8FA4-548891E6D64E}.Product|Any CPU.Build.0 = Product|Any CPU
 		{22C72EF4-AD33-4BA5-8FA4-548891E6D64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22C72EF4-AD33-4BA5-8FA4-548891E6D64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}.Product|Any CPU.ActiveCfg = Release|Any CPU
+		{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}.Product|Any CPU.Build.0 = Release|Any CPU
+		{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

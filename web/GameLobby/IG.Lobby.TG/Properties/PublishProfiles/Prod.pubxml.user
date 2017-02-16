@@ -405,6 +405,12 @@
     <File Include="bin/EntityFramework.SqlServer.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
+    <File Include="bin/GeniusBull.dll">
+      <publishTime>02/16/2017 11:56:46</publishTime>
+    </File>
+    <File Include="bin/GeniusBull.pdb">
+      <publishTime>02/16/2017 11:56:46</publishTime>
+    </File>
     <File Include="bin/IG.Dal.dll">
       <publishTime>02/13/2017 05:32:32</publishTime>
     </File>
@@ -412,7 +418,7 @@
       <publishTime>02/13/2017 05:32:32</publishTime>
     </File>
     <File Include="bin/IG.Lobby.TG.dll">
-      <publishTime>02/13/2017 05:43:58</publishTime>
+      <publishTime>02/16/2017 11:56:47</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>07/14/2016 02:35:18</publishTime>
@@ -463,16 +469,16 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>01/26/2017 15:26:10</publishTime>
+      <publishTime>02/10/2017 02:55:50</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/zh-CN/IG.Lobby.TG.resources.dll">
-      <publishTime>02/13/2017 05:43:58</publishTime>
+      <publishTime>02/16/2017 11:56:47</publishTime>
     </File>
     <File Include="bin/zh-TW/IG.Lobby.TG.resources.dll">
-      <publishTime>02/13/2017 05:43:58</publishTime>
+      <publishTime>02/16/2017 11:56:47</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/08/2016 18:27:08</publishTime>
@@ -481,7 +487,7 @@
       <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>01/26/2017 15:26:44</publishTime>
+      <publishTime>02/16/2017 08:36:08</publishTime>
     </File>
     <File Include="robots.txt">
       <publishTime>11/07/2016 16:21:50</publishTime>
@@ -490,10 +496,10 @@
       <publishTime>11/08/2016 14:49:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/24/2017 23:33:19</publishTime>
+      <publishTime>02/14/2017 14:29:37</publishTime>
     </File>
     <File Include="Views/Play/DouDizhu.cshtml">
-      <publishTime>12/27/2016 11:49:40</publishTime>
+      <publishTime>02/16/2017 08:46:25</publishTime>
     </File>
     <File Include="Views/Play/DouDizhu_Play.cshtml">
       <publishTime>01/20/2017 04:28:41</publishTime>
@@ -505,7 +511,7 @@
       <publishTime>12/27/2016 11:38:50</publishTime>
     </File>
     <File Include="Views/Play/TaiwanMahjong.cshtml">
-      <publishTime>12/27/2016 11:49:46</publishTime>
+      <publishTime>02/16/2017 08:46:36</publishTime>
     </File>
     <File Include="Views/Play/TaiwanMahjong_Play.cshtml">
       <publishTime>01/20/2017 04:40:28</publishTime>
@@ -514,7 +520,7 @@
       <publishTime>01/20/2017 04:39:04</publishTime>
     </File>
     <File Include="Views/Play/TexasHoldem.cshtml">
-      <publishTime>01/04/2017 15:21:06</publishTime>
+      <publishTime>02/16/2017 10:28:53</publishTime>
     </File>
     <File Include="Views/Play/TexasHoldem_Play.cshtml">
       <publishTime>01/25/2017 15:05:30</publishTime>
@@ -559,7 +565,7 @@
       <publishTime>11/07/2016 16:08:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/26/2017 15:55:29</publishTime>
+      <publishTime>02/16/2017 11:56:47</publishTime>
     </File>
   </ItemGroup>
 </Project>

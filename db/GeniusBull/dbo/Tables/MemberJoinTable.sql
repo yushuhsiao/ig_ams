@@ -5,9 +5,11 @@
     [TableId]    INT      NOT NULL,
     [State]      TINYINT  NOT NULL,
     [JoinTime]   DATETIME CONSTRAINT [DF_MemberJoinTable_JoinTime] DEFAULT (getdate()) NOT NULL,
-    [JoinExpire] DATETIME CONSTRAINT [DF_MemberJoinTable_JoinExpire] DEFAULT (dateadd(minute,(10),getdate())) NOT NULL,
+    [JoinExpire] DATETIME CONSTRAINT [DF_MemberJoinTable_JoinExpire] DEFAULT (dateadd(minute,(1),getdate())) NOT NULL,
     CONSTRAINT [PK_MemberJoinTable_1] PRIMARY KEY CLUSTERED ([PlayerId] ASC, [GameId] ASC)
 );
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿@model IG.Lobby.TG.Models.PlayGameViewModel
+﻿@model GeniusBull.PlayGameViewModel
 
 @{
     Layout = null;
@@ -84,6 +84,7 @@
                 function startGame_error() {
                     alertify.notify("德州撲克遊戲多桌限制為六桌，您已達此限制，請待目前加入的牌桌結束遊戲後，再重新操作，謝謝", 'error', 10);
                 }
+
                 $scope.startGame = function (tableId) {
                     if (!isFlashPlayerInstalled()) {
                         window.location = 'https://get.adobe.com/tw/flashplayer';
@@ -98,22 +99,9 @@
                             //console.log('successCallback', response);
                             if (response.data.success === true && response.data.flashvars != null) {
                                 var swfUrl = '@String.Format("{0}/games/{1}/Main.swf?v={2}", ConfigHelper.AssetServerUrl, Model.GameName, Model.GameToken)';
-                                @*var flashvars = {
-                                    gameUrl: '@String.Format("{0}/games/{1}", ConfigHelper.AssetServerUrl, Model.GameName)',
-                                    gameName: '@Model.GameName',
-                                    gameCulture: '@Model.Culture',
-                                    gameFileToken: '@Model.GameToken',
-                                    serverUrl: '@Model.ServerUrl',
-                                    serverPort: '@Model.ServerPort',
-                                    accessToken: '@Model.AccessToken',
-                                    rtmpUrl: '@ConfigHelper.RtmpServerUrl',
-                                    recognitionUrl: '@ConfigHelper.RecognitionApiUrl',
-                                    tableId: tableId
-                                };*@
                                 $('#lobby').remove();
                                 embedSwf(swfUrl, response.data.flashvars, 'game', '100%', '100%');
                                 return;
-                                //openGameWindow('@Url.Action("TexasHoldem_JoinGroup", "Play")', tableId, response.data.accessToken);
                             }
                             startGame_error();
                         }, function errorCallback(response) {

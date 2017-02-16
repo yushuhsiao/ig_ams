@@ -164,7 +164,6 @@
     <Build Include="dbo\Stored Procedures\sp_AddBlackList.sql" />
     <Build Include="dbo\Functions\Cash_Check.sql" />
     <Build Include="dbo\Stored Procedures\sp_PlayerEnterGame.sql" />
-    <Build Include="dbo\Stored Procedures\sp_MemberJoinTable.sql" />
     <Build Include="dbo\Stored Procedures\sp_MemberAvatar_Add.sql" />
   </ItemGroup>
 </Project>

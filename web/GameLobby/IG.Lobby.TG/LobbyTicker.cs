@@ -23,9 +23,11 @@ namespace IG.Lobby.TG
         public static LobbyTicker Instance { get { return instance; } }
         public IEnumerable<ApiTexasHoldemTable> TexasHoldemTables { get { return texasHoldemTables; } }
         public IEnumerable<ApiDouDizhuTable> DouDizhuTables { get { return douDizhuTables; } }
+        public GeniusBull.gsTexasHoldem gsTexasHoldem;
 
         private LobbyTicker()
         {
+            gsTexasHoldem = new GeniusBull.gsTexasHoldem(ConfigHelper.TexasHoldemGsApiUrl);
             texasHoldemApiService = new GsTexasHoldemApiService(ConfigHelper.TexasHoldemGsApiUrl);
             douDizhuApiService = new GsDouDizhuApiService(ConfigHelper.DouDizhuGsApiUrl);
 
@@ -50,6 +52,8 @@ namespace IG.Lobby.TG
 
         private void PushTexasHoldemLobby(Object source, ElapsedEventArgs e)
         {
+            //gsTexasHoldem.onlinePlayers();
+
             List<ApiTexasHoldemTable> list1 = new List<ApiTexasHoldemTable>(GetTexasHoldemTables());
 
             lock (prev_list)
