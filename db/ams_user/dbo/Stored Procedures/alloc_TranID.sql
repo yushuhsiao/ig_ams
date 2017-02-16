@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[alloc_TranID] (@prefix varchar(3)='_', @group int = 1, @sn varchar(16) output, @ID uniqueidentifier output, @len int = 16, @retry int = 100)
+﻿CREATE PROCEDURE [dbo].[alloc_TranID] (@prefix varchar(10)='_', @group int = 1, @sn varchar(16) output, @ID uniqueidentifier output, @len int = 16, @retry int = 100)
 AS
 BEGIN
 	declare @SN2 int
