@@ -43,5 +43,8 @@ namespace IG.Lobby.TG.Helpers
 
         private static string douDizhuGroupName = "DOU_DIZHU_LOBBY";
         public static string DouDizhuGroupName { get { return douDizhuGroupName; } }
+
+        private static string twMahjongGroupName = "TAIWAN_MAHJONG_LOBBY";
+        public static string TwMahjongGroupName { get { return twMahjongGroupName; } }
     }
 }

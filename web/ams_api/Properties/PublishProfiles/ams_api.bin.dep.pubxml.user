@@ -6,7 +6,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\ig\ams.bin\ams_api</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\ig\release\ams_api</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/web.config">

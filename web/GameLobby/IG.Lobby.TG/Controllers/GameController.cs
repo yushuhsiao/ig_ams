@@ -14,98 +14,14 @@ using System.Web.Mvc;
 
 namespace IG.Lobby.TG.Controllers
 {
-    public class PlayController : BaseController
+    public class GameController : BaseController
     {
         private IGEntities dbContext;
 
-        public PlayController()
+        public GameController()
         {
             dbContext = new IGEntities();
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (dbContext != null)
-                {
-                    dbContext.Dispose();
-                }
-            }
-
-            base.Dispose(disposing);
-        }
-
-
-
-
-        //MemberJoinTable alloc_avatar(Game game, bool useGroupID, int tableId)
-        //{
-        //    int playerId = User.TakeId();
-        //    int gameId = game.Id;
-        //    string accessToken;
-        //    using (SqlCmd sqlcmd = MvcApplication.GetSqlCmd())
-        //    {
-        //        for (int i = 1; i <= MvcApplication.MaxAvatarCount; i++)
-        //        {
-        //            if (useGroupID)
-        //                accessToken = $"{playerId}|{Guid.NewGuid().ToString("N")}";
-        //            else
-        //                accessToken = $"{Guid.NewGuid().ToString("N")}";
-        //            string sqlstr = $"exec dbo.sp_GetMemberAvatar @PlayerId = {playerId}, @GameId = {gameId}, @TableId = {tableId}, @Account = '{User.TakeAccount()}_{i}', @AccessToken = '{accessToken}', @MaxCount = {MvcApplication.MaxAvatarCount}";
-        //            try
-        //            {
-        //                foreach (Action commit in sqlcmd.BeginTran())
-        //                {
-        //                    MemberJoinTable info = sqlcmd.ToObject<MemberJoinTable>(sqlstr);
-        //                    if (info != null)
-        //                    {
-        //                        info.AccessToken = accessToken;
-        //                        commit();
-        //                        return info;
-        //                    }
-        //                }
-        //            }
-        //            catch (SqlException ex) when (ex.Class == 14 && ex.Number == 2601) { }
-        //        }
-        //    }
-        //    return null;
-        //}
-
-        //ActionResult playGame(Game game, bool useGroupID, int tableId, string viewName, bool use_avatar)
-        //{
-        //    var model = new GeniusBull.PlayGameViewModel()
-        //    {
-        //        PlayerId = User.TakeId(),
-        //        GameId = game.Id,
-        //        TableId = tableId,
-
-        //        GameName = game.Name,
-        //        GameToken = game.FileToken,
-        //        Culture = CultureHelper.GetCurrentGameCulture(),
-        //        ServerUrl = game.ServerUrl,
-        //        ServerPort = game.ServerPort,
-        //    };
-        //    //if (use_avatar)
-        //    //{
-        //    //    MemberJoinTable info = alloc_avatar(game, useGroupID, tableId);
-        //    //    if (info != null)
-        //    //    {
-        //    //        model.AccessToken = info.AccessToken;
-        //    //        SetKeepAliveKey(info.PlayerId, game.Id);
-        //    //        return View(viewName, model);
-        //    //    }
-        //    //    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-        //    //}
-        //    //else
-        //    //{
-        //    SetKeepAliveKey(model.PlayerId, game.Id);
-        //    model.AccessToken = User.TakeAccessToken();
-        //    return View(viewName, model);
-        //    //}
-        //}
-
-
 
         async Task<GeniusBull.MemberJoinTable> alloc_avatar(Game game, bool useGroupID, int tableId)
         {
@@ -159,13 +75,13 @@ select * from dbo.MemberJoinTable with(nolock) where PlayerId = {member_a.Id} an
             return null;
         }
 
-        [HttpPost, Authenticate, Route("~/Play/TexasHoldem")]
+        [HttpPost, Authenticate, Route("~/Game/TexasHoldem")]
         public async Task<ActionResult> TexasHoldem_JoinGroup(int? tableId)
         {
             var game = dbContext.Game_TEXASHOLDEMVIDEO();
             if (game == null)
                 return new HttpNotFoundResult();
-          
+
             GeniusBull.MemberJoinTable info = await alloc_avatar(game, MvcApplication.TexasHoldem_UseGroupID, tableId.Value);
             if (info == null) return Json(new { success = false });
             return Json(new
@@ -206,11 +122,11 @@ select * from dbo.MemberJoinTable with(nolock) where PlayerId = {member_a.Id} an
             });
         }
 
-        [HttpGet, Authenticate, Route("~/Play/TexasHoldem")]
+        [HttpGet, Authenticate, Route("~/Game/TexasHoldem")]
         public ActionResult TexasHoldem() => GameTables(dbContext.Game_TEXASHOLDEMVIDEO());
-        [HttpGet, Authenticate, Route("~/Play/DouDizhu")]
+        [HttpGet, Authenticate, Route("~/Game/DouDizhu")]
         public ActionResult DouDizhu() => GameTables(dbContext.Game_DOUDIZHUVIDEO());
-        [HttpGet, Authenticate, Route("~/Play/TaiwanMahjong")]
+        [HttpGet, Authenticate, Route("~/Game/TaiwanMahjong")]
         public ActionResult TaiwanMahjong() => GameTables(dbContext.Game_TWMAHJONGVIDEO());
 
 

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG.Lobby.TG", "IG.Lobby.TG\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IG.Lobby.VA", "IG.Lobby.VA\IG.Lobby.VA.csproj", "{22C72EF4-AD33-4BA5-8FA4-548891E6D64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeniusBull", "..\..\..\gms\GeniusBull\GeniusBull\GeniusBull\GeniusBull.csproj", "{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeniusBull", "..\..\..\gms\GeniusBull\GeniusBull\GeniusBull.csproj", "{0674A6BC-6A2F-4FCD-9F16-93CCCDFA2E47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
