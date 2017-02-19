@@ -25,7 +25,6 @@ namespace Tools
 
         public TimeCounter(bool reset = true)
         {
-            this.Enabled = true;
             if (reset) this.Reset();
         }
 
@@ -50,7 +49,7 @@ namespace Tools
 
         public IEnumerable<TimeCounter> Timeout(double milliseconds, bool reset = true)
         {
-            if (Enabled && IsTimeout(milliseconds))
+            if (IsTimeout(milliseconds))
             {
                 if (Interlocked.CompareExchange(ref this.busy, this, null) == null)
                 {
@@ -59,18 +58,6 @@ namespace Tools
                     finally { Interlocked.Exchange(ref this.busy, null); }
                 }
             }
-        }
-
-        object enabled;
-
-        public bool Enabled
-        {
-            get
-            {
-                try { return (bool)Interlocked.CompareExchange(ref this.enabled, null, null); }
-                catch { Interlocked.Exchange(ref this.enabled, true); return true; }
-            }
-            set { Interlocked.Exchange(ref this.enabled, value); }
         }
 
         object busy;
