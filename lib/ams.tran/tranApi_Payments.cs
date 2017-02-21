@@ -29,6 +29,8 @@ namespace ams.tran2
             public string ResultUrl;
             [DbImport, Sortable]
             public string NotifyUrl;
+            [DbImport]
+            public ResultType? ResultType;
             [JsonProperty]
             public ForwardGameArguments ForwardData { get; set; }
             [DbImport, Sortable, JsonProperty]
@@ -51,6 +53,8 @@ namespace ams.tran2
         [JsonProperty]
         public string ResultUrl;
         [JsonProperty]
+        public ResultType? ResultType;
+        [JsonProperty]
         public string OrderInfo;
         public string SerialNumber;
 
@@ -69,6 +73,7 @@ namespace ams.tran2
             ModelState.Validate(nameof(PaymentName), PaymentName, allow_null: PaymentType.HasValue);
             ModelState.Validate(nameof(NotifyUrl), NotifyUrl, allow_null: true);
             ModelState.Validate(nameof(ResultUrl), ResultUrl, allow_null: true);
+            ModelState.Validate(nameof(ResultType), ResultType, allow_null: true);
         }
         protected override void add_Create(SqlBuilder sql)
         {
@@ -80,6 +85,7 @@ namespace ams.tran2
             base.add_Create(sql);
             sql["n", nameof(Data.NotifyUrl)] = NotifyUrl;
             sql["n", nameof(Data.ResultUrl)] = ResultUrl;
+            sql[" ", nameof(Data.ResultType)] = ResultType;
             sql["n", nameof(Data.PaymentAccount)] = paymentInfo.ID;
             this.paymentInfo.tranApi_CreateData(this, sql);
         }
@@ -116,6 +122,12 @@ namespace ams.tran2
             result = this.data;
             return true;
         }
+    }
+
+    public enum ResultType : int
+    {
+        FormPost = 1,
+        Redirect = 2
     }
 }
 //namespace ams.Controllers

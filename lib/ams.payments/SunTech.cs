@@ -114,7 +114,7 @@ namespace SunTech
         /// <remarks>交易檢查碼組合順序，並使用「SHA-1 雜湊函數」取得組合字串的雜湊值(轉大寫)。</remarks>
         public string ChkValue //{ get; set; }
         {
-            get { return $"{web}{Password}{MN}".SHA1Hex(Encoding.ASCII); }
+            get { return $"{web}{Password}{MN}".SHA1Hex(Encoding.UTF8).ToUpper(); }
         }
         [JsonIgnore]
         public string Password;
@@ -179,7 +179,7 @@ namespace SunTech
 
         public string ChkValue_Local
         {
-            get { return $"{web}{Password}{buysafeno}{MN}{errcode}".SHA1Hex(Encoding.ASCII); }
+            get { return $"{web}{Password}{buysafeno}{MN}{errcode}".SHA1Hex(Encoding.UTF8).ToUpper(); }
         }
 
         [JsonIgnore]
@@ -206,7 +206,7 @@ namespace SunTech
     //    const string Url1 = "https://www.esafe.com.tw/Service/Etopm.aspx";
     //    const string Url2 = "https://test.esafe.com.tw/Service/Etopm.aspx";
     //    public const string Url = Url2;
-    //    public static string 交易密碼 = "88888888";
+    //    public static string 交易密碼 = "ig168ig168";
 
     //    public static string ChkValue(string web, int MN)
     //    {

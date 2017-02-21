@@ -337,8 +337,9 @@ namespace ams
         /// <param name="amount">存款金額</param>
         /// <param name="NotifyUrl">處理網址</param>
         /// <param name="ResultUrl">回傳網址</param>
+        /// <param name="ResultType">回傳方式 (FormPost, Redirect)</param>
         // * 參數順序依照作用排列, 請勿隨意更改 PaymentType, PaymentName, ResultUrl, NotifyUrl 改用具名引數
-        public ForwardGameResult SubmitPayment(string UserName, decimal amount, string PaymentType = null, string PaymentName = null, string ResultUrl = null, string NotifyUrl = null, string requestIP = null, Action<ErrorMessage> onError = null)
+        public ForwardGameResult SubmitPayment(string UserName, decimal amount, string PaymentType = null, string PaymentName = null, string ResultUrl = null, string NotifyUrl = null, string requestIP = null, string ResultType = null, Action<ErrorMessage> onError = null)
         {
             HttpContext context = HttpContext.Current;
             try { requestIP = requestIP ?? context?.Request.UserHostAddress; }

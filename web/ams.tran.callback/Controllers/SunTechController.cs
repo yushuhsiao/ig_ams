@@ -72,14 +72,22 @@ namespace ams
                         {
                             if (string.IsNullOrEmpty(data.NotifyUrl))
                                 return View();
-                            Global.PostHttpRequest(data.NotifyUrl, "");
+                            Global.PostHttpRequest(data.NotifyUrl, "TranID=" + data.TranID + "&SerialNumber=" + data.SerialNumber + "&UserName=" + data.UserName + "&RequestTime=" + data.RequestTime + "&Amount1=" + data.Amount1 + "&Success=" + data.Finished );
                         }
                     }
                     else if (msg.SendType == SendType.網頁傳送)
                     {
                         ams.tran2.MemberPaymentApiController.Data data;
                         if (new ams.tran2.MemberPaymentApiController().try_proc_in(out data, pp, null, msg.Td, success, null))
-                            return View("Result", data);
+                        {
+                            if (data.ResultType == tran2.ResultType.FormPost)
+                                return View("Result", data);
+                            else if (data.ResultType == tran2.ResultType.Redirect)
+                            {
+                                string redirect = Server.UrlEncode("?TranID=" + data.TranID + "&SerialNumber=" + data.SerialNumber + "&UserName=" + data.UserName + "&RequestTime=" + data.RequestTime + "&Amount1=" + data.Amount1 + "&Success=" + data.Finished );  // TODO : convert data to query string
+                                Response.Redirect($"{data.ResultUrl}{redirect}");
+                            }
+                        }
                     }
                 }
             }
