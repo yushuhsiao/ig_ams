@@ -5,6 +5,7 @@ using Owin;
 using System.Web.Http;
 using ams;
 using System.Web;
+using System.Net.Http.Formatting;
 
 [assembly: OwinStartup(typeof(payment_sample.Startup))]
 
@@ -37,21 +38,21 @@ namespace payment_sample
                 HttpContext.Current.Request.Form["name"],
                 HttpContext.Current.Request.Form["mn"].ToInt32() ?? 0,
                 PaymentType,
-                null, //"http://10.10.10.86:7001/payment_sample/Notify",
-                "http://ams.betis73168.com:7001/payment_sample/" + ResultUrl);
+                "http://10.10.10.250:7001/payment_sample/Notify",
+                "http://ams.betis73168.com:7001/payment_sample/" + ResultUrl,
+                HttpContext.Current.Request.Form["ResultType"]);
         }
 
-        public static ForwardGameResult submit(string name, int mn, string PaymentType, string NotifyUrl, string ResultUrl)
+        public static ForwardGameResult submit(string name, int mn, string PaymentType, string NotifyUrl, string ResultUrl, string ResultType)
         {
-            ErrorMessage msg = null;
-            return api.SubmitPayment(name, mn, PaymentType: PaymentType, NotifyUrl: NotifyUrl, ResultUrl: ResultUrl, onError: (_msg) => msg = _msg);
+            ErrorMessage msg = null; return api.SubmitPayment(name, mn, PaymentType: PaymentType, NotifyUrl: NotifyUrl, ResultUrl: ResultUrl, ResultType: ResultType, onError: (_msg) => msg = _msg);
         }
     }
 
     public class NotifyApiController : ApiController
     {
         [Route("~/Notify")]
-        public void Notify()
+        public void Notify(FormDataCollection form)
         {
         }
     }

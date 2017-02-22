@@ -352,11 +352,22 @@ namespace ams
                 PaymentName = PaymentName,
                 ResultUrl = ResultUrl,
                 NotifyUrl = NotifyUrl,
+                ResultType = ResultType,
                 RequestIP = requestIP,
             }, onError);
             if (n != null)
                 return n.ForwardData;
             return null;
+        }
+
+        /// <summary>第三方支付領取</summary>
+        public object AcceptPayment(string tranID, string RequestIP = null, Action<ErrorMessage> onError = null)
+        {
+            return this.invoke<TranResult>("~/Users/Member/Payment/accept2x", new
+            {
+                TranID = tranID,
+                RequestIP = RequestIP,
+            }, onError);
         }
         #endregion
         #region 送出申訴

@@ -19,7 +19,9 @@ namespace System.Web
 				q.Append(System.Net.WebUtility.HtmlEncode(key));
 				q.Append('=');
 				q.Append(System.Net.WebUtility.HtmlEncode(src[key]));
-			}
+                delimiter = "&";
+
+            }
 			return q.ToString();
 		}
 	}

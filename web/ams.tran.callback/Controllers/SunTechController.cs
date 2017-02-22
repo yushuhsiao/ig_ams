@@ -2,10 +2,14 @@
 using ams.Data;
 using Newtonsoft.Json;
 using SunTech;
+using System;
+using System.Text;
 using System.Web;
 
 namespace ams
 {
+    using System.Collections.Specialized;
+    using System.Net;
     using System.Web.Mvc;
     public class SunTechController : Controller
     {
@@ -47,6 +51,34 @@ namespace ams
         //    }
         //    return View("Result");
         //}
+
+        NameValueCollection build_form(NameValueCollection form, tran2.MemberPaymentApiController.Data data, bool success)
+        {
+            NameValueCollection result = new NameValueCollection();
+            foreach (var key in form.AllKeys)
+            {
+                if (string.Compare(key, "web", true) == 0) { continue; }
+                if (string.Compare(key, "ChkValue", true) == 0) { continue; }
+                string value = form[key].Trim(true);
+                if (value == null) { continue; }
+                result.Add(key, value);
+            }
+            if (data == null)
+            {
+                result["Success"] = false.ToString().ToLower();
+            }
+            else
+            {
+                result["TranID"] = data.TranID.ToString();
+                result["SerialNumber"] = data.SerialNumber;
+                result["UserName"] = data.UserName;
+                result["RequestTime"] = string.Concat(data.RequestTime.ToUniversalTime().ToString("s"), "Z");
+                result["Amount1"] = data.Amount1.ToString();
+                result["Success"] = success.ToString().ToLower();
+            }
+            return result;
+        }
+
         private ActionResult _Result<TPaymentInfo, TResponse>(TResponse msg)
             where TPaymentInfo : PaymentInfo_SunTech
             where TResponse : SunTechResponse
@@ -70,9 +102,11 @@ namespace ams
                             data2 = context.ReadFormBody(),
                         }))
                         {
-                            if (string.IsNullOrEmpty(data.NotifyUrl))
-                                return View();
-                            Global.PostHttpRequest(data.NotifyUrl, "TranID=" + data.TranID + "&SerialNumber=" + data.SerialNumber + "&UserName=" + data.UserName + "&RequestTime=" + data.RequestTime + "&Amount1=" + data.Amount1 + "&Success=" + data.Finished );
+                            data.FormData = build_form(Request.Form, data, success);
+                            if (!string.IsNullOrEmpty(data.NotifyUrl))
+                                //return View(data);
+                                Global.PostHttpRequest(data.NotifyUrl, data.FormData.ToQueryString());
+                            return new HttpStatusCodeResult(HttpStatusCode.OK);
                         }
                     }
                     else if (msg.SendType == SendType.網頁傳送)
@@ -80,18 +114,18 @@ namespace ams
                         ams.tran2.MemberPaymentApiController.Data data;
                         if (new ams.tran2.MemberPaymentApiController().try_proc_in(out data, pp, null, msg.Td, success, null))
                         {
-                            if (data.ResultType == tran2.ResultType.FormPost)
+                            data.FormData = build_form(Request.Form, data, success);
+                            var resultType = data.ResultType ?? tran2.ResultType.FormPost;
+                            if (resultType == tran2.ResultType.FormPost)
                                 return View("Result", data);
-                            else if (data.ResultType == tran2.ResultType.Redirect)
-                            {
-                                string redirect = Server.UrlEncode("?TranID=" + data.TranID + "&SerialNumber=" + data.SerialNumber + "&UserName=" + data.UserName + "&RequestTime=" + data.RequestTime + "&Amount1=" + data.Amount1 + "&Success=" + data.Finished );  // TODO : convert data to query string
-                                Response.Redirect($"{data.ResultUrl}{redirect}");
-                            }
+                            else if (resultType == tran2.ResultType.Redirect)
+                                return Redirect($"{data.ResultUrl}?{data.FormData.ToQueryString()}");
                         }
                     }
                 }
             }
-            return View("Result");
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            //return View("Result");
         }
 
         /// <summary>

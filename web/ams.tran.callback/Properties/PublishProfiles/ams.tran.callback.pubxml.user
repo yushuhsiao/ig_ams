@@ -6,26 +6,29 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\ig\ams.bin\ams.tran.callback</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\ig\release\ams.tran.callback</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/ams.core.dll">
-      <publishTime>09/05/2016 13:54:40</publishTime>
+      <publishTime>02/22/2017 02:09:37</publishTime>
     </File>
     <File Include="bin/ams.payments.dll">
-      <publishTime>09/05/2016 13:54:40</publishTime>
+      <publishTime>02/22/2017 02:09:39</publishTime>
     </File>
     <File Include="bin/ams.tran.callback.dll">
-      <publishTime>09/05/2016 14:19:06</publishTime>
+      <publishTime>02/22/2017 02:10:46</publishTime>
     </File>
     <File Include="bin/ams.tran.dll">
-      <publishTime>09/05/2016 13:54:40</publishTime>
+      <publishTime>02/22/2017 02:09:38</publishTime>
+    </File>
+    <File Include="bin/ams.tran.XmlSerializers.dll">
+      <publishTime>02/22/2017 02:09:39</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>09/05/2016 13:54:39</publishTime>
+      <publishTime>02/22/2017 02:09:37</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
-      <publishTime>08/20/2015 08:08:40</publishTime>
+      <publishTime>12/13/2016 03:10:32</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.dll">
       <publishTime>02/13/2015 13:16:30</publishTime>
@@ -123,6 +126,9 @@
     <File Include="bin/StackExchange.Redis.dll">
       <publishTime>05/16/2016 10:20:22</publishTime>
     </File>
+    <File Include="bin/StackExchange.Redis.StrongName.dll">
+      <publishTime>01/11/2017 10:36:24</publishTime>
+    </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>01/28/2015 04:02:42</publishTime>
     </File>
@@ -154,7 +160,7 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>09/05/2016 13:54:39</publishTime>
+      <publishTime>02/22/2017 01:08:10</publishTime>
     </File>
     <File Include="Content/bootstrap-theme.css">
       <publishTime>08/31/2016 12:35:24</publishTime>
@@ -199,7 +205,7 @@
       <publishTime>09/01/2016 12:34:45</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>09/05/2016 14:18:39</publishTime>
+      <publishTime>02/22/2017 01:10:49</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>08/31/2016 12:35:24</publishTime>
@@ -217,13 +223,13 @@
       <publishTime>08/31/2016 12:35:24</publishTime>
     </File>
     <File Include="Views/SunTech/Result.cshtml">
-      <publishTime>09/04/2016 05:43:49</publishTime>
+      <publishTime>02/22/2017 01:29:51</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/01/2016 13:42:10</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/05/2016 14:19:06</publishTime>
+      <publishTime>02/22/2017 02:10:46</publishTime>
     </File>
   </ItemGroup>
 </Project>

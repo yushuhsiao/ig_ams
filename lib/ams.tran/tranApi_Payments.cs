@@ -3,6 +3,7 @@ using ams.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Web.Http;
 //using tran2P = ams.tran.tran2<ams.Data.MemberData, ams.Data.PaymentTranData, ams.Data.PaymentTranArguments>;
@@ -37,6 +38,7 @@ namespace ams.tran2
             public Guid? CertID;
 
             public TranCert Cert;
+            public NameValueCollection FormData;
         }
 
         public MemberPaymentApiController() : base(true, 0, LogType.PaymentAPI) { }
@@ -90,6 +92,21 @@ namespace ams.tran2
             this.paymentInfo.tranApi_CreateData(this, sql);
         }
 
+        [HttpPost, ActionName("accept2x")]
+        public Data accept2x()
+        {
+            var r1 = this.accept2(_empty.instance);
+            if (r1 != null)
+            {
+                var r2 = new MemberBalanceOutController()
+                {
+                    UserName = r1.UserName,
+                    Amount1 = r1.Amount1,
+                }.addx(_empty.instance);
+            }
+            return r1;
+        }
+
         /// <param name="create_cert">null : GetData only</param>
         [NonAction]
         public bool try_proc_in(out Data result, PaymentInfo paymentInfo, Guid? tranID, string serialNumber, bool success, Func<TranCert> create_cert)
@@ -111,8 +128,10 @@ namespace ams.tran2
                     this.certID = cert.CertID;
                     if (success)
                     {
-                        if (string.IsNullOrEmpty(data.NotifyUrl)) UpdateTranState(data.TranID, certID: cert.CertID);
-                        else { accept1(_empty.instance); accept2(_empty.instance); }
+                        UpdateTranState(data.TranID, certID: cert.CertID);
+                        // 如果有指定 NotifyUrl, Provider 會先扣款, 但 User 暫不入帳
+                        proc(true, string.IsNullOrEmpty(data.NotifyUrl), false);
+                        //else { accept1(_empty.instance); accept2(_empty.instance); }
                     }
                     else delete(_empty.instance);
                     commit();

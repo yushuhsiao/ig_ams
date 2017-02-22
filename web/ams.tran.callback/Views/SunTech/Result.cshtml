@@ -1,32 +1,13 @@
 ﻿@using ams.Data;
+@using ams.tran2;
 @{
     Layout = null;
-    ams.tran2.MemberPaymentApiController.Data data = Model as ams.tran2.MemberPaymentApiController.Data;
+    MemberPaymentApiController.Data data = Model as MemberPaymentApiController.Data;
     string url = data?.ResultUrl;
 }
 <form id="result_form" action="@url" method="post">
-    @foreach (string key in HttpContext.Current.Request.Form.AllKeys)
-    {
-        if (string.Compare(key, "web", true) == 0) { continue; }
-        if (string.Compare(key, "ChkValue", true) == 0) { continue; }
-        string value = HttpContext.Current.Request.Form[key].Trim(true);
-        if (value == null) { continue; }
-        <input type="hidden" name="@key" value="@value" />
-    }
-    @if (data != null)
-    {
-        <input type="hidden" name="TranID" value="@data.TranID" />
-        <input type="hidden" name="SerialNumber" value="@data.SerialNumber" />
-        <input type="hidden" name="UserName" value="@data.UserName" />
-        @*<input type="hidden" name="SerialNumber" value="@data.Cert.CreateTime" />*@
-        <input type="hidden" name="RequestTime" value="@data.RequestTime" />
-        <input type="hidden" name="Amount1" value="@data.Amount1" />
-        <input type="hidden" name="Success" value="@((data.Finished ?? false) ? "true" : "false")" />
-    }
-    else
-    {
-        <input type="hidden" name="Success" value="false" />
-    }
+    @foreach (string key in data.FormData.AllKeys)
+    { <input type="hidden" name="@key" value="@data.FormData[key]" /> }
     @if (!string.IsNullOrEmpty(url))
     { <script type="text/javascript">window.result_form.submit();</script> }
 </form>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InnateGlory._.System.Web.Mvc {
+namespace InnateGlory._corelib.System.Web.Mvc {
     using System;
     using System.Reflection;
     
@@ -38,7 +38,7 @@ namespace InnateGlory._.System.Web.Mvc {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ig.core._.System.Web.Mvc.MvcResources", typeof(MvcResources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ig.core._corelib.System.Web.Mvc.MvcResources", typeof(MvcResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
