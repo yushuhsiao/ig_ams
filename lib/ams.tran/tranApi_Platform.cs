@@ -66,7 +66,7 @@ namespace ams.tran2
                                 platform_balance = tmp;
                         }
                         finally { UpdateTranState(data.TranID, set_busy: false, set_accept: success, platform_balance: platform_balance, err: false); }
-                        data = GetTranData(data.TranID);
+                        data = GetTranData(data.CorpID, data.TranID);
                     }
                     else if (data.Busy.HasValue)
                         throw new _Exception(Status.TranBusy);
@@ -78,7 +78,7 @@ namespace ams.tran2
                         if (UpdateTranState(data.TranID, set_accept: true, require_accept: false, require_finished: false))
                         {
                             if (UpdateBalance(member, -data.Amount1, 0, 0, false, _null.noop))
-                                data = GetTranData(data.TranID);
+                                data = GetTranData(data.CorpID, data.TranID);
                             else throw new _Exception(Status.UserBalanceNotEnough);
                         }
                         commit();
@@ -94,7 +94,7 @@ namespace ams.tran2
                         if (UpdateTranState(data.TranID, set_finished: true, require_accept: true, require_finished: false))
                         {
                             if (UpdateBalance(member, data.Amount1, 0, 0, true, _null.noop))
-                                data = GetTranData(data.TranID);
+                                data = GetTranData(data.CorpID, data.TranID);
                             else throw new _Exception(Status.UserBalanceNotEnough);
                         }
                         commit();
@@ -111,7 +111,7 @@ namespace ams.tran2
                             { platform_balance = tmp; finish = true; }
                         }
                         finally { UpdateTranState(data.TranID, set_busy: false, set_finished: finish, platform_balance: platform_balance, err: false); }
-                        data = GetTranData(data.TranID);
+                        data = GetTranData(data.CorpID, data.TranID);
                     }
                     else if (data.Busy.HasValue)
                         throw new _Exception(Status.TranBusy);
@@ -151,7 +151,7 @@ namespace ams.tran2
                             n1 = UpdateBalance(member, data.Amount1, 0, 0, true, _null.noop);
                         else
                             n1 = UpdateBalance(member, -data.Amount1, 0, 0, false, _null.noop);
-                        if (n1) data = GetTranData(data.TranID);
+                        if (n1) data = GetTranData(data.CorpID, data.TranID);
                         else throw new _Exception(Status.UserBalanceNotEnough);
                     }
                 }

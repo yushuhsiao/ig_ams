@@ -151,7 +151,7 @@ namespace ams.tran2
                                 n1 = UpdateBalance(provider, -(data.Amount1 + data.Amount2), 0, 0, false, _null.noop);
                             else
                                 n1 = UpdateBalance(user, -data.Amount1, -data.Amount2, 0, false, _null.noop);
-                            if (n1) data = GetTranData(data.TranID);
+                            if (n1) data = GetTranData(data.CorpID, data.TranID);
                             else throw new _Exception(Status.ProviderBalanceNotEnough);
                         }
                     }
@@ -163,7 +163,7 @@ namespace ams.tran2
                                 n2 = UpdateBalance(user, data.Amount1, data.Amount2, 0, true, _null.noop);
                             else
                                 n2 = UpdateBalance(provider, data.Amount1 + data.Amount2, 0, 0, true, _null.noop);
-                            if (n2) data = GetTranData(data.TranID);
+                            if (n2) data = GetTranData(data.CorpID, data.TranID);
                             else break;
                         }
                     }

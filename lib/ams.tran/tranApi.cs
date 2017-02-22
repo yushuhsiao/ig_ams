@@ -125,25 +125,28 @@ select * from {TableName1} nolock where TranID=@TranID");
                     ModelState.Validate(nameof(TranID), this.TranID, allow_null: false);
                     this.proc_Validate();
                 });
-                data = GetTranData(this.TranID.Value, err: true);
+                data = GetTranData(this.corp.ID, this.TranID.Value, err: true);
             }
             protected virtual void proc_Validate() { }
 
 
 
             [NonAction]
-            protected TData GetTranData(Guid tranID, bool err = true) => GetTranData(tranID, null, err);
+            protected TData GetTranData(UserID corpID, Guid tranID, bool err = true) => GetTranData(corpID, tranID, null, err);
             [NonAction]
-            public TData GetTranData(Guid? tranID, string serialNumber, bool err = true)
+            public TData GetTranData(UserID? corpID, Guid? tranID, string serialNumber, bool err = true)
             {
-                TData data;
-                if (tranID.HasValue)
-                    data = userDB.ToObject<TData>($"select * from {TableName1} nolock where TranID='{tranID}'");
-                else if (string.IsNullOrEmpty(serialNumber))
-                    data = null;
-                else
-                    data = userDB.ToObject<TData>($"select * from {TableName1} nolock where SerialNumber='{serialNumber}'");
-                if (data != null) return data;
+                if (corpID.HasValue)
+                {
+                    TData data;
+                    if (tranID.HasValue)
+                        data = userDB.ToObject<TData>($"select * from {TableName1} nolock where CorpID={corpID} and TranID='{tranID}'");
+                    else if (string.IsNullOrEmpty(serialNumber))
+                        data = null;
+                    else
+                        data = userDB.ToObject<TData>($"select * from {TableName1} nolock where CorpID={corpID} and SerialNumber='{serialNumber}'");
+                    if (data != null) return data;
+                }
                 if (err) throw new _Exception(Status.TranNotFound);
                 return null;
             }

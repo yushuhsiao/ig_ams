@@ -23,12 +23,12 @@ namespace payment_sample
 
         static api_client api = new api_client()
         {
-            AUTH_SITE = "ig02",
-            AUTH_USER = "test",
-            API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQAz3R5jA4jVU2XZgEtDfxWcEgQkdOTVy1eCTpfE6dPGRZzaQy908l4ZiMB2mPXbdsv7XGMihlGG/x6/yWaeQ0FbeAcetRfHMKIJMTjhaZ01plj8+JFBKg38W6PyqsL/9xWT7zCLXWdvrKhnWZv2ikJkUpcAOUiaxHaKEiUfjWT3ng==",
-            //AUTH_SITE = "ig05",
-            //AUTH_USER = "_acc",
-            //API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQC7EXGp7klm5zCsaJEfHcltz2ZQHHEWNeKVhgtBscW0FITNBZHu1ceVeEnOQJZdxOiTu7c7jmSZD9Ts7TazHeKCiJCrZPkvZ/iqNOzkIOXrRnMW+aIu860P8LBtvcofXS95Qbi4Cn39A7/Ph7cwc64hRYL5ZNp2YcsOsAn7F8mtzw==",
+            //AUTH_SITE = "ig02",
+            //AUTH_USER = "test",
+            //API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQAz3R5jA4jVU2XZgEtDfxWcEgQkdOTVy1eCTpfE6dPGRZzaQy908l4ZiMB2mPXbdsv7XGMihlGG/x6/yWaeQ0FbeAcetRfHMKIJMTjhaZ01plj8+JFBKg38W6PyqsL/9xWT7zCLXWdvrKhnWZv2ikJkUpcAOUiaxHaKEiUfjWT3ng==",
+            AUTH_SITE = "ig07",
+            AUTH_USER = "_api_user",
+            API_KEY = "BwIAAACkAABSU0EyAAQAAAEAAQArS1TqSr1Te3J5iaSDzERfjyhFfpNrTYkNAmyyQkK7k0spsJ9CWuOKlJM4j9kFWZrqJK9rOsY0GQVOitGgIa5uVeZAGacsL3G8T7jXHN2Xv5tbkUCULwErJImJC7GcYXSSt9KxjLW9Elpe4lOazrnJfJ0X+OoX52tegbjGhN89qVGSsOSYMMdRevo3Ci0oU1wocCA/eeVELNLMRoulX4Zc6WA775nELSq07JPAJt6kAIVwzkF9ZG/toQySk2dNrse7Sq5g71vexlcbjCl1dhU70uQDF+gCM6q9u9lcC/x+OiPWRWVsbbAq09dZwB4e97LHoUnqDqNTgexyWvziv/nYcaOrPbp3uKyIo8HmRIvk8ltB7GDiaSHOJyxbxGOOumIg75A4xE/uJGFomuIwTipvxZgSk+ND2r0oShG18i79uI9YhTs6VU/ySY3KFKxyE2qimAIea1GmmEfXMsZCAGXMEU/mXoqhSiyota3gVo/vVniwcRjhANFgeV74Tq1fHTHAHWZjAtXV2BtQJrF6q0toUa0QbkInGUOyrCYsA1GeNqu2orGAa9TAe/AOTgqn68YaU+nHdPPmgP00136UswWR0XZb0xoTrA3/SVfE+t4+jiCADqJZST9Q5sKlJqXiQC133LrZQheJZt6oxFiGotniMAfCay8rKtxNA/c/hBntgoVUL6A+/ZrAjwXB6H/+tzalH2ghc+FzgdF4SiGt8GL5T7jDemjp5NuJ2XHTV3JDVUUFfMosVV1BC+xTPCCS5QE=",
             BASE_URL = "http://127.0.0.1:7001",
         };
 

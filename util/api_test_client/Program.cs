@@ -55,7 +55,8 @@ namespace api_test_client
             };
 
             object n = null;
-            n = api.SubmitPayment("aaa568", amount: 1000, PaymentType: "SunTech_WebATM");
+            //n = api.SubmitPayment("aaa568", amount: 1000, PaymentType: "SunTech_WebATM");
+            n = api.AcceptPayment("549F0C90-359C-4587-81B0-53B4391DD886");
             Debugger.Break();
             //n = api.GetWaitUserCount();
             //n = api.CreateMember("test38");

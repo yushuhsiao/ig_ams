@@ -93,7 +93,7 @@ namespace ams.tran2
         }
 
         [HttpPost, ActionName("accept2x")]
-        public Data accept2x()
+        public Data accept2x(_empty _args)
         {
             var r1 = this.accept2(_empty.instance);
             if (r1 != null)
@@ -114,7 +114,7 @@ namespace ams.tran2
             this.paymentInfo = paymentInfo;
             corp = CorpInfo.GetCorpInfo(paymentInfo.CorpID);
             if (corp == null) return _null.noop(false, out result);
-            data = base.GetTranData(tranID: tranID, serialNumber: serialNumber, err: false);
+            data = base.GetTranData(corp.ID, tranID: tranID, serialNumber: serialNumber, err: false);
             if (data == null) return _null.noop(false, out result);
             if (create_cert != null)
             {
@@ -133,7 +133,7 @@ namespace ams.tran2
                         proc(true, string.IsNullOrEmpty(data.NotifyUrl), false);
                         //else { accept1(_empty.instance); accept2(_empty.instance); }
                     }
-                    else delete(_empty.instance);
+                    //else delete(_empty.instance);
                     commit();
                 }
                 data.Cert = cert;

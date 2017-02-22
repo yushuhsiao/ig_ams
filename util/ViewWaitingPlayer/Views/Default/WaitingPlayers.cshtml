@@ -86,7 +86,10 @@
                     <tr ng-repeat="obj in data['w1093']"><td>{{obj.Title}}</td><td>{{obj.waitingPlayers}}</td></tr>
                 </table>
                 <div>
-                    <div ng-repeat="obj in data['p1093']"><div>{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div></div>
+                    <div ng-repeat="obj in data['p1093']">
+                        <div style="width: 55%; display: inline-block;">{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div>
+                        <div style="width: 40%; display: inline-block;">{{obj.LoginIp}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,7 +106,10 @@
                     <tr ng-repeat="obj in data['w1092']"><td>{{obj.Title}}</td><td>{{obj.waitingPlayers}}</td></tr>
                 </table>
                 <div>
-                    <div ng-repeat="obj in data['p1092']"><div>{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div></div>
+                    <div ng-repeat="obj in data['p1092']">
+                        <div style="width: 55%; display: inline-block;">{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div>
+                        <div style="width: 40%; display: inline-block;">{{obj.LoginIp}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,7 +126,10 @@
                     <tr ng-repeat="obj in data['w1091']"><td>{{obj.Title}}</td><td>{{obj.waitingPlayers}}</td></tr>
                 </table>
                 <div>
-                    <div ng-repeat="obj in data['p1091']"><div>{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div></div>
+                    <div ng-repeat="obj in data['p1091']">
+                        <div style="width: 55%; display: inline-block;">{{obj.Nickname}} ({{obj.Account}}, {{obj.Id}})</div>
+                        <div style="width: 40%; display: inline-block;">{{obj.LoginIp}}</div>
+                    </div>
                 </div>
             </div>
         </div>

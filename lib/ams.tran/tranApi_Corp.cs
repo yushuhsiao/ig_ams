@@ -86,7 +86,7 @@ namespace ams.tran2
                             n1 = UpdateBalance(agent, +data.Amount1, +data.Amount2, 0, false, _null.noop);
                         else
                             n1 = UpdateBalance(agent, -data.Amount1, -data.Amount2, 0, false, _null.noop);
-                        if (n1) data = GetTranData(data.TranID);
+                        if (n1) data = GetTranData(data.CorpID, data.TranID);
                     }
                 }
                 if (delete)
