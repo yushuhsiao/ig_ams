@@ -10,22 +10,22 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/ams.core.dll">
-      <publishTime>02/22/2017 02:09:37</publishTime>
+      <publishTime>02/24/2017 13:29:42</publishTime>
     </File>
     <File Include="bin/ams.payments.dll">
-      <publishTime>02/22/2017 02:09:39</publishTime>
+      <publishTime>02/24/2017 13:29:44</publishTime>
     </File>
     <File Include="bin/ams.tran.callback.dll">
-      <publishTime>02/22/2017 02:10:46</publishTime>
+      <publishTime>02/24/2017 13:31:16</publishTime>
     </File>
     <File Include="bin/ams.tran.dll">
-      <publishTime>02/22/2017 02:09:38</publishTime>
+      <publishTime>02/24/2017 13:29:43</publishTime>
     </File>
     <File Include="bin/ams.tran.XmlSerializers.dll">
-      <publishTime>02/22/2017 02:09:39</publishTime>
+      <publishTime>02/24/2017 13:29:44</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>02/22/2017 02:09:37</publishTime>
+      <publishTime>02/24/2017 13:29:42</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>12/13/2016 03:10:32</publishTime>
