@@ -144,6 +144,7 @@ namespace System.Data
         public const string Log = "Sql";
         public const string LogErr = "SqlErr";
 
+        public TimeSpan ExecuteTime { get; private set; }
         bool _writeLog = true;
         internal bool WriteLog
         {
@@ -154,7 +155,7 @@ namespace System.Data
         {
             if (this.WriteLog)
             {
-                TimeSpan time = DateTime.Now - start;
+                TimeSpan time = ExecuteTime = DateTime.Now - start;
                 if (ex == null)
                     log.message(Log, "{2}.{3}\t{0:0.00}ms\t{1}", time.TotalMilliseconds, this.CommandText, this.Connection.DataSource, this.Connection.Database);
                 else
