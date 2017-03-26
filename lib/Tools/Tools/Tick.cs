@@ -6,94 +6,126 @@ using System.Diagnostics;
 
 namespace Tools
 {
-    [DebuggerStepThrough]
+    //[DebuggerStepThrough]
     public static class Tick
     {
         public delegate bool Handler();
 
-        static List<Handler> item1 = new List<Handler>();
-        static List<Handler> item2 = new List<Handler>();
-        static int tick_index;
+        //[DebuggerStepThrough]
+        class TickItem : TimeCounter, IDisposable
+        {
+            Handler _handler;
+            int _maxThread;
+            double _interval;
+            int thread_count;
 
-        static Timer timer = new Timer(tick_proc, null, 1, 1);
+            public TickItem() : base(false) { }
+
+            public int IncrementCount() => Interlocked.Increment(ref thread_count);
+            public int DecrementCount() => Interlocked.Decrement(ref thread_count);
+            public Handler Handler => Interlocked.CompareExchange(ref _handler, null, null);
+            public int MaxThread => Interlocked.CompareExchange(ref _maxThread, 0, 0);
+            public double Interval => Interlocked.CompareExchange(ref _interval, 0, 0);
+            public static bool Alloc(Handler handler, int maxThread, double interval)
+            {
+                if (handler == null)
+                    return false;
+                lock (_items)
+                {
+                    //for (int i = _items.Count - 1; i >= 0; i--)
+                    //    if (object.ReferenceEquals(handler, _items[i].Handler))
+                    //        return false;
+                    TickItem item;
+                    if (_pooling.Count == 0)
+                        item = new TickItem();
+                    else
+                        item = _pooling.Dequeue();
+                    item.Enabled = true;
+                    item.SetTimeout(-1);
+                    Interlocked.Exchange(ref item._interval, interval);
+                    Interlocked.Exchange(ref item._maxThread, maxThread);
+                    Interlocked.Exchange(ref item._handler, handler);
+                    _items.Add(item);
+                }
+                return true;
+            }
+            void IDisposable.Dispose() => Interlocked.Exchange(ref _handler, null);
+
+            public void Invoke()
+            {
+                try { if ((this.Handler ?? _null.noop<bool>)()) return; }
+                catch (Exception ex) { log.message("tick", ex.Message); }
+                using (this) return;
+            }
+        }
+
+        static Queue<TickItem> _pooling = new Queue<TickItem>();
+        static List<TickItem> _items = new List<TickItem>();
+        static int tick_index;
+        static int thread_count;
+
+        static Timer timer1 = new Timer(tick_proc, null, 1, 1);
         static void tick_proc(object state)
         {
-            //for (int i = 0; i < 1; i++)
-            {
-                try
-                {
-                    if (!tick_proc())
-                        return;
-                }
-                finally
-                {
-                    Thread.Sleep(1);
-#if NET40
-                    Thread.SpinWait(1);
-#endif
-                }
-            }
-        }
-        static bool tick_proc()
-        {
-            if (!Monitor.TryEnter(item1))
-                return false;
-            Handler item;
-            bool single_thread;
+            bool locked = false;
+            TickItem item = null;
             try
             {
-                if (item1.Count == 0) return false;
-                int n = Interlocked.Increment(ref tick_index);
-                n &= 0x7fffffff;
-                n %= item1.Count;
-                item = item1[n];
-                single_thread = item2.Contains(item);
+                Interlocked.Increment(ref thread_count);
+                Monitor.TryEnter(_items, ref locked);
+                int cnt1 = _items.Count;
+                if (locked && cnt1 > 0)
+                {
+                    int n = Interlocked.Increment(ref tick_index);
+                    n &= 0x7fffffff;
+                    n %= cnt1;
+                    item = _items[n];
+                    int cnt2 = item.IncrementCount();
+                    if (item.Handler == null)
+                    {
+                        _items.RemoveAt(n);
+                        _pooling.Enqueue(item);
+                    }
+                    else
+                    {
+                        int max = item.MaxThread;
+                        if (max <= 0 || cnt2 <= max)
+                        {
+                            Monitor.Exit(_items);
+                            locked = false;
+                            double interval = item.Interval;
+                            if (interval > 0)
+                                item.Timeout(interval, item.Invoke);
+                            else
+                                item.Invoke();
+                        }
+                    }
+                }
             }
-            finally { Monitor.Exit(item1); }
-            try
+            catch (Exception ex) { log.message("tick", ex.Message); }
+            finally
             {
-                if (single_thread)
-                {
-                    if (Monitor.TryEnter(item))
-                        try { if (item()) return true; }
-                        finally { Monitor.Exit(item); }
-                }
-                else
-                {
-                    if (item()) return true;
-                }
+                item?.DecrementCount();
+                if (locked) Monitor.Exit(_items);
+                Interlocked.Decrement(ref thread_count);
             }
-            catch { }
-            Tick.OnTick -= item;
-            return true;
         }
 
-        public static void Add(Handler handler, bool single_thread)
-        {
-            if (handler == null)
-                return;
-            lock (item1)
-            {
-                if (item1.Contains(handler))
-                    return;
-                item1.Add(handler);
-                if (single_thread)
-                    item2.Add(handler);
-            }
-
-        }
+        public static bool Add(Handler handler, int maxThread = 0, double interval = 0) => TickItem.Alloc(handler, maxThread, interval);
 
         public static event Handler OnTick
         {
-            add { Add(value, false); }
+            add { TickItem.Alloc(value, 0, 0); }
             remove
             {
                 if (value == null)
                     return;
-                lock (item1)
+                lock (_items)
                 {
-                    while (item1.Remove(value)) continue;
-                    while (item2.Remove(value)) continue;
+                    for (int i = _items.Count - 1; i >= 0; i--)
+                        if (object.ReferenceEquals(value, _items[i].Handler))
+                            using (_items[i])
+                                continue;
                 }
             }
         }

@@ -28,6 +28,9 @@ namespace SunTech
         //        }
         //    };
         //}
+        /// <summary>
+        /// 交易基本資料
+        /// </summary>
         public override ForwardGameArguments tranApi_CreateForm(ams.tran2.MemberPaymentApiController controller, ams.tran2.MemberPaymentApiController.Data data)
         {
             return new ForwardGameArguments()

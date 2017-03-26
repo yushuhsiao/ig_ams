@@ -167,6 +167,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="PayNow\CancelInvoice.cshtml" />
+    <Content Include="PayNow\UploadInvoice_Body.cshtml" />
+    <Content Include="PayNow\UploadInvoice.cshtml" />
+    <Content Include="PayNow\_Request.CancelInvoice.cshtml" />
+    <Content Include="PayNow\_Request.CheckInvoice.cshtml" />
+    <Content Include="PayNow\CheckInvoice.cshtml" />
+    <Content Include="PayNow\CheckInvoiceOrder.cshtml" />
+    <Content Include="PayNow\_Request.CheckInvoiceOrder.cshtml" />
+    <None Include="PayNow\_Request.GetInvoiceNumber.cshtml" />
+    <None Include="PayNow\_Request.UploadInvoice_Body.cshtml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Index.cshtml" />
@@ -174,6 +184,8 @@
     <Content Include="SunTech\PayCodeRequest.cshtml" />
     <Content Include="SunTech\WebATMRequest.cshtml" />
     <Content Include="SunTech\24PayRequest.cshtml" />
+    <Content Include="PayNow\GetInvoiceNumber.cshtml" />
+    <Content Include="PayNow\_Request.UploadInvoice.cshtml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -192,12 +204,18 @@
     <Content Include="SunTech\BuySafeResponse.cshtml" />
     <Content Include="SunTech\PayCodeResponse.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\ams.payments\ams.payments.csproj">
+      <Project>{2485adcc-8207-4321-89d4-fd7e97d8618e}</Project>
+      <Name>ams.payments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\lib\api_client\ams_api_client.csproj">
       <Project>{c3dd615b-c0da-4461-ada2-73d89bc658b8}</Project>
       <Name>ams_api_client</Name>

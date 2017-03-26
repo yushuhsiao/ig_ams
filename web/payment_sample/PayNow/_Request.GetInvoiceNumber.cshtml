@@ -1,0 +1,11 @@
+﻿@inherits System.Web.WebPages.WebPage
+@{
+    Layout = null;
+    string invoiceNo = Page.invoiceNo;
+}
+<html>
+<body>
+    <input type="text" name="getInvoiceNumber" value="@invoiceNo" />
+    @RenderBody()
+</body>
+</html>

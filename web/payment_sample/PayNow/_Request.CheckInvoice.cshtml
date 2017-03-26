@@ -1,0 +1,13 @@
+﻿@inherits System.Web.WebPages.WebPage
+@{
+    Layout = null;
+    string checkinvoice = Page.Check_invoice;
+    string url = Page.Get_InvoiceURL;
+}
+<html>
+<body>
+    <input type="text" name="test" value="@checkinvoice" />
+    <input type="text" name="test" value="@url" />
+    @RenderBody()
+</body>
+</html>

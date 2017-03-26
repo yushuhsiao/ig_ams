@@ -28,6 +28,7 @@ namespace ams
             if (url.StartsWith("~")) url = url.Substring(1);
             return api_client.invoke<T>(AUTH_SITE, AUTH_USER, API_KEY, BASE_URL + url, request, onError);
         }
+
         #region 會員註冊
         /// <param name="UserName">會員帳號</param>
         /// <param name="Password">會員密碼</param>
@@ -604,6 +605,63 @@ namespace ams
             });
         }
         #endregion
+
+        /// <summary>
+        /// 開立電子發票
+        /// </summary>
+        /// <param name="mem_cid">商家統編</param>
+        /// <param name="Year">西元年 4位</param>
+        /// <param name="period">期數 0:1~2, 1:3~4, 2:5~6, 3:7~8, 4:9~10, 5:11~12</param>
+        /// <param name="Description">商品描述</param>
+        /// <param name="Amount">小計</param>
+        /// <param name="Quantity">數量</param>
+        /// <param name="UnitPrice">單價</param>
+        /// <param name="SerialNumber">商家自訂編號</param>
+        /// <param name="Remark">備註</param>
+        /// <param name="BuyerId">消費者統編</param>
+        /// <param name="BuyerName">消費者姓名</param>
+        /// <param name="BuyerAdd">消費者住址</param>
+        /// <param name="BuyerPhoneNo">消費者電話</param>
+        /// <param name="BuyerEmail">消費者Email</param>
+        /// <param name="TotalAmount">交易總金額</param>
+        /// <param name="OrderInfo">消費內容</param>
+        /// <param name="Send">是否寄送紙本發票 F:否 T:是</param>
+        /// <param name="CarrierType">載具類別</param>
+        /// <param name="CarrierId1">載具明碼</param>
+        /// <param name="CarrierId2">載具隱碼</param>
+        /// <param name="NPOBAN">捐贈對象</param>
+        /// <returns></returns>
+        public InvoiceResult GetInvoice(string mem_cid, string Description, int Amount, int Quantity, int UnitPrice, string SerialNumber, string Remark, string BuyerId, string BuyerName, string BuyerAdd, string BuyerPhoneNo, string BuyerEmail, int TotalAmount, string OrderInfo, bool Send, string CarrierType, string CarrierId1, string CarrierId2, string NPOBAN, Action<ErrorMessage> onError = null)
+        {
+            HttpContext context = HttpContext.Current;
+            try { }            
+            catch { }
+            var n = this.invoke<InvoiceResult2>("~/Users/Member/Payment/add", new
+            {
+                mem_cid = mem_cid,
+                Description = Description,
+                Amount = Amount,
+                Quantity = Quantity,
+                UnitPrice = UnitPrice,
+                SerialNumber = SerialNumber,
+                Remark = Remark,
+                BuyerId = BuyerId,
+                BuyerName = BuyerName,
+                BuyerAdd = BuyerAdd,
+                BuyerPhoneNo = BuyerPhoneNo,
+                BuyerEmail = BuyerEmail,
+                TotalAmount = TotalAmount,
+                OrderInfo = OrderInfo,
+                Send = Send,
+                CarrierType = CarrierType,
+                CarrierId1 = CarrierId1,
+                CarrierId2 = CarrierId2,
+                NPOBAN = NPOBAN,
+            }, onError);
+            if (n != null)
+                return n.test;
+            return null;
+        }
     }
     public class PictureInformation
     {
@@ -881,6 +939,37 @@ namespace ams
         public Dictionary<string, string> Body;
     }
     #endregion
+
+    #region 電子發票
+    public class InvoiceResult2
+    {
+        public InvoiceResult test;
+    }
+
+    public class InvoiceResult
+    {
+        public string mem_cid;
+        public string Description;
+        public int Amount;
+        public int Quantity;
+        public int UnitPrice;
+        public string SerialNumber;
+        public string Remark;
+        public string BuyerId;
+        public string BuyerName;
+        public string BuyerAdd;
+        public string BuyerPhoneNo;
+        public string BuyerEmail;
+        public int TotalAmount;
+        public string OrderInfo;
+        public bool Send;
+        public string CarrierType;
+        public string CarrierId1;
+        public string CarrierId2;
+        public string NPOBAN;
+    }
+    #endregion
+
     #region 轉點資訊
     public class TranResult
     {

@@ -59,31 +59,31 @@ namespace ams.Data
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
-        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "RecognitionApiUrl2"), DefaultValue("http://10.10.10.32:9080/recognitionservice/rest")]
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "RecognitionApiUrl2"), DefaultValue("http://192.168.5.32:9080/recognitionservice/rest")]
         public string RecognitionApiUrl2
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
-        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "SlotServerRest"), DefaultValue("http://10.10.10.32:14000/")]
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "SlotServerRest"), DefaultValue("http://192.168.5.32:14000/")]
         public string SlotServerRest
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
-        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "MjServerRest"), DefaultValue("http://10.10.10.32:8078/twmjserver/rest")]
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "MjServerRest"), DefaultValue("http://192.168.5.32:8078/twmjserver/rest")]
         public string MjServerRest
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
-        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "TexasHoldemRest"), DefaultValue("http://10.10.10.32:9080/texesholdemserver-zero/services")]
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "TexasHoldemRest"), DefaultValue("http://192.168.5.32:9080/texesholdemserver-zero/services")]
         public string TexasHoldemRest
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
 
-        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "DoudizhuRest"), DefaultValue("http://10.10.10.32:9080/fightthelandlordserver/rest")]
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "DoudizhuRest"), DefaultValue("http://192.168.5.32:9080/fightthelandlordserver/rest")]
         public string DoudizhuRest
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }

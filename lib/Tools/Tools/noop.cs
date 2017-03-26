@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace System
 {
@@ -150,10 +151,6 @@ namespace System
 
         public static readonly string[] strings = new string[0];
         public static readonly object[] objects = new object[0];
-        //public static bool IsNull<T>(T src) where T : new()
-        //{
-        //    return _null<T>.IsNull(src);
-        //}
         public static T _new<T>(ref T src) where T : new()
         {
             if (src == null)
@@ -172,24 +169,15 @@ namespace System
                 location = _null<T>.array;
             return location;
         }
-        //public static T value<T>(T src) where T : new()
-        //{
-        //    if (src == null)
-        //        return _null<T>.value;
-        //    else
-        //        return src;
-        //}
-        //public static T[] array<T>(T[] src) where T : new()
-        //{
-        //    return src ?? _null<T>.array;
-        //}
 
-        [DebuggerStepThrough]
-        public static class list<T>
-        {
-            public static readonly List<T> _ = new List<T>(0);
-        }
+        public static T _value<T>(T n) where T : class, new() => n ?? _null<T>.value;
+        public static List<T> _list<T>(List<T> n) => n ?? _empty_list<T>.instance;
+        public static List<T> _list<T>(ref List<T> n) => Interlocked.CompareExchange(ref n, null, null) ?? _empty_list<T>.instance;
+
     }
+
+    [DebuggerStepThrough]
+    static class _empty_list<T> { public static readonly List<T> instance = new List<T>(0); }
 
     public sealed class _empty { public static readonly _empty instance = new _empty(); }
 
@@ -198,18 +186,7 @@ namespace System
     {
         public static readonly T value = new T();
         public static readonly T[] array = new T[0];
-        public static readonly List<T> list = new List<T>();
-
-        //public static readonly List<T> list = new List<T>();
-        //public static bool IsNull(T src)
-        //{
-        //    return object.ReferenceEquals(src, value);
-        //}
-        //public static T Create(ref T src)
-        //{
-        //    if (IsNull(src)) src = new T();
-        //    return src;
-        //}
+        public static readonly List<T> list = _empty_list<T>.instance;
     }
 }
 #if NET40

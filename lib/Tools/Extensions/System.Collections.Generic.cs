@@ -51,6 +51,14 @@ namespace System.Collections.Generic
             return result;
         }
 
+        public static List<T> Convert<TSrc, T>(this List<TSrc> list, Func<TSrc, T> getValue)
+        {
+            if (list == null) return null;
+            List<T> result = new List<T>();
+            for (int i = 0, n = list.Count; i < n; i++)
+                result.Add(getValue(list[i]));
+            return result;
+        }
 
         [_DebuggerStepThrough]
         public static bool TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
@@ -97,6 +105,15 @@ namespace System.Collections.Generic
             }
         }
 
+        [_DebuggerStepThrough]
+        public static bool AddWhen<T>(this List<T> list, T value, Predicate<T> match)
+        {
+            for (int i = list.Count - 1; i >= 0; i--)
+                if (match(list[i]))
+                    return false;
+            list.Add(value);
+            return true;
+        }
 
         [_DebuggerStepThrough]
         public static int RemoveWhen<T>(this List<T> list, Predicate<T> match)
@@ -176,6 +193,16 @@ namespace System.Collections.Generic
                     if (match(list[i]))
                         yield return list[i];
             }
+        }
+
+        public static bool Dequeue<T>(this Queue<T> queue, out T value)
+        {
+            if ((queue != null) && (queue.Count > 0))
+            {
+                value = queue.Dequeue();
+                return true;
+            }
+            return _null.noop(false, out value);
         }
     }
 

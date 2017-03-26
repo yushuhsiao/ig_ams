@@ -91,6 +91,7 @@ namespace ams
                     TPaymentInfo pp = p as TPaymentInfo;
                     if (pp == null) continue;
                     bool success = msg.errcode == "00";
+                    //log.message("debug", $"corp:{c.ID}, payments:{p.PaymentName}, SendType: {msg.SendType}");
                     if (msg.SendType == SendType.背景傳送)
                     {
                         ams.tran2.MemberPaymentApiController.Data data;

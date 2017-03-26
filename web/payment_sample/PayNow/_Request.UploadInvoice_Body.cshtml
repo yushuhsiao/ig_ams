@@ -1,0 +1,11 @@
+﻿@inherits System.Web.WebPages.WebPage
+@{
+    Layout = null;
+    object objInvoiceBody = Page.objInvoiceBody;
+}
+<html>
+<body>
+    <input type="text" name="12345" value="@objInvoiceBody" />    
+    @RenderBody()    
+</body>
+</html>

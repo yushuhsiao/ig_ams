@@ -27,7 +27,10 @@
     [PaymentAccount] UNIQUEIDENTIFIER NOT NULL,
     [NotifyUrl]      VARCHAR (200)    NULL,
     [ResultUrl]      VARCHAR (200)    NULL,
+    [ResultType]     INT              NULL,
     [CertID]         UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_tranPayments2] PRIMARY KEY CLUSTERED ([TranID] ASC)
 );
+
+
 

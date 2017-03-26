@@ -1,5 +1,5 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿//using Microsoft.Owin;
+//using Owin;
 using System;
 using System.IO;
 using System.Net;
@@ -10,27 +10,44 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-[assembly: OwinStartup(typeof(ams.OwinStart))]
+//[assembly: OwinStartup(typeof(ams.OwinStart))]
 
 namespace ams
 {
-    public class OwinStart
+//    public class OwinStart
+//    {
+//        public void Configuration(IAppBuilder app)
+//        {
+//            TextLogWriter.Enabled = true;
+//            app.Use(async (context, task) =>
+//            {
+//                string body;
+//                using (StreamReader sr = new StreamReader(context.Request.Body, Encoding.UTF8, true, 4096, true))
+//                    body = sr.ReadToEnd();
+//                context.Request.Body.Position = 0;
+//                log.message("Http", $@"Url : {context.Request.Uri}
+//RemoteIpAddress : {context.Request.RemoteIpAddress}
+//{body}");
+//                await task();
+//                //return TaskHelpers.Completed();
+//            });
+//        }
+//    }
+
+    public class Global : HttpApplication
     {
-        public void Configuration(IAppBuilder app)
+        public Global()
         {
-            TextLogWriter.Enabled = true;
-            app.Use((context, task) =>
-            {
-                string body;
-                using (StreamReader sr = new StreamReader(context.Request.Body))
-                    body = sr.ReadToEnd();
-                context.Request.Body.Position = 0;
-                log.message("Http", $@"Url : {context.Request.Uri}
-RemoteIpAddress : {context.Request.RemoteIpAddress}
-{body}");
-                return TaskHelpers.Completed();
-            });
+            typeof(SunTech.PaymentInfo_SunTech).ToString();
         }
+
+        public override void Init()
+        {
+            base.Init();
+            _HttpContext.Init(this);
+            this.BeginRequest += Global_BeginRequest;
+        }
+
         bool log_form_post()
         {
             _HttpContext context = _HttpContext.Current;
@@ -41,14 +58,10 @@ RemoteIpAddress : {context.RequestIP}
 {context.ReadFormBody()}");
             return true;
         }
-    }
 
-    public class Global : HttpApplication
-    {
-        public override void Init()
+        private void Global_BeginRequest(object sender, EventArgs e)
         {
-            base.Init();
-            _HttpContext.Init(this);
+            log_form_post();
         }
 
         protected void Application_Start(object sender, EventArgs e)

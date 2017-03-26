@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Common;
 using System.Diagnostics;
+using System.Globalization;
 using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System.Data
@@ -452,10 +454,12 @@ namespace System.Data
                 {
                     if (result == null)
                         result = new List<T>();
-                    result.Add(r.ToObject<T>(create));
+                    T obj = r.ToObject<T>(create);
+                    if (obj != null)
+                        result.Add(obj);
                 }
                 if (transaction) this.Commit();
-                return result ?? _null.list<T>._;
+                return _null._list(result);
             }
             catch
             {
@@ -503,7 +507,7 @@ namespace System.Data
                     result.Add(row);
                 }
                 if (transaction) this.Commit();
-                return result ?? _null.list<T>._;
+                return _null._list(result);
             }
             catch
             {
@@ -821,6 +825,7 @@ namespace System.Data
 }
 namespace System.Data
 {
+    [TypeConverter(typeof(DbConnectionString._TypeConverter))]
     public struct DbConnectionString
     {
         public int Index { get; }
@@ -852,6 +857,35 @@ namespace System.Data
                 return a.Value == b.Value && a.Index == b.Index;
             }
             return false;
+        }
+
+        class _TypeConverter : TypeConverter
+        {
+            public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+            {
+                if (sourceType == typeof(string))
+                    return true;
+                if (sourceType == typeof(object))
+                    return true;
+                return base.CanConvertFrom(context, sourceType);
+            }
+
+            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+            {
+                return base.CanConvertTo(context, destinationType);
+            }
+
+            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            {
+                if (value is string)
+                    return new DbConnectionString((string)value);
+                return base.ConvertFrom(context, culture, value);
+            }
+
+            public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+            {
+                return base.ConvertTo(context, culture, value, destinationType);
+            }
         }
     }
 }

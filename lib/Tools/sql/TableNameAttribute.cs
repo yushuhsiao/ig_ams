@@ -55,7 +55,9 @@ namespace System.Data
                 TableNameAttribute result;
                 if (!_instances.TryGetValue(classType, out result))
                 {
-                    result = _instances[classType] = classType.GetTypeInfo().GetCustomAttribute<TableNameAttribute>() ?? new TableNameAttribute("");
+                    result = classType.GetTypeInfo().GetCustomAttribute<TableNameAttribute>(true);
+                    result = result ?? new TableNameAttribute("");
+                    _instances[classType] = result;
                     result.ClassType = classType;
                     //foreach (FieldInfo f in classType.GetFields(_TypeExtensions.BindingFlags0))
                     //    result.add(f, null, f.GetCustomAttributes());

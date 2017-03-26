@@ -7,8 +7,8 @@ using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System
 {
-	//[_DebuggerStepThrough]
-	public abstract class TextFileLogWriter<T> : IAsyncLogWriter where T : TextFileLogWriter<T>, new()
+    [_DebuggerStepThrough]
+    public abstract class TextFileLogWriter<T> : IAsyncLogWriter where T : TextFileLogWriter<T>, new()
 	{
 		static readonly T Instance = new T();
 
@@ -112,8 +112,9 @@ namespace System
 #if NET40
                             writer2 = new StreamWriter(path2, true, Encoding.UTF8);
 #else
-                            file2 = new FileStream(path2, FileMode.Append);
-                            writer2 = new StreamWriter(file2, Encoding.UTF8);
+                            writer2 = File.AppendText(path2);
+                            //file2 = new FileStream(path2, FileMode.Append);
+                            //writer2 = new StreamWriter(file2, Encoding.UTF8);
 #endif
                             using (writer1)
                             using (file1)

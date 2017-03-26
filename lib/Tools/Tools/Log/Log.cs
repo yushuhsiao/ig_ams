@@ -223,19 +223,17 @@ namespace System
 
             bool ILogWriterContext.GetMessage(out MessageItem item)
             {
-                if (Monitor.TryEnter(this.queue))
+                bool _lock = false;
+                try
                 {
-                    try
+                    if (_Monitor.TryEnter(this.queue, ref _lock) && (this.queue.Count > 0))
                     {
-                        if (this.queue.Count > 0)
-                        {
-                            item = this.queue[0];
-                            this.queue.RemoveAt(0);
-                            return true;
-                        }
+                        item = this.queue[0];
+                        this.queue.RemoveAt(0);
+                        return true;
                     }
-                    finally { Monitor.Exit(this.queue); }
                 }
+                finally { _Monitor.ExitN(this.queue, ref _lock); }
                 item = default(MessageItem);
                 return false;
             }

@@ -544,31 +544,31 @@
       <publishTime>01/28/2015 14:36:58</publishTime>
     </File>
     <File Include="bin/ams.core.dll">
-      <publishTime>02/24/2017 13:29:42</publishTime>
+      <publishTime>02/28/2017 15:22:48</publishTime>
     </File>
     <File Include="bin/ams.core_api.dll">
-      <publishTime>02/24/2017 13:29:43</publishTime>
+      <publishTime>02/28/2017 15:22:50</publishTime>
     </File>
     <File Include="bin/ams.dll">
-      <publishTime>02/24/2017 13:29:45</publishTime>
+      <publishTime>02/28/2017 15:22:52</publishTime>
     </File>
     <File Include="bin/ams.extra.dll">
-      <publishTime>02/24/2017 13:29:43</publishTime>
+      <publishTime>02/28/2017 15:22:49</publishTime>
     </File>
     <File Include="bin/ams.payments.dll">
-      <publishTime>02/24/2017 13:29:44</publishTime>
+      <publishTime>02/28/2017 15:22:51</publishTime>
     </File>
     <File Include="bin/ams.platforms.dll">
-      <publishTime>02/24/2017 13:29:43</publishTime>
+      <publishTime>02/28/2017 15:22:49</publishTime>
     </File>
     <File Include="bin/ams.tran.dll">
-      <publishTime>02/24/2017 13:29:43</publishTime>
+      <publishTime>02/28/2017 15:22:49</publishTime>
     </File>
     <File Include="bin/ams.tran.XmlSerializers.dll">
-      <publishTime>02/24/2017 13:29:44</publishTime>
+      <publishTime>02/28/2017 15:22:51</publishTime>
     </File>
     <File Include="bin/ams.ui.dll">
-      <publishTime>02/24/2017 13:29:44</publishTime>
+      <publishTime>02/28/2017 15:22:50</publishTime>
     </File>
     <File Include="bin/ams_api.dll">
       <publishTime>08/22/2016 04:15:02</publishTime>
@@ -592,7 +592,7 @@
       <publishTime>12/20/2016 17:22:52</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>02/24/2017 13:29:42</publishTime>
+      <publishTime>02/28/2017 15:22:48</publishTime>
     </File>
     <File Include="bin/FaceSDK.NET.dll">
       <publishTime>09/14/2016 22:19:50</publishTime>
@@ -604,7 +604,7 @@
       <publishTime>08/24/2016 16:43:24</publishTime>
     </File>
     <File Include="bin/GeniusBullApi.dll">
-      <publishTime>02/24/2017 13:29:44</publishTime>
+      <publishTime>02/28/2017 15:22:50</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
       <publishTime>07/14/2016 11:01:16</publishTime>
@@ -679,7 +679,7 @@
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/RecogServiceApi.dll">
-      <publishTime>02/24/2017 13:29:44</publishTime>
+      <publishTime>02/28/2017 15:22:50</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>02/28/2016 23:37:54</publishTime>

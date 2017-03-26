@@ -16,7 +16,8 @@ namespace System.Data
         public static T ToObject<T>(this DbDataReader r) where T : new()
         {
             T obj = new T();
-            FillObject(r, obj);
+            if (obj != null)
+                FillObject(r, obj);
             return obj;
         }
 

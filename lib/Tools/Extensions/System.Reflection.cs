@@ -5,12 +5,31 @@ using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System.Reflection
 {
-    [_DebuggerStepThrough]
+    //[_DebuggerStepThrough]
     public static partial class Extension { }
     partial class Extension
     {
+        public static ConstructorInfo GetConstructor(this Type type, params object[] args)
+        {
+            Type[] types = new Type[args.Length];
+            for (int i = 0; i < args.Length; i++)
+                types[i] = args[i]?.GetType() ?? typeof(object);
+            return type.GetTypeInfo().GetConstructor(types);
+        }
+
+        public static T CreateInstance<T>(this Type type, params object[] args)
+        {
+            ConstructorInfo ctor = type.GetConstructor(args);
+            if (ctor != null)
+            {
+                try { return (T)ctor.Invoke(args); }
+                catch (TargetInvocationException ex) { throw ex.InnerException; }
+            }
+            return default(T);
+        }
+
         static Dictionary<Type, Dictionary<MemberInfo, PropertyInfo>> cache_ToProperty = new Dictionary<Type, Dictionary<MemberInfo, PropertyInfo>>();
-        public static PropertyInfo ToProperty(this MemberInfo m, ref PropertyInfo cache)
+        internal static PropertyInfo ToProperty(this MemberInfo m, ref PropertyInfo cache)
         {
             PropertyInfo p = Interlocked.CompareExchange(ref cache, null, null);
             if (p == null)
@@ -32,14 +51,14 @@ namespace System.Reflection
         }
 
         //[System.Diagnostics.DebuggerStepThrough]
-        public static string ToPropertyName(this MemberInfo m, ref PropertyInfo cache)
+        internal static string ToPropertyName(this MemberInfo m, ref PropertyInfo cache)
         {
             PropertyInfo p = m.ToProperty(ref cache);
             if (p == null) return null;
             return p.Name;
         }
 
-        public static PropertyInfo ToProperty(this MemberInfo m)
+        internal static PropertyInfo ToProperty(this MemberInfo m)
         {
             Type t = m.DeclaringType;
             Dictionary<MemberInfo, PropertyInfo> cache;
@@ -66,7 +85,7 @@ namespace System.Reflection
         }
 
         static Dictionary<Type, Dictionary<MemberInfo, EventInfo>> cache_ToEvent = new Dictionary<Type, Dictionary<MemberInfo, EventInfo>>();
-        public static EventInfo ToEvent(this MemberInfo m)
+        internal static EventInfo ToEvent(this MemberInfo m)
         {
             Type t = m.DeclaringType;
             Dictionary<MemberInfo, EventInfo> cache;
@@ -93,7 +112,7 @@ namespace System.Reflection
         }
 
         [DebuggerStepThrough]
-        public static string ToPropertyName(this MemberInfo m)
+        internal static string ToPropertyName(this MemberInfo m)
         {
             PropertyInfo p = m.ToProperty();
             if (p == null) return null;
@@ -194,6 +213,17 @@ namespace System.Reflection
         {
             try { return m.Invoke(obj, parameters); }
             catch (TargetInvocationException ex) { throw ex.InnerException; }
+        }
+
+        public static Attribute GetCustomAttribute(this ICustomAttributeProvider obj, Type attr, bool inherit = false)
+        {
+            try
+            {
+                object[] attrs = obj.GetCustomAttributes(attr, inherit);
+                if (attrs.Length > 0) return attrs[0] as Attribute;
+            }
+            catch { }
+            return null;
         }
 
 
