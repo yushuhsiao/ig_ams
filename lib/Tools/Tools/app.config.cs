@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 #endif
-using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
+using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 namespace System.Configuration
 {
     [_DebuggerStepThrough]
