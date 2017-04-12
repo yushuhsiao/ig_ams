@@ -605,7 +605,7 @@ namespace ams
             });
         }
         #endregion
-
+        #region 開立電子發票
         /// <summary>
         /// 開立電子發票
         /// </summary>
@@ -662,6 +662,7 @@ namespace ams
                 return n.test;
             return null;
         }
+        #endregion
     }
     public class PictureInformation
     {
