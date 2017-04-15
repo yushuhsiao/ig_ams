@@ -64,14 +64,15 @@
     <Build Include="dbo\Tables\TwMahjongWaitingPlayers.sql" />
     <Build Include="dbo\Tables\TwMahjongOnlinePlayers.sql" />
     <Build Include="dbo\Tables\TwMahjongConfig.sql" />
+    <Build Include="dbo\Tables\TexasTables.sql" />
     <Build Include="dbo\Tables\TexasOnlinePlayers.sql" />
     <Build Include="dbo\Tables\TexasConfig.sql" />
     <Build Include="dbo\Tables\TableVer.sql" />
     <Build Include="dbo\Tables\GameServer.sql" />
+    <Build Include="dbo\Tables\GameConfig.sql" />
     <Build Include="dbo\Tables\EprobTableLimit.sql" />
-    <Build Include="dbo\Tables\DouDizhuWaitingRoom.sql" />
+    <Build Include="dbo\Tables\DouDizhuWaitingPlayers.sql" />
     <Build Include="dbo\Tables\DouDizhuOnlinePlayers.sql" />
     <Build Include="dbo\Tables\DouDizhuConfig.sql" />
-    <Build Include="dbo\Tables\GameConfig.sql" />
   </ItemGroup>
 </Project>

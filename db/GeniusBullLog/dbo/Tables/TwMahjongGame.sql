@@ -14,8 +14,11 @@
     [ActiveFanValue] TINYINT      NULL,
     [WindPosition]   TINYINT      NULL,
     [InsertDate]     DATETIME     NOT NULL,
+    [ConfigId]       INT          CONSTRAINT [DF_TwMahjongGame_ConfigId_1] DEFAULT ((1)) NOT NULL,
     CONSTRAINT [PK_TwMahjongGame] PRIMARY KEY CLUSTERED ([PlatformID] ASC, [Id] ASC)
 );
+
+
 
 
 GO

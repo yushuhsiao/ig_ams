@@ -6,5 +6,3 @@
     CONSTRAINT [PK_TableVer] PRIMARY KEY CLUSTERED ([_name] ASC, [_index] ASC)
 );
 
-
-

@@ -18,13 +18,22 @@ namespace ams.Data
     {
         const int err_retry = 3;
         
-        const string Key1 = "GeniusBull";
-        [DefaultValue(@"http://localhost:5100/Auth/SignIn")]
+        const string Key1 = "ig_games";
+        [DefaultValue(@"http://bingo.betis73168.com:5100/Auth/SignIn")]
         [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "LobbyUrl")]
         public string LobbyUrl
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
+
+
+        [DefaultValue(@"db01:6379,defaultDatabase=11")]
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "Redis")]
+        public string RedisConn
+        {
+            get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
+        }
+
 
         public override bool Deposit(MemberData member, decimal amount, out decimal balance, bool force)
         {
@@ -118,8 +127,8 @@ select * from {TableName} nolock {sql0_where}");
 
             string token = Guid.NewGuid().ToString("N");
 
-            var redis = StackExchange.Redis.ConnectionMultiplexer.Connect("db01:6379,defaultDatabase=11").GetDatabase();
-            redis.StringSet(token, member.ID.ToString(), TimeSpan.FromSeconds(30));
+            foreach (var redis in DB.Redis.GetDataBase<IG02PlatformInfo>(RedisConn))
+                redis.StringSet(token, member.ID.ToString(), TimeSpan.FromSeconds(30));
 
             args.Url = LobbyUrl;
             args.ForwardType = ForwardType.FormPost;

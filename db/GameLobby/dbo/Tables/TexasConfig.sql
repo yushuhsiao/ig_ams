@@ -10,6 +10,10 @@
     [TableMax]           INT           NOT NULL,
     [InsertDate]         DATETIME      NOT NULL,
     [ModifyDate]         DATETIME      NULL,
+    [TableLevel]         INT           NULL,
+    [SortOrder]          INT           NULL,
     CONSTRAINT [PK_TexasConfig] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 

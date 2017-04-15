@@ -10,7 +10,10 @@
     [ActiveFanValue] TINYINT      CONSTRAINT [DF_TwMahjongGame_ActiveFanValue] DEFAULT ((0)) NOT NULL,
     [WindPosition]   TINYINT      CONSTRAINT [DF_TwMahjongGame_WindPosition] DEFAULT ((0)) NOT NULL,
     [InsertDate]     DATETIME     NOT NULL,
+    [ConfigId]       INT          CONSTRAINT [DF_TwMahjongGame_ConfigId] DEFAULT ((1)) NOT NULL,
     CONSTRAINT [PK_TwMahjongGame] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_TwMahjongGame_Game] FOREIGN KEY ([GameId]) REFERENCES [dbo].[Game] ([Id])
 );
+
+
 
