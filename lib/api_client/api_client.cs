@@ -605,7 +605,7 @@ namespace ams
             });
         }
         #endregion
-
+        #region 開立電子發票
         /// <summary>
         /// 開立電子發票
         /// </summary>
@@ -662,16 +662,7 @@ namespace ams
                 return n.test;
             return null;
         }
-    }
-    public class PictureInformation
-    {
-        public Guid? ImageID;
-        public string ImageType;
-        public bool? Success;
-        public DateTime? CreateTime;
-        public string Url;
-        public float? Similarity;
-        public double? TTL;
+        #endregion
     }
 
     #region Error Process
@@ -731,6 +722,7 @@ namespace ams
     }
     #endregion
     #region Class
+    #region 黑名單
     public class MemberBlacklist
     {
         public long Id;
@@ -739,6 +731,7 @@ namespace ams
         public string BlacklistName;
         public DateTime BlacklistTime;
     }
+    #endregion
     #region 錯誤訊息
     public class ErrorMessage
     {
@@ -1385,7 +1378,18 @@ namespace ams
         Finished,
     }
     #endregion
-
+    #region 照片資訊
+    public class PictureInformation
+    {
+        public Guid? ImageID;
+        public string ImageType;
+        public bool? Success;
+        public DateTime? CreateTime;
+        public string Url;
+        public float? Similarity;
+        public double? TTL;
+    }
+    #endregion
     #endregion
 }
 #region System.Security.Cryptography
