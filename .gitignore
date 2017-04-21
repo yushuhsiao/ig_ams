@@ -157,3 +157,11 @@
 /web/GameLobby/.vs
 /.vs
 /web/GameLobby
+/db/GameLobby/GameLobby.dbmdl
+/db/GeniusBull/GeniusBull.dbmdl
+/db/GameReplay/GameReplay.dbmdl
+/db/GeniusBullLog/GeniusBullLog.dbmdl
+/db/Photo/Photo.dbmdl
+/db/ams_core/ams_core.dbmdl
+/db/ams_log/ams_log.dbmdl
+/db/ams_user/ams_user.dbmdl

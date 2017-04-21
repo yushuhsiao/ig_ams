@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[TwMahjongConfig] (
     [Id]            INT           NOT NULL,
+    [PairId]        INT           NULL,
     [Antes]         INT           NOT NULL,
     [Tai]           INT           NOT NULL,
     [RoundType]     TINYINT       NOT NULL,
@@ -14,6 +15,8 @@
     [SortOrder]     INT           NULL,
     CONSTRAINT [PK_TwMahjongConfig] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 

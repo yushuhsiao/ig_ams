@@ -12,8 +12,12 @@
     [ModifyDate]         DATETIME      NULL,
     [TableLevel]         INT           NULL,
     [SortOrder]          INT           NULL,
+    [AllowCreateTable]   TINYINT       CONSTRAINT [DF_TexasConfig_AllowOpenTable] DEFAULT ((1)) NOT NULL,
+    [PublicTables]       INT           CONSTRAINT [DF_TexasConfig_PublicTables] DEFAULT ((3)) NOT NULL,
     CONSTRAINT [PK_TexasConfig] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 
