@@ -51,13 +51,13 @@ namespace api_test_client
                 AUTH_SITE = "ig07",
                 AUTH_USER = "_api_user",
                 API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQArS1TqSr1Te3J5iaSDzERfjyhFfpNrTYkNAmyyQkK7k0spsJ9CWuOKlJM4j9kFWZrqJK9rOsY0GQVOitGgIa5uVeZAGacsL3G8T7jXHN2Xv5tbkUCULwErJImJC7GcYXSSt9KxjLW9Elpe4lOazrnJfJ0X+OoX52tegbjGhN89qQ==",
-                BASE_URL = "http://127.0.0.1:7001",
+                BASE_URL = "http://127.0.0.1:7011",
             };
 
             object n = null;
-            //n = api.SubmitPayment("aaa568", amount: 1000, PaymentType: "SunTech_WebATM");
-            n = api.AcceptPayment("549F0C90-359C-4587-81B0-53B4391DD886");
-            Debugger.Break();
+            ////n = api.SubmitPayment("aaa568", amount: 1000, PaymentType: "SunTech_WebATM");
+            //n = api.AcceptPayment("549F0C90-359C-4587-81B0-53B4391DD886");
+            //Debugger.Break();
             //n = api.GetWaitUserCount();
             //n = api.CreateMember("test38");
             //n = api.PlatformDepositEx("appeal", "test37", 100);
@@ -74,7 +74,7 @@ namespace api_test_client
             //n = api_client.TakePictureUrls.GetValue(api, "yushu", "sample", true);
             //n = api.PhotoUnregister("yushu");
             n = api.GetBalance("yuko999", "appeal");
-            Debugger.Break();
+            //Debugger.Break();
             //Debugger.Break();
             //n = api.GetBlackList("aaa568", "geniusbull");
             //Debugger.Break();
