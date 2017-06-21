@@ -196,6 +196,8 @@ select * from {TableName} nolock {sql0_where}");
         class _ForwardGameModel : ForwardGameArguments
         {
             [JsonProperty]
+            public bool? PhotoRegistered;
+            [JsonProperty]
             public string Lang;
             [JsonProperty]
             public GeniusBull.EntryLobby? Lobby;

@@ -103,13 +103,14 @@ namespace ams
         }
         #endregion
         #region 遊戲跳轉
-        // 2016.10.31 增加 NickName
         /// <param name="PlatformName">geniusbull, innateglory, agltd</param>
         /// <param name="MemberName"></param>
-        /// <param name="Lang"></param>
+        /// <param name="NickName"></param>
+        /// <param name="Lang">en, zh-cht, zh-chs</param>
         /// <param name="Lobby">LiveCasino, TabletopGames, VideoArcade</param>
         /// <param name="RequestIP">發送方IP位置</param>
-        public ForwardGameResult ForwardGame(string PlatformName, string MemberName, string NickName = null, string Lang = null, string Lobby = null, string RequestIP = null, Action<ErrorMessage> onError = null)
+        /// <param name="PhotoRegistered">是否已通過視訊註冊(預設值:true)</param>
+        public ForwardGameResult ForwardGame(string PlatformName, string MemberName, string NickName = null, string Lang = null, string Lobby = null, string RequestIP = null, bool? PhotoRegistered = null, Action<ErrorMessage> onError = null)
         {
             return this.invoke<ForwardGameResult>("~/Users/Member/game/forward", new
             {
