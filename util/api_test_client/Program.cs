@@ -51,7 +51,7 @@ namespace api_test_client
                 //AUTH_SITE = "ig07",
                 //AUTH_USER = "_api_user",
                 //API_KEY = "BgIAAACkAABSU0ExAAQAAAEAAQArS1TqSr1Te3J5iaSDzERfjyhFfpNrTYkNAmyyQkK7k0spsJ9CWuOKlJM4j9kFWZrqJK9rOsY0GQVOitGgIa5uVeZAGacsL3G8T7jXHN2Xv5tbkUCULwErJImJC7GcYXSSt9KxjLW9Elpe4lOazrnJfJ0X+OoX52tegbjGhN89qQ==",
-                BASE_URL = "http://127.0.0.1:7011",
+                BASE_URL = "http://127.0.0.1:7001",
             };
 
             object n = null;
