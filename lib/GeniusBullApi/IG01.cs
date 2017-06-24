@@ -237,7 +237,11 @@ select * from {TableName} nolock {sql0_where}");
             {
                 string sql;
                 if (args.PhotoRegistered.Value)
-                    sql = $"update {TableName<MemberDetailData>.Value} set PhotoRegistered=getdate() where ID={member.ID} and PhotoRegistered is null";
+                {
+                    sql = $@"if exists (select ID from {TableName<MemberDetailData>.Value} nolock where ID={member.ID})
+     update {TableName<MemberDetailData>.Value} set PhotoRegistered=getdate() where ID={member.ID} and PhotoRegistered is null
+else insert into {TableName<MemberDetailData>.Value} (ID, PhotoRegistered, CreateUser, ModifyUser) values (getdate(), {_User.Current.ID}, {_User.Current.ID})";
+                }
                 else
                     sql = $"update {TableName<MemberDetailData>.Value} set PhotoRegistered=null where ID={member.ID}";
                 corp.DB_User01W().ExecuteNonQuery(true, sql);
