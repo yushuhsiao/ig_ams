@@ -49,7 +49,7 @@ namespace RecogService
             catch (Exception ex) { log.message("Error", ex.ToString()); }
             FaceData.Init();
             //RecogWork.Init();
-            recog_timer.TimeoutProc_Tick(3000, recog_proc, true);
+            recog_timer.Timeout(3000, () => recog_proc(), true);
         }
 
 

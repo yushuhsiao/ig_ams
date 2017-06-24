@@ -188,7 +188,7 @@ namespace ViewWaitingPlayer.Controllers
 
         public static bool Tick()
         {
-            _t.TimeoutProc(RefreshInterval, () =>
+            _t.Timeout(RefreshInterval, () =>
             {
                 lock (_sync) instance = new GetDataResult();
             });

@@ -135,5 +135,8 @@ namespace ams.Data
         /// </summary>
         [DbImport, JsonProperty]
         public string PostalCode;
+
+        [DbImport, JsonProperty]
+        public DateTime? PhotoRegistered;
     }
 }

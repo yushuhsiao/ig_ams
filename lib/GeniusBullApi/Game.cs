@@ -235,10 +235,10 @@ namespace ams.Data
     {
         public override void ExtraInfo(List<PlatformGameInfo> rows)
         {
-            SqlCmd gamedb = GameDB();
+            SqlCmd gamedb = this.GameDB();
             List<Game> games = gamedb.ToList(() => new Game(this, gamedb.DataReader.GetInt32("Id")), $"select * from {TableName<Game>.Value} nolock");
             //if (games == null) games = new List<Game>();
-            List<EprobTable> eprobs = GameDB().ToList<EprobTable>($@"select GameId, Eprob from {TableName<EprobTable>.Value} where Selected=1 group by GameId, Eprob");
+            List<EprobTable> eprobs = this.GameDB().ToList<EprobTable>($@"select GameId, Eprob from {TableName<EprobTable>.Value} where Selected=1 group by GameId, Eprob");
             foreach (var row in rows)
             {
                 if (row.GetPlatformInfo() is IG01PlatformInfo)

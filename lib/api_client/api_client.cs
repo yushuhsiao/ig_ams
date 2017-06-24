@@ -120,6 +120,7 @@ namespace ams
                 Lobby = Lobby,
                 NickName = NickName,
                 RequestIP = RequestIP,
+                PhotoRegistered = PhotoRegistered,
             }, onError);
         }
         #endregion

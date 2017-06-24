@@ -43,10 +43,10 @@ namespace System.Configuration
             if (platformID == 0) return false;
             return n.GetSetting(corpID, 0, this.Key1, key2, out result);
         }
-        protected override void SetValue(MemberInfo m, string value)
-        {
-            throw new NotImplementedException();
-        }
+        //protected override void SetValue(MemberInfo m, string value)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 

@@ -17,13 +17,17 @@ using System.Web.Http;
 
 namespace ams.Data
 {
+    public static class _IG01PlatformInfoExtensions
+    {
+        public static SqlCmd GameLobbyDB(this IG01PlatformInfo p) => _HttpContext.GetSqlCmd(p.GameLobbyDB);
+        public static SqlCmd GameDB(this IG01PlatformInfo p) => _HttpContext.GetSqlCmd(p.ApiUrl);
+    }
     [PlatformInfo(PlatformType = PlatformType.InnateGloryA)]
     public partial class IG01PlatformInfo : PlatformInfo<IG01PlatformInfo, IG01MemberPlatformData>
     {
         const int err_retry = 3;
         const string Key1 = "GeniusBull";
         //public string ApiUrl() => GetConfig(0, this.ID, Key1, "ApiUrl");
-        public SqlCmd GameDB() => _HttpContext.GetSqlCmd(this.ApiUrl);
         //public string LobbyUrl() => GetConfig(0, this.ID, Key1, "LobbyUrl");
 
         [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "ApiUrl")]
@@ -34,6 +38,12 @@ namespace ams.Data
 
         [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "LobbyUrl")]
         public string LobbyUrl
+        {
+            get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
+        }
+
+        [SqlSetting(CorpID = 0, Key1 = Key1, Key2 = "GameLobbyDB")]
+        public string GameLobbyDB
         {
             get { return app.config.GetValue<string>(MethodBase.GetCurrentMethod(), (ams.PlatformID)this.ID); }
         }
@@ -223,6 +233,15 @@ select * from {TableName} nolock {sql0_where}");
             args.Url = this.LobbyUrl;// GeniusBull._Config.LobbyUrl(this.ID);
 
             GeniusBull.Member m2 = api_SetToken(member, null, args);
+            if (args.PhotoRegistered.HasValue)
+            {
+                string sql;
+                if (args.PhotoRegistered.Value)
+                    sql = $"update {TableName<MemberDetailData>.Value} set PhotoRegistered=getdate() where ID={member.ID} and PhotoRegistered is null";
+                else
+                    sql = $"update {TableName<MemberDetailData>.Value} set PhotoRegistered=null where ID={member.ID}";
+                corp.DB_User01W().ExecuteNonQuery(true, sql);
+            }
             args.Lobby = this.EnrtyLobby;// s1.Length > 10 ? GeniusBull.EntryLobby.VideoArcade : GeniusBull.EntryLobby.TabletopGames;
 
             args.ForwardType = ForwardType.Url;
