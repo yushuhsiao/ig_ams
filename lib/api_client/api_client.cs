@@ -106,7 +106,7 @@ namespace ams
         /// <param name="PlatformName">geniusbull, innateglory, agltd</param>
         /// <param name="MemberName"></param>
         /// <param name="NickName"></param>
-        /// <param name="Lang">en, zh-cht, zh-chs</param>
+        /// <param name="Lang">en-us, zh-tw, zh-cn</param>
         /// <param name="Lobby">LiveCasino, TabletopGames, VideoArcade</param>
         /// <param name="RequestIP">發送方IP位置</param>
         /// <param name="PhotoRegistered">是否已通過視訊註冊(預設值:true)</param>

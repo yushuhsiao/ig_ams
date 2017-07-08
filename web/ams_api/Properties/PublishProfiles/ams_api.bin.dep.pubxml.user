@@ -13,34 +13,34 @@
       <publishTime>02/27/2016 07:57:02</publishTime>
     </File>
     <File Include="bin/ams.core.dll">
-      <publishTime>06/24/2017 21:56:37</publishTime>
+      <publishTime>07/04/2017 20:55:40</publishTime>
     </File>
     <File Include="bin/ams.core_api.dll">
-      <publishTime>06/24/2017 21:56:38</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/ams.extra.dll">
-      <publishTime>06/24/2017 21:56:38</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/ams.payments.dll">
-      <publishTime>06/24/2017 21:56:39</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/ams.payments.XmlSerializers.dll">
-      <publishTime>06/24/2017 21:56:40</publishTime>
+      <publishTime>07/04/2017 20:55:42</publishTime>
     </File>
     <File Include="bin/ams.platforms.dll">
-      <publishTime>06/24/2017 21:56:38</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/ams.tran.dll">
-      <publishTime>06/24/2017 21:56:38</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/ams.tran.XmlSerializers.dll">
       <publishTime>02/28/2017 15:22:51</publishTime>
     </File>
     <File Include="bin/ams_api.dll">
-      <publishTime>06/25/2017 05:12:35</publishTime>
+      <publishTime>07/04/2017 20:56:00</publishTime>
     </File>
     <File Include="bin/corelib.dll">
-      <publishTime>06/24/2017 21:56:37</publishTime>
+      <publishTime>07/04/2017 20:55:40</publishTime>
     </File>
     <File Include="bin/FaceSDK.NET.dll">
       <publishTime>09/14/2016 22:19:50</publishTime>
@@ -52,10 +52,10 @@
       <publishTime>08/24/2016 16:43:24</publishTime>
     </File>
     <File Include="bin/GeniusBullApi.dll">
-      <publishTime>06/25/2017 05:12:17</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
-      <publishTime>07/14/2016 11:01:16</publishTime>
+      <publishTime>07/02/2017 10:53:40</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
       <publishTime>07/14/2016 02:35:18</publishTime>
@@ -109,7 +109,7 @@
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/RecogServiceApi.dll">
-      <publishTime>06/25/2017 05:12:17</publishTime>
+      <publishTime>07/04/2017 20:55:41</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>02/28/2016 23:37:54</publishTime>
@@ -232,7 +232,7 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Tools.dll">
-      <publishTime>06/24/2017 21:41:54</publishTime>
+      <publishTime>07/04/2017 06:57:18</publishTime>
     </File>
     <File Include="bin/zh-Hant/System.Web.Helpers.resources.dll">
       <publishTime>01/28/2015 04:04:34</publishTime>
@@ -268,7 +268,7 @@
       <publishTime>02/21/2016 08:16:48</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/24/2017 21:57:36</publishTime>
+      <publishTime>07/04/2017 20:56:00</publishTime>
     </File>
     <File Include="_List.json">
       <publishTime>04/28/2016 03:48:06</publishTime>

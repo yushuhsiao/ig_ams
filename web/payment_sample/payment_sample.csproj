@@ -150,8 +150,8 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Tools, Version=1.0.33.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Tools.1.0.33\lib\net452\Tools.dll</HintPath>
+    <Reference Include="Tools, Version=1.0.34.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Tools.1.0.34\lib\net452\Tools.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

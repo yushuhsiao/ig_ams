@@ -151,8 +151,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tools, Version=1.0.33.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Tools.1.0.33\lib\net452\Tools.dll</HintPath>
+    <Reference Include="Tools, Version=1.0.34.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Tools.1.0.34\lib\net452\Tools.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
