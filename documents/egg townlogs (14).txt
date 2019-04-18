@@ -1,0 +1,10 @@
+
+Login Request:
+
+INFO 22 Oct 2013 07:35 58:Received Data ::<?xml version="1.0"?><request action="registration"><element><properties name="username">tf_samantha</properties><properties name="mode">1</properties><properties name="firstname">samantha</properties><properties name="lastname">tf</properties><properties name="currencyid">CNY</properties></element></request>
+INFO 22 Oct 2013 07:35 58:Host::game.longcheng168bet.com
+INFO 22 Oct 2013 07:35 58:-------------loginRequest--------------tf_samantha:1:samantha:tf:CNY::
+
+Response :
+
+INFO 22 Oct 2013 07:35 58:-----------sendLoginResponse---------<?xml version="1.0"?><response action="registration"><element><properties name="username">tf_samantha</properties><properties name="ticket">Tgeg59q9kbo4qf5</properties><properties name="status">0</properties><properties name="errdesc"></properties></element></response>

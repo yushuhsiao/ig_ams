@@ -1,0 +1,236 @@
+﻿@page
+@model InnateGlory.Pages.Users.IndexModel
+@{
+    UserId? userId = Request.Query["Id"].ToString().ToInt64();
+}
+
+@section head {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/webix/codebase/skins/flat.min.css" />
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.min.css" />
+    <link inline rel="stylesheet" href-auto />
+    <style>
+        .abc {
+        }
+
+            .abc .webix_item_tab {
+                white-space: nowrap;
+                /*padding-left: 1em;
+                padding-right: 1em;*/
+            }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .p0 {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .p1 {
+            width: 100%;
+            display: flex;
+            white-space: nowrap;
+        }
+        .p2 {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+    </style>
+}
+
+    <div class="p0">
+        <div class="p1" id="top_nav">
+            <div data-sw=".tabs.tab1" class="nav0 nav1 btn btn-outline-primary active">Corp List</div>
+            <div data-sw=".tabs.tab2" class="nav0 nav2 btn btn-outline-primary" style="display: block;">??? (Corp)</div>
+            <div data-sw=".tabs.tab3" class="nav0 nav3 nav3-tmp d-none btn btn-outline-primary" data-index="">??? (Agent)</div>
+            <div data-sw=".tabs.tab4" class="nav0 nav4 btn btn-outline-primary" style="display: block;">??? (Admin)</div>
+            <div data-sw=".tabs.tab5" class="nav0 nav5 btn btn-outline-primary" style="display: block;">??? (Member)</div>
+        </div>
+        <div class="p2">
+            <div class="tabs tab1" id="corp_list"></div>
+            <div class="btn tabs tab2">Corp Info</div>
+            <div class="btn tabs tab3">Agent Info</div>
+            <div class="btn tabs tab2 tab3">Agent List</div>
+            <div class="btn tabs tab2 tab3">Admin List</div>
+            <div class="btn tabs tab2 tab3">Member List</div>
+            <div class="btn tabs tab4">Admin Info</div>
+            <div class="btn tabs tab5">Member Info</div>
+        </div>
+    </div>
+
+<script src="~/lib/webix/codebase/webix.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*<script src="~/lib/vue/dist/vue.min.js"></script>*@
+@*<script src="~/js/bridge.js"></script>*@
+@*<script src="~/libx/@@aspnet/signalr/dist/browser/signalr.min.js"></script>*@
+<script src="~/js/site.js"></script>
+<script>
+    var top_row = null;
+    var nav1 = $('.nav1', '#top_nav');
+    var nav2 = $('.nav2', '#top_nav');
+    var nav3 = [];
+    var nav4 = $('.nav4', '#top_nav');
+    var nav5 = $('.nav5', '#top_nav');
+
+    function nav_add() {
+        var n = $('.nav3-tmp').clone(true).removeClass('d-none nav3-tmp').insertBefore($('.nav3-tmp'));
+        nav3.push(n[0]);
+    }
+
+    function nav_click(_this) {
+        $('.nav0.active', '#top_nav').removeClass('active');
+        _this.addClass('active');
+        var __this = _this[0];
+        var nav3_index = -1;
+        for (var i = 0; i < nav3.length; i++) {
+            if (__this == nav3[i]) {
+                nav3_index = i;
+                break;
+            }
+        }
+        $('.tabs').hide();
+        $(_this.data('sw')).show();
+
+        //if (nav3_index >=0) {
+        //    $('.tabs.tab3').show();
+        //}
+        //else if (__this == nav1[0]) $('.tabs.tab1').show();
+        //else if (__this == nav2[0]) $('.tabs.tab2').show();
+        //else if (__this == nav4[0]) $('.tabs.tab4').show();
+        //else if (__this == nav5[0]) $('.tabs.tab5').show();
+        //console.log(_this.data('sw'));
+    }
+
+    $('.nav0', '#top_nav').on('click', function () { nav_click($(this)); });
+
+    nav_click($('.nav1', '#top_nav'));
+
+    webix.ready(function () {
+
+
+        //webix.ui({ container: 'top_nav', view: "button",type:'form', label: ' xxx123 ', autowidth: true });
+        //webix.ui({ container: 'top_nav', view: "button",type:'form', label: ' xxx123 ', autowidth: true });
+        //webix.ui({ container: 'top_nav', view: "button",type:'form', label: ' xxx123 ', autowidth: true });
+        //webix.ui({ container: 'top_nav', view: "button",type:'form', label: ' xxx123 ', autowidth: true });
+
+        //webix.ui({
+        //    container: 'top_nav',
+        //    //view: "segmented", value: "one", label: "", options: [
+        //    //    { id: "one", view:'button', value: "One", width: -1 },
+        //    //    { id: "two", value: "Two", width: -1},
+        //    //    { id: "three", value: "Three", width: -1},
+        //    //    {}
+        //    //]
+        //    borderless: true, view: "tabbar", id: 'top_nav', value: 'nav0', multiview: false,
+        //    css: 'abc',
+        //    options: [
+        //        { value: 'Corp List', id: 'nav0', width: -1 },
+        //        { value: '??? (Corp)', id: 'nav1', hidden: true, width: -1 },
+        //        { value: '??? (Agent)', id: 'nav2', hidden: true, width: -1 },
+        //        { value: '??? (Admin)', id: 'nav3', hidden: true, width: -1 },
+        //        { value: '??? (Member)', id: 'nav4', hidden: true, width: -1 },
+        //        //{ value: '', id: '_null', width: 0, isEnabled: false }
+        //    ],
+        //    on: {
+        //        //onBeforeTabClick: function (id) {
+        //        //    console.log('onBeforeTabClick', arguments);
+        //        //    if (id == '_null') return false;
+        //        //},
+        //        //onItemClick: function () {
+        //        //    console.log('onItemClick', arguments);
+        //        //},
+        //        onChange: function (n1, n2) {
+        //            switch_tab(n1);
+        //        }
+        //    }
+        //});
+        //attachEvents($$('top_nav'), webix.events.tabbar);
+
+        //webix.ui({
+        //    container: 'content1',
+        //    id: "mymultiview",
+        //    cells: [
+        //        { id: "View1", content: "Form Content" },
+        //        { id: "View2", template: "<i>Info about the Form</i>" }
+        //    ]
+        //});
+
+
+        //webix.ui({ container: 'top_nav', view: "button", type: "htmlbutton", icon: "mdi mdi-email", label: "Mail", width: 80 });
+        //webix.ui({ container: 'top_nav', view: "button", type: "htmlbutton", icon: "mdi mdi-email", label: "Mail", width: 80 });
+        //webix.ui({ container: 'top_nav', view: "button", type: "htmlbutton", icon: "mdi mdi-email", label: "Mail", width: 80 });
+
+        var grid1 = webix.ui({
+            container: 'corp_list',
+            id: 'grid1',
+            view: "datatable",
+            leftSplit: 2,
+            rightSplit: 1,
+            header: true,
+            footer: false,
+            columns: [
+                { id: 'Id' },
+                { id: 'Name' },
+                { id: 'Active' },
+                { id: 'DisplayName' },
+                { id: 'Currency' },
+                { id: 'CreateTime' },
+                { id: 'CreateUser' },
+                { id: 'ModifyTime' },
+                { id: 'ModifyUser' },
+                { header: 'xxx' }
+            ],
+            select: 'row',
+            width: 800,
+            height: 200,
+            //autoheight: true,
+            //autowidth: true,
+            //data: small_film_set
+            on: {
+                onItemDblClick: function (id, e, node) {
+                    var row = this.getItem(id);
+                    top_row = row;
+                    nav2.text(row.Name).show();
+                    switch_tab('.nav2');
+                    //var n = $$('top_nav');
+                    //var index = n.optionIndex('nav1');
+                    //n.data.options[index].value = row.Name;
+                    //n.showOption('nav1');
+                    //n.refresh();
+                    console.log('onItemDblClick2', arguments);
+                }
+            }
+        });
+        attachEvents(grid1, webix.events.datatable);
+
+        //function e2(src, n) {
+        //    src.attachEvent(n, function (id, e, node) {
+        //        console.log(n, arguments);
+        //    });
+        //}
+        //for (var ee in webix.events.datatable) {
+        //    new e2(grid1, webix.events.datatable[ee]);
+        //}
+
+        //grid1.attachEvent('onItemDblClick', function () {
+        //    console.log('onItemDblClick2', arguments);
+        //});
+
+        setTimeout(function () {
+            util.api('@Url.Action("List", "Corps")', {}, function (result) {
+                if (result.IsSuccess) {
+                    $$('grid1').parse(result.Data);
+                }
+            });
+        }, 3000);
+
+        webix.event(window, 'resize', function () {
+            console.log('window.resize');
+            $$('grid1').adjust();
+        });
+    });
+</script>

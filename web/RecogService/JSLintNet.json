@@ -1,7 +1,0 @@
-﻿{
-  "version": "2.3.0",
-  "ignore": [
-    "\\bower_components\\alertifyjs\\"
-  ],
-  "globalVariables": []
-}

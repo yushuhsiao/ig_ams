@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <RootNamespace>InnateGlory</RootNamespace>
+    <Company>InnateGlory</Company>
+    <Authors>InnateGlory</Authors>
+    <ClientVersion>1.0.2</ClientVersion>
+    <LibVersion>1.0.4</LibVersion>
+    <ToolsVersion>1.0.45</ToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net461' ">
+    <DefineConstants>netfx</DefineConstants>
+  </PropertyGroup>
+</Project>

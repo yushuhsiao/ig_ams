@@ -1,0 +1,271 @@
+﻿@using InnateGlory.Models
+@inject amsUser user;
+@{ lang.ResPath = "Index"; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>ams</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
+    <link rel="stylesheet" href="~/lib/webix/codebase/webix.css" />
+    @*<link rel="stylesheet" href="~/lib/webix/codebase/skins//metro.css" />*@
+    @*<link rel="stylesheet" href="~/lib/Font-Awesome/web-fonts-with-css/css/fontawesome-all.css" />*@
+    <link inline rel="stylesheet" href-auto />
+    <script src="~/lib/webix/codebase/webix_debug.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/bridge.js"></script>
+</head>
+<body>
+    <div class="p00">
+        <div id="p10"></div>
+        <div class="p20">
+            <div id="p21">
+                @*@for (int i = 0; i < 100; i++)
+                    {<div>left @i</div>}*@
+                @*<div class="sidebar-left"></div>*@
+            </div>
+            <div class="p22">
+                main panel
+                <div class="p22x"></div>
+            </div>
+            <div class="p23">
+                @for (int i = 0; i < 100; i++)
+                {<div>right @i</div>}
+                @*<div class="sidebar-right"></div>*@
+            </div>
+        </div>
+        <div class="p30">5</div>
+    </div>
+    @*<div id="aa" class="btn btn-dark rounded-0" style=""><i class="fa fa-bars"></i></div>*@
+    <script inline src-auto></script>
+
+    <script>
+        var page = new Pages._Index();
+        webix.ready(function () {
+            page.Init();
+            page.UserName = '@user.UserData.DisplayName';
+
+            var menu_data = [
+                {
+                    id: "dashboard", icon: "dashboard", value: "Dashboards", data: [
+                        { id: "dashboard1", value: "Dashboard 1" },
+                        { id: "dashboard2", value: "Dashboard 2" }
+                    ]
+                },
+                {
+                    id: "layouts", icon: "columns", value: "Layouts", data: [
+                        { id: "accordions", value: "Accordions" },
+                        { id: "portlets", value: "Portlets" }
+                    ]
+                },
+                {
+                    id: "tables", icon: "table", value: "Data Tables", data: [
+                        { id: "tables1", value: "Datatable" },
+                        { id: "tables2", value: "TreeTable" },
+                        { id: "tables3", value: "Pivot" }
+                    ]
+                },
+                {
+                    id: "uis", icon: "puzzle-piece", value: "UI Components", data: [
+                        { id: "dataview", value: "DataView" },
+                        { id: "list", value: "List" },
+                        { id: "menu", value: "Menu" },
+                        { id: "tree", value: "Tree" }
+                    ]
+                },
+                {
+                    id: "tools", icon: "calendar-o", value: "Tools", data: [
+                        { id: "kanban", value: "Kanban Board" },
+                        { id: "pivot", value: "Pivot Chart" },
+                        { id: "scheduler", value: "Calendar" }
+                    ]
+                },
+                {
+                    id: "forms", icon: "pencil-square-o", value: "Forms", data: [
+                        { id: "buttons", value: "Buttons" },
+                        { id: "selects", value: "Select boxes" },
+                        { id: "inputs", value: "Inputs" }
+                    ]
+                },
+                { id: "demo", icon: "book", value: "Documentation" }
+            ];
+
+            var menu_data_multi = [
+                {
+                    id: "structure", icon: "columns", value: "Structuring", data: [
+                        {
+                            id: "layouts", icon: "circle", value: "Layouts", data: [
+                                { id: "layout", icon: "circle-o", value: "Layout" },
+                                { id: "flexlayout", icon: "circle-o", value: "Flex Layout" },
+                                {
+                                    id: "strict", icon: "circle-o", value: "Precise Positioning", data: [
+                                        { id: "gridlayout", icon: "circle-o", value: "Grid Layout" },
+                                        { id: "dashboard", icon: "circle-o", value: "Dashboard" },
+                                        { id: "abslayout", icon: "circle-o", value: "Abs Layout" }
+                                    ]
+                                },
+                                {
+                                    id: "datalayouts", icon: "circle-o", value: "Data Layouts", data: [
+                                        { id: "datalayout", icon: "circle-o", value: "Data Layout" },
+                                        { id: "flexdatalayout", icon: "circle-o", value: "Flex Data Layout" },
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "multiviews", icon: "circle", value: "Multiviews", data: [
+                                { id: "multiview", icon: "circle-o", value: "MultiView" },
+                                { id: "tabview", icon: "circle-o", value: "TabView" },
+                                { id: "accordion", icon: "circle-o", value: "Accordion" },
+                                { id: "carousel", icon: "circle-o", value: "Carousel" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: "tools", icon: "calendar-o", value: "Tools", data: [
+                        { id: "kanban", icon: "circle", value: "Kanban Board" },
+                        { id: "pivot", icon: "circle", value: "Pivot Chart" },
+                        { id: "scheduler", icon: "circle", value: "Calendar" }
+                    ]
+                },
+                {
+                    id: "forms", icon: "pencil-square-o", value: "Forms", data: [
+                        {
+                            id: "buttons", icon: "circle", value: "Buttons", data: [
+                                { id: "button", icon: "circle-o", value: "Buttons" },
+                                { id: "segmented", icon: "circle-o", value: "Segmented" },
+                                { id: "toggle", icon: "circle-o", value: "Toggle" },
+                            ]
+                        },
+                        {
+                            id: "texts", icon: "circle", value: "Text Fields", data: [
+                                { id: "text", icon: "circle-o", value: "Text" },
+                                { id: "textarea", icon: "circle-o", value: "Textarea" },
+                                { id: "richtext", icon: "circle-o", value: "RichText" }
+                            ]
+                        },
+                        {
+                            id: "selects", icon: "circle", value: "Selectors", data: [
+                                {
+                                    id: "single", icon: "circle-o", value: "Single value", data: [
+                                        { id: "combo", icon: "circle-o", value: "Combo" },
+                                        { id: "richselect", icon: "circle-o", value: "RichSelect" },
+                                        { id: "select", icon: "circle-o", value: "Select" }
+                                    ]
+                                },
+                                {
+                                    id: "multi", icon: "circle-o", value: "Multiple values", data: [
+                                        { id: "multicombo", icon: "circle-o", value: "MultiCombo" },
+                                        { id: "multiselect", icon: "circle-o", value: "MultiSelect" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                { id: "demo", icon: "book", value: "Documentation" }
+            ];
+
+            webix.ui({
+                container: 'p21',
+                view: "sidebar", width: -1, data: menu_data_multi, on: {
+                    onAfterSelect: function (id) {
+                        webix.message("Selected: " + this.getItem(id).value)
+                    }
+                }
+            });
+
+
+            //webix.ui({
+            //    container: 'p21',
+            //    view: "list",
+            //    borderless: true,
+            //    width: -1,
+            //    height: -1,
+            //    //scroll: true,
+            //    template: "<span class='webix_icon fa-#icon#'></span> #value#",
+            //    data: [
+            //        { id: 1, value: "Customers", icon: "user" },
+            //        { id: 2, value: "Products", icon: "cube" },
+            //        { id: 3, value: "Reports", icon: "line-chart" },
+            //        { id: 4, value: "Archives", icon: "database" },
+            //        { id: 5, value: "Settings", icon: "cog" }
+            //    ]
+            //});
+        });
+    </script>
+
+    @*<div class="w-100 h-100">
+            <div class="p00">
+                <div class="p10">
+                    <button class="btn btn-dark d-none d-md-block"><i class="fa fa-bars"></i></button>
+                    <button class="btn btn-dark d-block d-md-none"><i class="fa fa-bars"></i></button>
+                    <div class="w-100"></div>
+                    <button class="btn btn-dark d-none d-md-block"><i class="fa fa-user"></i> root </button>
+                    <button class="btn btn-dark d-block d-md-none"><i class="fa fa-user"></i> root </button>
+                    <button class="btn btn-dark d-none d-md-block"><i class="fa fa-envelope"></i></button>
+                    <button class="btn btn-dark d-block d-md-none"><i class="fa fa-envelope"></i></button>
+                </div>
+                <div class="p20 dock-left    show-right">
+                    <div class="pusher-left"></div>
+                    <div class="w-100 h-100 position-relative">
+                        <div>
+                            xx
+                        </div>
+                    </div>
+                    <div class="pusher-right"></div>
+                    <div class="sidebar-left bg-dark border border-left-0 border-white">
+                        <div class="btn btn-dark btn-block text-left">
+                            <i class="fa fa-fw fa-home"></i>
+                            Home
+                        </div>
+                        <div class="btn btn-dark btn-block text-left">
+                            <i class="fa fa-users"></i>
+                            Accounts
+                        </div>
+                        <div class="btn btn-dark btn-block text-left disabled">
+                            <i class="fa fa-fw fa-dollar-sign"></i>
+                            Cash
+                        </div>
+                        <div class="btn btn-dark btn-block text-left disabled">
+                            <i class="fa fa-fw fa-list"></i>
+                            Reports
+                        </div>
+                        <div class="btn btn-dark btn-block text-left disabled">
+                            <i class="fa fa-fw fa-gamepad"></i>
+                            Game
+                        </div>
+                        <div class="btn btn-dark btn-block text-left">
+                            <i class="fa fa-fw fa-cogs"></i>
+                            Config
+                        </div>
+                        <div class="btn btn-dark btn-block text-left">
+                            <i class="fa fa-fw fa-code"></i>
+                            Test
+                        </div>
+                    </div>
+                    <div class="sidebar-right bg-dark border border-right-0 border-white">
+                        <div class="sidebar-right-content">
+                            <div class="sidebar-right-item ">
+                                <div>msg0</div>
+                            </div>
+                            <div class="sidebar-right-item active">
+                                <button class="btn btn-light ">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                    <i class="fa fa-spinner fa-spin invisible"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p30">
+                </div>
+            </div>
+        </div>*@
+</body>
+</html>

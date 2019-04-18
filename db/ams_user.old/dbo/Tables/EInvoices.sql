@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[EInvoices] (
+    [mem_cid]      VARCHAR (10)  NULL,
+    [Year]         VARCHAR (4)   NULL,
+    [period]       VARCHAR (1)   NULL,
+    [InvoiceNo]    VARCHAR (10)  NULL,
+    [Description]  VARCHAR (20)  NULL,
+    [Amount]       INT           NULL,
+    [Quantity]     INT           NULL,
+    [UnitPrice]    INT           NULL,
+    [SerialNumber] VARCHAR (16)  NULL,
+    [Remark]       VARCHAR (50)  NULL,
+    [BuyerId]      VARCHAR (10)  NULL,
+    [BuyerName]    NVARCHAR (20) NULL,
+    [BuyerAdd]     VARCHAR (50)  NULL,
+    [BuyerPhoneNo] VARCHAR (30)  NULL,
+    [BuyerEmail]   VARCHAR (30)  NULL,
+    [TotalAmount]  INT           NULL,
+    [OrderInfo]    VARCHAR (10)  NULL,
+    [Send]         TINYINT       NULL,
+    [CarrierType]  VARCHAR (10)  NULL,
+    [CarrierId1]   VARCHAR (50)  NULL,
+    [CarrierId2]   VARCHAR (50)  NULL,
+    [NPOBAN]       VARCHAR (20)  NULL
+);
+

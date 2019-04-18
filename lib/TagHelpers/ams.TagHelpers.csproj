@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>$(LibVersion)</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="LangTagHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abstractions\ams.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

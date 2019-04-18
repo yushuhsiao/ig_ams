@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>1.0.20</VersionPrefix>
+    <Authors>InnateGlory</Authors>
+    <TargetFrameworks>net40;net452;net461;netstandard2.0</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>Tools</AssemblyName>
+    <PackageId>Tools</PackageId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.35</Version>
+    <Product />
+    <Description></Description>
+    <Company>InnateGlory</Company>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>netcore</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net461' ">
+    <DefineConstants>netfx</DefineConstants>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="AspNetCore\**" />
+    <Compile Remove="FTPLib\**" />
+    <Compile Remove="WebSocket\**" />
+    <Compile Remove="_\**" />
+    <EmbeddedResource Remove="AspNetCore\**" />
+    <EmbeddedResource Remove="FTPLib\**" />
+    <EmbeddedResource Remove="WebSocket\**" />
+    <EmbeddedResource Remove="_\**" />
+    <None Remove="AspNetCore\**" />
+    <None Remove="FTPLib\**" />
+    <None Remove="WebSocket\**" />
+    <None Remove="_\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="DES\des.cs" />
+    <Compile Remove="DES\descryptoserviceprovider.cs" />
+    <Compile Remove="Extensions\AppDomain.cs" />
+    <Compile Remove="Tools\ToolStripExt.cs" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <None Remove="exclude_files.rar" />
+    <None Remove="sql\SQLinjection.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="Microsoft.Bcl" Version="1.1.10" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net461' or '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.Csp" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

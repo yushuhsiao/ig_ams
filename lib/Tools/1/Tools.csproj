@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C7BE9B7B-151D-45BD-B098-5E8A90959ED6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tools</RootNamespace>
+    <AssemblyName>Tools</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LINQBRIDGE_LIB</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;LINQBRIDGE_LIB</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Tools.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="app.config.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FTPLib\Extensions.cs" />
+    <Compile Include="FTPLib\FtpConnection.cs" />
+    <Compile Include="FTPLib\FtpDirectoryInfo.cs" />
+    <Compile Include="FTPLib\FtpException.cs" />
+    <Compile Include="FTPLib\FtpFileInfo.cs" />
+    <Compile Include="FTPLib\WinApi.cs" />
+    <Compile Include="netfx\BigInteger.cs" />
+    <Compile Include="Extensions\ClientIPInjectorSink.cs" />
+    <Compile Include="Extensions\XmlTextReaderEx.cs" />
+    <Compile Include="LinqBridge\Action.cs" />
+    <Compile Include="LinqBridge\ExtensionAttribute.cs" />
+    <Compile Include="LinqBridge\Func.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="ObjectInvoke.cs" />
+    <Compile Include="SocketStream.cs" />
+    <Compile Include="sql\DbImport.cs" />
+    <Compile Include="sql\SqlCmd.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extensions\System.Collections.Generic.cs" />
+    <Compile Include="Extensions\System.ComponentModel.cs" />
+    <Compile Include="Extensions\System.cs" />
+    <Compile Include="Extensions\System.Diagnostics.cs" />
+    <Compile Include="Extensions\System.Enum.cs" />
+    <Compile Include="Extensions\System.Net.cs" />
+    <Compile Include="Extensions\System.Reflection.cs" />
+    <Compile Include="Extensions\System.Security.Cryptography.cs" />
+    <Compile Include="Extensions\System.Text.cs" />
+    <Compile Include="JsonProtocol.cs" />
+    <Compile Include="Remote.cs" />
+    <Compile Include="sql\SqlSchemaTable.cs" />
+    <Compile Include="Tick.cs" />
+    <Compile Include="sql\SqlInjection.cs" />
+    <Compile Include="ToolStripExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebSocket\WebSocket.cs" />
+    <Compile Include="Web\WebCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="noop.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\System.Threading.cs" />
+    <Compile Include="Extensions\System.Xml.cs" />
+    <None Include="packages.config" />
+    <None Include="Tools.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="mono\" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

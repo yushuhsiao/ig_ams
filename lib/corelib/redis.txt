@@ -1,6 +1,0 @@
-﻿redis db :
-	TableVer
-	UserSession
-
-redis channels :
-	user

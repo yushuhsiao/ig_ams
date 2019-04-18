@@ -1,0 +1,87 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["ng-app"] = "app";
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+    @*<script src="~/lib/angular/angular.js"></script>*@
+    @*<script src="~/js/bridge.js"></script>*@
+    @*<script src="~/js/bridge.meta.js"></script>*@
+    @*<script src="~/js/newtonsoft.json.js"></script>*@
+    @*<script src="~/js/bundle.js" asp-append-version="true"></script>*@
+    @*<script src="~/lib/fabric.js/dist/fabric.js"></script>*@
+    <link href="~/lib/semantic/dist/semantic.css" rel="stylesheet" />
+    <script src="~/lib/semantic/dist/semantic.js"></script>
+    <script src="~/js/bridge-all.js"></script>
+    <script src="~/js/ams.js" asp-append-version="true"></script>
+    <style type="text/css">
+        /*body { overflow: hidden; }*/
+    </style>
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+    <div class="ui inverted top attached menu">
+        <a class="item" onclick="$('.ui.sidebar').sidebar('toggle');">
+            <i class="sidebar icon"></i>
+        </a>
+        <a class="item" onclick="$('.ui.sidebar').toggleClass('icon');">
+            <i class="sidebar icon"></i>
+        </a>
+        <div class="right menu">
+            <a class="item">
+                <i class="sidebar icon"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ui bottom attached segment pushable">
+        <div class="ui inverted labeled left inline visible vertical sidebar menu">
+            <a class="item">
+                <i class="home icon"></i>
+                Home
+            </a>
+            <a class="item">
+                <i class="block layout icon"></i>
+                Topics
+            </a>
+            <a class="item">
+                <i class="smile icon"></i>
+                Friends
+            </a>
+            <a class="item">
+                <i class="calendar icon"></i>
+                History
+            </a>
+        </div>
+        <div class="pusher">
+            <div class="ui basic segment">
+                <h3 class="ui header">Application Content</h3>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('.ui.sidebar')
+            .sidebar({
+                context: $('.bottom.segment'),
+                exclusive: true,
+                closable: false,
+                dimPage: false,
+            })
+            //.sidebar('attach events', '.context.example .menu .item')
+            ;
+    </script>
+</body>
+</html>

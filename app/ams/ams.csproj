@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\exclude.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>6bd7d59a-85c4-4170-9429-b8e9620ad76c</UserSecretsId>
+    <!--<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>-->
+    <!--<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>-->
+    <RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <None Include="bundleconfig.json" />
+    <Content Remove="compilerconfig.json" />
+    <None Include="compilerconfig.json" />
+    <Content Remove="bower.json" />
+    <None Include="bower.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\%40aspnet\signalr\dist\browser\**" />
+    <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\fabric\**" />
+    <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\semantic-ui\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None CopyToPublishDirectory="PreserveNewest" Include="Pages\*.cshtml.css" />
+    <None CopyToPublishDirectory="PreserveNewest" Include="Pages\*.cshtml.js" />
+    <None CopyToPublishDirectory="PreserveNewest" Include="Pages\*.cshtml.min.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Pages\NewFolder\**" />
+    <Compile Remove="Pages\_\**" />
+    <Compile Remove="wwwroot\css\_\**" />
+    <Compile Remove="wwwroot\images\_\**" />
+    <Compile Remove="wwwroot\js\_\**" />
+    <Compile Remove="wwwroot\lib\_\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="Pages\NewFolder\**" />
+    <Content Remove="Pages\_\**" />
+    <Content Remove="wwwroot\css\_\**" />
+    <Content Remove="wwwroot\images\_\**" />
+    <Content Remove="wwwroot\js\_\**" />
+    <Content Remove="wwwroot\lib\_\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Pages\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\_\**" />
+    <EmbeddedResource Remove="wwwroot\css\_\**" />
+    <EmbeddedResource Remove="wwwroot\images\_\**" />
+    <EmbeddedResource Remove="wwwroot\js\_\**" />
+    <EmbeddedResource Remove="wwwroot\lib\_\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Pages\NewFolder\**" />
+    <None Remove="Pages\_\**" />
+    <None Remove="wwwroot\css\_\**" />
+    <None Remove="wwwroot\images\_\**" />
+    <None Remove="wwwroot\js\_\**" />
+    <None Remove="wwwroot\lib\_\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\lib\webix\sources\css\webix.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AgentsController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\CorpsController.cs" />
+    <Compile Include="Controllers\DeveloperController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Blazor.Server" Version="0.4.0" />-->
+    <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Blazor\src\Microsoft.AspNetCore.Blazor.Server\Microsoft.AspNetCore.Blazor.Server.csproj" />-->
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <ProjectReference Include="..\..\lib\Platforms\ams.Platforms.csproj" />
+    <ProjectReference Include="..\..\lib\TagHelpers\ams.TagHelpers.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None CopyToOutputDirectory="PreserveNewest" Update="testCert.pfx" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties compilerconfig_1json_1defaults__JSONSchema="http://json.schemastore.org/compilerconfig" /></VisualStudio></ProjectExtensions>
+
+</Project>

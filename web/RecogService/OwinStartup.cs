@@ -1,1 +1,0 @@
-link C:/src/ig/ams/util/RecogService/OwinStartup.cs

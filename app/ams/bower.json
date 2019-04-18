@@ -1,0 +1,33 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "v4.3.1",
+    "Font-Awesome": "5.8.1",
+    "jquery": "2.2.4",
+    "webix": "6.2.1",
+    "vue": "v2.6.10"
+  },
+  "resolutions": {
+    "Font-Awesome": "5.8.1",
+    "requirejs": "2.3.6",
+    "angular": "v1.7.5",
+    "less": "v3.9.0",
+    "semantic": "2.4.1",
+    "jqwidgets": "v6.2.0",
+    "bootstrap": "v4.3.1",
+    "webix": "6.2.1",
+    "vue": "v2.6.10"
+  },
+  "unknown": {
+    "semantic": "Semantic-UI#2.4.1",
+    "fabric.js": "fabric#v2.4.4",
+    "requirejs": "2.3.6",
+    "require-css": "0.1.10",
+    "less": "v3.9.0",
+    "react": "v16.1.0",
+    "angular": "v1.7.5",
+    "vue": "v2.5.17",
+    "jqwidgets": "v6.2.0"
+  }
+}

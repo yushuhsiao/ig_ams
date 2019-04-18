@@ -1,0 +1,188 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>模拟商户</title>
+  </head>
+  <body>
+    <script language="JavaScript" type="text/JavaScript">
+
+</script>
+    <p class="title">
+      模拟B2B商户
+    </p>
+    <form action="B2BPayCar.jsp" name="form1" method="POST">
+      <table width="100%" cellpadding="2" cellspacing="1" border="0" align="center" bgcolor="#DDDDDD">
+        <tr>
+          <td class="head" height="24" colspan="2">
+            商户订单支付
+          </td>
+        </tr>
+         <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           业务类型
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="service_type" size="40" value="b2b_pay" />
+          </td>
+        </tr>
+         <tr class="mouseout">
+          <td width="120" class="label" height="24">
+            商家号
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="merchant_code" size="40" value="2410000" />
+          </td>
+        </tr>
+         <tr class="mouseout">
+          <td width="120" class="label" height="24">
+             参数编码字符集
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="input_charset" size="40" value="UTF-8" />
+          </td>
+        </tr>
+         <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           服务器异步通知URL
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="notify_url" size="40" value="https://rec.dinpay.demo.jsp" />
+          </td>
+        </tr>
+         <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           页面通知URL
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="return_url" size="40" value="https://rec.dinpay.demo.jsp" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+            客户端IP
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="client_ip" size="40" value="192.168.1.15" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+            接口版本
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="interface_version" size="40" value="V3.0" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           签名方式
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="sign_type" size="40" value="MD5" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+           <td width="120" class="label" height="24">
+       商家订单号
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="order_no" size="40" value="20130519000000" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           商家订单时间
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="order_time" size="40" value="2013-05-29 00:00:00" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           商家订单总金额
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="order_amount" size="40" value="10" />单位元
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+            商品名称
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="product_name" value="CFCATest" size="40" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+           商品展示URL
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="show_url" size="40" value="" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+      商品编号
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="product_code" size="40" value="" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+      商品数量
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="product_num" size="40" value="" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+        商品描述
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="product_desc" size="40" value="" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+        银行代码
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="bank_code" size="40" value="" />
+          </td>
+        </tr>
+        <tr class="mouseout">
+          <td width="120" class="label" height="24">
+     公用回传参数
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="extra_return_param" size="40"value="" />
+          </td>
+        </tr>
+                <tr class="mouseout">
+          <td width="120" class="label" height="24">
+     公用扩展参数
+          </td>
+          <td width="*" class="content">
+            <input type="text" name="extend_param" size="40" value="" />
+          </td>
+        </tr>
+      </table>
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr>
+          <td height="10" colspan="2" />
+        </tr>
+        <tr>
+          <td width="200" height="28" />
+          <td width="*">
+            <input type="submit"  style="width: 100px" value="提交" >
+          </td>
+        </tr>
+      </table>
+    </form>
+
+  </body>
+</html>

@@ -1,0 +1,173 @@
+﻿@page "/user/agent/list"
+@model InnateGlory.Pages.Users.AgentListModel
+@inject DataService _data
+@inject IUser _User
+
+@section head {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/webix/codebase/skins/flat.min.css" />
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+}
+
+<script src="~/lib/webix/codebase/webix.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    webix.ready(function () {
+        var listUser_h, detail_h;
+
+        webix.ui({
+            id: 'layout',
+            cols: [
+                {
+                    //content: 'a',
+                    gravity: 20,
+                    id: 'agent_tree',
+                    view: "tree",
+                    select: true,
+                    scroll: "auto",
+                    type: "lineTree",
+                    //template: function (obj, common) {
+                    //        // "<div class='webix_tree_close'></div><div class='webix_tree_folder'></div><span>corp02</span>"
+                    //    var r;
+                    //    if (obj.ajax_busy === 1) {
+                    //        r = common.icon(obj, common)
+                    //        + "<div class='fa fa-fw fa-spin fa-spinner' style='float:left; margin:3px 4px 0px 1px;'></div> "
+                    //            //+ common.checkbox(obj, common)
+                    //            //+ common.folder(obj, common)
+                    //            + "<span>" + obj.value + "</span>";
+                    //    }
+                    //    else {
+                    //        //console.log('');
+                    //        r = common.icon(obj, common)
+                    //            //+ common.checkbox(obj, common)
+                    //            //+ "<div class='fa fa-fw fa-user' style='float:left; margin:3px 4px 0px 1px;'></div> "
+                    //            + common.folder(obj, common)
+                    //            + "<span>" + obj.value + "</span>";
+                    //    }
+                    //    return r;
+                    //},
+                    on: {
+                        onDataRequest: function (id, callback, url) {
+                            var $this = this;
+                            var obj = $this.getItem(id)
+                            if (obj.ajax_busy === 1)
+                                return;
+                            obj.ajax_busy = 1;
+                            util.api('@Url.Action("ChildAgents", "Agents")', { agentId: id }, function (result) {
+                                if (result.IsSuccess) {
+                                    $this.parse(result.Data);
+                                }
+                                obj.ajax_busy = 0;
+                                $this.updateItem(id);
+                            });
+
+                            return false;
+                        },
+                        onSelectChange: function (ids) {
+                            var id = ids[0];
+
+                            //console.log('select ' + id);
+                            if (listUser_h != null) { clearTimeout(listUser_h); }
+                            listUser_h = setTimeout(function () {
+                                listUser_h = null;
+                                //console.log('loading ' + id + '...');
+                                util.api('@Url.Action("List", "Agents")', {
+                                    ParentId: id,
+                                    Paging: {
+                                        PageIndex: 0,
+                                        PageSize: 50
+                                    }
+                                }, function (result) {
+                                    if (result.IsSuccess) {
+                                        $$('grid1').clearAll();
+                                        $$('grid1').parse(result.Data);
+                                    }
+                                });
+                            }, 1000);
+                        }
+                    }
+                },
+                { view: "resizer", width: 3 },
+                {
+                    gravity: 80,
+                    rows: [
+                        {
+                            id: 'grid1',
+                            view: "datatable",
+                            leftSplit: 2,
+                            //rightSplit: 1,
+                            header: true,
+                            footer: false,
+                            columns: [
+                                { id: "index", header: "", sort: "int" },
+                                { id: 'Id', header: '@lang["Id"]' },
+                                { id: 'CorpId', header: '@lang["CorpId"]' },
+                                { id: 'Name', header: '@lang["Name"]' },
+                                { id: 'Active', header: '@lang["Active"]' },
+                                { id: 'ParentId', header: '@lang["ParentId"]' },
+                                { id: 'DisplayName', header: '@lang["DisplayName"]' },
+                                { id: 'Depth', header: '@lang["Depth"]' },
+                                { id: 'MaxDepth', header: '@lang["MaxDepth"]' },
+                                { id: 'MaxAgents', header: '@lang["MaxAgents"]' },
+                                { id: 'MaxAdmins', header: '@lang["MaxAdmins"]' },
+                                { id: 'MaxMembers', header: '@lang["MaxMembers"]' },
+                                { id: 'CreateTime', header: '@lang["CreateTime"]' },
+                                { id: 'CreateUser', header: '@lang["CreateUser"]' },
+                                { id: 'ModifyTime', header: '@lang["ModifyTime"]' },
+                                { id: 'ModifyUser', header: '@lang["ModifyUser"]' },
+                                { header: 'xxx', width: 0 }
+                            ],
+                            scheme: {
+                                $init: function (obj) { obj.index = this.count(); }
+                            },
+                            select: 'row',
+                            //autowidth: true,
+                            //autoheight: true,
+                            //data: small_film_set
+                            on: {
+                                onSelectChange: function () {
+                                    var ids = this.getSelectedId(true);
+                                    if (ids.length >= 1) {
+                                        //console.log(ids, item);
+                                        var item = this.getItem(ids[0].id)
+
+                                        var id = item.Id;
+                                        if (detail_h != null) {
+                                            clearTimeout(detail_h);
+                                        }
+                                        detail_h = setTimeout(function () {
+                                            detail_h = null;
+                                            $$('detail').define('src', '@Url.Page("/Users/AgentDetail")?id=' + item.Id);
+                                        }, 1000);
+                                    }
+                                }
+                            }
+                        },
+                        { view: "resizer", height: 3 },
+                        { id: 'detail', view: 'iframe', borderless: true, },
+                    ]
+                }
+            ]
+        });
+
+        attachEvents($$('agent_tree'), webix.events.tree, ['onMouseMoving']);
+
+        webix.event(window, 'resize', function () {
+            console.log('window.resize');
+            $$('layout').resize();
+        });
+
+        util.api('@Url.Action("ChildAgents", "Agents")', { include_root: false }, function (result) {
+            if (result.IsSuccess) {
+                //for (var i = 0; i < result.Data.length; i++) {
+                //    result.Data[i].webix_kids = true;
+                //}
+                $$('agent_tree').parse(result.Data);
+                //$$('grid1').parse(result.Data);
+            }
+        });
+    });
+</script>
