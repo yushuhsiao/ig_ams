@@ -10,5 +10,3 @@
     CONSTRAINT [IX_Config] UNIQUE NONCLUSTERED ([CorpId] ASC, [PlatformId] ASC, [Key1] ASC, [Key2] ASC)
 );
 
-
-

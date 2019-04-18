@@ -53,3 +53,7 @@ util/ig.api_client.test/obj
 util/ViewWaitingPlayer/Log
 db/ams_core/ams_core.dbmdl
 *.dbmdl
+/db/ams_log/*.dbmdl
+/db/ams_core/*.dbmdl
+/db/ams_user/*.dbmdl
+/db/EventLog/*.dbmdl

@@ -13,5 +13,3 @@
     CONSTRAINT [PK_PasswordHist] PRIMARY KEY CLUSTERED ([UserId] ASC, [ver] ASC)
 );
 
-
-

@@ -5,5 +5,3 @@
     CONSTRAINT [PK_UserAcl] PRIMARY KEY CLUSTERED ([UserId] ASC, [AclId] ASC)
 );
 
-
-

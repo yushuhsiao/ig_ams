@@ -7,7 +7,3 @@
     CONSTRAINT [IX_AclDefine] UNIQUE NONCLUSTERED ([Path] ASC)
 );
 
-
-
-
-

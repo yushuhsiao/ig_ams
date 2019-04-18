@@ -12,5 +12,3 @@
     CONSTRAINT [IX_Corps] UNIQUE NONCLUSTERED ([Name] ASC)
 );
 
-
-

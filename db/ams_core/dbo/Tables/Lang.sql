@@ -8,5 +8,3 @@
     CONSTRAINT [PK_Lang] PRIMARY KEY CLUSTERED ([PlatformId] ASC, [LCID] ASC, [Path] ASC, [Type] ASC, [Key] ASC)
 );
 
-
-

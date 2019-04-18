@@ -57,37 +57,33 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo\" />
-    <Folder Include="dbo\Tables\" />
-    <Folder Include="dbo\Stored Procedures\" />
-    <Folder Include="dbo\Sequences\" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="dbo\Tables\UserPlatformGame.sql" />
     <Build Include="dbo\Tables\UserId.sql" />
-    <Build Include="dbo\Tables\Payments.sql" />
-    <Build Include="dbo\Stored Procedures\alloc_UserId.sql" />
+    <Build Include="dbo\Tables\UserBalance.sql" />
+    <Build Include="dbo\Tables\UserAclDelegate.sql" />
     <Build Include="dbo\Tables\UserAcl.sql" />
+    <Build Include="dbo\Tables\TranCorp2.sql" />
+    <Build Include="dbo\Tables\TranCorp1.sql" />
+    <Build Include="dbo\Tables\Payments.sql" />
+    <Build Include="dbo\Tables\PayAccount.sql" />
     <Build Include="dbo\Tables\PasswordHist.sql" />
     <Build Include="dbo\Tables\Password.sql" />
     <Build Include="dbo\Tables\Members.sql" />
-    <Build Include="dbo\Tables\Agents.sql" />
-    <Build Include="dbo\Tables\Admins.sql" />
-    <Build Include="dbo\Tables\UserPlatformGame.sql" />
-    <Build Include="dbo\Tables\UserAclDelegate.sql" />
     <Build Include="dbo\Tables\MemberPlatform.sql" />
     <Build Include="dbo\Tables\MemberGame.sql" />
     <Build Include="dbo\Tables\CorpPlatform.sql" />
     <Build Include="dbo\Tables\CorpGame.sql" />
+    <Build Include="dbo\Tables\ApiAuth.sql" />
+    <Build Include="dbo\Tables\Agents.sql" />
     <Build Include="dbo\Tables\AgentPlatform.sql" />
     <Build Include="dbo\Tables\AgentGame.sql" />
+    <Build Include="dbo\Tables\Admins.sql" />
     <Build Include="dbo\Stored Procedures\UpdatePassword.sql" />
-    <Build Include="dbo\Tables\PayAccount.sql" />
-    <Build Include="dbo\Tables\ApiAuth.sql" />
-    <Build Include="dbo\Sequences\UserId2.sql" />
-    <Build Include="dbo\Tables\UserBalance.sql" />
-    <Build Include="dbo\Tables\TranCorp2.sql" />
-    <Build Include="dbo\Tables\TranCorp1.sql" />
-    <Build Include="dbo\Sequences\TranId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateBalance.sql" />
+    <Build Include="dbo\Stored Procedures\alloc_UserId.sql" />
+    <Build Include="dbo\Sequences\UserId2.sql" />
+    <Build Include="dbo\Sequences\TranId.sql" />
   </ItemGroup>
 </Project>

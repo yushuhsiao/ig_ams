@@ -104,9 +104,9 @@ declare @TranId uniqueidentifier set @TranId = newid()
 update {{:TableName}} set Finished = @f, FinishTime = getdate(), FinishUser = {op_user}
 where TranId = {{TranId}} and Finished is null
 if @@rowcount = 1 and @f = 1
-exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}";
+exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}"
+.FormatWith(data, true);
 
-                    sql = sql.FormatWith(data, true);
                     foreach (var commit in userdb.BeginTran())
                     {
                         var log = userdb.ToObject<Entity.TranLog>(sql);

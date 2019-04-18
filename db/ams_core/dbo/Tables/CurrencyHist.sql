@@ -8,5 +8,3 @@
     CONSTRAINT [PK_CurrencyHist] PRIMARY KEY CLUSTERED ([A] ASC, [B] ASC, [ver] ASC)
 );
 
-
-

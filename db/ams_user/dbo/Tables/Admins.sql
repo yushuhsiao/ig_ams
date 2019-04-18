@@ -14,5 +14,3 @@
     CONSTRAINT [IX_Admins] UNIQUE NONCLUSTERED ([CorpId] ASC, [Name] ASC)
 );
 
-
-

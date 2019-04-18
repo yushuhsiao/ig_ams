@@ -9,5 +9,3 @@
     CONSTRAINT [IX_UserId_1] UNIQUE NONCLUSTERED ([CorpId] ASC, [UserType] ASC, [UserName] ASC)
 );
 
-
-
