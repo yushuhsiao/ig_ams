@@ -113,15 +113,25 @@ namespace InnateGlory.Controllers
         }
 
         [Api("/tran/corp/add")]
-        public Entity.TranCorp1 CreateTran(Models.CorpBalanceModel model)
+        public Entity.TranCorp1 CreateTran(Models.CorpBalanceModel model, [FromServices] DataService ds)
         {
-            return null;
+            var validator = new ApiModelValidator(model)
+                .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
+                .Validate();
+
+            return ds.Tran.Corp_Create(model);
         }
 
         [Api("/tran/corp/finish")]
-        public Entity.TranCorp2 FinishTran(Models.TranOperationModel op)
+        public Entity.TranCorp1 FinishTran(Models.TranOperationModel op, [FromServices] DataService ds)
         {
-            return null;
+            var validator = new ApiModelValidator(op)
+                .Valid(nameof(op.TranId))
+                .Valid(nameof(op.Finish), required: false)
+                .Valid(nameof(op.Delete), required: false)
+                .Validate();
+
+            return ds.Tran.Corp_Finish(null, op);
         }
     }
 }

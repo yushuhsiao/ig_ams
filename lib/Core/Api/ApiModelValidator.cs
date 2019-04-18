@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
-using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
+using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
 
 namespace InnateGlory.Api
@@ -98,6 +98,13 @@ namespace InnateGlory.Api
 
                 if (valueType.Is<string>())
                     return this.Valid(key, (string)value, required, statusCode, message);
+
+                if (valueType.Is<Guid>(true))
+                    return this.Valid(key, (Guid?)value, required, statusCode, message);
+
+                if (valueType.Is<bool>(true))
+                    return this.Valid(key, (bool?)value, required, statusCode, message);
+
                 //if (valueType == typeof(CorpId))
                 //if (value == null)
                 //{
@@ -118,6 +125,20 @@ namespace InnateGlory.Api
         public ApiModelValidator Valid(string key, string value, bool required = true, Status statusCode = Status.InvalidParameter, string message = null)
         {
             if (string.IsNullOrEmpty(value) && required)
+                AddError(key, statusCode, message);
+            return this;
+        }
+
+        public ApiModelValidator Valid(string key, bool? value, bool required = true, Status statusCode = Status.InvalidParameter, string message = null)
+        {
+            if (false == value.HasValue && required)
+                AddError(key, statusCode, message);
+            return this;
+        }
+
+        public ApiModelValidator Valid(string key, Guid? value, bool required = true, Status statusCode = Status.InvalidParameter, string message = null)
+        {
+            if (false == value.HasValue && required)
                 AddError(key, statusCode, message);
             return this;
         }

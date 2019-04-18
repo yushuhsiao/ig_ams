@@ -76,6 +76,16 @@ declare @TranId uniqueidentifier set @TranId = newid()
             //using (SqlCmd sqlcmd)
             if (data == null)
             {
+                foreach (var c in _dataService.Corps.All)
+                {
+                    using (SqlCmd userdb = _dataService.UserDB_W(c.Id))
+                    {
+                        string sql = $"select * from {TableName<Entity.TranCorp1>.Value} nolock where TranId = {{TranId}}".FormatWith(op, true);
+                        data = userdb.ToObject<Entity.TranCorp1>(sql);
+                    }
+                    if (data != null)
+                        break;
+                }
             }
 
             UserId op_user = _dataService.GetCurrentUser().Id;
@@ -90,16 +100,17 @@ declare @TranId uniqueidentifier set @TranId = newid()
                 if (op.Finish.HasValue)
                 {
                     bool f = op.Finish.Value;
-                    string sql = $@"update {{:TableName}} set Finished = {(f ? 1 : 0)}, FinishTime = getdate(), FinishUser = {op_user}
-where TranId = {{TranId}} and Finished is null {(f ? @"
-if @@rowcount = 1
-exec UpdateBalance @UserId = {CorpId}, @Amount1 = {Amount1}, @Amount2 = {Amount2}, @Amount3 = {Amount3}" : null)}";
+                    string sql = $@"declare @f bit set @f = {(f ? 1 : 0)}
+update {{:TableName}} set Finished = @f, FinishTime = getdate(), FinishUser = {op_user}
+where TranId = {{TranId}} and Finished is null
+if @@rowcount = 1 and @f = 1
+exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}";
 
                     sql = sql.FormatWith(data, true);
                     foreach (var commit in userdb.BeginTran())
                     {
                         var log = userdb.ToObject<Entity.TranLog>(sql);
-                        if (f)
+                        if (log != null)
                         {
                             log.LogType = data.LogType;
                             log.CorpId = data.CorpId;
