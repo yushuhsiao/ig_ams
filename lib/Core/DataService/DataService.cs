@@ -97,6 +97,49 @@ namespace InnateGlory
         public SqlCmd UserDB_W(CorpId id, object state = null) => _UserDB_W(id).Open(_services, state);
         public SqlCmd LogDB_R(CorpId id, object state = null) => _LogDB_R(id).Open(_services, state);
         public SqlCmd LogDB_W(CorpId id, object state = null) => _LogDB_W(id).Open(_services, state);
+
+        public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null)
+        {
+            if (sqlcmd == null)
+                return sqlcmd = CoreDB_R(state);
+            else
+                return null;
+        }
+        public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null)
+        {
+            if (sqlcmd == null)
+                return sqlcmd = CoreDB_W(state);
+            else
+                return null;
+        }
+        public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null)
+        {
+            if (sqlcmd == null)
+                return sqlcmd = UserDB_R(id, state);
+            else
+                return null;
+        }
+        public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null)
+        {
+            if (sqlcmd == null)
+                return sqlcmd = UserDB_W(id, state);
+            else
+                return null;
+        }
+        public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null)
+        {
+            if (sqlcmd == null)
+                return sqlcmd = LogDB_R(id, state);
+            else
+                return null;
+        }
+        public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null)
+        {
+            if (sqlcmd == null)
+                return sqlcmd = LogDB_W(id, state);
+            else
+                return null;
+        }
     }
     public static partial class DataServiceExtensions
     {

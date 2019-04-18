@@ -103,7 +103,7 @@ namespace InnateGlory.Controllers
             var t1 = ds.Tran.Corp_Create(model);
             if (t1 != null)
             {
-                var t2 = ds.Tran.Corp_Finish(t1, new Models.TranOperation()
+                var t2 = ds.Tran.Corp_Finish(t1, new Models.TranOperationModel()
                 {
                     TranId = t1.TranId,
                     Finish = true
@@ -119,7 +119,7 @@ namespace InnateGlory.Controllers
         }
 
         [Api("/tran/corp/finish")]
-        public Entity.TranCorp2 FinishTran(Models.TranOperation op)
+        public Entity.TranCorp2 FinishTran(Models.TranOperationModel op)
         {
             return null;
         }

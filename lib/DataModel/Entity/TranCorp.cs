@@ -81,12 +81,14 @@ namespace InnateGlory.Entity
 namespace InnateGlory.Models
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class TranOperation
+    public class TranOperationModel
     {
         public Guid? TranId { get; set; }
 
         public bool? Accept { get; set; }
 
         public bool? Finish { get; set; }
+
+        public bool? Delete { get; set; }
     }
 }

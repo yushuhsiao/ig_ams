@@ -71,7 +71,7 @@ declare @TranId uniqueidentifier set @TranId = newid()
             }
         }
 
-        public Entity.TranCorp1 Corp_Finish(Entity.TranCorp1 data, Models.TranOperation op)
+        public Entity.TranCorp1 Corp_Finish(Entity.TranCorp1 data, Models.TranOperationModel op)
         {
             //using (SqlCmd sqlcmd)
             if (data == null)
@@ -79,73 +79,85 @@ declare @TranId uniqueidentifier set @TranId = newid()
             }
 
             UserId op_user = _dataService.GetCurrentUser().Id;
+            if (!_dataService.Agents.GetRootAgent(data.CorpId, out var agent))
+                throw new ApiException(Status.AgentNotExist);
 
-            var _sql = new SqlBuilder(typeof(Entity.TranCorp1))
-            {
-                { " w", nameof(Entity.TranCorp1.TranId)             , data.TranId },
-                { " u", nameof(Entity.TranCorp1.Finished)           , 1 },
-                { " u", nameof(Entity.TranCorp1.FinishTime)         , SqlBuilder.raw_getdate },
-                { " u", nameof(Entity.TranCorp1.FinishUser)         , op_user },
-            };
+            if (!op.Finish.HasValue && !op.Delete.HasValue)
+                return data;
 
-            string sql = _sql.FormatWith($@"
-update TranCorp1 set Finished = 1, FinishTime = getdate(), FinishUser = {op_user}
-where TranId = '{data.TranId}' and Finished is null
-if @@rowcount = 1
-exec UpdateBalance @UserId = {data.CorpId}, @Amount1 = {data.Amount1}, @Amount2 = {data.Amount2}, @Amount3 = {data.Amount3}");
-
-            Entity.Agent agent = _dataService.Agents.GetRootAgent(data.CorpId);
-
-            using (SqlCmd logdb = _dataService.LogDB_W(data.CorpId))
             using (SqlCmd userdb = _dataService.UserDB_W(data.CorpId))
             {
-                ;
-                foreach (var commit in userdb.BeginTran())
+                if (op.Finish.HasValue)
                 {
-                    var log = userdb.ToObject<Entity.TranLog>(sql);
-                    log.LogType = data.LogType;
-                    log.CorpId = data.CorpId;
-                    log.CorpName = data.CorpName;
-                    log.ParentId = 0;
-                    log.ParentName = "";
-                    log.UserId = agent.Id;
-                    log.UserName = agent.Name;
-                    log.PlatformId = 0;
-                    log.PlatformName = "";
-                    log.TranId = data.TranId;
-                    log.PaymentAccount = null;
-                    log.SerialNumber = data.SerialNumber;
-                    log.CurrencyA = data.CurrencyA;
-                    log.CurrencyB = data.CurrencyB;
-                    log.CurrencyX = data.CurrencyX;
-                    log.RequestIP = data.RequestIP;
-                    log.RequestTime = data.RequestTime;
-                    SaveLog(logdb, log);
-                    commit();
-                    ;
+                    bool f = op.Finish.Value;
+                    string sql = $@"update {{:TableName}} set Finished = {(f ? 1 : 0)}, FinishTime = getdate(), FinishUser = {op_user}
+where TranId = {{TranId}} and Finished is null {(f ? @"
+if @@rowcount = 1
+exec UpdateBalance @UserId = {CorpId}, @Amount1 = {Amount1}, @Amount2 = {Amount2}, @Amount3 = {Amount3}" : null)}";
+
+                    sql = sql.FormatWith(data, true);
+                    foreach (var commit in userdb.BeginTran())
+                    {
+                        var log = userdb.ToObject<Entity.TranLog>(sql);
+                        if (f)
+                        {
+                            log.LogType = data.LogType;
+                            log.CorpId = data.CorpId;
+                            log.CorpName = data.CorpName;
+                            log.ParentId = 0;
+                            log.ParentName = "";
+                            log.UserId = agent.Id;
+                            log.UserName = agent.Name;
+                            log.PlatformId = 0;
+                            log.PlatformName = "";
+                            log.TranId = data.TranId;
+                            log.PaymentAccount = null;
+                            log.SerialNumber = data.SerialNumber;
+                            log.CurrencyA = data.CurrencyA;
+                            log.CurrencyB = data.CurrencyB;
+                            log.CurrencyX = data.CurrencyX;
+                            log.RequestIP = data.RequestIP;
+                            log.RequestTime = data.RequestTime;
+                            SaveLog(null, log);
+                        }
+                        commit();
+                    }
+                    data = userdb.ToObject<Entity.TranCorp1>("select * from {:TableName} nolock where TranId = {TranId}".FormatWith(data, true));
                 }
-                return userdb.ToObject<Entity.TranCorp1>($"select * from {TableName<Entity.TranCorp1>.Value} nolock where TranId = '{data.TranId}'");
+                if (op.Delete.HasValue && op.Delete.Value)
+                {
+                }
+                return data;
             }
-
-
-            return null;
         }
 
-        private void SaveLog(SqlCmd logdb, Entity.TranLog log)
+        [TableName("TranLog", Database = _Consts.db.LogDB, SortKey = nameof(CreateTime))]
+        class _TranLog : Entity.TranLog
         {
-            SqlSchemaTable t = SqlSchemaTable.GetSchema(logdb, TableName<Entity.TranLog>.Value);
-            SqlBuilder _sql = new SqlBuilder(log);
-            foreach (var m in t.GetValueMembers(log))
+            public Entity.TranCorp1 src;
+
+            [DbImport]
+            public decimal Balance { get; set; }
+        }
+
+        private int SaveLog(SqlCmd logdb, Entity.TranLog log)
+        {
+            using (_dataService.LogDB_W(ref logdb, log.CorpId))
             {
-                object value = m.GetValue(log);
-                if (value is UserName) _sql.Add("n", m.Name, value);
-                else if (m.Name == nameof(Entity.TranLog.sn)) continue;
-                else if (m.Name == nameof(Entity.TranLog.CreateTime)) continue;
-                else if (value == null) _sql.Add(" ", m.Name, SqlBuilder.raw_null);
-                else _sql.Add(" ", m.Name, value);
+                SqlSchemaTable t = SqlSchemaTable.GetSchema(logdb, TableName<Entity.TranLog>.Value);
+                SqlBuilder _sql = new SqlBuilder(log);
+                foreach (var m in t.GetValueMembers(log))
+                {
+                    object value = m.GetValue(log);
+                    if (value is UserName) _sql.Add("n", m.Name, value);
+                    else if (m.Name == nameof(Entity.TranLog.sn)) continue;
+                    else if (m.Name == nameof(Entity.TranLog.CreateTime)) continue;
+                    else if (value == null) _sql.Add(" ", m.Name, SqlBuilder.raw_null);
+                    else _sql.Add(" ", m.Name, value);
+                }
+                string sql = _sql.FormatWith($"{_sql.insert_into()}");
+                return logdb.ExecuteNonQuery(sql, logdb.Transaction == null);
             }
-            string sql = _sql.FormatWith( $"{_sql.insert_into()}");
-            ;
         }
 
         private bool UpdateBalance<TUser>(TUser user, decimal amount1, decimal amount2, decimal amount3, bool force_update)
