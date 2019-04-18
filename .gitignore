@@ -51,3 +51,5 @@ util/NugetServer/NugetServer/bin
 util/NugetServer/NugetServer/obj
 util/ig.api_client.test/obj
 util/ViewWaitingPlayer/Log
+db/ams_core/ams_core.dbmdl
+*.dbmdl
