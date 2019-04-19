@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Text;
 
@@ -80,9 +81,10 @@ namespace InnateGlory.Entity
 }
 namespace InnateGlory.Models
 {
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    //[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class TranOperationModel
     {
+        [Required]
         public Guid? TranId { get; set; }
 
         public bool? Accept { get; set; }

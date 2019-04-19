@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -54,9 +55,11 @@ namespace InnateGlory
         [JsonProperty(_Consts.Api.Field_Data)]
         object IApiResult.Data
         {
-            get => this.Data ?? _value;
+            get => this.ModelError ?? this.Data ?? _value;
             set { }
         }
+
+        public SerializableError ModelError { get; set; }
 
         [JsonProperty(_Consts.Api.Field_Error)]
         public virtual IDictionary<string, ApiErrorEntry> Errors

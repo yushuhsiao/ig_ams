@@ -113,23 +113,27 @@ namespace InnateGlory.Controllers
         }
 
         [Api("/tran/corp/add")]
-        public Entity.TranCorp1 CreateTran(Models.CorpBalanceModel model, [FromServices] DataService ds)
+        public Entity.TranCorp1 CreateTran([FromBody] Models.CorpBalanceModel model, [FromServices] DataService ds)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
-                .Validate();
+            ModelState
+                .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
+                .IsValid();
+            //var validator = new ApiModelValidator(model)
+            //    .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
+            //    .Validate();
 
             return ds.Tran.Corp_Create(model);
         }
 
         [Api("/tran/corp/finish")]
-        public Entity.TranCorp1 FinishTran(Models.TranOperationModel op, [FromServices] DataService ds)
+        public Entity.TranCorp1 FinishTran([FromBody] Models.TranOperationModel op, [FromServices] DataService ds)
         {
-            var validator = new ApiModelValidator(op)
-                .Valid(nameof(op.TranId))
-                .Valid(nameof(op.Finish), required: false)
-                .Valid(nameof(op.Delete), required: false)
-                .Validate();
+            ModelState.IsValid();
+            //var validator = new ApiModelValidator(op)
+            //    .Valid(nameof(op.TranId))
+            //    .Valid(nameof(op.Finish), required: false)
+            //    .Valid(nameof(op.Delete), required: false)
+            //    .Validate();
 
             return ds.Tran.Corp_Finish(null, op);
         }

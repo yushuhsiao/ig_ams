@@ -30,7 +30,10 @@ namespace InnateGlory.Api
             }
         }
 
-        void IActionFilter.OnActionExecuting(ActionExecutingContext context) => this.ExecuteValidation(context);
+        void IActionFilter.OnActionExecuting(ActionExecutingContext context)
+        {
+            //this.ExecuteValidation(context);
+        }
 
         void IActionFilter.OnActionExecuted(ActionExecutedContext context) { }
 

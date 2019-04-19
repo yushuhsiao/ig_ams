@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -284,5 +286,167 @@ namespace InnateGlory.Api
         //    }
         //    return false;
         //}
+    }
+
+    public static class ModelStateExtension
+    {
+        public static void IsValid(this ModelStateDictionary modelState)
+        {
+            if (false == modelState.IsValid)
+            {
+                throw new ApiException(Status.ModelStateError)
+                {
+                    HttpStatusCode = System.Net.HttpStatusCode.BadRequest,
+                    ModelError = new SerializableError(modelState)
+                };
+            }
+            //new Microsoft.AspNetCore.Mvc.SerializableError()
+        }
+
+        private static bool GetValue<T>(object model, string key, out T value)
+        {
+            value = default(T);
+            if (model == null)
+                return false;
+            if (model.GetType().GetFieldOrProperty(key, out var m))
+            {
+                object _value = m.GetValue(model);
+                return _value.TryCast(out value);
+            }
+            return false;
+        }
+
+
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, string value, bool required = true, Status statusCode = Status.InvalidParameter, string message = null)
+        {
+            if (string.IsNullOrEmpty(value) && required)
+                modelState.TryAddModelError(key, message);
+            return modelState;
+        }
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, bool? value, bool required = true, Status statusCode = Status.InvalidParameter, string message = null)
+        {
+            if (false == value.HasValue && required)
+                modelState.TryAddModelError(key, message);
+            return modelState;
+        }
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, Guid? value, bool required = true, Status statusCode = Status.InvalidParameter, string message = null)
+        {
+            if (false == value.HasValue && required)
+                modelState.TryAddModelError(key, message);
+            return modelState;
+        }
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, UserName value, bool required = true, string message = null)
+        {
+            if (value.IsNullOrEmpty && required)
+                modelState.TryAddModelError(key, message);
+            else if (!value.IsValid)
+                modelState.TryAddModelError(key, message);
+            return modelState;
+        }
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, CorpId? value, bool required = true, string message = null)
+        {
+            if (value.HasValue)
+            {
+                if (!value.Value.IsValid)
+                    modelState.TryAddModelError(key, message);
+            }
+            else if (required)
+            {
+                modelState.TryAddModelError(key, message);
+            }
+            return modelState;
+        }
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, UserId? value, bool required = true, string message = null)
+        {
+            if (value.HasValue)
+            {
+                if (!value.Value.IsValid)
+                    modelState.TryAddModelError(key, message);
+            }
+            else if (required)
+            {
+                modelState.TryAddModelError(key, message);
+            }
+            return modelState;
+        }
+
+        public static ModelStateDictionary Valid(this ModelStateDictionary modelState, object model, string key, UserType? value, bool required = true, string message = null)
+        {
+            if (value.HasValue)
+            {
+                if (!Enum<UserType>.IsDefined(value))
+                    modelState.TryAddModelError(key, message);
+            }
+            else if (required)
+            {
+                modelState.TryAddModelError(key, message);
+            }
+            return modelState;
+        }
+
+        public static ModelStateDictionary ValidCorp(this ModelStateDictionary modelState, object model, string key_CorpId, CorpId? id, string key_CorpName, UserName name, bool required = true)
+        {
+            if (id.HasValue || name.IsValid)
+                return modelState;
+            modelState.Valid(model, key_CorpId, id);
+            modelState.Valid(model, key_CorpName, name);
+            return modelState;
+        }
+
+        public static ModelStateDictionary ValidCorp(this ModelStateDictionary modelState, object model, string key_CorpId, string key_CorpName, bool required = true)
+        {
+            GetValue(model, key_CorpId, out CorpId? id);
+            GetValue(model, key_CorpName, out UserName name);
+            return modelState.ValidCorp(model, key_CorpId, id, key_CorpName, name, required);
+        }
+
+        public static ModelStateDictionary ValidIdOrName(this ModelStateDictionary modelState, object model, string key_UserId, string key_CorpId, string key_CorpName, string key_UserName)
+        {
+            var v1 = GetValue(model, key_UserId, out UserId? userId) && userId.HasValue && userId.Value.IsValid;
+            var v2 = GetValue(model, key_CorpId, out CorpId? corpId) && corpId.HasValue && corpId.Value.IsValid;
+            var v3 = GetValue(model, key_CorpName, out UserName corpName) && corpName.IsValid;
+            var v4 = GetValue(model, key_UserName, out UserName userName) && userName.IsValid;
+
+            if (v1)
+                return modelState;
+            if (v2 && v4)
+                return modelState;
+            if (v3 && v4)
+                return modelState;
+
+            if (!v1) modelState.TryAddModelError(key_UserId, Status.InvalidParameter.ToString());
+            if (!v2) modelState.TryAddModelError(key_CorpId, Status.InvalidParameter.ToString());
+            if (!v3) modelState.TryAddModelError(key_CorpName, Status.InvalidParameter.ToString());
+            if (!v4) modelState.TryAddModelError(key_UserName, Status.InvalidParameter.ToString());
+            //Valid(key_UserId, userId, required: false);
+            //int n1 = errors.Count;
+            //if (n0 == n1)
+            //{
+            //    ValidCorp(key_CorpId, key_CorpName);
+            //    GetValue(key_UserName, out UserName userName);
+            //    Valid(key_UserName, userName);
+            //}
+            return modelState;
+        }
+
+        public static ModelStateDictionary ValidParent(this ModelStateDictionary modelState, object model, string key_AgentId, string key_AgentName, bool required = false)
+        {
+            GetValue(model, key_AgentId, out UserId? id);
+            GetValue(model, key_AgentName, out UserName name);
+            if (id.HasValue || name.IsValid)
+                return modelState;
+            if (required)
+            {
+                modelState.Valid(model, key_AgentId, id);
+                modelState.Valid(model, key_AgentName, name);
+            }
+            return modelState;
+        }
     }
 }
