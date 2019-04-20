@@ -103,7 +103,7 @@ namespace InnateGlory.Controllers
             var t1 = ds.Tran.Corp_Create(model);
             if (t1 != null)
             {
-                var t2 = ds.Tran.Corp_Finish(t1, new Models.TranOperationModel()
+                var t2 = ds.Tran.Corp_Update(t1, new Models.TranOperationModel()
                 {
                     TranId = t1.TranId,
                     Finish = true
@@ -118,6 +118,11 @@ namespace InnateGlory.Controllers
             ModelState
                 .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
                 .IsValid();
+            if (model.Amount1 == 0 && model.Amount2 == 0 && model.Amount3 == 0)
+            {
+                ModelState.TryAddModelError("Amount", "Amount = 0");
+                ModelState.IsValid();
+            }
             //var validator = new ApiModelValidator(model)
             //    .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
             //    .Validate();
@@ -125,7 +130,7 @@ namespace InnateGlory.Controllers
             return ds.Tran.Corp_Create(model);
         }
 
-        [Api("/tran/corp/finish")]
+        [Api("/tran/corp/set")]
         public Entity.TranCorp1 FinishTran([FromBody] Models.TranOperationModel op, [FromServices] DataService ds)
         {
             ModelState.IsValid();
@@ -135,7 +140,7 @@ namespace InnateGlory.Controllers
             //    .Valid(nameof(op.Delete), required: false)
             //    .Validate();
 
-            return ds.Tran.Corp_Finish(null, op);
+            return ds.Tran.Corp_Update(null, op);
         }
     }
 }

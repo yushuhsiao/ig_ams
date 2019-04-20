@@ -7,7 +7,7 @@ using System.Text;
 
 namespace InnateGlory.Entity
 {
-    public abstract class TranCorp
+    public abstract class TranData
     {
         [DbImport]
         public Guid TranId { get; set; }
@@ -65,6 +65,9 @@ namespace InnateGlory.Entity
 
         [DbImport]
         public DateTime? ExpireTime { get; set; }
+    }
+    public abstract class TranCorp: TranData
+    {
     }
 
     [TableName("TranCorp1", Database = _Consts.db.UserDB, SortKey = nameof(RequestTime))]

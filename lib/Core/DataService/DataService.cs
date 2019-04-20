@@ -100,42 +100,42 @@ namespace InnateGlory
 
         public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null)
         {
-            if (sqlcmd == null)
+            if (sqlcmd == null || sqlcmd.ConnectionString != _CoreDB_R)
                 return sqlcmd = CoreDB_R(state);
             else
                 return null;
         }
         public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null)
         {
-            if (sqlcmd == null)
+            if (sqlcmd == null || sqlcmd.ConnectionString != _CoreDB_W)
                 return sqlcmd = CoreDB_W(state);
             else
                 return null;
         }
         public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null)
         {
-            if (sqlcmd == null)
+            if (sqlcmd == null || sqlcmd.ConnectionString != _UserDB_R(id))
                 return sqlcmd = UserDB_R(id, state);
             else
                 return null;
         }
         public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null)
         {
-            if (sqlcmd == null)
+            if (sqlcmd == null || sqlcmd.ConnectionString != _UserDB_W(id))
                 return sqlcmd = UserDB_W(id, state);
             else
                 return null;
         }
         public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null)
         {
-            if (sqlcmd == null)
+            if (sqlcmd == null || sqlcmd.ConnectionString != _LogDB_R(id))
                 return sqlcmd = LogDB_R(id, state);
             else
                 return null;
         }
         public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null)
         {
-            if (sqlcmd == null)
+            if (sqlcmd == null || sqlcmd.ConnectionString != _LogDB_W(id))
                 return sqlcmd = LogDB_W(id, state);
             else
                 return null;

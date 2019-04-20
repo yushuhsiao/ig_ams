@@ -210,10 +210,10 @@ namespace InnateGlory
         ///// 平台遊戲定義不存在
         ///// </summary>
         //PlatformGameDefineNotExist,
-        ///// <summary>
-        ///// 找不到轉帳單
-        ///// </summary>
-        //TranNotFound,
+        /// <summary>
+        /// 找不到轉帳單
+        /// </summary>
+        TranNotFound,
         ///// <summary>
         ///// 用戶餘額不足
         ///// </summary>
