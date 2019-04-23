@@ -36,6 +36,23 @@ namespace InnateGlory
 select @prefix='{prefix}', @sn2 = next value for dbo.TranId;
 set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(@prefix));";
 
+        private T FindTranData<T>(Guid? tranId, ref SqlCmd userdb, bool throwError) where T : Entity.TranData
+        {
+            foreach (var c in _dataService.Corps.All)
+            {
+                _dataService.UserDB_W(ref userdb, c.Id);
+                string sql = $"select * from {TableName<T>.Value} nolock where TranId = '{tranId}'";
+                var data = userdb.ToObject<T>(sql);
+                if (data != null)
+                    return data;
+            }
+            if (throwError)
+                throw new ApiException(Status.TranNotFound);
+            return null;
+        }
+
+
+
         public Entity.TranCorp1 Corp_Create(Models.CorpBalanceModel model)
         {
             if (!_dataService.Corps.Get(out Status status, model.CorpId, model.CorpName, out var corp, false))
@@ -44,7 +61,7 @@ set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(
             if (corp.Id.IsRoot)
                 throw new ApiException(Status.Forbidden); // root 不能有點數
 
-            decimal amount = model.Amount1 ?? 0 + model.Amount2 ?? 0 + model.Amount3 ?? 0;
+            decimal amount = (model.Amount1 ?? 0) + (model.Amount2 ?? 0) + (model.Amount3 ?? 0);
             if (amount == 0) return null;
 
             UserId op_user = _dataService.GetCurrentUser().Id;
@@ -77,27 +94,14 @@ declare @TranId uniqueidentifier set @TranId = newid()
             }
         }
 
-        private T FindTranData<T>(Guid? tranId, ref SqlCmd userdb, bool throwError) where T : Entity.TranData
-        {
-            foreach (var c in _dataService.Corps.All)
-            {
-                _dataService.UserDB_W(ref userdb, c.Id);
-                string sql = $"select * from {TableName<T>.Value} nolock where TranId = '{tranId}'";
-                var data = userdb.ToObject<T>(sql);
-                if (data != null)
-                    return data;
-            }
-            if (throwError)
-                throw new ApiException(Status.TranNotFound);
-            return null;
-        }
-
         public Entity.TranCorp1 Corp_Update(Entity.TranCorp1 data, Models.TranOperationModel op)
         {
             SqlCmd userdb = null;
-            data = data ?? FindTranData<Entity.TranCorp1>(op.TranId.Value, ref userdb, true);
 
             UserId op_user = _dataService.GetCurrentUser().Id;
+
+            data = data ?? FindTranData<Entity.TranCorp1>(op.TranId.Value, ref userdb, true);
+
             if (!_dataService.Agents.GetRootAgent(data.CorpId, out var agent))
                 throw new ApiException(Status.AgentNotExist);
 
@@ -109,7 +113,7 @@ declare @TranId uniqueidentifier set @TranId = newid()
                 bool f = op.Finish.Value;
                 string sql_update = $@"declare @f bit set @f = {(f ? 1 : 0)}
 update {{:TableName}} set Finished = @f, FinishTime = getdate(), FinishUser = {op_user}
-where TranId = {{TranId}} and Finished is null
+where TranId = {{TranId}} and Finished is null and (Amount1 + {{Amount1}} + Amount2 + {{Amount2}} + Amount3 + {{Amount3}}) >= 0
 if @@rowcount = 1 and @f = 1
 exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}"
 .FormatWith(data, true);
@@ -117,7 +121,7 @@ exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Am
                 _dataService.UserDB_W(ref userdb, data.CorpId);
                 foreach (var commit in userdb.BeginTran())
                 {
-                    var log = userdb.ToObject<Entity.TranLog>(sql_update);
+                    var log = userdb.ToObject<_CorpTranLog>(sql_update);
                     if (log != null)
                     {
                         log.LogType = data.LogType;
@@ -145,14 +149,12 @@ exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Am
                 {
                     var schema = SqlSchemaTable.GetSchema(userdb, TableName<Entity.TranCorp2>.Value);
                     string fields = string.Join(", ", schema.Keys);
-                    string sql_delete = $@"
-select * from {TableName<Entity.TranCorp1>.Value} nolock where TranId = '{data.TranId}'
+                    string sql_delete = $@"select * from {TableName<Entity.TranCorp1>.Value} nolock where TranId = '{data.TranId}'
 insert into {TableName<Entity.TranCorp2>.Value} ({fields})
 select {fields} from {TableName<Entity.TranCorp1>.Value}
 where TranId = '{data.TranId}'
 delete from {TableName<Entity.TranCorp1>.Value}
-where TranId = '{data.TranId}'
-";
+where TranId = '{data.TranId}'";
                     data = userdb.ToObject<Entity.TranCorp1>(sql_delete, transaction: true);
                 }
                 else
@@ -164,9 +166,6 @@ where TranId = '{data.TranId}'
         [TableName("TranLog", Database = _Consts.db.LogDB, SortKey = nameof(CreateTime))]
         class _CorpTranLog : Entity.TranLog
         {
-            public Entity.TranCorp1 data;
-            public Entity.CorpInfo corp;
-
             [DbImport]
             public decimal Balance { get; set; }
         }

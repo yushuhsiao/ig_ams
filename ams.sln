@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".project", ".project", "{A97B8D08-C96D-4E28-9102-2E7F6644A1BD}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.Abstractions", "lib\Abs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams", "app\ams\ams.csproj", "{2EC200E9-46FF-40B0-9006-853F5A16E237}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.DataModel", "lib\DataModel\ams.DataModel.csproj", "{B08EB5E3-A606-444F-98DB-EF50F29B8281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.DataModels", "lib\DataModel\ams.DataModels.csproj", "{B08EB5E3-A606-444F-98DB-EF50F29B8281}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "lib\Tools\_proj\Tools.csproj", "{4711C67F-73EE-401A-A75F-4F521F80F52D}"
 EndProject

@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="_Extensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Abstractions\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
   </ItemGroup>
 

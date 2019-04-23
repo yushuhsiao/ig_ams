@@ -47,7 +47,7 @@
     <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.SignalR" Version="1.0.3" />-->
     <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\SignalR\src\Microsoft.AspNetCore.SignalR\Microsoft.AspNetCore.SignalR.csproj" />-->
     <ProjectReference Include="..\Abstractions\ams.Abstractions.csproj" />
-    <ProjectReference Include="..\DataModel\ams.DataModel.csproj" />
+    <ProjectReference Include="..\DataModel\ams.DataModels.csproj" />
     <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />-->
     <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\BrowserLink\src\Microsoft.VisualStudio.Web.BrowserLink\Microsoft.VisualStudio.Web.BrowserLink.csproj" />-->
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.2.0" />
