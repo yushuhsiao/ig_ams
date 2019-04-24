@@ -8,4 +8,8 @@
     <Version>$(LibVersion)</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Core\ams.Core.csproj" />
+  </ItemGroup>
+
 </Project>

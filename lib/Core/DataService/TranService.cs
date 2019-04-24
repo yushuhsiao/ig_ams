@@ -36,7 +36,7 @@ namespace InnateGlory
 select @prefix='{prefix}', @sn2 = next value for dbo.TranId;
 set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(@prefix));";
 
-        private T FindTranData<T>(Guid? tranId, ref SqlCmd userdb, bool throwError) where T : Entity.TranData
+        private T FindTranData<T>(Guid? tranId, ref SqlCmd userdb, bool throwError) where T : Entity.Abstractions.TranData
         {
             foreach (var c in _dataService.Corps.All)
             {

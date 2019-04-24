@@ -89,5 +89,12 @@
     <Build Include="dbo\Stored Procedures\alloc_UserId.sql" />
     <Build Include="dbo\Sequences\UserId2.sql" />
     <Build Include="dbo\Sequences\TranId.sql" />
+    <Build Include="dbo\Tables\TranUser2.sql" />
+    <Build Include="dbo\Tables\TranUser1.sql" />
+    <Build Include="dbo\Tables\TranPlatform2.sql" />
+    <Build Include="dbo\Tables\TranPlatform1.sql" />
+    <Build Include="dbo\Tables\TranPayment2.sql" />
+    <Build Include="dbo\Tables\TranPayment1.sql" />
+    <Build Include="dbo\Tables\TranCert.sql" />
   </ItemGroup>
 </Project>
