@@ -1,36 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.FileProviders;
+using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 
-namespace ams_api
+
+namespace InnateGlory
 {
-    public class Startup
+    internal class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        //public amsStartup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
 
-        public IConfiguration Configuration { get; }
+        //public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddUserManager<amsUser>();
+            services.AddAMS();
+            services.AddMvc().AddAMS(actionSelectorOptions: options =>
+            {
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR(opts =>
+            {
+            });
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.AddResponseCompression();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "ams api", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSqlAppSettings();
+
+            app.UseResponseCompression();
+         
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -41,8 +63,27 @@ namespace ams_api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseAuthentication();
+            //app.UseHttpsRedirection();
+
+            //app.UseMvcWithDefaultRoute();
             app.UseMvc();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Hub1>("/hub1", (HttpConnectionDispatcherOptions opts) =>
+                {
+                    //opts.Transports = HttpTransportType.LongPolling;
+                    //opts.LongPolling.PollTimeout = TimeSpan.FromSeconds(20);
+                });
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ams api V1");
+            });
+            ;
         }
     }
 }

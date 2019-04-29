@@ -4,8 +4,11 @@ app/ams/bin
 app/ams/Log
 app/ams/node_modules
 app/ams/obj
+app/ams/pub
 app/ams_api/bin
 app/ams_api/obj
+app/ams_api/Log
+app/ams_api/pub
 app/LiveStreamServer/bin
 app/LiveStreamServer/obj
 app/LogService/bin
@@ -51,8 +54,6 @@ util/NugetServer/NugetServer/bin
 util/NugetServer/NugetServer/obj
 util/ig.api_client.test/obj
 util/ViewWaitingPlayer/Log
-db/ams_core/ams_core.dbmdl
-*.dbmdl
 /db/ams_log/*.dbmdl
 /db/ams_core/*.dbmdl
 /db/ams_user/*.dbmdl

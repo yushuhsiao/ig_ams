@@ -10,8 +10,6 @@
     <!--<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>-->
     <RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   
   <ItemGroup>
@@ -24,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Startup.cs" />
+    <Compile Remove="_Startup.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,24 +73,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Controllers\AdminsController.cs" />
-    <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\CorpsController.cs" />
     <Compile Include="Controllers\DeveloperController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Blazor.Server" Version="0.4.0" />-->
     <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Blazor\src\Microsoft.AspNetCore.Blazor.Server\Microsoft.AspNetCore.Blazor.Server.csproj" />-->
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
-    <ProjectReference Include="..\..\lib\Platforms\ams.Platforms.csproj" />
     <ProjectReference Include="..\..\lib\TagHelpers\ams.TagHelpers.csproj" />
+    <ProjectReference Include="..\ams_api\ams_api.csproj" />
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="exec.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None CopyToOutputDirectory="PreserveNewest" Update="testCert.pfx" />
   </ItemGroup>
   

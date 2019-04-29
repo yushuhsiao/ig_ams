@@ -1,1 +1,1 @@
-dotnet exec ams.dll
+dotnet ams.dll
