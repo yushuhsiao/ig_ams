@@ -58,3 +58,8 @@ util/ViewWaitingPlayer/Log
 /db/ams_core/*.dbmdl
 /db/ams_user/*.dbmdl
 /db/EventLog/*.dbmdl
+/app/ams/wwwroot/lib/bootstrap
+/app/ams/wwwroot/lib/Font-Awesome
+/app/ams/wwwroot/lib/jquery
+/app/ams/wwwroot/lib/vue
+/app/ams/wwwroot/lib/webix
