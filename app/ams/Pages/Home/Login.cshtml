@@ -50,6 +50,7 @@
                         {},
                         {
                             view: 'button', label: '@lang["Login"]',
+                            css:'webix_primary',
                             click: function () {
                                 var form = $$('@page_id');
                                 form.callEvent('onSubmit', null);
@@ -57,6 +58,7 @@
                         },
                         {
                             view: 'button', label: '@lang["Clear"]',
+                            css:'webix_primary',
                             click: function (args) {
                                 if (args === void 0) { args = []; }
                                 var form = $$('@page_id');

@@ -39,37 +39,29 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\**" />
-    <Compile Remove="Pages\NewFolder\**" />
-    <Compile Remove="Pages\_\**" />
     <Compile Remove="wwwroot\css\_\**" />
     <Compile Remove="wwwroot\images\_\**" />
     <Compile Remove="wwwroot\js\_\**" />
     <Compile Remove="wwwroot\lib\_\**" />
+    <Compile Remove="_\**" />
     <Content Remove="Controllers\**" />
-    <Content Remove="Pages\NewFolder\**" />
-    <Content Remove="Pages\_\**" />
     <Content Remove="wwwroot\css\_\**" />
     <Content Remove="wwwroot\images\_\**" />
     <Content Remove="wwwroot\js\_\**" />
     <Content Remove="wwwroot\lib\_\**" />
+    <Content Remove="_\**" />
     <EmbeddedResource Remove="Controllers\**" />
-    <EmbeddedResource Remove="Pages\NewFolder\**" />
-    <EmbeddedResource Remove="Pages\_\**" />
     <EmbeddedResource Remove="wwwroot\css\_\**" />
     <EmbeddedResource Remove="wwwroot\images\_\**" />
     <EmbeddedResource Remove="wwwroot\js\_\**" />
     <EmbeddedResource Remove="wwwroot\lib\_\**" />
+    <EmbeddedResource Remove="_\**" />
     <None Remove="Controllers\**" />
-    <None Remove="Pages\NewFolder\**" />
-    <None Remove="Pages\_\**" />
     <None Remove="wwwroot\css\_\**" />
     <None Remove="wwwroot\images\_\**" />
     <None Remove="wwwroot\js\_\**" />
     <None Remove="wwwroot\lib\_\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\lib\webix\sources\css\webix.min.css" />
+    <None Remove="_\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,10 +81,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
-
+  
   <ProjectExtensions><VisualStudio><UserProperties compilerconfig_1json_1defaults__JSONSchema="http://json.schemastore.org/compilerconfig" /></VisualStudio></ProjectExtensions>
 
 </Project>

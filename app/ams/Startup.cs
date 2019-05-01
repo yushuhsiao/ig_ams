@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -10,6 +11,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 //using Webpack;
 
 
@@ -17,7 +19,6 @@ namespace InnateGlory
 {
     internal class Startup
     {
-
         //public amsStartup(IConfiguration configuration)
         //{
         //    Configuration = configuration;
@@ -47,7 +48,8 @@ namespace InnateGlory
             }).AddRazorPagesOptions(opts =>
             {
                 //opts.Conventions.AuthorizeFolder("/").AllowAnonymousToPage("/Login.cshtml");
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            });
+            //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {
             });
@@ -133,10 +135,13 @@ namespace InnateGlory
 
 
             app.UseAuthentication();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             //app.UseMvcWithDefaultRoute();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                ;
+            });
 
             app.UseSignalR(routes =>
             {

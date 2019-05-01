@@ -96,9 +96,9 @@ namespace InnateGlory.Controllers
         [Api("/sys/corp/balance/set")]
         public Entity.UserBalance SetBalance([FromBody] Models.CorpBalanceModel model, [FromServices] DataService ds)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
-                .Validate();
+            ModelState
+                .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
+                .IsValid();
 
             var t1 = ds.Tran.Corp_Create(model);
             if (t1 != null)
@@ -118,6 +118,7 @@ namespace InnateGlory.Controllers
             ModelState
                 .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
                 .IsValid();
+
             if (model.Amount1 == 0 && model.Amount2 == 0 && model.Amount3 == 0)
             {
                 ModelState.TryAddModelError("Amount", "Amount = 0");
