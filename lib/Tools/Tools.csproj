@@ -10,6 +10,7 @@
     <Version>$(ToolsVersion)</Version>
     <RootNamespace>Tools</RootNamespace>
     <LangVersion>latest</LangVersion>
+    <!--<EnableDefaultCompileItems>false</EnableDefaultCompileItems>-->
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="_\**" />
@@ -22,7 +23,7 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />-->
@@ -48,77 +49,11 @@
   </ItemGroup>
 
 
-  
-  <ItemGroup>
-    <Compile Include="_\Configuration\AppSettingAttribute.cs" Link="Configuration\AppSettingAttribute.cs" />
-    <Compile Include="_\Configuration\AppSettingBinder.cs" Link="Configuration\AppSettingBinder.cs" />
-    <Compile Include="_\Configuration\IAppSettingAttribute.cs" Link="Configuration\IAppSettingAttribute.cs" />
-    <Compile Include="_\Diagnostics\FakeDebuggerStepThroughAttribute.cs" Link="Diagnostics\FakeDebuggerStepThroughAttribute.cs" />
-    <Compile Include="_\Extensions\Microsoft.Extensions.DependencyInjection.cs" Link="Extensions\Microsoft.Extensions.DependencyInjection.cs" />
-    <Compile Include="_\Extensions\System.ComponentModel.cs" Link="Extensions\System.ComponentModel.cs" />
-    <Compile Include="_\Extensions\System.IO.cs" Link="Extensions\System.IO.cs" />
-    <Compile Include="_\Extensions\System.Text.cs" Link="Extensions\System.Text.cs" />
-    <Compile Include="_\Extensions\_BooleanExtensions.cs" Link="Extensions\_BooleanExtensions.cs" />
-    <Compile Include="_\Extensions\_CollectionsExtensions.cs" Link="Extensions\_CollectionsExtensions.cs" />
-    <Compile Include="_\Extensions\_CollectionsExtensions.Dictionary.cs" Link="Extensions\_CollectionsExtensions.Dictionary.cs" />
-    <Compile Include="_\Extensions\_CollectionsExtensions.List.cs" Link="Extensions\_CollectionsExtensions.List.cs" />
-    <Compile Include="_\Extensions\_CollectionsExtensions.Queue.cs" Link="Extensions\_CollectionsExtensions.Queue.cs" />
-    <Compile Include="_\Extensions\_Convert.cs" Link="Extensions\_Convert.cs" />
-    <Compile Include="_\Extensions\_DateTimeExtensions.cs" Link="Extensions\_DateTimeExtensions.cs" />
-    <Compile Include="_\Extensions\_Globalization.cs" Link="Extensions\_Globalization.cs" />
-    <Compile Include="_\Extensions\_MathExtensions.cs" Link="Extensions\_MathExtensions.cs" />
-    <Compile Include="_\Extensions\_ReflectionExtension.cs" Link="Extensions\_ReflectionExtension.cs" />
-    <Compile Include="_\Extensions\_StringExtensions.cs" Link="Extensions\_StringExtensions.cs" />
-    <Compile Include="_\Extensions\_TypeExtensions.cs" Link="Extensions\_TypeExtensions.cs" />
-    <Compile Include="_\Global.cs" Link="Global.cs" />
-    <Compile Include="_\Log\Logger.cs" Link="Log\Logger.cs" />
-    <Compile Include="_\Log\Microsoft.Extensions.Logging.Console.cs" Link="Log\Microsoft.Extensions.Logging.Console.cs" />
-    <Compile Include="_\Log\Microsoft.Extensions.Logging.cs" Link="Log\Microsoft.Extensions.Logging.cs" />
-    <Compile Include="_\Log\RedisPublishLogger.cs" Link="Log\RedisPublishLogger.cs" />
-    <Compile Include="_\Log\SqlLogger\SqlLogger.cs" Link="Log\SqlLogger\SqlLogger.cs" />
-    <Compile Include="_\Log\SqlLogger\SqlLoggerExtensions.cs" Link="Log\SqlLogger\SqlLoggerExtensions.cs" />
-    <Compile Include="_\Log\SqlLogger\SqlLoggerOptions.cs" Link="Log\SqlLogger\SqlLoggerOptions.cs" />
-    <Compile Include="_\Log\SqlLogger\SqlLoggerProvider.cs" Link="Log\SqlLogger\SqlLoggerProvider.cs" />
-    <Compile Include="_\Log\TextFileLogger.cs" Link="Log\TextFileLogger.cs" />
-    <Compile Include="_\sql\IDbCmd.cs" Link="sql\IDbCmd.cs" />
-    <Compile Include="_\Tools\ActivatorUtilities.cs" Link="Tools\ActivatorUtilities.cs" />
-    <Compile Include="_\Tools\Bitmask.cs" Link="Tools\Bitmask.cs" />
-    <Compile Include="_\Tools\Crypto.cs" Link="Tools\Crypto.cs" />
-    <Compile Include="_\Tools\Enum.cs" Link="Tools\Enum.cs" />
-    <Compile Include="_\Tools\ExtensionAttribute.cs" Link="Extensions\ExtensionAttribute.cs" />
-    <Compile Include="_\Tools\Newtonsoft.Json.cs" Link="Tools\Newtonsoft.Json.cs" />
-    <Compile Include="_\Tools\ObjectInvoke.cs" Link="Tools\ObjectInvoke.cs" />
-    <Compile Include="_\Tools\PathList.cs" Link="Tools\PathList.cs" />
-    <Compile Include="_\Tools\PathNode.cs" Link="Tools\PathNode.cs" />
-    <Compile Include="_\Tools\RandomValue.cs" Link="Tools\RandomValue.cs" />
-    <Compile Include="_\Tools\RSAStream.cs" Link="Tools\RSAStream.cs" />
-    <Compile Include="_\Tools\SqlTimeStamp.cs" Link="sql\SqlTimeStamp.cs" />
-    <Compile Include="_\Tools\StringFormatWith.cs" Link="Tools\StringFormatWith.cs" />
-    <Compile Include="_\Tools\SyncList.cs" Link="Tools\SyncList.cs" />
-    <Compile Include="_\Tools\Union.cs" Link="Tools\Union.cs" />
-    <Compile Include="_\Tools\UnixTimeStamp.cs" Link="Tools\UnixTimeStamp.cs" />
-    <Compile Include="_\Tools\VirtualPath.cs" Link="Tools\VirtualPath.cs" />
-    <Compile Include="_\Tools\_ctor.cs" Link="Tools\_ctor.cs" />
-    <Compile Include="_\Tools\_null.cs" Link="Tools\_null.cs" />
-    <Compile Include="_\sql\DbCmd.cs" Link="sql\DbCmd.cs" />
-    <Compile Include="_\sql\DbCmd.Log.cs" Link="sql\DbCmd.Log.cs" />
-    <Compile Include="_\sql\DbCmdExtension.cs" Link="sql\DbCmdExtension.cs" />
-    <Compile Include="_\sql\DbConnectionString.cs" Link="sql\DbConnectionString.cs" />
-    <Compile Include="_\sql\DbImport.cs" Link="sql\DbImport.cs" />
-    <Compile Include="_\sql\SqlCmd.cs" Link="sql\SqlCmd.cs" />
-    <Compile Include="_\sql\SqlCmdPooling.cs" Link="sql\SqlCmdPooling.cs" />
-    <Compile Include="_\sql\SqlSchemaTable.cs" Link="sql\SqlSchemaTable.cs" />
-    <Compile Include="_\sql\TableNameAttribute.cs" Link="sql\TableNameAttribute.cs" />
-    <Compile Include="_\Threading\AsyncResult.cs" Link="Threading\AsyncResult.cs" />
-    <Compile Include="_\Threading\TaskHelpers.cs" Link="Threading\TaskHelpers.cs" />
-    <Compile Include="_\Threading\Tick.cs" Link="Threading\Tick.cs" />
-    <Compile Include="_\Threading\TimeCounter.cs" Link="Threading\TimeCounter.cs" />
-    <Compile Include="_\Threading\_Monitor.cs" Link="Threading\_Monitor.cs" />
-    <Compile Include="_\TypeConverters\ArrayConverter.cs" Link="TypeConverters\ArrayConverter.cs" />
-    <Compile Include="_\TypeConverters\DictionaryConverter.cs" Link="TypeConverters\DictionaryConverter.cs" />
-    <Compile Include="_\TypeConverters\ListConverter.cs" Link="TypeConverters\ListConverter.cs" />
-  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net40'">
+    <Compile Remove="Legacy2\**" />
+    <EmbeddedResource Remove="Legacy2\**" />
+    <None Remove="Legacy2\**" />
     <Compile Include="_\Legacy\Microsoft.Extensions.DependencyInjection.Abstractions\ServiceDescriptor.cs" Link="Legacy\Microsoft.Extensions.DependencyInjection.Abstractions\ServiceDescriptor.cs" />
     <Compile Include="_\Legacy\Microsoft.Extensions.Options\OptionsServiceCollectionExtensions.cs" Link="Legacy\Microsoft.Extensions.Options\OptionsServiceCollectionExtensions.cs" />
     <Compile Include="_\Legacy\Microsoft.Extensions.DependencyInjection.Abstractions\ActivatorUtilities.cs" Link="Legacy\ActivatorUtilities.cs" />
