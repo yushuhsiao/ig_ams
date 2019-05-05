@@ -120,11 +120,19 @@ namespace InnateGlory
             //app.UseDirectoryBrowser();
 
             app.UsePageBundlesTagHelper();
-            app.UseStaticFiles(opts =>
-            {
-                opts.FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules"));
-                opts.RequestPath = "/libx";
-            });
+            app.UseStaticFiles();
+            //app.UseFileServer(new FileServerOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(env.ContentRootPath, "node_modules")),
+            //    RequestPath = "/libx",
+            //    EnableDirectoryBrowsing = true,
+            //});
+            //app.UseStaticFiles(opts =>
+            //{
+            //    opts.FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules"));
+            //    opts.RequestPath = "/libx";
+            //});
             //app.UseFileServer(new FileServerOptions()
             //{
             //    // Set root of file server (remember not wwwroot!)

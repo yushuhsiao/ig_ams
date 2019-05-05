@@ -26,26 +26,6 @@
     }
   }
   //{
-  //  "outputFileName": "wwwroot/lib/signalr/signalr.js",
-  //  "inputFiles": [ "node_modules/@aspnet/signalr/dist/browser/signalr.js" ],
-  //  "minify": { "enabled": false }
-  //},
-  //{
-  //  "outputFileName": "wwwroot/lib/signalr/signalr.js.map",
-  //  "inputFiles": [ "node_modules/@aspnet/signalr/dist/browser/signalr.js.map" ],
-  //  "minify": { "enabled": false }
-  //},
-  //{
-  //  "outputFileName": "wwwroot/lib/signalr/signalr.min.js",
-  //  "inputFiles": [ "node_modules/@aspnet/signalr/dist/browser/signalr.min.js" ],
-  //  "minify": { "enabled": false }
-  //},
-  //{
-  //  "outputFileName": "wwwroot/lib/signalr/signalr.min.js.map",
-  //  "inputFiles": [ "node_modules/@aspnet/signalr/dist/browser/signalr.min.js.map" ],
-  //  "minify": { "enabled": false }
-  //},
-  //{
   //  "outputFileName": "wwwroot/js/requirejs/config.js",
   //  "inputFiles": [
   //    "wwwroot/js/_src/requirejs.config.js"
