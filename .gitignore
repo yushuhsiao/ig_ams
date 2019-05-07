@@ -15,3 +15,4 @@ Thumbs.db
 /app/ams/wwwroot/lib/vue
 /app/ams/wwwroot/lib/webix
 /app/ams/wwwroot/lib/@aspnet
+/lib/Tools/obj

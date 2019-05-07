@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
+using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 using _PropertyInfo = System.Reflection.PropertyInfo;
 using ____FieldInfo = System.Reflection.FieldInfo;
 

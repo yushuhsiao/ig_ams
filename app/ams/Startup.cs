@@ -34,7 +34,10 @@ namespace InnateGlory
             //services.AddWebpack();
             services.AddUserManager<amsUser>();
             services.AddAMS();
-            services.AddMvc().AddAMS(actionSelectorOptions: options =>
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            }).AddAMS(actionSelectorOptions: options =>
             {
                 options.SelectCandidate = (context, action) =>
                 {
@@ -48,8 +51,8 @@ namespace InnateGlory
             }).AddRazorPagesOptions(opts =>
             {
                 //opts.Conventions.AuthorizeFolder("/").AllowAnonymousToPage("/Login.cshtml");
-            });
-            //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {
             });

@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="_Startup.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\%40aspnet\signalr\dist\browser\**" />
     <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\fabric\**" />
     <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\semantic-ui\**" />

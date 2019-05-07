@@ -66,9 +66,12 @@ namespace InnateGlory.Controllers
         [Api("/user/agent/list")]
         public IEnumerable<Entity.Agent> List([FromBody] Models.AgentListModel model)
         {
-            var validator = new ApiModelValidator(model)
-                .Valid(nameof(model.ParentId))
-                .Validate();
+            ModelState
+            .Valid(model, nameof(model.ParentId), model.ParentId)
+            .IsValid();
+            //var validator = new ApiModelValidator(model)
+            //    .Valid(nameof(model.ParentId))
+            //    .Validate();
 
             string sql = $"select * from {TableName<Entity.Agent>.Value} nolock where ParentId = {model.ParentId} {model.Paging.ToSql()}";
             using (SqlCmd userdb = _dataService.UserDB_R(model.ParentId.Value.CorpId))
