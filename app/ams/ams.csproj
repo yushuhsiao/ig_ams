@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <Import Project="..\..\common.props" />
-  <Import Project="..\..\exclude.props" />
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -18,7 +17,6 @@
     <Content Remove="compilerconfig.json" />
     <None Include="compilerconfig.json" />
     <Content Remove="bower.json" />
-    <None Include="bower.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,29 +33,37 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\**" />
+    <Compile Remove="pub\**" />
     <Compile Remove="wwwroot\css\_\**" />
     <Compile Remove="wwwroot\images\_\**" />
     <Compile Remove="wwwroot\js\_\**" />
     <Compile Remove="wwwroot\lib\_\**" />
     <Compile Remove="_\**" />
     <Content Remove="Controllers\**" />
+    <Content Remove="pub\**" />
     <Content Remove="wwwroot\css\_\**" />
     <Content Remove="wwwroot\images\_\**" />
     <Content Remove="wwwroot\js\_\**" />
     <Content Remove="wwwroot\lib\_\**" />
     <Content Remove="_\**" />
     <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="pub\**" />
     <EmbeddedResource Remove="wwwroot\css\_\**" />
     <EmbeddedResource Remove="wwwroot\images\_\**" />
     <EmbeddedResource Remove="wwwroot\js\_\**" />
     <EmbeddedResource Remove="wwwroot\lib\_\**" />
     <EmbeddedResource Remove="_\**" />
     <None Remove="Controllers\**" />
+    <None Remove="pub\**" />
     <None Remove="wwwroot\css\_\**" />
     <None Remove="wwwroot\images\_\**" />
     <None Remove="wwwroot\js\_\**" />
     <None Remove="wwwroot\lib\_\**" />
     <None Remove="_\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".bowerrc" />
   </ItemGroup>
 
   <ItemGroup>

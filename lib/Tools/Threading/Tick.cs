@@ -12,6 +12,7 @@ namespace System.Threading
     [_DebuggerStepThrough]
     public static class Tick
     {
+#pragma warning disable 0649
         private static ILogger _logger;
 
         public static bool WriteLog { get; set; } = false;
@@ -22,6 +23,7 @@ namespace System.Threading
             _logger?.Log(LogLevel.Debug, 0, msg);
             //LoggerHelper.LoggerFactory.GetLogger("Tick").LogInformation(msg);
         }
+#pragma warning restore 0649
 
         public delegate bool Handler();
 

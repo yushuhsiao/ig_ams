@@ -5,7 +5,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".project", ".project", "{A97B8D08-C96D-4E28-9102-2E7F6644A1BD}"
 	ProjectSection(SolutionItems) = preProject
 		common.props = common.props
-		exclude.props = exclude.props
 		..\..\Windows\System32\drivers\etc\hosts = ..\..\Windows\System32\drivers\etc\hosts
 		NuGet.config = NuGet.config
 		readme.txt = readme.txt
@@ -39,11 +38,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_api", "app\ams_api\ams_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "lib\Tools\Tools.csproj", "{EBD491E4-F9E9-478F-BA33-60E6C96891C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams_blazor.Server", "app\ams_blazor.Server\ams_blazor.Server.csproj", "{CF1012D7-DD5B-42B8-B895-299FD0B2AB13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_blazor.Server", "app\ams_blazor.Server\ams_blazor.Server.csproj", "{CF1012D7-DD5B-42B8-B895-299FD0B2AB13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams_blazor.Client", "app\ams_blazor.Client\ams_blazor.Client.csproj", "{1DECB63A-0CD1-442A-B503-7F8B4D53D8D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_blazor.Client", "app\ams_blazor.Client\ams_blazor.Client.csproj", "{1DECB63A-0CD1-442A-B503-7F8B4D53D8D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams_blazor.Shared", "app\ams_blazor.Shared\ams_blazor.Shared.csproj", "{44F478E7-0BA0-4137-B2FF-598BD4147FBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_blazor.Shared", "app\ams_blazor.Shared\ams_blazor.Shared.csproj", "{44F478E7-0BA0-4137-B2FF-598BD4147FBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_blazor", "app\ams_blazor\ams_blazor.csproj", "{75E2BEAA-8664-4961-A29A-F8E0D129A691}"
 EndProject

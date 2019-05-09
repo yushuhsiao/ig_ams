@@ -14,9 +14,9 @@ namespace InnateGlory.Entity
         [DbImport]
         public UserName Name { get; set; }
 
-        public ActiveState Active => Id.IsRoot ? ActiveState.Active : _Active;
+        public ActiveState Active => Id.IsRoot ? ActiveState.Active : _active;
         [DbImport(nameof(Active))]
-        private ActiveState _Active;
+        private ActiveState _active;
 
         [DbImport]
         public string DisplayName { get; set; }

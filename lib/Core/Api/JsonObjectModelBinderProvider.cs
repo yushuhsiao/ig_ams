@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.Extensions.Logging;
 
 namespace InnateGlory
 {
@@ -122,9 +123,9 @@ namespace InnateGlory
     {
         private ArrayModelBinder<T> _innerBinder;
 
-        public JsonArrayModelBinder(IModelBinder elementBinder)
+        public JsonArrayModelBinder(IModelBinder elementBinder, ILoggerFactory loggerFactory)
         {
-            this._innerBinder = new ArrayModelBinder<T>(elementBinder);
+            this._innerBinder = new ArrayModelBinder<T>(elementBinder, loggerFactory);
         }
 
         Task IModelBinder.BindModelAsync(ModelBindingContext bindingContext)
