@@ -56,7 +56,8 @@
                             if (obj.ajax_busy === 1)
                                 return;
                             obj.ajax_busy = 1;
-                            util.api('@Url.Action("ChildAgents", "Agents")', { agentId: id }, function (result) {
+                            //util.api('@Url.Action(nameof(AgentsController.tree_node), "Agents")', { agentId: id }, function (result) {
+                            util.api('@Url.Content("~/user/agent/tree_node/")' + id, { }, function (result) {
                                 if (result.IsSuccess) {
                                     $this.parse(result.Data);
                                 }
@@ -160,7 +161,8 @@
             $$('layout').resize();
         });
 
-        util.api('@Url.Action("ChildAgents", "Agents")', { include_root: false }, function (result) {
+        //util.api('@Url.Action(nameof(AgentsController.tree_node), "Agents")', { include_root: false }, function (result) {
+        util.api('@Url.Content("~/user/agent/tree_node/")' + false, {}, function (result) {
             if (result.IsSuccess) {
                 //for (var i = 0; i < result.Data.length; i++) {
                 //    result.Data[i].webix_kids = true;

@@ -42,7 +42,7 @@ namespace InnateGlory
                 options.SelectCandidate = (context, action) =>
                 {
                     bool result = true;
-                    if (action.RelativePath.IsEquals("/Pages/Home/Index.cshtml"))
+                    if (action.RelativePath.IsEquals("/Pages/Home/Main.cshtml"))
                         result = !context.HttpContext.RequestServices.GetCurrentUser().Id.IsGuest;
                     else if (action.RelativePath.IsEquals("/Pages/Home/Login.cshtml"))
                         result = context.HttpContext.RequestServices.GetCurrentUser().Id.IsGuest;
@@ -50,6 +50,7 @@ namespace InnateGlory
                 };
             }).AddRazorPagesOptions(opts =>
             {
+                ;
                 //opts.Conventions.AuthorizeFolder("/").AllowAnonymousToPage("/Login.cshtml");
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -74,7 +75,7 @@ namespace InnateGlory
             //    .AuthorizeFolder("/")
             //    .AllowAnonymousToPage("/ApiList")
             //    .AllowAnonymousToPage("/Login")
-            //    .AllowAnonymousToPage("/Index")
+            //    .AllowAnonymousToPage("/Main")
             //    ;
             //});
             #endregion

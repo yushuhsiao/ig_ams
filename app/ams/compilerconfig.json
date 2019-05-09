@@ -4,7 +4,7 @@
     "inputFile": "Pages/Home/Login.cshtml.scss"
   },
   {
-    "outputFile": "Pages/Home/Index.cshtml.css",
-    "inputFile": "Pages/Home/Index.cshtml.scss"
+    "outputFile": "Pages/Home/Main.cshtml.css",
+    "inputFile": "Pages/Home/Main.cshtml.scss"
   }
 ]

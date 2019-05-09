@@ -118,14 +118,4 @@ namespace InnateGlory.Models
         }
         PagingModel<Entity.Agent> paging;
     }
-
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class ChildAgentModel
-    {
-        [JsonProperty]
-        public UserId? agentId { get; set; }
-
-        [JsonProperty]
-        public bool include_root { get; set; }
-    }
 }

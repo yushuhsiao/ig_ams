@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory.Controllers
 {
+    [Route("/user/agent")]
     public class AgentsController : Controller
     {
         private DataService _dataService;
@@ -78,44 +79,48 @@ namespace InnateGlory.Controllers
                 return userdb.ToList<Entity.Agent>(sql);
         }
 
-        // agent tree (webix)
-        [Api("/user/agent/ChildAgents")]
-        public object ChildAgents([FromBody] Models.ChildAgentModel model, [FromServices] DataService _data, [FromServices] IUser _User)
+        // agent tree root (webix)
+        [Api("tree_node/{include_root:bool}")]
+        public IEnumerable<webix.tree_node> tree_node([FromServices] DataService _data, [FromServices] IUser _User, bool include_root = false)
         {
-            if (model.agentId.HasValue)
+            List<webix.tree_node> tt = new List<webix.tree_node>();
+            var user = _data.Users.GetUser(_User.Id);
+            if (user.CorpId.IsRoot)
             {
-                var n = _data.Agents.GetChilds(model.agentId.Value);
-                List<object> tt = new List<object>();
-                foreach (var user in n)
+                foreach (var c in _data.Corps.All)
                 {
-                    tt.Add(new { id = user.Id, value = user.DisplayName, webix_kids = true });
+                    if (c.Id.IsRoot && include_root == false)
+                        continue;
+                    tt.Add(new webix.tree_node { id = (UserId)c.Id, value = c.DisplayName, webix_kids = !c.Id.IsRoot });
                 }
-                return new { parent = model.agentId.Value, data = tt };
             }
-            else
+            else if (user is Entity.Admin)
             {
-                List<object> tt = new List<object>();
-                var user = _data.Users.GetUser(_User.Id);
-                if (user.CorpId.IsRoot)
-                {
-                    foreach (var c in _data.Corps.All)
-                    {
-                        if (c.Id.IsRoot && model.include_root == false)
-                            continue;
-                        tt.Add(new { id = (UserId)c.Id, value = c.DisplayName, webix_kids = !c.Id.IsRoot });
-                    }
-                }
-                else if (user is Entity.Admin)
-                {
-                    var parent = _data.Agents.Get(user.ParentId);
-                    tt.Add(new { id = parent.Id, value = parent.DisplayName, webix_kids = true });
-                }
-                else if (user is Entity.Agent)
-                {
-                    tt.Add(new { id = user.Id, value = user.DisplayName, webix_kids = true });
-                }
-                return tt;
+                var parent = _data.Agents.Get(user.ParentId);
+                tt.Add(new webix.tree_node { id = parent.Id, value = parent.DisplayName, webix_kids = true });
             }
+            else if (user is Entity.Agent)
+            {
+                tt.Add(new webix.tree_node { id = user.Id, value = user.DisplayName, webix_kids = true });
+            }
+            return tt;
+        }
+
+        // agent tree node (webix)
+        [Api("tree_node/{agentId}")]
+        public webix.tree_childs tree_node([FromServices] DataService _data, [FromServices] IUser _User, UserId agentId)
+        {
+            ModelState
+                .Valid(null, nameof(agentId), agentId)
+                .IsValid();
+
+            var n = _data.Agents.GetChilds(agentId);
+            List<webix.tree_node> tt = new List<webix.tree_node>();
+            foreach (var user in n)
+            {
+                tt.Add(new webix.tree_node { id = user.Id, value = user.DisplayName, webix_kids = true });
+            }
+            return new webix.tree_childs { parent = agentId, data = tt };
         }
     }
 }
