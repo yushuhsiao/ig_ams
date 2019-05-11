@@ -20,7 +20,8 @@ namespace InnateGlory
 
         public static IApplicationBuilder UsePageBundlesTagHelper(this IApplicationBuilder app, FileServerOptions options = null)
         {
-            var obj = app.ApplicationServices.GetService<PageBundleFileProvider>();
+            var obj = ActivatorUtilities.GetServiceOrCreateInstance<PageBundleFileProvider>(app.ApplicationServices);
+            //var obj = app.ApplicationServices.GetService<PageBundleFileProvider>();
             if (obj != null)
             {
                 if (options == null)

@@ -54,13 +54,16 @@ namespace InnateGlory.TagHelpers
         {
             var viewContext = _src.ViewContext;
             IServiceProvider _services = viewContext.HttpContext.RequestServices;
-            PageBundleFileProvider map = this;
+            //PageBundleFileProvider map = this;
             bool _auto = context.AllAttributes.ContainsName(_src.Key_Auto);
             bool _inline = context.AllAttributes.ContainsName("inline");
             if (_auto || _inline)
             {
                 var actionDescriptor1 = viewContext.ActionDescriptor.TryCast<ControllerActionDescriptor>();
                 var actionDescriptor2 = viewContext.ActionDescriptor.TryCast<PageActionDescriptor>();
+                //var pathA = viewContext.ExecutingFilePath;
+                var pathA = viewContext.View.Path;
+                var pathB = actionDescriptor2?.RelativePath;
 
                 if (_inline)
                 {
@@ -73,16 +76,17 @@ namespace InnateGlory.TagHelpers
                     }
                     if (string.IsNullOrEmpty(path) && _auto)
                     {
-                        if (actionDescriptor1 != null)
-                            path = $"{viewContext.ExecutingFilePath}.{_src.Ext}";
-                        else
-                            path = $"{actionDescriptor2.RelativePath}.{_src.Ext}";
+                        path = $"{pathB ?? pathA}.{_src.Ext}";
+                        //if (actionDescriptor1 != null)
+                        //    path = $"{viewContext.ExecutingFilePath}.{_src.Ext}";
+                        //else
+                        //    path = $"{actionDescriptor2.RelativePath}.{_src.Ext}";
                     }
                     if (!string.IsNullOrEmpty(path))
                     {
-                        IFileInfo f = map.Provider1.GetFileInfo(path);
+                        IFileInfo f = this.Provider1.GetFileInfo(path);
                         if (!f.Exists)
-                            f = map.Provider2.GetFileInfo(path);
+                            f = this.Provider2.GetFileInfo(path);
                         if (f.Exists)
                         {
                             using (var s1 = f.CreateReadStream())
@@ -103,27 +107,23 @@ namespace InnateGlory.TagHelpers
                 }
                 else
                 {
-                    //var rootUri = new Uri(_this.HostingEnvironment.ContentRootPath);
-                    //var fullUri = new Uri(viewContext.ExecutingFilePath);
-                    //var relativePath = rootUri.MakeRelativeUri(fullUri).ToString();
+                    string url1 = $"~{pathB ?? pathA}.{_src.Ext}";
+                    string path = $"{pathB ?? pathA}.{_src.Ext}";
+                    //if (actionDescriptor1 != null)
+                    //{
+                    //    url1 = $"~{viewContext.ExecutingFilePath}.{_src.Ext}";
+                    //    path = $"{viewContext.ExecutingFilePath}.{_src.Ext}";
+                    //}
+                    //else
+                    //{
+                    //    url1 = $"~{actionDescriptor2.RelativePath}.{_src.Ext}";
+                    //    path = $"{actionDescriptor2.RelativePath}.{_src.Ext}";
+                    //}
 
-
-                    string url1, path;
-                    if (actionDescriptor1 != null)
-                    {
-                        url1 = $"~{viewContext.ExecutingFilePath}.{_src.Ext}";
-                        path = $"{viewContext.ExecutingFilePath}.{_src.Ext}";
-                    }
-                    else
-                    {
-                        url1 = $"~{actionDescriptor2.RelativePath}.{_src.Ext}";
-                        path = $"{actionDescriptor2.RelativePath}.{_src.Ext}";
-                    }
-                    //string url1 = $"~{viewContext.ActionDescriptor.DisplayName}.{_this.Ext}";
                     if (_src.TryResolveUrl(url1, out string url2))
-                        map?.AddMap(url2, path);
+                        this.AddMap(url2, path);
                     else
-                        map?.AddMap(url1, path);
+                        this.AddMap(url1, path);
 
                     TagHelperAttribute a;
                     if (_src.AppendVersion == true)
