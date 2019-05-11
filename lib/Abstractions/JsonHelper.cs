@@ -15,155 +15,11 @@ using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute
 namespace InnateGlory
 {
     [_DebuggerStepThrough]
-    public static partial class JsonHelper
+    public static class JsonHelper
     {
-        //public static bool MapName
-        //{
-        //    get { return _ContractResolver.Instance.MapName; }
-        //    set { _ContractResolver.Instance.MapName = value; }
-        //}
 
-        //internal static void Initialize()
-        //{
-        //    ValueProviderFactories.Factories.Remove(ValueProviderFactories.Factories.OfType<JsonValueProviderFactory>().FirstOrDefault());
-        //    ValueProviderFactories.Factories.Add(new _ValueProviderFactory());
-        //}
+        #region Serialize / Deserialize
 
-        //class _ValueProviderFactory : ValueProviderFactory
-        //{
-        //    public override System.Web.Mvc.IValueProvider GetValueProvider(ControllerContext controllerContext)
-        //    {
-        //        // first make sure we have a valid context
-        //        if (controllerContext == null)
-        //            throw new ArgumentNullException("controllerContext");
-
-        //        // now make sure we are dealing with a json request
-        //        if (!controllerContext.HttpContext.Request.ContentType.StartsWith("application/json", StringComparison.OrdinalIgnoreCase))
-        //            return null;
-
-        //        // use JSON.NET to deserialize object to a dynamic (expando) object
-        //        Object json_obj;
-
-        //        // get a generic stream reader (get reader for the http stream)
-        //        using (StreamReader streamReader = new StreamReader(controllerContext.HttpContext.Request.InputStream))
-        //        {
-        //            // convert stream reader to a JSON Text Reader
-        //            using (json._Reader reader = new json._Reader(streamReader))
-        //            {
-        //                if (!reader.Read())
-        //                    return null;
-
-        //                if (reader.TokenType == JsonToken.StartArray)
-        //                    json_obj = json._Serializer.Instance2.Deserialize<List<ExpandoObject>>(reader);
-        //                else
-        //                    json_obj = json._Serializer.Instance2.Deserialize<ExpandoObject>(reader);
-        //            }
-        //        }
-
-        //        // create a backing store to hold all properties for this deserialization
-        //        Dictionary<string, object> backingStore = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-        //        // add all properties to this backing store
-        //        AddToBackingStore(backingStore, String.Empty, json_obj);
-
-        //        // return the object in a dictionary value provider so the MVC understands it
-        //        return new DictionaryValueProvider<object>(backingStore, CultureInfo.CurrentCulture);
-        //    }
-
-        //    private static void AddToBackingStore(Dictionary<string, object> backingStore, string prefix, object value)
-        //    {
-        //        IDictionary<string, object> d = value as IDictionary<string, object>;
-        //        if (d != null)
-        //        {
-        //            foreach (KeyValuePair<string, object> entry in d)
-        //            {
-        //                AddToBackingStore(backingStore, MakePropertyKey(prefix, entry.Key), entry.Value);
-        //            }
-        //            return;
-        //        }
-
-        //        IList l = value as IList;
-        //        if (l != null)
-        //        {
-        //            for (int i = 0; i < l.Count; i++)
-        //            {
-        //                AddToBackingStore(backingStore, MakeArrayKey(prefix, i), l[i]);
-        //            }
-        //            return;
-        //        }
-
-        //        backingStore[prefix] = value;
-        //    }
-
-        //    private static string MakeArrayKey(string prefix, int index)
-        //    {
-        //        return prefix + "[" + index.ToString(CultureInfo.InvariantCulture) + "]";
-        //    }
-
-        //    private static string MakePropertyKey(string prefix, string propertyName)
-        //    {
-        //        return (String.IsNullOrEmpty(prefix)) ? propertyName : prefix + "." + propertyName;
-        //    }
-        //}
-
-
-
-        //REF: http://kirkchen.logdown.com/posts/146604-using-aspnet-mvc-to-create-web-api-13-use-jsonnet-parse-json
-        //public class JsonNetResult : JsonResult
-        //{
-        //    public Formatting Formatting { get; set; }
-
-        //    public JsonNetResult() { }
-
-        //    public override void ExecuteResult(ControllerContext context)
-        //    {
-        //        if (context == null) throw new ArgumentNullException("context");
-        //        HttpResponseBase response = context.HttpContext.Response;
-        //        response.ContentType = !string.IsNullOrEmpty(ContentType) ? ContentType : "application/json";
-        //        if (ContentEncoding != null) response.ContentEncoding = ContentEncoding;
-        //        if (Data != null)
-        //        {
-        //            using (json._Writer writer = new json._Writer(response.Output) { Formatting = this.Formatting })
-        //            {
-        //                json._Serializer.Instance1.Serialize(writer, Data);
-        //                writer.Flush();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //public class Controller : System.Web.Mvc.Controller
-        //{
-        //    protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
-        //    {
-        //        if (behavior == JsonRequestBehavior.DenyGet && string.Equals(this.Request.HttpMethod, "GET",
-        //                 StringComparison.OrdinalIgnoreCase))
-        //            //Call JsonResult to throw the same exception as JsonResult
-        //            return new JsonResult();
-        //        return new JsonNetResult()
-        //        {
-        //            Data = data,
-        //            ContentType = contentType,
-        //            ContentEncoding = contentEncoding
-        //        };
-        //    }
-        //}
-
-        //public class ApiController : System.Web.Http.ApiController
-        //{
-        //}
-
-        //public class ApiController : System.Web.Http.ApiController
-        //{
-        //    protected override JsonResult<T> Json<T>(T content, JsonSerializerSettings serializerSettings, Encoding encoding)
-        //    {
-        //        return base.Json<T>(content, serializerSettings, encoding);
-        //    }
-        //}
-    }
-
-    #region Serialize / Deserialize
-    partial class JsonHelper
-    {
         public static JObject ToJObject(string json_string)
         {
             if (string.IsNullOrEmpty(json_string)) return null;
@@ -281,12 +137,11 @@ namespace InnateGlory
                 serializer.Populate(r2, obj);
             return true;
         }
-    }
-    #endregion
 
-    #region Serializer / Reader / Writer / ContractResolver
-    partial class JsonHelper
-    {
+        #endregion
+
+        #region Serializer / Reader / Writer / ContractResolver
+
         private class _ArrayPool : IArrayPool<char>
         {
             static ArrayPool<char> _pool = ArrayPool<char>.Create();
@@ -624,12 +479,11 @@ namespace InnateGlory
         }
 
         public static IDisposable HandleObjectCreation<T>(Func<T> creator) => _Creator<T>.Instance.HandleObjectCreation(creator);
-    }
-    #endregion
 
-    #region Converters
-    partial class JsonHelper
-    {
+        #endregion
+
+        #region Converters
+
         [_DebuggerStepThrough]
         public class BooleanJsonConverter : JsonConverter
         {
@@ -819,23 +673,6 @@ namespace InnateGlory
                 catch { return null; }
             }
         }
+        #endregion
     }
-    #endregion
-
-    #region wasm
-#if wasm
-    partial class JsonHelper
-    {
-        // for wasm linker
-        class xxx : System.Collections.Specialized.INotifyCollectionChanged
-        {
-            event System.Collections.Specialized.NotifyCollectionChangedEventHandler System.Collections.Specialized.INotifyCollectionChanged.CollectionChanged
-            {
-                add { }
-                remove { }
-            }
-        }
-    }
-#endif
-    #endregion
 }

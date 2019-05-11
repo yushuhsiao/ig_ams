@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Bridge;
-//using StackExchange.Redis;
 
 namespace InnateGlory
 {
-    //[NonScriptable]
     public static class _Consts
     {
-        //[NonScriptable]
         public static class Api
         {
-            [InlineConst] public const string Field_StatusCode = "StatusCode";
-            [InlineConst] public const string Field_StatusText = "StatusText";
-            [InlineConst] public const string Field_Message = "Message";
-            [InlineConst] public const string Field_Data = "Data";
-            [InlineConst] public const string Field_Error = "Errors";
+            public const string Field_StatusCode = "StatusCode";
+            public const string Field_StatusText = "StatusText";
+            public const string Field_Message = "Message";
+            public const string Field_Data = "Data";
+            public const string Field_Error = "Errors";
         }
-        //[NonScriptable]
+
         public static class Redis
         {
             public const string Key1 = "Redis";
@@ -36,7 +32,7 @@ namespace InnateGlory
                 public const string TableVer = "table_ver";
             }
         }
-        //[NonScriptable]
+
         public static class UserManager
         {
             public const string Redis_Key2 = "UserSession";
@@ -54,7 +50,7 @@ namespace InnateGlory
             public const string AUTH_USER = "IG-AUTH-USER";
             public const string AUTH_TOKEN = "IG-ACCESSTOKEN";
         }
-        //[NonScriptable]
+
         public static class db
         {
             public const string SqlConnection = "SqlConnection";
@@ -74,10 +70,6 @@ namespace InnateGlory
             public const string EventLogDB_Default = "Data Source=db01;Initial Catalog=" + EventLogDB + ";Persist Security Info=True;User ID=sa;Password=sa";
         }
 
-        [InlineConst]
         public const BindingFlags BindingAttrs = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
-
-        [InlineConst]
-        public const string bridge_vue = "vue.bridge.js";
     }
 }

@@ -1,15 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using System;
-using Bridge;
-#if wasm || jslib
-using UserName = System.String;
-#endif
+using System.ComponentModel.DataAnnotations;
 
 namespace InnateGlory.Models
 {
-    //[NonScriptable]
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class LoginModel
     {

@@ -1,9 +1,7 @@
-﻿using Bridge;
-
+﻿
 namespace InnateGlory
 {
     [JsonHelper.StringEnum(false)]
-    [Enum(Emit.Name)]
     public enum Status : int
     {
         /// <summary>
