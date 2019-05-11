@@ -1,5 +1,6 @@
 ﻿using InnateGlory;
 using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json.Linq;
 using System;
@@ -174,6 +175,11 @@ namespace Microsoft.AspNetCore.Mvc
                 for (int i = 0, n = actionDescriptor.FilterDescriptors.Count; i < n; i++)
                     if (actionDescriptor.FilterDescriptors[i].Filter is ApiAttribute)
                         return true;
+                if (actionDescriptor.TryCast(out ControllerActionDescriptor c))
+                {
+                    if (null != c.ControllerTypeInfo.GetCustomAttribute<ApiAttribute>())
+                        return true;
+                }
             }
             return false;
             //return null != actionDescriptor?.FilterDescriptors.FirstOrDefault(x => x.Filter is InnateGlory.ApiAttribute);

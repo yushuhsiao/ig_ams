@@ -10,15 +10,17 @@ using Microsoft.Extensions.Logging;
 
 namespace InnateGlory.Controllers
 {
+    [Api]
+    [Route("/dev")]
     public class DeveloperController : Controller
     {
-        [Api("/dev/ping")]
+        [HttpPost("ping")]
         public IActionResult Ping([FromServices] DataService dataService)
         {
             return ApiResult.Success(new { Time = DateTime.Now }) ;
         }
 
-        [Api("/dev/lang/init")]
+        [HttpPost("/lang/init")]
         public IApiResult LangInit(
             [ModelBinder(Name = "PlatformId")] PlatformId? platformId,
             [ModelBinder(Name = "ResPath")] string respath,
@@ -28,7 +30,7 @@ namespace InnateGlory.Controllers
             return ApiResult.Success(r);
         }
 
-        [Api("/dev/lang/set")]
+        [HttpPost("/lang/set")]
         public IApiResult LangSet(Models.LangModel[] models, [FromServices] LangService langService
             //, [FromServices] IOptionsMonitorCache<SqlLoggerOptions> opts1
             //, [FromServices] IOptionsMonitor<SqlLoggerOptions> opts2
@@ -42,7 +44,7 @@ namespace InnateGlory.Controllers
             return ApiResult.Success(result);
         }
 
-        [Api("/sys/config/set")]
+        [HttpPost("/sys/config/set")]
         public IApiResult ConfigSet(Models.ConfigModel[] models, [FromServices] SqlConfig config)
         {
             if (models == null)

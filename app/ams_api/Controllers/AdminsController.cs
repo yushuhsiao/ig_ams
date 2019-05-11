@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 
 namespace InnateGlory.Controllers
 {
+    [Api]
+    [Route("/user/admin")]
     public class AdminsController : Controller
     {
         private DataService _dataService;
@@ -15,44 +17,80 @@ namespace InnateGlory.Controllers
             //this._cache = dataService.GetDbCache<Data.AclDefine>(ReadData);
         }
 
-        [Api("/user/admin/add")]
-        public Entity.Admin Add(Models.AdminModel model)
+        [HttpPost("add")]
+        public Entity.Admin Add([FromBody] Models.AdminModel model)
         {
-            var validator = new ApiModelValidator(model)
-               .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
-               .ValidParent(nameof(model.ParentId), nameof(model.ParentName))
-               .Valid(nameof(model.Name))
-               .Valid(nameof(model.DisplayName), false)
-               .Validate();
+            ModelState
+                .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
+                .ValidParent(model, nameof(model.ParentId), nameof(model.ParentName))
+                .Valid(null, nameof(model.Name))
+                .Valid(null, nameof(model.DisplayName), required: false)
+                .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //   .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
+            //   .ValidParent(nameof(model.ParentId), nameof(model.ParentName))
+            //   .Valid(nameof(model.Name))
+            //   .Valid(nameof(model.DisplayName), false)
+            //   .Validate();
 
             var s = _dataService.Admins.Create(model, out Entity.Admin admin);
             if (s == Status.Success)
                 return admin;
-            throw validator.SetStatus(s);
+            throw new ApiException(s);
             //return ApiResult.IsSuccess(s, admin);
         }
 
-        [Api("/user/admin/set")]
-        public Entity.Admin Set(Models.AdminModel model)
+        [HttpPost("set")]
+        public Entity.Admin Set([FromBody] Models.AdminModel model)
         {
             _dataService.Admins.Update(model, out Entity.Admin agent);
             return agent;
         }
 
-        [Api("/user/admin/get")]
-        public Entity.Admin Get(Models.AdminModel model)
+        [HttpPost("get")]
+        public Entity.Admin Get([FromBody] Models.AdminModel model)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
-                .Validate();
+            ModelState
+                .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+                .IsValid();
+            //var validator = new ApiModelValidator(model)
+            //    .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+            //    .Validate();
 
             if (_dataService.Admins.Get(out var status, model.Id, model.CorpId, model.CorpName, model.Name, out var admin, chechActive: false))
                 return admin;
             else
-                throw validator.SetStatus(status);
+                throw new ApiException(status);
         }
 
-        [Api("/user/admin/list")]
+        [HttpPost("get/{userId}")]
+        public Entity.Admin Get(UserId userId)
+        {
+            ModelState
+                .Valid(null, nameof(UserId), userId)
+                .IsValid();
+
+            if (_dataService.Admins.Get(userId, out var admin))
+                return admin;
+            throw new ApiException(Status.AdminNotExist);
+        }
+
+        [HttpPost("get/{corpId}/{adminName}")]
+        public Entity.Admin Get(CorpId corpId, UserName adminName)
+        {
+            ModelState
+                .Valid(null, nameof(CorpId), corpId)
+                .Valid(null, nameof(adminName), adminName)
+                .IsValid();
+
+            if (_dataService.Admins.Get(corpId, adminName, out var admin))
+                return admin;
+            else
+                throw new ApiException(Status.AdminNotExist);
+        }
+
+        [HttpPost("list")]
         public IEnumerable<Entity.Admin> List(Models.PagingModel<Entity.Admin> paging, UserId parentId, bool all)
         {
             //paging += 0;

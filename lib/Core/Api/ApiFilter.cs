@@ -8,7 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory.Api
 {
-    public class ApiFilter : IActionFilter, IPageFilter,  IExceptionFilter, IResultFilter
+    //public class ApiFilter : IActionFilter, IPageFilter
+    //{
+    //    void IPageFilter.OnPageHandlerSelected(PageHandlerSelectedContext context) { }
+    //    void IPageFilter.OnPageHandlerExecuting(PageHandlerExecutingContext context) { }
+    //    void IPageFilter.OnPageHandlerExecuted(PageHandlerExecutedContext context) { }
+    //}
+
+    public class ApiActionFilter : IActionFilter
     {
         private void ExecuteValidation(ActionExecutingContext context)
         {
@@ -36,13 +43,10 @@ namespace InnateGlory.Api
         }
 
         void IActionFilter.OnActionExecuted(ActionExecutedContext context) { }
+    }
 
-        void IPageFilter.OnPageHandlerSelected(PageHandlerSelectedContext context) { }
-
-        void IPageFilter.OnPageHandlerExecuting(PageHandlerExecutingContext context) { }
-
-        void IPageFilter.OnPageHandlerExecuted(PageHandlerExecutedContext context) { }
-
+    public class ApiExceptionFilter : IExceptionFilter
+    {
         void IExceptionFilter.OnException(ExceptionContext context)
         {
             var ex = context.Exception;
@@ -51,7 +55,10 @@ namespace InnateGlory.Api
             else if (context.ActionDescriptor.IsApi())
                 context.Result = new ApiException(Status.Unknown, ex.Message, ex);
         }
+    }
 
+    public class ApiResultFilter : IResultFilter
+    {
         // 具有 ApiAttribute 的 Action, 會強制使用 IApiResult 的格式輸出
         void IResultFilter.OnResultExecuting(ResultExecutingContext context)
         {

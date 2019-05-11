@@ -7,20 +7,20 @@ namespace InnateGlory
     /// <summary>
     /// Action 將會使用 api 格式運作
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
-    public class ApiAttribute : HttpPostAttribute, IFilterMetadata
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+    public class ApiAttribute : Attribute, IFilterMetadata
     {
         public string Acl { get; set; }
 
         public ApiAttribute() : base() { }
-        public ApiAttribute(string template) : base(template)
-        {
-            this.Acl = template;
-        }
-        public ApiAttribute(string template, string acl) : base(template)
-        {
-            this.Acl = acl;
-        }
+        //public ApiAttribute(string template) : base(template)
+        //{
+        //    this.Acl = template;
+        //}
+        //public ApiAttribute(string template, string acl) : base(template)
+        //{
+        //    this.Acl = acl;
+        //}
 
         //public void OnActionExecuting(ActionExecutingContext context)
         //{

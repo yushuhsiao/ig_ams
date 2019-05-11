@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 
 namespace InnateGlory.Controllers
 {
+    [Api]
+    [Route("/user/member")]
     public class MembersController : Controller
     {
         private DataService _dataService;
@@ -14,45 +16,82 @@ namespace InnateGlory.Controllers
             _dataService = dataService;
         }
 
-        [Api("/user/member/add")]
+        [HttpPost("add")]
         public Entity.Member Add(Models.MemberModel model)
         {
-            var validator = new ApiModelValidator(model)
-               .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
-               .ValidParent(nameof(model.ParentId), nameof(model.ParentName))
-               .Valid(nameof(model.Name))
-               .Valid(nameof(model.DisplayName), false)
-               .Validate();
+            ModelState
+               .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
+               .ValidParent(model, nameof(model.ParentId), nameof(model.ParentName))
+               .Valid(model, nameof(model.Name))
+               .Valid(model, nameof(model.DisplayName), false)
+               .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //   .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
+            //   .ValidParent(nameof(model.ParentId), nameof(model.ParentName))
+            //   .Valid(nameof(model.Name))
+            //   .Valid(nameof(model.DisplayName), false)
+            //   .Validate();
 
             var s = _dataService.Members.Create(model, out Entity.Member member);
             if (s == Status.Success)
                 return member;
             else
-                throw validator.SetStatus(s);
+                throw new ApiException(s);
             //return ApiResult.IsSuccess(s, result);
         }
 
-        [Api("/user/member/set")]
+        [HttpPost("set")]
         public Entity.Member Set(Models.MemberModel model)
         {
             _dataService.Members.Update(model, out Entity.Member member);
             return member;
         }
 
-        [Api("/user/member/get")]
+        [HttpPost("get/{userId}")]
+        public Entity.Member Get(UserId userId)
+        {
+            ModelState
+                .Valid(null, nameof(UserId), userId)
+                .IsValid();
+
+            if (_dataService.Members.Get(userId, out var member))
+                return member;
+            throw new ApiException(Status.MemberNotExist);
+        }
+
+        [HttpPost("get/{corpId}/{memberName}")]
+        public Entity.Member Get(CorpId corpId, UserName memberName)
+        {
+            ModelState
+                .Valid(null, nameof(CorpId), corpId)
+                .Valid(null, nameof(memberName), memberName)
+                .IsValid();
+
+            if (_dataService.Members.Get(corpId, memberName, out var member))
+                return member;
+            else
+                throw new ApiException(Status.MemberNotExist);
+        }
+
+        [HttpPost("get")]
         public Entity.Member Get(Models.MemberModel model)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
-                .Validate();
+            ModelState
+                .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+                .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //    .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+            //    .Validate();
 
             if (_dataService.Members.Get(out var status, model.Id, model.CorpId, model.CorpName, model.Name, out var member, chechActive: false))
                 return member;
             else
-                throw validator.SetStatus(status);
+                throw new ApiException(status);
         }
 
-        [Api("/user/member/list")]
+        [HttpPost("list")]
         public IEnumerable<Entity.Member> List(Models.PagingModel<Entity.Member> paging, UserId parentId, bool all)
         {
             //paging += 0;

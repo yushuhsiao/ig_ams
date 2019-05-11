@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory.Controllers
 {
+    [Api]
     [Route("/user/agent")]
     public class AgentsController : Controller
     {
@@ -18,58 +19,101 @@ namespace InnateGlory.Controllers
             //this._cache = dataService.GetDbCache<Data.AclDefine>(ReadData);
         }
 
-        [Api("/user/agent/add")]
+        [HttpPost("add")]
         public Entity.Agent Add(Models.AgentModel model)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
-                .ValidParent(nameof(model.ParentId), nameof(model.ParentName))
-                .Valid(nameof(model.Name))
-                .Valid(nameof(model.DisplayName), false)
-                .Validate();
+            ModelState
+                .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
+                .ValidParent(model, nameof(model.ParentId), nameof(model.ParentName))
+                .Valid(model, nameof(model.Name))
+                .Valid(model, nameof(model.DisplayName), false)
+                .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //    .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
+            //    .ValidParent(nameof(model.ParentId), nameof(model.ParentName))
+            //    .Valid(nameof(model.Name))
+            //    .Valid(nameof(model.DisplayName), false)
+            //    .Validate();
 
             var s = _dataService.Agents.Create(model, out Entity.Agent agent);
             if (s == Status.Success)
                 return agent;
             else
-                throw validator.SetStatus(s);
+                throw new ApiException(s);
             //return ApiResult.IsSuccess(s, result);
         }
 
-        [Api("/user/agent/set")]
-        public Entity.Agent Set(Models.AgentModel model)
+        [HttpPost("set")]
+        public Entity.Agent Set([FromBody] Models.AgentModel model)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
-                .Valid(nameof(model.DisplayName), false)
-                .Validate();
+            ModelState
+                .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+                .Valid(model, nameof(model.DisplayName), false)
+                .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //    .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+            //    .Valid(nameof(model.DisplayName), false)
+            //    .Validate();
 
             var s = _dataService.Agents.Update(model, out Entity.Agent agent);
             if (s == Status.Success)
                 return agent;
             else
-                throw validator.SetStatus(s);
+                throw new ApiException(s);
         }
 
-        [Api("/user/agent/get")]
-        public Entity.Agent Get(Models.AgentModel model)
+        [HttpPost("get")]
+        public Entity.Agent Get([FromBody] Models.AgentModel model)
         {
-            var validator = new ApiModelValidator(model)
-                .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
-                .Validate();
+            ModelState
+                .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+                .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //    .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
+            //    .Validate();
 
             if (_dataService.Agents.Get(out var status, model.Id, model.CorpId, model.CorpName, model.Name, out var agent, chechActive: false))
                 return agent;
             else
-                throw validator.SetStatus(status);
+                throw new ApiException(status);
         }
 
-        [Api("/user/agent/list")]
+        [HttpPost("get/{userId}")]
+        public Entity.Agent Get(UserId userId)
+        {
+            ModelState
+                .Valid(null, nameof(UserId), userId)
+                .IsValid();
+
+            if (_dataService.Agents.Get(userId, out var admin))
+                return admin;
+            throw new ApiException(Status.AgentNotExist);
+        }
+
+        [HttpPost("get/{corpId}/{agentName}")]
+        public Entity.Agent Get(CorpId corpId, UserName agentName)
+        {
+            ModelState
+                .Valid(null, nameof(CorpId), corpId)
+                .Valid(null, nameof(agentName), agentName)
+                .IsValid();
+
+            if (_dataService.Agents.Get(corpId, agentName, out var agent))
+                return agent;
+            else
+                throw new ApiException(Status.AgentNotExist);
+        }
+
+        [HttpPost("list")]
         public IEnumerable<Entity.Agent> List([FromBody] Models.AgentListModel model)
         {
             ModelState
-            .Valid(model, nameof(model.ParentId), model.ParentId)
-            .IsValid();
+                .Valid(model, nameof(model.ParentId))
+                .IsValid();
+
             //var validator = new ApiModelValidator(model)
             //    .Valid(nameof(model.ParentId))
             //    .Validate();
@@ -80,7 +124,7 @@ namespace InnateGlory.Controllers
         }
 
         // agent tree root (webix)
-        [Api("tree_node/{include_root:bool}")]
+        [HttpPost("tree_node/{include_root:bool}")]
         public IEnumerable<webix.tree_node> tree_node([FromServices] DataService _data, [FromServices] IUser _User, bool include_root = false)
         {
             List<webix.tree_node> tt = new List<webix.tree_node>();
@@ -107,7 +151,7 @@ namespace InnateGlory.Controllers
         }
 
         // agent tree node (webix)
-        [Api("tree_node/{agentId}")]
+        [HttpPost("tree_node/{agentId}")]
         public webix.tree_childs tree_node([FromServices] DataService _data, [FromServices] IUser _User, UserId agentId)
         {
             ModelState

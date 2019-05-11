@@ -13,7 +13,7 @@ namespace InnateGlory.Models
 {
     [TableName(typeof(Entity.Admin))]
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class AdminModel
+    public struct AdminModel
     {
         [JsonProperty]
         public CorpId? CorpId { get; set; }

@@ -13,6 +13,8 @@ using System.Threading;
 
 namespace InnateGlory.Controllers
 {
+    [Api]
+    [Route("/auth")]
     public class AuthController : Controller
     {
         //[Api("/auth/login2"), Acl]
@@ -48,7 +50,7 @@ namespace InnateGlory.Controllers
         //[Route("/")]
         //public ViewResult Index([FromServices] amsUser user) => View(user.Id.IsGuest ? "~/Pages/Login.cshtml" : "~/Pages/Index.cshtml");
 
-        [Api("/auth/state"), AllowAnonymous]
+        [HttpPost("state"), AllowAnonymous]
         private async Task<Entity.UserState> GetState([FromServices] DataService dataService, [FromServices] amsUser user)
         {
             await Task.Delay(1);
@@ -66,16 +68,16 @@ namespace InnateGlory.Controllers
             }
         }
 
-        [Api("/auth/login"), AllowAnonymous]
+        [HttpPost("login"), AllowAnonymous]
         public Task<IApiResult> Login([FromBody] Models.LoginModel model) => _UserLogin(model);
 
-        [Api("/user/agent/login"), AllowAnonymous]
+        [HttpPost("/user/agent/login"), AllowAnonymous]
         public Task<IApiResult> AgentLogin([FromBody] Models.LoginModel model) => _UserLogin(model, UserType.Agent, LoginMode.UserToken);
 
-        [Api("/user/admin/login"), AllowAnonymous]
+        [HttpPost("/user/admin/login"), AllowAnonymous]
         public Task<IApiResult> AdminLogin([FromBody] Models.LoginModel model) => _UserLogin(model, UserType.Admin, LoginMode.UserToken);
 
-        [Api("/user/member/login"), AllowAnonymous]
+        [HttpPost("/user/member/login"), AllowAnonymous]
         public Task<IApiResult> MemberLogin([FromBody] Models.LoginModel model) => _UserLogin(model, UserType.Member, LoginMode.UserToken);
 
         private async Task<IApiResult> _UserLogin(Models.LoginModel model, UserType? loginType = null, LoginMode? mode = null)
@@ -87,11 +89,17 @@ namespace InnateGlory.Controllers
             model.LoginType = loginType ?? model.LoginType;
             model.LoginMode = mode ?? model.LoginMode ?? LoginMode.Cookie;
 
-            var validator = new ApiModelValidator(model)
-                .Valid(nameof(model.UserName), model.UserName)
-                .Valid(nameof(model.Password), model.Password)
-                .Valid(nameof(model.LoginType), model.LoginType)
-                .Validate();
+            ModelState
+                .Valid(model, nameof(model.UserName))
+                .Valid(model, nameof(model.Password))
+                .Valid(model, nameof(model.LoginType))
+                .IsValid();
+
+            //var validator = new ApiModelValidator(model)
+            //    .Valid(nameof(model.UserName), model.UserName)
+            //    .Valid(nameof(model.Password), model.Password)
+            //    .Valid(nameof(model.LoginType), model.LoginType)
+            //    .Validate();
 
             DataService dataService = HttpContext.RequestServices.GetService<DataService>();
             try
@@ -122,7 +130,7 @@ namespace InnateGlory.Controllers
                         return ApiResult.Success();
                     }
                 }
-                throw validator.SetStatus(s);
+                throw new ApiException(s);
             }
             catch
             {
@@ -131,7 +139,7 @@ namespace InnateGlory.Controllers
             }
         }
 
-        [Api("/auth/logout")]
+        [HttpPost("logout")]
         public async Task<IApiResult> Logout([FromServices] UserManager<amsUser> userManager, [FromServices] amsUser user)
         {
             //await Task.Delay(3000);

@@ -1,5 +1,4 @@
-﻿using InnateGlory.Api;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -80,13 +79,13 @@ namespace InnateGlory
 
             #endregion
 
-            mvc.Services.TryAddSingleton<ApiResultExecutor>();
+            mvc.Services.TryAddSingleton<Api.ApiResultExecutor>();
             //services.Configure<MvcOptions>(opts =>
             mvc.AddMvcOptions(opts =>
             {
                 //opts.ModelMetadataDetailsProviders.Insert(0, new BaseTypeMetadataDetailsProvider());
-                opts.Filters.Add<ApiFilter>();
-                opts.Filters.Add<AclFilter>();
+                opts.Filters.Add<Api.ApiExceptionFilter>();
+                opts.Filters.Add<Api.ApiResultFilter>();
                 //opts.ValueProviderFactories.Add(new ApiValueProviderFactory());
                 //opts.Filters.Add(new GenericFilter());
                 //opts.ModelBinderProviders.Insert(0, new JsonObjectModelBinderProvider());

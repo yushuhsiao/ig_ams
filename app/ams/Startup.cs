@@ -67,6 +67,15 @@ namespace InnateGlory
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+
+                xmlPath = Path.ChangeExtension(typeof(JsonHelper).Assembly.Location, "xml");
+                c.IncludeXmlComments(xmlPath);
+
+                xmlPath = Path.ChangeExtension(typeof(amsExtensions).Assembly.Location, "xml");
+                c.IncludeXmlComments(xmlPath);
+
+                xmlPath = Path.ChangeExtension(typeof(Models.LoginModel).Assembly.Location, "xml");
+                c.IncludeXmlComments(xmlPath);
             });
             #region
             //services.Configure<RazorPagesOptions>(options =>

@@ -29,7 +29,7 @@ namespace InnateGlory.Models
 {
     [TableName(typeof(Entity.CorpInfo))]
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public struct CorpModel
+    public class CorpModel
     {
         [JsonProperty]
         public CorpId? Id { get; set; }
