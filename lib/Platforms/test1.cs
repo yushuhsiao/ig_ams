@@ -4,7 +4,7 @@ using System.Text;
 
 namespace InnateGlory
 {
-    public class test1PlatformInfo : Entity.GamePlatform
+    public class test1PlatformInfo : Entity.PlatformInfo
     {
     }
 
@@ -26,7 +26,7 @@ namespace InnateGlory.Models
 
 namespace InnateGlory
 {
-    public class test2PlatformInfo : Entity.GamePlatform
+    public class test2PlatformInfo : Entity.PlatformInfo
     {
     }
 

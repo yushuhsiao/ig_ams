@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace InnateGlory
 {
-    public class AgentDataProvider : Entity.Abstractions.UserDataProvider<Entity.Agent>
+    public class AgentDataProvider : Entity.Abstractions.UserDataProvider<Entity.Agent>, IDataService
     {
         public override UserType UserType => UserType.Agent;
         protected override Status Status_UserAlreadyExist => Status.AgentAlreadyExist;

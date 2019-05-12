@@ -105,16 +105,18 @@ namespace InnateGlory
             if (attr.PlatformType == model.PlatformType)
                 return true;
 
+            var ps = _dataServices.GetService<PlatformInfoProvider>();
+
             if (model.PlatformId.HasValue)
             {
-                var platform = _dataServices.GamePlatforms[model.PlatformId.Value];
+                var platform = ps[model.PlatformId.Value];
                 if (attr.PlatformType == platform?.PlatformType)
                     return true;
             }
 
             if (model.PlatformName.IsValid)
             {
-                var platform = _dataServices.GamePlatforms[model.PlatformName];
+                var platform = ps[model.PlatformName];
                 if (attr.PlatformType == platform?.PlatformType)
                     return true;
             }

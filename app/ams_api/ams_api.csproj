@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\Platforms\ams.Platforms.csproj" />
+    <ProjectReference Include="..\..\lib\Transactions\ams.Transactions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

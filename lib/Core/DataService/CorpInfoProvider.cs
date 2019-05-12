@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace InnateGlory
 {
-    public class CorpInfoProvider
+    public class CorpInfoProvider : IDataService
     {
         private DataService _dataService;
         private SqlConfig _config;

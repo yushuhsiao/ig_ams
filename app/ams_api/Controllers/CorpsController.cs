@@ -1,5 +1,6 @@
 ﻿using InnateGlory.Api;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -121,10 +122,12 @@ namespace InnateGlory.Controllers
                 .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
                 .IsValid();
 
-            var t1 = ds.Tran.Corp_Create(model);
+            var ts = ds.GetService<TranService>();
+
+            var t1 = ts.Corp_Create(model);
             if (t1 != null)
             {
-                var t2 = ds.Tran.Corp_Update(t1, new Models.TranOperationModel()
+                var t2 = ts.Corp_Update(t1, new Models.TranOperationModel()
                 {
                     TranId = t1.TranId,
                     Finish = true
@@ -149,7 +152,7 @@ namespace InnateGlory.Controllers
             //    .ValidCorp(nameof(model.CorpId), nameof(model.CorpName))
             //    .Validate();
 
-            return ds.Tran.Corp_Create(model);
+            return ds.GetService<TranService>().Corp_Create(model);
         }
 
         [HttpPost("/tran/corp/set")]
@@ -162,7 +165,7 @@ namespace InnateGlory.Controllers
             //    .Valid(nameof(op.Delete), required: false)
             //    .Validate();
 
-            return ds.Tran.Corp_Update(null, op);
+            return ds.GetService<TranService>().Corp_Update(null, op);
         }
     }
 }

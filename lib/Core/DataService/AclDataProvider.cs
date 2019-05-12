@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace InnateGlory
 {
-    public class AclDataProvider
+    public class AclDataProvider : IDataService
     {
         private DataService _dataService;
         //private readonly SqlConfig _config;

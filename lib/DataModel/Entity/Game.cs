@@ -8,14 +8,14 @@ namespace InnateGlory.Entity
     [TableName("Game", Database = _Consts.db.CoreDB)]
     public class GameInfo : Abstractions.BaseData
     {
-        internal GamePlatform GamePlatform;
+        internal PlatformInfo Platform;
         internal GameType GameType;
 
         [DbImport]
         public GameId Id { get; set; }
 
         [DbImport]
-        public int GamePlatformId { get; set; }
+        public int PlatformId { get; set; }
 
         [DbImport]
         public int GameTypeId { get; set; }

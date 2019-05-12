@@ -70,8 +70,6 @@
     <Build Include="dbo\Tables\UserAcl.sql" />
     <Build Include="dbo\Tables\TranCorp2.sql" />
     <Build Include="dbo\Tables\TranCorp1.sql" />
-    <Build Include="dbo\Tables\Payments.sql" />
-    <Build Include="dbo\Tables\PayAccount.sql" />
     <Build Include="dbo\Tables\PasswordHist.sql" />
     <Build Include="dbo\Tables\Password.sql" />
     <Build Include="dbo\Tables\Members.sql" />
@@ -96,5 +94,6 @@
     <Build Include="dbo\Tables\TranPayment2.sql" />
     <Build Include="dbo\Tables\TranPayment1.sql" />
     <Build Include="dbo\Tables\TranCert.sql" />
+    <Build Include="dbo\Tables\PaymentAccount.sql" />
   </ItemGroup>
 </Project>

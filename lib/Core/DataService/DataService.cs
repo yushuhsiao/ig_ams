@@ -25,44 +25,56 @@ namespace InnateGlory
             //_config2 = services.GetSqlConfig(this);
         }
 
+        private Dictionary<Type, object> _instances = new Dictionary<Type, object>();
+
         object IServiceProvider.GetService(Type serviceType)
         {
             if (serviceType == typeof(DataService))
                 return this;
-            return _services.GetService(serviceType);
-        }
 
-        private Dictionary<Type, object> _instances = new Dictionary<Type, object>();
+            var result = _services.GetService(serviceType);
+            if (result != null)
+                return result;
 
-        private T GetInstance<T>()
-        {
-            T result = _services.GetService<T>();
-            if (result == null)
+            if (serviceType.HasInterface<IDataService>())
             {
                 lock (_instances)
                 {
-                    if (_instances.TryGetValue(typeof(T), out object tmp))
-                        result = (T)tmp;
+                    if (_instances.TryGetValue(serviceType, out result))
+                        return result;
                     else
-                        _instances[typeof(T)] = result = _services.GetServiceOrCreateInstance<T>();
+                        return _instances[serviceType] = _services.CreateInstance(serviceType);
                 }
             }
             return result;
         }
 
-        public CorpInfoProvider Corps => GetInstance<CorpInfoProvider>(); //_corps.Value;
-        public UserDataProvider Users => GetInstance<UserDataProvider>(); //_users.Value;
-        public AgentDataProvider Agents => GetInstance<AgentDataProvider>(); //_agents.Value;
-        public AdminDataProvider Admins => GetInstance<AdminDataProvider>(); //_admins.Value;
-        public MemberDataProvider Members => GetInstance<MemberDataProvider>(); //_members.Value;
-        public GamePlatformInfoProvider GamePlatforms => GetInstance<GamePlatformInfoProvider>(); //_platforms.Value;
-        public GameTypeInfoProvider GameTypes => GetInstance<GameTypeInfoProvider>();
-        public GameInfoProvider Games => GetInstance<GameInfoProvider>(); //_games.Value;
-        public PaymentInfoProvider Payments => GetInstance<PaymentInfoProvider>(); //_payments.Value;
-        public AclDataProvider Acl => GetInstance<AclDataProvider>(); //_acl.Value;
-        public PasswordProvider Password => GetInstance<PasswordProvider>();
-        public TranService Tran => GetInstance<TranService>();
+        //private T GetInstance<T>() where T : IDataService
+        //{
+        //    T result = _services.GetService<T>();
+        //    if (result == null)
+        //    {
+        //        lock (_instances)
+        //        {
+        //            if (_instances.TryGetValue(typeof(T), out object tmp))
+        //                result = (T)tmp;
+        //            else
+        //                _instances[typeof(T)] = result = _services.GetServiceOrCreateInstance<T>();
+        //        }
+        //    }
+        //    return result;
+        //}
 
+        public CorpInfoProvider Corps => this.GetService<CorpInfoProvider>(); //_corps.Value;
+        public UserDataProvider Users => this.GetService<UserDataProvider>(); //_users.Value;
+        public AgentDataProvider Agents => this.GetService<AgentDataProvider>(); //_agents.Value;
+        public AdminDataProvider Admins => this.GetService<AdminDataProvider>(); //_admins.Value;
+        public MemberDataProvider Members => this.GetService<MemberDataProvider>(); //_members.Value;
+        public GameTypeInfoProvider GameTypes => this.GetService<GameTypeInfoProvider>();
+        public GameInfoProvider Games => this.GetService<GameInfoProvider>(); //_games.Value;
+        public PaymentInfoProvider Payments => this.GetService<PaymentInfoProvider>(); //_payments.Value;
+        public AclDataProvider Acl => this.GetService<AclDataProvider>(); //_acl.Value;
+        public PasswordProvider Password => this.GetService<PasswordProvider>();
 
         [AppSetting(SectionName = AppSettingAttribute.ConnectionStrings, Key = _Consts.db.CoreDB_R), DefaultValue(_Consts.db.CoreDB_Default)]
         public DbConnectionString _CoreDB_R

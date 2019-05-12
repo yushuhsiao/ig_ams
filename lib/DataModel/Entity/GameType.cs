@@ -8,11 +8,11 @@ namespace InnateGlory.Entity
     /// <summary>
     /// 遊戲定義
     /// </summary>
-    [TableName("Games", Database = _Consts.db.CoreDB)]
+    [TableName("GameType", Database = _Consts.db.CoreDB)]
     public class GameType : Abstractions.BaseData
     {
-        [DbImport]
-        public GameId Id { get; set; }
+        [DbImport("Id")]
+        public int Id { get; set; }
 
         [DbImport]
         public GameClass GameClass { get; set; }

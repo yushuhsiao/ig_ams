@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace InnateGlory
 {
-    public class MemberDataProvider : Entity.Abstractions.UserDataProvider<Entity.Member>
+    public class MemberDataProvider : Entity.Abstractions.UserDataProvider<Entity.Member>, IDataService
     {
         public override UserType UserType => UserType.Member;
         protected override Status Status_UserAlreadyExist => Status.MemberAlreadyExist;

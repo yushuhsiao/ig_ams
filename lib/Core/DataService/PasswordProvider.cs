@@ -7,7 +7,7 @@ using System.Text;
 
 namespace InnateGlory
 {
-    public class PasswordProvider
+    public class PasswordProvider : IDataService
     {
         private readonly DataService _dataService;
 

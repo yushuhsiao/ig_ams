@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace InnateGlory
 {
-    public class AdminDataProvider : Entity.Abstractions.UserDataProvider<Entity.Admin>
+    public class AdminDataProvider : Entity.Abstractions.UserDataProvider<Entity.Admin>, IDataService
     {
         public override UserType UserType => UserType.Admin;
         protected override Status Status_UserAlreadyExist => Status.AdminAlreadyExist;

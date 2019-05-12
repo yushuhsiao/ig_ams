@@ -29,14 +29,12 @@ namespace InnateGlory.Api
 
         private static bool GetValue<T>(object model, string key, out T value)
         {
-            value = default(T);
-            if (model == null)
-                return false;
-            if (model.GetType().GetFieldOrProperty(key, out var m))
+            if (model != null && model.GetType().GetFieldOrProperty(key, out var m))
             {
                 object _value = m.GetValue(model);
                 return _value.TryCast(out value);
             }
+            value = default(T);
             return false;
         }
 

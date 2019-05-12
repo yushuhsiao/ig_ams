@@ -11,29 +11,29 @@ using System.Reflection;
 
 namespace InnateGlory
 {
-    public class GamePlatformInfoProvider
+    public class PlatformInfoProvider : IDataService
     {
         private DataService _dataService;
         //private SqlConfig2 _config;
-        private DbCache<Entity.GamePlatform> _cache;
+        private DbCache<Entity.PlatformInfo> _cache;
 
-        public GamePlatformInfoProvider(DataService dataService)
+        public PlatformInfoProvider(DataService dataService)
         {
             this._dataService = dataService;
             //this._config = dataService.GetService<SqlConfig2>();
-            this._cache = dataService.GetDbCache<Entity.GamePlatform>(ReadData);
+            this._cache = dataService.GetDbCache<Entity.PlatformInfo>(ReadData);
         }
 
-        private IEnumerable<Entity.GamePlatform> ReadData(DbCache<Entity.GamePlatform>.Entry sender, Entity.GamePlatform[] oldValue)
+        private IEnumerable<Entity.PlatformInfo> ReadData(DbCache<Entity.PlatformInfo>.Entry sender, Entity.PlatformInfo[] oldValue)
         {
-            string sql1 = $"select * from {TableName<Entity.GamePlatform>.Value} nolock";
+            string sql1 = $"select * from {TableName<Entity.PlatformInfo>.Value} nolock";
             using (SqlCmd coredb = _dataService.CoreDB_R())
             {
                 foreach (SqlDataReader r in coredb.ExecuteReaderEach(sql1))
                 {
                     PlatformType t1 = (PlatformType)r.GetInt32("PlatformType");
                     Platform t2 = GetInstance(t1) ?? GetInstance(PlatformType.Main);
-                    yield return (Entity.GamePlatform)r.ToObject(t2.PlatformInfoType);
+                    yield return (Entity.PlatformInfo)r.ToObject(t2.PlatformInfoType);
                 }
             }
             //var values = _config.Root.CoreDB_R.ToList<Data.PlatformInfo>(_dataService, sql1, create:create);
@@ -78,7 +78,7 @@ namespace InnateGlory
             var x = _cache.GetValues();
         }
 
-        public Entity.GamePlatform this[PlatformId id]
+        public Entity.PlatformInfo this[PlatformId id]
         {
             get
             {
@@ -89,7 +89,7 @@ namespace InnateGlory
                 return null;
             }
         }
-        public Entity.GamePlatform this[UserName name]
+        public Entity.PlatformInfo this[UserName name]
         {
             get
             {
@@ -128,7 +128,7 @@ namespace InnateGlory
         // forward game
     }
     public abstract class Platform<TPlatformInfo, TMemberPlatform> : Platform
-        where TPlatformInfo : Entity.GamePlatform
+        where TPlatformInfo : Entity.PlatformInfo
         where TMemberPlatform : Entity.MemberPlatform
     {
         internal override Type MemberPlatformType => typeof(TMemberPlatform);
@@ -140,7 +140,7 @@ namespace InnateGlory
     }
 
     [PlatformInfo(PlatformType = PlatformType.Main)]
-    public class MainPlatform : Platform<Entity.GamePlatform, Entity.MemberPlatform>
+    public class MainPlatform : Platform<Entity.PlatformInfo, Entity.MemberPlatform>
     {
     }
 }

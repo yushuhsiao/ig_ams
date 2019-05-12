@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory
 {
-    public class UserDataProvider
+    public class UserDataProvider : IDataService
     {
         private readonly DataService _dataService;
 

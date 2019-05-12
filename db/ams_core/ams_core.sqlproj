@@ -63,11 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\TableVer.sql" />
-    <Build Include="dbo\Tables\PayPlatform.sql" />
-    <Build Include="dbo\Tables\PayAccount.sql" />
     <Build Include="dbo\Tables\Lang.sql" />
     <Build Include="dbo\Tables\GameType.sql" />
-    <Build Include="dbo\Tables\GamePlatform.sql" />
     <Build Include="dbo\Tables\Game.sql" />
     <Build Include="dbo\Tables\CurrencyHist.sql" />
     <Build Include="dbo\Tables\Currency.sql" />
@@ -78,5 +75,8 @@
     <Build Include="dbo\Stored Procedures\TableVer_get.sql" />
     <Build Include="dbo\Stored Procedures\Lang_Set.sql" />
     <Build Include="dbo\Stored Procedures\Config_SetValue.sql" />
+    <Build Include="dbo\Tables\Platforms.sql" />
+    <Build Include="dbo\Tables\Payments.sql" />
+    <Build Include="dbo\Tables\PaymentAccount.sql" />
   </ItemGroup>
 </Project>

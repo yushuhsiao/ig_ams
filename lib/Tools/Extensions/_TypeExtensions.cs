@@ -57,8 +57,9 @@ namespace System
         {
             if (t != null)
             {
-                foreach (Type i in t.GetInterfaces())
-                    if (i == typeof(T))
+                var tmp = t.GetInterfaces();
+                for (int n = 0; n < tmp.Length; n++)
+                    if (tmp[n] == typeof(T))
                         return true;
             }
             return false;
@@ -70,16 +71,16 @@ namespace System
             {
                 if (i.IsGenericTypeDefinition)
                 {
-                    foreach (Type _i in t.GetInterfaces())
-                    {
-                        if (_i.IsGenericType && _i.GetGenericTypeDefinition() == i)
+                    var tmp = t.GetInterfaces();
+                    for (int n = 0; n < tmp.Length; n++)
+                        if (tmp[n].IsGenericType && tmp[n].GetGenericTypeDefinition() == i)
                             return true;
-                    }
                 }
                 else
                 {
-                    foreach (Type _i in t.GetInterfaces())
-                        if (_i == i)
+                    var tmp = t.GetInterfaces();
+                    for (int n = 0; n < tmp.Length; n++)
+                        if (tmp[n] == i)
                             return true;
                 }
             }

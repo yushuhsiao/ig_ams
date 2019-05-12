@@ -9,6 +9,8 @@ lib.ext
 Test
 Thumbs.db
 *.dbmdl
+*.jfm
+*.csproj.user
 /app/ams/wwwroot/lib/bootstrap
 /app/ams/wwwroot/lib/Font-Awesome
 /app/ams/wwwroot/lib/jquery

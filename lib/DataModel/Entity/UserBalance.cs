@@ -42,12 +42,6 @@ namespace InnateGlory.Models
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public abstract class UserBalanceModel
     {
-        [JsonProperty]
-        public CorpId? CorpId { get; set; }
-
-        [JsonProperty]
-        public UserName CorpName { get; set; }
-
         /// <summary>
         /// 相對值
         /// </summary>
@@ -88,6 +82,11 @@ namespace InnateGlory.Models
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class CorpBalanceModel : UserBalanceModel
     {
+        [JsonProperty]
+        public CorpId? CorpId { get; set; }
+
+        [JsonProperty]
+        public UserName CorpName { get; set; }
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
@@ -95,6 +94,9 @@ namespace InnateGlory.Models
     {
         [JsonProperty]
         public UserId AgentId { get; set; }
+
+        [JsonProperty]
+        public CorpId? CorpId { get; set; }
 
         [JsonProperty]
         public UserName AgentName { get; set; }
@@ -105,6 +107,9 @@ namespace InnateGlory.Models
     {
         [JsonProperty]
         public UserId MemberId { get; set; }
+
+        [JsonProperty]
+        public CorpId? CorpId { get; set; }
 
         [JsonProperty]
         public UserName MemberName { get; set; }

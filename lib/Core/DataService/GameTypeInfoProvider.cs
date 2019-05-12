@@ -5,7 +5,7 @@ using System.Text;
 
 namespace InnateGlory
 {
-    public class GameInfoProvider
+    public class GameInfoProvider : IDataService
     {
         private DataService _dataService;
 
