@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace InnateGlory
@@ -77,6 +78,15 @@ namespace InnateGlory
         public override bool Get(out Status status, UserId? id, CorpId? corpId, UserName corpname, UserName name, out Entity.Member agent, bool chechActive = true)
         {
             return base.Get(out status, id, corpId, corpname, name, out agent, chechActive);
+        }
+
+
+
+        public Entity.UserBalance GetBalance(Entity.Member member)
+        {
+            string sql = $"select * from {TableName<Entity.UserBalance>.Value} where Id={member.Id}";
+            using (SqlCmd userdb = _dataService.UserDB_R(member.CorpId))
+                return userdb.ToObject<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = member.Id };
         }
     }
 }

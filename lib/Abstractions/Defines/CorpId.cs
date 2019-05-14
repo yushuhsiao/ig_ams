@@ -39,6 +39,13 @@ namespace InnateGlory
         public static implicit operator CorpId(Int32 id) => new CorpId(id);
         public static implicit operator Int32(CorpId id) => id.Id;
 
+        public static explicit operator CorpId? (string str)
+        {
+            if (_TypeConverter.Instance.CanConvertFrom(typeof(string)))
+                return _TypeConverter.Instance.ConvertFrom(str) as CorpId?;
+            return null;
+        }
+
         public static bool operator ==(CorpId? src, object obj)
         {
             if (src.HasValue)
@@ -66,6 +73,8 @@ namespace InnateGlory
         [_DebuggerStepThrough]
         class _TypeConverter : TypeConverter
         {
+            internal static _TypeConverter Instance = new _TypeConverter();
+
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
             {
                 return

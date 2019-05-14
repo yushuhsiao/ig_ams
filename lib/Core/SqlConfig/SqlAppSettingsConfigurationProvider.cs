@@ -84,7 +84,7 @@ namespace InnateGlory
             Monitor.Exit(_sync);
             _lock = false;
 
-            string cn = _services._CoreDB_R;// ConnectionString;
+            string cn = _services._CoreDB_R();// ConnectionString;
             try
             {
                 lock (_sync)

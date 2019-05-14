@@ -27,7 +27,6 @@
   <ItemGroup>
     <Compile Remove="DataService\_Localization.cs" />
     <Compile Remove="Localization\Localization.cs" />
-    <Compile Remove="Localization\ViewLang.cs" />
     <Compile Remove="PasswordEncryptor.cs" />
     <Compile Remove="ServerOptions.cs" />
   </ItemGroup>

@@ -49,46 +49,22 @@ namespace InnateGlory
             return result;
         }
 
-        //private T GetInstance<T>() where T : IDataService
-        //{
-        //    T result = _services.GetService<T>();
-        //    if (result == null)
-        //    {
-        //        lock (_instances)
-        //        {
-        //            if (_instances.TryGetValue(typeof(T), out object tmp))
-        //                result = (T)tmp;
-        //            else
-        //                _instances[typeof(T)] = result = _services.GetServiceOrCreateInstance<T>();
-        //        }
-        //    }
-        //    return result;
-        //}
-
-        public CorpInfoProvider Corps => this.GetService<CorpInfoProvider>(); //_corps.Value;
-        public UserDataProvider Users => this.GetService<UserDataProvider>(); //_users.Value;
-        public AgentDataProvider Agents => this.GetService<AgentDataProvider>(); //_agents.Value;
-        public AdminDataProvider Admins => this.GetService<AdminDataProvider>(); //_admins.Value;
-        public MemberDataProvider Members => this.GetService<MemberDataProvider>(); //_members.Value;
+        public CorpInfoProvider Corps => this.GetService<CorpInfoProvider>();
+        public UserDataProvider Users => this.GetService<UserDataProvider>();
+        public AgentDataProvider Agents => this.GetService<AgentDataProvider>();
+        public AdminDataProvider Admins => this.GetService<AdminDataProvider>();
+        public MemberDataProvider Members => this.GetService<MemberDataProvider>();
         public GameTypeInfoProvider GameTypes => this.GetService<GameTypeInfoProvider>();
-        public GameInfoProvider Games => this.GetService<GameInfoProvider>(); //_games.Value;
-        public PaymentInfoProvider Payments => this.GetService<PaymentInfoProvider>(); //_payments.Value;
-        public AclDataProvider Acl => this.GetService<AclDataProvider>(); //_acl.Value;
-        public PasswordProvider Password => this.GetService<PasswordProvider>();
+        public GameInfoProvider Games => this.GetService<GameInfoProvider>();
+        public PaymentInfoProvider Payments => this.GetService<PaymentInfoProvider>();
+        //public AclDataProvider Acl => this.GetService<AclDataProvider>();
+        //public PasswordProvider Password => this.GetService<PasswordProvider>();
 
         [AppSetting(SectionName = AppSettingAttribute.ConnectionStrings, Key = _Consts.db.CoreDB_R), DefaultValue(_Consts.db.CoreDB_Default)]
-        public DbConnectionString _CoreDB_R
-        {
-            //[DebuggerStepThrough]
-            get => _config.GetValue<string>();
-        }
+        public DbConnectionString _CoreDB_R() => _config.GetValue<string>();
 
         [AppSetting(SectionName = _Consts.db.SqlConnection, Key = _Consts.db.CoreDB_W), DefaultValue(_Consts.db.CoreDB_Default)]
-        public DbConnectionString _CoreDB_W
-        {
-            //[DebuggerStepThrough]
-            get => _config.GetValue<string>();
-        }
+        public DbConnectionString _CoreDB_W() => _config.GetValue<string>();
 
         [SqlConfig(Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.UserDB_R)]
         public DbConnectionString _UserDB_R(CorpId id) => _sqlConfig.GetValue<string>(id);
@@ -103,52 +79,32 @@ namespace InnateGlory
         public DbConnectionString _LogDB_W(CorpId id) => _sqlConfig.GetValue<string>(id);
 
 
-        public SqlCmd CoreDB_R(object state = null) => _CoreDB_R.Open(_services, state);
-        public SqlCmd CoreDB_W(object state = null) => _CoreDB_W.Open(_services, state);
+        public SqlCmd CoreDB_R(object state = null) => _CoreDB_R().Open(_services, state);
+        public SqlCmd CoreDB_W(object state = null) => _CoreDB_W().Open(_services, state);
         public SqlCmd UserDB_R(CorpId id, object state = null) => _UserDB_R(id).Open(_services, state);
         public SqlCmd UserDB_W(CorpId id, object state = null) => _UserDB_W(id).Open(_services, state);
         public SqlCmd LogDB_R(CorpId id, object state = null) => _LogDB_R(id).Open(_services, state);
         public SqlCmd LogDB_W(CorpId id, object state = null) => _LogDB_W(id).Open(_services, state);
 
-        public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null)
+        public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null) => _Open(_CoreDB_R, CoreDB_R, ref sqlcmd, state);
+        public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null) => _Open(_CoreDB_W, CoreDB_W, ref sqlcmd, state);
+        public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_UserDB_R, UserDB_R, ref sqlcmd, id, state);
+        public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_UserDB_W, UserDB_W, ref sqlcmd, id, state);
+        public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_LogDB_R, LogDB_R, ref sqlcmd, id, state);
+        public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_LogDB_W, LogDB_W, ref sqlcmd, id, state);
+
+        private IDisposable _Open(Func<DbConnectionString> _conn, Func<object, SqlCmd> _db, ref SqlCmd sqlcmd, object state = null)
         {
-            if (sqlcmd == null || sqlcmd.ConnectionString != _CoreDB_R)
-                return sqlcmd = CoreDB_R(state);
+            if (sqlcmd == null || sqlcmd.ConnectionString != _conn())
+                return sqlcmd = _db(state);
             else
                 return null;
         }
-        public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null)
+
+        private IDisposable _Open(Func<CorpId, DbConnectionString> _conn, Func<CorpId, object, SqlCmd> _db, ref SqlCmd sqlcmd, CorpId id, object state = null)
         {
-            if (sqlcmd == null || sqlcmd.ConnectionString != _CoreDB_W)
-                return sqlcmd = CoreDB_W(state);
-            else
-                return null;
-        }
-        public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null)
-        {
-            if (sqlcmd == null || sqlcmd.ConnectionString != _UserDB_R(id))
-                return sqlcmd = UserDB_R(id, state);
-            else
-                return null;
-        }
-        public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null)
-        {
-            if (sqlcmd == null || sqlcmd.ConnectionString != _UserDB_W(id))
-                return sqlcmd = UserDB_W(id, state);
-            else
-                return null;
-        }
-        public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null)
-        {
-            if (sqlcmd == null || sqlcmd.ConnectionString != _LogDB_R(id))
-                return sqlcmd = LogDB_R(id, state);
-            else
-                return null;
-        }
-        public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null)
-        {
-            if (sqlcmd == null || sqlcmd.ConnectionString != _LogDB_W(id))
-                return sqlcmd = LogDB_W(id, state);
+            if (sqlcmd == null || sqlcmd.ConnectionString != _conn(id))
+                return sqlcmd = _db(id, state);
             else
                 return null;
         }

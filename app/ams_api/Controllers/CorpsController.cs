@@ -96,25 +96,6 @@ namespace InnateGlory.Controllers
                 return coredb.ToList<Entity.CorpInfo>(sql);
         }
 
-        [HttpPost("balance/get")]
-        public Entity.UserBalance GetBalance(Models.CorpModel model)
-        {
-            ModelState
-                .Valid(model, nameof(model.Id))
-                .Valid(model, nameof(model.Name))
-                .IsValid();
-
-            //var validator = new ApiModelValidator(model)
-            //    .ValidCorp(nameof(model.Id), nameof(model.Name))
-            //    .Validate();
-
-            if (_dataService.Corps.Get(out var status, model.Id, model.Name, out var corp, chechActive: false) &&
-                _dataService.Agents.GetRootAgent(corp, out var agent))
-                return _dataService.Agents.GetBalance(agent);
-
-            throw new ApiException(status);
-        }
-
         [HttpPost("balance/set")]
         public Entity.UserBalance SetBalance([FromBody] Models.CorpBalanceModel model, [FromServices] DataService ds)
         {

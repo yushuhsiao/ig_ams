@@ -135,12 +135,13 @@ namespace InnateGlory
 
             #endregion
 
-            var pwd = _dataService.Password.Get(userData.Id);
+            var pws = _dataService.GetService<PasswordProvider>();
+            var pwd = pws.Get(userData.Id);
             if (pwd == null)
                 return Status.PasswordNotFound;
             if (pwd.IsExpire)
                 return Status.PasswordExpired;
-            if (!_dataService.Password.IsMatch(pwd, model.Password))
+            if (!pws.IsMatch(pwd, model.Password))
                 return Status.PasswordNotMatch;
 
             return Status.Success;

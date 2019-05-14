@@ -1,81 +1,92 @@
-﻿using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Html;
 using System;
+using System.Collections.Generic;
 using LCID = System.Int32;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Html;
 
 namespace InnateGlory
 {
-    /// <summary>
-    /// localization for views
-    /// </summary>
-    /// <remarks>
-    /// @inject InnateGlory.IViewLang lang
-    /// </remarks>
-    //public interface IViewLang
-    //{
-    //    PlatformId PlatformId { get; set; }
-    //    string ResPath { get; set; }
-    //    string this[string key, LCID? lcid = null] { get; }
-    //    string this[string key, string text, LCID? lcid = null] { get; }
-    //    string this[object key, LCID? lcid = null] { get; }
-    //    string this[object key, string text, LCID? lcid = null] { get; }
-    //}
+    internal class ViewLang : /*IViewLang, */ IViewLang
+    {
+        private LangService _langService;
+        public PlatformId PlatformId { get; set; }
+        private string resPath;
+        private LangItem _langItem;
 
+        public string ResPath
+        {
+            get => resPath;
+            set
+            {
+                resPath = value;
+                _langItem = null;
+            }
+        }
+        //internal string ViewEnginePath { get; set; }
+        //internal string FullPath { get; set; }
 
+        internal ViewLang(LangService langService)
+        {
+            _langService = langService;
+        }
 
-    //internal class ViewLang : IViewLang //: IViewContextAware
-    //{
-    //    private LangService _provider;
-    //    public ActionDescriptor ActionDescriptor { get; set; }
-    //    private PageActionDescriptor PageActionDescriptor => ActionDescriptor as PageActionDescriptor;
-    //    public ViewLang(IServiceProvider serviceProvider)
-    //    {
-    //        _provider = serviceProvider.GetRequiredService<LangService>();
-    //        //-ActionDescriptor    "/Index"    Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor { 
-    //        //Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor
-    //    }
+        private IEnumerable<LangItem> GetLangItem()
+        {
+            if (_langItem == null)
+            {
+                var n01 = _langService.GetEntry(this.PlatformId);
+                LangItem n0 = n01.GetFirstValue();
 
-    //    //void IViewContextAware.Contextualize(ViewContext viewContext)
-    //    //{
-    //    //    this.ViewContext = viewContext;
-    //    //}
+                _langItem = n0.GetChild(this.ResPath.Trim(false), true);
+            }
+            if (_langItem != null)
+                yield return _langItem;
+        }
 
-    //    //public ViewContext ViewContext { get; set; }
-    //    //public PageContext PageContext { get; set; }
-    //    public string ResPath { get; set; }
+        //private IEnumerable<LangItem> GetLangItem()
+        //{
+        //    var n01 = _langService.GetEntry(this.PlatformId);
+        //    LangItem n0 = n01.GetFirstValue();
 
-    //    private string _path() => ResPath ?? (ActionDescriptor as PageActionDescriptor)?.ViewEnginePath;
-    //    private LangItem GetItem() => _provider
-    //        .GetRoot(PlatformId.Null)
-    //        .GetChild(ResPath ?? (ActionDescriptor as PageActionDescriptor)?.ViewEnginePath);
+        //    LangItem n1 = n0.GetChild(this.ResPath.Trim(false));
+        //    if (n1 != null)
+        //        yield return n1;
 
-    //    public string this[string key, LCID? lcid = null] => this[key, key, lcid];
-    //    public string this[string key, string text, LCID? lcid = null]
-    //    {
-    //        get
-    //        {
-    //            if (GetItem().GetText(key, lcid, out string _text))
-    //                return _text;
-    //            return text;
-    //        }
-    //    }
+        //    LangItem n2 = n0.GetChild(this.ViewEnginePath);
+        //    if (n2 == n1) n2 = null;
+        //    if (n2 != null)
+        //        yield return n2;
 
-    //    public string this[object key, LCID? lcid = null] => this[key, key?.ToString(), lcid];
-    //    public string this[object key, string text, LCID? lcid = null]
-    //    {
-    //        get
-    //        {
-    //            if (GetItem().GetEnum(key, lcid, out string _text))
-    //                return _text;
-    //            return text;
-    //        }
-    //    }
-    //}
+        //    LangItem n3 = n0.GetChild(this.FullPath);
+        //    if (n3 == n1 || n3 == n2) n3 = null;
+        //    if (n3 != null)
+        //        yield return n3;
+        //}
+
+        private HtmlString GetText(string key, LCID? lcid) => this.GetEnum(key, key, lcid);
+        private HtmlString GetText(object key, LCID? lcid) => this.GetEnum(key, key?.ToString(), lcid);
+        private HtmlString GetEnum(string key, string text, LCID? lcid)
+        {
+            foreach (var n in this.GetLangItem())
+                if (n.GetText(this.PlatformId, key, lcid, text, out var _html))
+                    return _html;
+            return new HtmlString(text);
+        }
+        private HtmlString GetEnum(object key, string text, LCID? lcid)
+        {
+            foreach (var n in this.GetLangItem())
+                if (n.GetEnum(this.PlatformId, key, lcid, text, out var _html))
+                    return _html;
+            return new HtmlString(text);
+        }
+
+        //string IViewLang.this[string key, LCID? lcid] => this.GetEnum(key, key, lcid).Value;
+        //string IViewLang.this[object key, LCID? lcid] => this.GetEnum(key, key?.ToString(), lcid).Value;
+        //string IViewLang.this[string key, string text, LCID? lcid] => this.GetEnum(key, text, lcid).Value;
+        //string IViewLang.this[object key, string text, LCID? lcid] => this.GetEnum(key, text, lcid).Value;
+
+        IHtmlContent IViewLang.this[string key, LCID? lcid] => this.GetEnum(key, key, lcid);
+        IHtmlContent IViewLang.this[object key, LCID? lcid] => this.GetEnum(key, key?.ToString(), lcid);
+        IHtmlContent IViewLang.this[string key, string text, LCID? lcid] => this.GetEnum(key, text, lcid);
+        IHtmlContent IViewLang.this[object key, string text, LCID? lcid] => this.GetEnum(key, text, lcid);
+    }
 }

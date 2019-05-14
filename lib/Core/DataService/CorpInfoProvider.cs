@@ -219,7 +219,7 @@ select * from {SqlBuilder.TableName} {sql_w}");
 
             UserId op_user = _dataService.GetCurrentUser().Id;
 
-            if (!_dataService.Acl.HasPermission(corp, op_user))
+            if (!_dataService.GetService<AclDataProvider>().HasPermission(corp, op_user))
             {
                 status = Status.AccessDenied;
                 return false;

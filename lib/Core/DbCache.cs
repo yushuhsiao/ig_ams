@@ -218,7 +218,7 @@ namespace InnateGlory
         {
             for (int r = 0; r < 3; r++)
             {
-                var cn = _services.GetService<DataService>()._CoreDB_W; // GetConfig().Root.CoreDB_W;
+                var cn = _services.GetService<DataService>()._CoreDB_W(); // GetConfig().Root.CoreDB_W;
                 try
                 {
                     lock (sync_sql)
