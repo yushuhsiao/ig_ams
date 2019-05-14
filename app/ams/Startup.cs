@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -28,9 +30,18 @@ namespace InnateGlory
 
         //public IConfiguration Configuration { get; }
 
+        class xxx : Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider
+        {
+            Task<IAuthenticationHandler> IAuthenticationHandlerProvider.GetHandlerAsync(HttpContext context, string authenticationScheme)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<xxx>();
             //services.AddWebpack();
             services.AddUserManager();
             services.AddAMS();

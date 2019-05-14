@@ -86,6 +86,7 @@ namespace InnateGlory
                 //opts.ModelMetadataDetailsProviders.Insert(0, new BaseTypeMetadataDetailsProvider());
                 opts.Filters.Add<Api.ApiExceptionFilter>();
                 opts.Filters.Add<Api.ApiResultFilter>();
+                opts.Filters.Add<AclFilter>();
                 //opts.ValueProviderFactories.Add(new ApiValueProviderFactory());
                 //opts.Filters.Add(new GenericFilter());
                 //opts.ModelBinderProviders.Insert(0, new JsonObjectModelBinderProvider());

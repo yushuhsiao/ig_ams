@@ -71,8 +71,13 @@ namespace InnateGlory.Controllers
         [HttpPost("logout")]
         public async Task<IApiResult> Logout([FromServices] UserManager userManager/*, [FromServices] amsUser user*/)
         {
-            //await Task.Delay(3000);
-            await userManager.SignOutAsync();
+            var n = this.User;
+            n.GetUserId(out var _id);
+            var u = userManager.CurrentUser;
+
+            await Task.Delay(3000);
+            //await userManager.SignOutAsync();
+
             return ApiResult.OK;
         }
 

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using System.Diagnostics;
 using System.Security.Claims;
 
 namespace InnateGlory
@@ -13,7 +12,8 @@ namespace InnateGlory
     public static class UserManagerExtensions
     {
         //[DebuggerStepThrough] private static UserManager /**/ _UserManagerFactory(IServiceProvider services) => services.GetService<UserManager>();
-        [DebuggerStepThrough] private static amsUser /*******/_CurrentUserFactory(IServiceProvider services) => services.GetService<UserManager>()?.CurrentUser;
+        //[DebuggerStepThrough]
+        private static amsUser _CurrentUserFactory(IServiceProvider services) => services.GetService<UserManager>()?.CurrentUser;
 
         public static IServiceCollection AddUserManager(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {

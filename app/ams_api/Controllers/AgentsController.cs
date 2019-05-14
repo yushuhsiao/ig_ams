@@ -86,8 +86,8 @@ namespace InnateGlory.Controllers
                 .Valid(null, nameof(UserId), userId)
                 .IsValid();
 
-            if (_dataService.Agents.Get(userId, out var admin))
-                return admin;
+            if (_dataService.Agents.Get(userId, out var agent))
+                return agent;
             throw new ApiException(Status.AgentNotExist);
         }
 

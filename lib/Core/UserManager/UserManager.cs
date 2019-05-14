@@ -56,12 +56,12 @@ namespace InnateGlory
         {
             ClaimsPrincipal.ClaimsPrincipalSelector = ClaimsPrincipalSelector;
             this._services = services;
-            this._httpContextAccessor = _services.GetRequiredService<IHttpContextAccessor>();
-            this._authenticationOptions = _services.GetRequiredService<IOptions<AuthenticationOptions>>();
-            this._cookieOptionsMonitor = _services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>();
-            this._logger = _services.GetRequiredService<ILoggerFactory>().CreateLogger("UserManager");
-            this._config = _services.GetService<IConfiguration<UserManager>>(); //_services.GetService<ISqlConfig<UserManager<TUser>>>();//.GetService(this);
-            this.Guest = _services.CreateInstance<amsUser>();
+            this._httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
+            this._authenticationOptions = services.GetRequiredService<IOptions<AuthenticationOptions>>();
+            this._cookieOptionsMonitor = services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>();
+            this._logger = services.GetRequiredService<ILoggerFactory>().CreateLogger("UserManager");
+            this._config = services.GetService<IConfiguration<UserManager>>(); //_services.GetService<ISqlConfig<UserManager<TUser>>>();//.GetService(this);
+            this.Guest = services.CreateInstance<amsUser>();
             this.Guest.Id = UserId.Guest;
             //this.Guest.Id = UserId.Root;
             //Tick.OnTick += this.Cleanup;
