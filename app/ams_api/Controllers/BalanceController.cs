@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InnateGlory.Api;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace InnateGlory.Controllers
 {
@@ -20,13 +10,12 @@ namespace InnateGlory.Controllers
             _dataService = dataService;
         }
 
-        [HttpPost("/corp/balance/get/{idorName}")]
-        public Entity.UserBalance GetCorpBalance(string idorName)
+        [HttpPost("/corp/balance/get/{id_or_name}")]
+        public Entity.UserBalance GetCorpBalance(string id_or_name)
         {
             Entity.CorpInfo corp;
-            CorpId? id = (CorpId?)idorName;
-            UserName name = (UserName)idorName;
-            if (id.HasValue)
+            UserName name = (UserName)id_or_name;
+            if (CorpId.TryParse(id_or_name, out CorpId id))
             {
                 if (!_dataService.Corps.Get(id, out corp))
                     throw new ApiException(Status.CorpNotExist);

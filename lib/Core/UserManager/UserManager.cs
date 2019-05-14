@@ -15,14 +15,42 @@ using System.Threading.Tasks;
 
 namespace InnateGlory
 {
-    public class UserManager<TUser> : IUserManager where TUser : class, IUser
+    public class amsUser : IUser
+    {
+        private DataService _dataService;
+        public amsUser(DataService dataService)
+        {
+            _dataService = dataService;
+        }
+        public amsUser(DataService dataService, Entity.UserData userData)
+        {
+            _dataService = dataService;
+            _userData = userData;
+        }
+
+        public UserId Id
+        {
+            get;
+            set;
+        }
+
+        private Entity.UserData _userData;
+        public Entity.UserData UserData => _userData = _userData ?? _dataService.Users.GetUser(this.Id);
+
+        void t()
+        {
+            //ClaimsPrincipal.Current.GetUserId
+        }
+    }
+
+    public class UserManager
     {
         private readonly IServiceProvider _services;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IOptions<AuthenticationOptions> _authenticationOptions;
         private readonly IOptionsMonitor<CookieAuthenticationOptions> _cookieOptionsMonitor;
         private readonly ILogger _logger;
-        private readonly IConfiguration<UserManager<TUser>> _config;
+        private readonly IConfiguration<UserManager> _config;
 
         public UserManager(IServiceProvider services)
         {
@@ -32,8 +60,8 @@ namespace InnateGlory
             this._authenticationOptions = _services.GetRequiredService<IOptions<AuthenticationOptions>>();
             this._cookieOptionsMonitor = _services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>();
             this._logger = _services.GetRequiredService<ILoggerFactory>().CreateLogger("UserManager");
-            this._config = _services.GetService<IConfiguration<UserManager<TUser>>>(); //_services.GetService<ISqlConfig<UserManager<TUser>>>();//.GetService(this);
-            this.Guest = _services.CreateInstance<TUser>();
+            this._config = _services.GetService<IConfiguration<UserManager>>(); //_services.GetService<ISqlConfig<UserManager<TUser>>>();//.GetService(this);
+            this.Guest = _services.CreateInstance<amsUser>();
             this.Guest.Id = UserId.Guest;
             //this.Guest.Id = UserId.Root;
             //Tick.OnTick += this.Cleanup;
@@ -41,11 +69,11 @@ namespace InnateGlory
 
         public string SchemeName => _authenticationOptions.Value.DefaultScheme;
 
-        public TUser Guest { get; }
+        public amsUser Guest { get; }
 
-        private TUser Root { get; }
+        private amsUser Root { get; }
 
-        public TUser GetCurrentUser(HttpContext context)
+        public amsUser GetCurrentUser(HttpContext context)
         {
             context = context ?? _httpContextAccessor.HttpContext;
             if (this.GetUserStoreItem(context?.User, out var user))
@@ -53,19 +81,17 @@ namespace InnateGlory
             return this.Guest;
         }
 
-        public TUser CurrentUser => this.GetCurrentUser(null);
-        IUser IUserManager.CurrentUser => CurrentUser;
-        IUser IUserManager.GetCurrentUser(HttpContext context) => GetCurrentUser(context);
+        public amsUser CurrentUser => this.GetCurrentUser(null);
 
         /// <see cref="ClaimsPrincipal.Current"/>
         private ClaimsPrincipal ClaimsPrincipalSelector() => _httpContextAccessor.HttpContext?.User;
 
-        public Task<string> SignInAsync(TUser user, HttpContext context = null, string scheme = null)
+        public Task<string> SignInAsync(amsUser user, UserId userId, HttpContext context = null, string scheme = null)
         {
             if (user == null) return Task.FromResult<string>(null);
 
             ClaimsPrincipal principal = new ClaimsPrincipal();
-            var userdata = this.AddUserStoreItem(user, principal);
+            var userStoreItem = this.AddUserStoreItem(user, principal);
 
             AuthenticationProperties properties = new AuthenticationProperties();
 
@@ -97,7 +123,7 @@ namespace InnateGlory
         /// <summary>
         /// Add <see cref="TUser"/> and set <see cref="Claim"/>
         /// </summary>
-        private UserStoreItem AddUserStoreItem(TUser user, ClaimsPrincipal principal = null)
+        private UserStoreItem AddUserStoreItem(amsUser user, ClaimsPrincipal principal = null)
         {
             if (user == null)
                 return null;
@@ -168,7 +194,7 @@ namespace InnateGlory
 
                 if (result == null && create)
                 {
-                    TUser user = _services.CreateInstance<TUser>();
+                    amsUser user = _services.CreateInstance<amsUser>();
                     user.Id = userId;
                     _users.Add(result = new UserStoreItem(user));
                 }
@@ -180,9 +206,9 @@ namespace InnateGlory
         {
             public TimeCounter Timer { get; } = new TimeCounter();
 
-            public TUser User { get; set; }
+            public amsUser User { get; set; }
 
-            public UserStoreItem(TUser user) { this.User = user; }
+            public UserStoreItem(amsUser user) { this.User = user; }
         }
 
         #endregion
@@ -202,7 +228,7 @@ namespace InnateGlory
 
     partial class amsExtensions
     {
-        public static IUser GetCurrentUser(this IServiceProvider services) => services.GetService<IUserManager>().CurrentUser;
-        public static IUser GetCurrentUser(this HttpContext context) => context.RequestServices.GetService<IUserManager>().GetCurrentUser(context);
+        public static IUser GetCurrentUser(this IServiceProvider services) => services.GetService<UserManager>().CurrentUser;
+        public static IUser GetCurrentUser(this HttpContext context) => context.RequestServices.GetService<UserManager>().GetCurrentUser(context);
     }
 }

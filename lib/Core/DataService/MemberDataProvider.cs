@@ -13,6 +13,11 @@ namespace InnateGlory
 
         public MemberDataProvider(DataService dataService) : base(dataService) { }
 
+        public override bool Get(out Status status, UserId? id, CorpId? corpId, UserName corpname, UserName name, out Entity.Member agent, bool chechActive = true)
+        {
+            return base.Get(out status, id, corpId, corpname, name, out agent, chechActive);
+        }
+
         public Status Create(Models.MemberModel model, out Entity.Member result)
         {
             result = null;
@@ -73,11 +78,6 @@ namespace InnateGlory
         public Status Update(Models.MemberModel model, out Entity.Member result)
         {
             return _null.noop(Status.Success, out result);
-        }
-
-        public override bool Get(out Status status, UserId? id, CorpId? corpId, UserName corpname, UserName name, out Entity.Member agent, bool chechActive = true)
-        {
-            return base.Get(out status, id, corpId, corpname, name, out agent, chechActive);
         }
 
 

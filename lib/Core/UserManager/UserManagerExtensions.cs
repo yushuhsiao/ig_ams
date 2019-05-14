@@ -12,10 +12,10 @@ namespace InnateGlory
 {
     public static class UserManagerExtensions
     {
-        [DebuggerStepThrough] private static UserManager<TUser> _UserManagerFactory<TUser>(IServiceProvider services) where TUser : class, IUser => services.GetService<UserManager<TUser>>();
-        [DebuggerStepThrough] private static TUser /***********/_CurrentUserFactory<TUser>(IServiceProvider services) where TUser : class, IUser => services.GetService<UserManager<TUser>>()?.CurrentUser;
+        //[DebuggerStepThrough] private static UserManager /**/ _UserManagerFactory(IServiceProvider services) => services.GetService<UserManager>();
+        [DebuggerStepThrough] private static amsUser /*******/_CurrentUserFactory(IServiceProvider services) => services.GetService<UserManager>()?.CurrentUser;
 
-        public static IServiceCollection AddUserManager<TUser>(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme) where TUser : class, IUser
+        public static IServiceCollection AddUserManager(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {
             /// <see cref="AuthenticationScheme"/>
             /// <see cref="IAuthenticationHandler"/>
@@ -24,10 +24,10 @@ namespace InnateGlory
             /// <see cref="IAuthenticationSignOutHandler"/>
 
             services.AddHttpContextAccessor();
-            services.AddSingleton<UserManager<TUser>>();
-            services.AddSingleton<IUserManager>(_UserManagerFactory<TUser>);
-            services.AddScoped(_CurrentUserFactory<TUser>);
-            services.AddScoped<IUser>(_CurrentUserFactory<TUser>);
+            services.AddSingleton<UserManager>();
+            //services.AddSingleton<IUserManager>(_UserManagerFactory);
+            services.AddScoped(_CurrentUserFactory);
+            services.AddScoped<IUser>(_CurrentUserFactory);
 
             /// <see cref="AuthenticationCoreServiceCollectionExtensions.AddAuthenticationCore(IServiceCollection)"/>
             services.Replace(ServiceDescriptor.Scoped<IAuthenticationService, _AuthenticationService>());
@@ -40,13 +40,13 @@ namespace InnateGlory
             {
                 options.DefaultScheme = scheme;
             })
-            .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler<TUser>>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
+            .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
             .AddCookie(_Consts.UserManager.AccessTokenScheme, options => { })
             .AddCookie(scheme, options => { })
             ;
 
-            services.Configure<CookieAuthenticationOptions>(scheme, ConfigureCookie<TUser>);
-            services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, ConfigureCookie<TUser>);
+            services.Configure<CookieAuthenticationOptions>(scheme, ConfigureCookie);
+            //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, ConfigureCookie);
             services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, Authentication.AccessTokenAuthenticationHandler.Configure);
             //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.UserTokenScheme, (name, s, options) =>
             //{
@@ -65,10 +65,10 @@ namespace InnateGlory
             public bool? SlidingExpiration { get; set; }
         }
 
-        private static void ConfigureCookie<TUser>(string name, IServiceProvider services, CookieAuthenticationOptions options) where TUser : class, IUser
+        private static void ConfigureCookie(string name, IServiceProvider services, CookieAuthenticationOptions options)
         {
             var config = services.GetRequiredService<IConfiguration>().Bind<AuthenticationSection>(_Consts.UserManager.ConfigSection);
-            var sessionStore = services.CreateInstance<RedisTicketStore<TUser>>();
+            var sessionStore = services.CreateInstance<RedisTicketStore>();
             sessionStore.SchemeName = name;
             options.SessionStore = sessionStore;
             //?? serviceProvider.GetService<UserManager<TUser>>().TicketStore;

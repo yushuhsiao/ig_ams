@@ -26,8 +26,18 @@ namespace InnateGlory.Models
         [JsonProperty, Required]
         public string Password { get; set; }
 
-        [JsonProperty]
-        public bool? GetState { get; set; }
+        //[JsonProperty]
+        //public bool? GetState { get; set; }
         //private int a;
+    }
+
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class LoginResult
+    {
+        [JsonProperty]
+        public UserId? UserId { get; set; }
+
+        [JsonProperty]
+        public string AccessToken { get; set; }
     }
 }

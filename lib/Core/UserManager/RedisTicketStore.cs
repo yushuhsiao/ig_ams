@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace InnateGlory
 {
-    internal class RedisTicketStore<TUser> : ITicketStore where TUser : class, IUser
+    internal class RedisTicketStore : ITicketStore
     {
         private struct _TicketData
         {
@@ -54,18 +54,18 @@ namespace InnateGlory
         }
 
         private readonly Dictionary<string, _TicketData> _tickets = new Dictionary<string, _TicketData>();
-        private readonly UserManager<TUser> _userManager;
+        private readonly UserManager _userManager;
         private readonly IOptionsMonitor<CookieAuthenticationOptions> _cookieOptionsMonitor;
-        private readonly IConfiguration<RedisTicketStore<TUser>> _config;
+        private readonly IConfiguration<RedisTicketStore> _config;
         //private readonly ISqlConfig _config2;
         private readonly ILogger _logger;
 
-        public RedisTicketStore(IServiceProvider services, UserManager<TUser> userManager, IOptionsMonitor<CookieAuthenticationOptions> cookieOptionsMonitor)
+        public RedisTicketStore(IServiceProvider services, UserManager userManager, IOptionsMonitor<CookieAuthenticationOptions> cookieOptionsMonitor)
         {
             this._userManager = userManager;
             this._cookieOptionsMonitor = cookieOptionsMonitor;
             //this._cookieOptions = cookieOptions;
-            this._config = services.GetService<IConfiguration<RedisTicketStore<TUser>>>();
+            this._config = services.GetService<IConfiguration<RedisTicketStore>>();
             //this._config2 = services.GetService<ISqlConfig<RedisTicketStore<TUser>>>();//.GetService(this);
             this._logger = services.GetRequiredService<ILoggerFactory>().CreateLogger("RedisTicketStore");
             //this._userManager.UserDataExpireTime = CookieExpireTimeSpan;

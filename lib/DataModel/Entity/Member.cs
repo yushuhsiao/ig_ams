@@ -11,7 +11,6 @@ namespace InnateGlory.Entity
 }
 namespace InnateGlory.Models
 {
-    [TableName(typeof(Entity.Member))]
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class MemberModel
     {

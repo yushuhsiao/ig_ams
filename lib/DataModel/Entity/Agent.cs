@@ -60,9 +60,8 @@ namespace InnateGlory.Entity
 }
 namespace InnateGlory.Models
 {
-    [TableName(typeof(Entity.Agent))]
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public struct AgentModel
+    public class AgentModel
     {
         [JsonProperty]
         public CorpId? CorpId { get; set; }
@@ -99,23 +98,5 @@ namespace InnateGlory.Models
 
         [JsonProperty]
         public int? MaxMembers { get; set; }
-    }
-
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class AgentListModel
-    {
-        [JsonProperty]
-        public UserId? ParentId { get; set; }
-
-        [JsonProperty]
-        public bool? All { get; set; }
-
-        [JsonProperty]
-        public PagingModel<Entity.Agent> Paging
-        {
-            get => paging;//?? PagingModel<Entity.Agent>.Instance;
-            set => paging = value;
-        }
-        PagingModel<Entity.Agent> paging;
     }
 }

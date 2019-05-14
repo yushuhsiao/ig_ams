@@ -26,63 +26,67 @@ namespace InnateGlory.Controllers
         //    return ApiResult.OK;
         //}
 
-        public AuthController()
-        {
-            //Microsoft.AspNetCore.Mvc.RazorPages.PageContext
-        }
+        //public AuthController()
+        //{
+        //    //Microsoft.AspNetCore.Mvc.RazorPages.PageContext
+        //}
 
-        [ActionContext]
-        public ActionContext ActionContext { get; set; }
+        //[ActionContext]
+        //public ActionContext ActionContext { get; set; }
 
-        static readonly Entity.UserState _null_GetState = new Entity.UserState() { UserId = UserId.Guest };
+        //static readonly Entity.UserState _null_GetState = new Entity.UserState() { UserId = UserId.Guest };
 
-        private Entity.UserState CreateState(Entity.CorpInfo corp, Entity.UserData userdata)
-        {
-            return new Entity.UserState()
-            {
-                UserId = userdata.Id,
-                CorpName = corp.Name,
-                UserName = userdata.Name,
-                DisplayName = userdata.DisplayName,
-            };
-        }
+        //private Entity.UserState CreateState(Entity.CorpInfo corp, Entity.UserData userdata)
+        //{
+        //    return new Entity.UserState()
+        //    {
+        //        UserId = userdata.Id,
+        //        CorpName = corp.Name,
+        //        UserName = userdata.Name,
+        //        DisplayName = userdata.DisplayName,
+        //    };
+        //}
 
-        //[Route("/")]
-        //public ViewResult Index([FromServices] amsUser user) => View(user.Id.IsGuest ? "~/Pages/Login.cshtml" : "~/Pages/Index.cshtml");
-
-        [HttpPost("state"), AllowAnonymous]
-        private async Task<Entity.UserState> GetState([FromServices] DataService dataService, [FromServices] amsUser user)
-        {
-            await Task.Delay(1);
-            UserId userId = user.Id;
-            if (dataService.Users.GetUser(userId, out var userdata))
-            {
-                Entity.CorpInfo corp = dataService.Corps.Get(userId.CorpId);
-                return CreateState(corp, userdata);
-            }
-            else
-            {
-                if (!userId.IsGuest)
-                    await dataService.GetService<UserManager<amsUser>>().SignOutAsync();
-                return _null_GetState;
-            }
-        }
+        //[HttpPost("state"), AllowAnonymous]
+        //private async Task<Entity.UserState> GetState([FromServices] DataService dataService, [FromServices] amsUser user)
+        //{
+        //    await Task.Delay(1);
+        //    UserId userId = user.Id;
+        //    if (dataService.Users.GetUser(userId, out var userdata))
+        //    {
+        //        Entity.CorpInfo corp = dataService.Corps.Get(userId.CorpId);
+        //        return CreateState(corp, userdata);
+        //    }
+        //    else
+        //    {
+        //        if (!userId.IsGuest)
+        //            await dataService.GetService<UserManager<amsUser>>().SignOutAsync();
+        //        return _null_GetState;
+        //    }
+        //}
 
         [HttpPost("login"), AllowAnonymous]
-        public Task<IApiResult> Login([FromBody] Models.LoginModel model) => _UserLogin(model);
+        public Task<Models.LoginResult> Login([FromBody] Models.LoginModel model) => _UserLogin(model);
+
+        [HttpPost("logout")]
+        public async Task<IApiResult> Logout([FromServices] UserManager userManager/*, [FromServices] amsUser user*/)
+        {
+            //await Task.Delay(3000);
+            await userManager.SignOutAsync();
+            return ApiResult.OK;
+        }
 
         [HttpPost("/user/agent/login"), AllowAnonymous]
-        public Task<IApiResult> AgentLogin([FromBody] Models.LoginModel model) => _UserLogin(model, UserType.Agent, LoginMode.UserToken);
+        public async Task<Models.LoginResult> AgentLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Agent, LoginMode.UserToken);
 
         [HttpPost("/user/admin/login"), AllowAnonymous]
-        public Task<IApiResult> AdminLogin([FromBody] Models.LoginModel model) => _UserLogin(model, UserType.Admin, LoginMode.UserToken);
+        public async Task<Models.LoginResult> AdminLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Admin, LoginMode.UserToken);
 
         [HttpPost("/user/member/login"), AllowAnonymous]
-        public Task<IApiResult> MemberLogin([FromBody] Models.LoginModel model) => _UserLogin(model, UserType.Member, LoginMode.UserToken);
+        public async Task<Models.LoginResult> MemberLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Member, LoginMode.UserToken);
 
-        private async Task<IApiResult> _UserLogin(Models.LoginModel model, UserType? loginType = null, LoginMode? mode = null)
+        private async Task<Models.LoginResult> _UserLogin(Models.LoginModel model, UserType? loginType = null, LoginMode? mode = null)
         {
-            //return ApiResult.Forbidden;
             if (model == null)
                 throw new ApiException(Status.InvalidParameter);
 
@@ -95,56 +99,37 @@ namespace InnateGlory.Controllers
                 .Valid(model, nameof(model.LoginType))
                 .IsValid();
 
-            //var validator = new ApiModelValidator(model)
-            //    .Valid(nameof(model.UserName), model.UserName)
-            //    .Valid(nameof(model.Password), model.Password)
-            //    .Valid(nameof(model.LoginType), model.LoginType)
-            //    .Validate();
-
-            DataService dataService = HttpContext.RequestServices.GetService<DataService>();
+            DataService ds = HttpContext.RequestServices.GetService<DataService>();
+            Status status = Status.Unknown;
+            Entity.UserData userdata = null;
             try
             {
-                var s = dataService.Users.UserLogin(model, out var corp, out var userdata);
-                dataService.Users.WriteLoginLog(s, model, corp?.Id, HttpContext);
-                if (s == Status.Success)
-                {
-                    var user = dataService.CreateInstance<amsUser>();
-                    user.Id = userdata.Id;
-                    if (model.LoginMode == LoginMode.AuthOnly)
-                    {
-                    }
-                    else if (model.LoginMode == LoginMode.UserToken)
-                    {
-                        UserManager<amsUser> userManager = HttpContext.RequestServices.GetService<UserManager<amsUser>>();
-                        string sessionId = await userManager.SignInAsync(user, HttpContext, _Consts.UserManager.AccessTokenScheme);
-                        return ApiResult.Success(new { AccessToken = sessionId });
-                    }
-                    else
-                    {
-                        UserManager<amsUser> userManager = HttpContext.RequestServices.GetService<UserManager<amsUser>>();
-                        await userManager.SignInAsync(user, HttpContext);
-                        if (model.GetState == true)
-                        {
-                            return ApiResult.Success(CreateState(corp, userdata));
-                        }
-                        return ApiResult.Success();
-                    }
-                }
-                throw new ApiException(s);
-            }
-            catch
-            {
-                dataService.Users.WriteLoginLog(Status.Unknown, model, null, HttpContext);
-                throw;
-            }
-        }
+                status = ds.Users.UserLogin(model, out userdata);
+                if (status != Status.Success)
+                    throw new ApiException(status);
 
-        [HttpPost("logout")]
-        public async Task<IApiResult> Logout([FromServices] UserManager<amsUser> userManager, [FromServices] amsUser user)
-        {
-            //await Task.Delay(3000);
-            await userManager.SignOutAsync();
-            return ApiResult.OK;
+                if (model.LoginMode == LoginMode.AuthOnly)
+                    return new Models.LoginResult { UserId = userdata.Id };
+
+                var user = ds.CreateInstance<amsUser>(userdata);
+                user.Id = userdata.Id;
+                if (model.LoginMode == LoginMode.UserToken)
+                {
+                    UserManager userManager = HttpContext.RequestServices.GetService<UserManager>();
+                    string sessionId = await userManager.SignInAsync(user, userdata.Id, HttpContext, _Consts.UserManager.AccessTokenScheme);
+                    return new Models.LoginResult { UserId = userdata.Id, AccessToken = sessionId };
+                }
+                else
+                {
+                    UserManager userManager = HttpContext.RequestServices.GetService<UserManager>();
+                    await userManager.SignInAsync(user, userdata.Id, HttpContext);
+                    return new Models.LoginResult { UserId = userdata.Id };
+                }
+            }
+            finally
+            {
+                ds.Users.WriteLoginLog(status, model, userdata?.CorpId, HttpContext);
+            }
         }
     }
 }

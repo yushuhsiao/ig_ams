@@ -17,7 +17,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("add")]
-        public Entity.Member Add(Models.MemberModel model)
+        public Entity.Member Create([FromBody] Models.MemberModel model)
         {
             ModelState
                .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
@@ -42,7 +42,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("set")]
-        public Entity.Member Set(Models.MemberModel model)
+        public Entity.Member Update([FromBody] Models.MemberModel model)
         {
             _dataService.Members.Update(model, out Entity.Member member);
             return member;
@@ -92,11 +92,10 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("list")]
-        public IEnumerable<Entity.Member> List(Models.PagingModel<Entity.Member> paging, UserId parentId, bool all)
+        public IEnumerable<Entity.Member> List([FromBody] Models.UserListModel model)
         {
-            //paging += 0;
-            string sql = $"select * from {TableName<Entity.Member>.Value} nolock where ParentId = {parentId} {paging.ToSql()}";
-            using (SqlCmd userdb = _dataService.UserDB_R(parentId.CorpId))
+            string sql = $"select * from {TableName<Entity.Member>.Value} nolock where ParentId = {model.ParentId} {model.Paging.ToSql()}";
+            using (SqlCmd userdb = _dataService.UserDB_R(model.ParentId.CorpId))
                 return userdb.ToList<Entity.Member>(sql);
         }
     }

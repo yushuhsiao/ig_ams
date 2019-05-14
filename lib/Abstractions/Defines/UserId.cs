@@ -116,10 +116,28 @@ namespace InnateGlory
 
         public override string ToString() => "0x" + this.Id.ToString("x16");
 
+        public static bool TryParse(string s, out UserId result)
+        {
+            if (s.StartsWith("0x"))
+            {
+                try
+                {
+                    long value = Convert.ToInt64(s, 16);
+                    result = (UserId)(Int64)value;
+                    return true;
+                }
+                catch { }
+            }
+            result = default(UserId);
+            return false;
+        }
+
         //IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         //{
         //    yield return ValidationResult.Success;
         //}
+
+        static _TypeConverter _converter = new _TypeConverter();
 
         [_DebuggerStepThrough]
         class _TypeConverter : TypeConverter
@@ -142,15 +160,8 @@ namespace InnateGlory
                 if (value is string)
                 {
                     string value_s = (string)value;
-                    if (value_s.StartsWith("0x"))
-                    {
-                        try
-                        {
-                            value = Convert.ToInt64(value_s, 16);
-                            return (UserId)(Int64)value;
-                        }
-                        catch { }
-                    }
+                    if (UserId.TryParse(value_s, out UserId userId))
+                        return userId;
                     if (((string)value).ToInt64(out _value))
                         return (UserId)_value;
                     else
@@ -198,14 +209,12 @@ namespace InnateGlory
                 throw new NotImplementedException();
             }
 
-            static _TypeConverter converter = new _TypeConverter();
-
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 object tmp = serializer.Deserialize(reader);
                 if (tmp is string)
                 {
-                    return converter.ConvertFrom(null, null, tmp);
+                    return _converter.ConvertFrom(null, null, tmp);
                 }
                 else if (tmp is Int64 || tmp is Int32)
                 {

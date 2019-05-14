@@ -32,7 +32,7 @@ namespace InnateGlory
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddWebpack();
-            services.AddUserManager<amsUser>();
+            services.AddUserManager();
             services.AddAMS();
             services.AddMvc(options =>
             {

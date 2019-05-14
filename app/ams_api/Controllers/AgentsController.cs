@@ -1,10 +1,8 @@
 ﻿using InnateGlory.Api;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory.Controllers
 {
@@ -20,7 +18,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("add")]
-        public Entity.Agent Add(Models.AgentModel model)
+        public Entity.Agent Create([FromBody] Models.AgentModel model)
         {
             ModelState
                 .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
@@ -45,7 +43,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("set")]
-        public Entity.Agent Set([FromBody] Models.AgentModel model)
+        public Entity.Agent Update([FromBody] Models.AgentModel model)
         {
             ModelState
                 .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
@@ -108,18 +106,10 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("list")]
-        public IEnumerable<Entity.Agent> List([FromBody] Models.AgentListModel model)
+        public IEnumerable<Entity.Agent> List([FromBody] Models.UserListModel model)
         {
-            ModelState
-                .Valid(model, nameof(model.ParentId))
-                .IsValid();
-
-            //var validator = new ApiModelValidator(model)
-            //    .Valid(nameof(model.ParentId))
-            //    .Validate();
-
             string sql = $"select * from {TableName<Entity.Agent>.Value} nolock where ParentId = {model.ParentId} {model.Paging.ToSql()}";
-            using (SqlCmd userdb = _dataService.UserDB_R(model.ParentId.Value.CorpId))
+            using (SqlCmd userdb = _dataService.UserDB_R(model.ParentId.CorpId))
                 return userdb.ToList<Entity.Agent>(sql);
         }
 

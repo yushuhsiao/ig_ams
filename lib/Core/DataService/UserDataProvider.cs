@@ -69,12 +69,12 @@ namespace InnateGlory
 
 
 
-        public Status UserLogin(Models.LoginModel model, out Entity.CorpInfo corp, out Entity.UserData userData, bool loginLog = false)
+        public Status UserLogin(Models.LoginModel model, out Entity.UserData userData, bool loginLog = false)
         {
-            IUserManager userManager = _dataService.GetService<IUserManager>();
+            UserManager userManager = _dataService.GetService<UserManager>();
             userData = null;
 
-            if (_dataService.Corps.Get(model.CorpName, out corp))
+            if (_dataService.Corps.Get(model.CorpName, out var corp))
                 model.CorpId = corp.Id;
             else
                 return Status.CorpNotExist;
@@ -149,34 +149,30 @@ namespace InnateGlory
 
         public void WriteLoginLog(Status statusCode, Models.LoginModel model, CorpId? corpId, HttpContext httpContext)
         {
-            var _sql = new SqlBuilder(typeof(Entity.LoginLog))
-            {
-                { " ", nameof(Entity.LoginLog.LoginType)      , model.LoginType?.ToString() },
-                { " ", nameof(Entity.LoginLog.CorpName)       , model.CorpName },
-                { " ", nameof(Entity.LoginLog.UserName)       , model.UserName },
-                { " ", nameof(Entity.LoginLog.IP)             , httpContext.Connection.RemoteIpAddress.ToString() },
-                { " ", nameof(Entity.LoginLog.Result)         , statusCode.ToString() },
-                { " ", nameof(Entity.LoginLog.LoginTime)      , model.Time },
-            };
-
-            if (model.CorpId.HasValue)
-                _sql.Add(" ", nameof(Entity.LoginLog.CorpId), model.CorpId);
-            if (model.UserId.HasValue)
-                _sql.Add(" ", nameof(Entity.LoginLog.UserId), model.UserId);
-
-            if (statusCode == Status.Success)
-            {
-            }
-            else
-            {
-                _sql.Add(" ", nameof(Entity.LoginLog.Password), model.Password);
-            }
-
-            string sql = _sql.FormatWith(_sql.insert_into());
-            ;
-
             try
             {
+                var _sql = new SqlBuilder(typeof(Entity.LoginLog))
+                {
+                    { " ", nameof(Entity.LoginLog.LoginType)      , model.LoginType?.ToString() },
+                    { " ", nameof(Entity.LoginLog.CorpName)       , model.CorpName },
+                    { " ", nameof(Entity.LoginLog.UserName)       , model.UserName },
+                    { " ", nameof(Entity.LoginLog.IP)             , httpContext.Connection.RemoteIpAddress.ToString() },
+                    { " ", nameof(Entity.LoginLog.Result)         , statusCode.ToString() },
+                    { " ", nameof(Entity.LoginLog.LoginTime)      , model.Time },
+                };
+
+                if (model.CorpId.HasValue)
+                    _sql.Add(" ", nameof(Entity.LoginLog.CorpId), model.CorpId);
+                if (model.UserId.HasValue)
+                    _sql.Add(" ", nameof(Entity.LoginLog.UserId), model.UserId);
+
+                if (statusCode != Status.Success)
+                {
+                    _sql.Add(" ", nameof(Entity.LoginLog.Password), model.Password);
+                }
+
+                string sql = _sql.FormatWith(_sql.insert_into());
+
                 var dataService = httpContext.RequestServices.GetService<DataService>();
                 using (SqlCmd logdb = dataService.LogDB_W(corpId ?? CorpId.Root))
                     logdb.ExecuteNonQuery(sql, transaction: true);

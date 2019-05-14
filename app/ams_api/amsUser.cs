@@ -16,6 +16,11 @@ namespace InnateGlory
         {
             _dataService = dataService;
         }
+        public amsUser(DataService dataService, Entity.UserData userData)
+        {
+            _dataService = dataService;
+            _userData = userData;
+        }
 
         //[JsonProperty]
         public UserId Id { get; set; }

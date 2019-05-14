@@ -18,8 +18,10 @@ namespace InnateGlory
 
         private static Dictionary<LogType, string> _prefix = new Dictionary<LogType, string>()
         {
-            { LogType.CorpBalanceIn , "A0" },
-            { LogType.CorpBalanceOut, "A1" },
+            { LogType.CorpBalanceIn ,  "A0" },
+            { LogType.CorpBalanceOut,  "A1" },
+            { LogType.AgentBalanceIn,  "B0" },
+            { LogType.AgentBalanceOut, "B1" },
         };
 
         private static string SerialNumberPrefix(LogType logType)
@@ -102,7 +104,10 @@ declare @TranId uniqueidentifier set @TranId = newid()
 
             data = data ?? FindTranData<Entity.TranCorp1>(op.TranId.Value, ref userdb, true);
 
-            if (!_dataService.Agents.GetRootAgent(data.CorpId, out var agent))
+            if (!_dataService.Corps.Get(data.CorpId, out var corp))
+                throw new ApiException(Status.CorpNotExist);
+
+            if (!_dataService.Agents.GetRootAgent(corp, out var agent))
                 throw new ApiException(Status.AgentNotExist);
 
             if (op.Delete == true)

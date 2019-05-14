@@ -19,7 +19,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("add")]
-        public Entity.CorpInfo Add([FromBody] Models.CorpModel model)
+        public Entity.CorpInfo Create([FromBody] Models.CorpModel model)
         {
             //if (model == null)
             //    throw new ApiException(Status.InvalidParameter);
@@ -47,7 +47,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("set")]
-        public Entity.CorpInfo Set([FromBody] Models.CorpModel model)
+        public Entity.CorpInfo Update([FromBody] Models.CorpModel model)
         {
             //if (model == null)
             //    throw new ApiException(Status.InvalidParameter);

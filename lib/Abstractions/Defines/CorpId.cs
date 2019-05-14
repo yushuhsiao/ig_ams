@@ -39,13 +39,6 @@ namespace InnateGlory
         public static implicit operator CorpId(Int32 id) => new CorpId(id);
         public static implicit operator Int32(CorpId id) => id.Id;
 
-        public static explicit operator CorpId? (string str)
-        {
-            if (_TypeConverter.Instance.CanConvertFrom(typeof(string)))
-                return _TypeConverter.Instance.ConvertFrom(str) as CorpId?;
-            return null;
-        }
-
         public static bool operator ==(CorpId? src, object obj)
         {
             if (src.HasValue)
@@ -69,12 +62,28 @@ namespace InnateGlory
         public override int GetHashCode() => base.GetHashCode();
 
         public override string ToString() => "0x" + this.Id.ToString("x5");
+        
+        public static bool TryParse(string s, out CorpId result)
+        {
+            if (s.StartsWith("0x"))
+            {
+                try
+                {
+                    int value = Convert.ToInt32(s, 16);
+                    result = (CorpId)value;
+                    return true;
+                }
+                catch { }
+            }
+            result = default(CorpId);
+            return false;
+        }
+
+        private static _TypeConverter _converter = new _TypeConverter();
 
         [_DebuggerStepThrough]
         class _TypeConverter : TypeConverter
         {
-            internal static _TypeConverter Instance = new _TypeConverter();
-
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
             {
                 return
@@ -92,16 +101,9 @@ namespace InnateGlory
                 if (value is string)
                 {
                     string value_s = (string)value;
-                    if (value_s.StartsWith("0x"))
-                    {
-                        try
-                        {
-                            value = Convert.ToInt32(value_s, 16);
-                            return (CorpId)(Int32)value;
-                        }
-                        catch { }
-                    }
-                    if (((string)value).ToInt32(out _value))
+                    if (CorpId.TryParse(value_s, out CorpId corpId))
+                        return corpId;
+                    if (Int32.TryParse(value_s, out _value))
                         return (CorpId)_value;
                     else
                         return default(Int32?);
@@ -148,14 +150,12 @@ namespace InnateGlory
                 throw new NotImplementedException();
             }
 
-            static _TypeConverter converter = new _TypeConverter();
-
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 object tmp = serializer.Deserialize(reader);
                 if (tmp is string)
                 {
-                    return converter.ConvertFrom(null, null, tmp);
+                    return _converter.ConvertFrom(null, null, tmp);
                 }
                 else if (tmp is Int32 || tmp is Int16)
                 {

@@ -57,11 +57,11 @@ namespace InnateGlory.Authentication
 
         }
     }
-    internal class ApiAuthenticationHandler<TUser> : AuthenticationHandler<ApiAuthenticationSchemeOptions> where TUser : class, IUser
+    internal class ApiAuthenticationHandler : AuthenticationHandler<ApiAuthenticationSchemeOptions>
     {
-        private UserManager<TUser> _userManager;
+        private UserManager _userManager;
         private IServiceProvider _services;
-        public ApiAuthenticationHandler(IServiceProvider services, UserManager<TUser> userManager, IOptionsMonitor<ApiAuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+        public ApiAuthenticationHandler(IServiceProvider services, UserManager userManager, IOptionsMonitor<ApiAuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
             _services = services;
             _userManager = userManager;

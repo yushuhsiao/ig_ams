@@ -48,7 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_blazor", "app\ams_blazo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blazor", "blazor", "{99C4ECA4-E7AD-4382-9303-3579DAD0B75C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misc", "lib\Misc\Misc.csproj", "{C1D746E7-6382-4500-ACE0-E5F5C9207FDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.Misc", "lib\Misc\ams.Misc.csproj", "{C1D746E7-6382-4500-ACE0-E5F5C9207FDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

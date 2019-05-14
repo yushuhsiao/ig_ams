@@ -5,13 +5,13 @@ namespace InnateGlory
 {
     public enum LogType : int
     {
-        CorpBalanceIn /*                */ = 0x000 << 0 | LogTypeFlag.In,
-        CorpBalanceOut /*               */ = 0x000 << 0 | LogTypeFlag.Out,
-        //CorpBalanceOutRollback /*     */ = 0x000 << 0 | LogTypeFlag.Both,
+        BalanceIn /*                    */ = 0x000 << 2 | LogTypeFlag.In,
+        BalanceOut /*                   */ = 0x000 << 2 | LogTypeFlag.Out,
+        BalanceOutRollback /*           */ = 0x000 << 2 | LogTypeFlag.Both,
 
-        BalanceIn /*                    */ = 0x001 << 2 | LogTypeFlag.In,
-        BalanceOut /*                   */ = 0x001 << 2 | LogTypeFlag.Out,
-        BalanceOutRollback /*           */ = 0x001 << 2 | LogTypeFlag.None,
+        CorpBalanceIn /*                */ = 0x001 << 2 | LogTypeFlag.In,
+        CorpBalanceOut /*               */ = 0x001 << 2 | LogTypeFlag.Out,
+        //CorpBalanceOutRollback /*     */ = 0x001 << 0 | LogTypeFlag.Both,
 
         AgentBalanceIn /*               */ = 0x002 << 2 | LogTypeFlag.In,
         AgentBalanceOut /*              */ = 0x002 << 2 | LogTypeFlag.Out,
@@ -73,10 +73,10 @@ namespace InnateGlory
     [Flags]
     public enum LogTypeFlag : int
     {
-        Out = 1 << 0,
-        In = 1 << 1,
-        Both = In | Out,
-        None = 0
+        None = 0,           // 0 0000
+        In = 1,             // 1 0010
+        Out = 2,            // 2 0001
+        Both = In | Out     // 3 0011
     }
     public static partial class LogTypeExtensions
     {

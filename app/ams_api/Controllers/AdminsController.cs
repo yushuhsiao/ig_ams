@@ -18,7 +18,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("add")]
-        public Entity.Admin Add([FromBody] Models.AdminModel model)
+        public Entity.Admin Create([FromBody] Models.AdminModel model)
         {
             ModelState
                 .ValidCorp(model, nameof(model.CorpId), nameof(model.CorpName))
@@ -42,7 +42,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("set")]
-        public Entity.Admin Set([FromBody] Models.AdminModel model)
+        public Entity.Admin Update([FromBody] Models.AdminModel model)
         {
             _dataService.Admins.Update(model, out Entity.Admin agent);
             return agent;
@@ -91,11 +91,10 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("list")]
-        public IEnumerable<Entity.Admin> List(Models.PagingModel<Entity.Admin> paging, UserId parentId, bool all)
+        public IEnumerable<Entity.Admin> List([FromBody] Models.UserListModel model)
         {
-            //paging += 0;
-            string sql = $"select * from {TableName<Entity.Admin>.Value} nolock where ParentId = {parentId} {paging.ToSql()}";
-            using (SqlCmd userdb = _dataService.UserDB_R(parentId.CorpId))
+            string sql = $"select * from {TableName<Entity.Admin>.Value} nolock where ParentId = {model.ParentId} {model.Paging.ToSql()}";
+            using (SqlCmd userdb = _dataService.UserDB_R(model.ParentId.CorpId))
                 return userdb.ToList<Entity.Admin>(sql);
         }
     }

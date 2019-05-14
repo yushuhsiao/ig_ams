@@ -32,11 +32,13 @@ namespace InnateGlory
             return false;
         }
 
-        public Entity.Agent GetRootAgent(CorpId corpId) => this.Get((UserId)corpId.Id);
+        #region Root Agent
+
+        //public Entity.Agent GetRootAgent(CorpId corpId) => this.Get((UserId)corpId.Id);
 
         public Entity.Agent GetRootAgent(Entity.CorpInfo corp) => this.Get((UserId)corp.Id.Id);
 
-        public bool GetRootAgent(CorpId corpId, out Entity.Agent result) => this.Get((UserId)corpId.Id, out result);
+        //public bool GetRootAgent(CorpId corpId, out Entity.Agent result) => this.Get((UserId)corpId.Id, out result);
 
         public bool GetRootAgent(Entity.CorpInfo corp, out Entity.Agent result) => this.Get((UserId)corp.Id, out result);
 
@@ -70,6 +72,8 @@ namespace InnateGlory
             return result != null;
 
         }
+
+        #endregion
 
         public IEnumerable<Entity.Agent> GetParents(Entity.Agent agent, bool include_self)
         {

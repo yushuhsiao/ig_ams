@@ -7,54 +7,76 @@ using System.Text;
 
 namespace InnateGlory.Models
 {
-    //[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    //public abstract class PagingModel
-    //{
-    //}
-
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class PagingModel<T> //: PagingModel
+    public abstract class PagingModel
     {
+        public const int PageSize_Min = 1;
+        public const int PageSize_Max = 1000;
+
         [JsonProperty]
         public int PageIndex
         {
             get
             {
-                if (_PageIndex < 0)
+                if (_PageIndex > 0)
+                    return _PageIndex;
+                else
                     return 0;
-                return _PageIndex;
             }
-            set => _PageIndex = value;
-        } private int _PageIndex;
+            set
+            {
+                if (value > 0)
+                    _PageIndex = value;
+                else
+                    _PageIndex = 0;
+            }
+        }
+        private int _PageIndex;
 
         [JsonProperty]
         public int PageSize
         {
             get
             {
-                if (_PageSize <= 0)
+                if (_PageSize < PageSize_Min)
+                    return PageSize_Min;
+                else if (_PageSize > PageSize_Max)
                     return PageSize_Max;
-                if (_PageSize > PageSize_Max)
-                    return PageSize_Max;
-                return _PageSize;
+                else
+                    return _PageSize;
             }
-            set => _PageSize = value;
-        } private int _PageSize;
+            set
+            {
+                if (value < PageSize_Min)
+                    value = PageSize_Min;
+                else if (value > PageSize_Max)
+                    value = PageSize_Max;
+                else
+                    _PageSize = value;
+            }
+        }
+        private int _PageSize;
 
         [JsonProperty]
-        public string SortKey
-        {
-            get => _SortKey ?? TableName<T>._.SortKey;
-            set => _SortKey = value;
-        } private string _SortKey;
+        public virtual string SortKey { get; set; }
 
         public int Offset => this.PageSize * this.PageIndex;
 
         public string ToSql(string orderBy = null) => $"order by {SqlCmd.magic_quote(orderBy ?? this.SortKey)} offset {this.Offset} rows fetch next {this.PageSize} rows only";
+    }
 
-        public static PagingModel<T> Instance = new PagingModel<T>();
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+    public class PagingModel<T> : PagingModel
+    {
+        [JsonProperty]
+        public override string SortKey
+        {
+            get => base.SortKey ?? TableName<T>._.SortKey;
+            set => base.SortKey = value;
+        }
 
-        public const int PageSize_Max = 1000;
+        //public static PagingModel<T> Instance = new PagingModel<T>();
+
 
         //public static PagingModel<T> operator +(PagingModel<T> src, int max)
         //{
