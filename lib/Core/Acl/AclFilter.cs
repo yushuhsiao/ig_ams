@@ -38,7 +38,8 @@ namespace InnateGlory
             //var user = users?.CurrentUser;
             if (api != null || dd != null)
             {
-                UserId userId = context.HttpContext.RequestServices.GetService<IUser>().Id;
+                UserIdentity user = context.HttpContext.GetCurrentUser();
+                UserId userId = user.Id;
                 if (userId.IsGuest)
                 {
                     if (allowAnonymous)

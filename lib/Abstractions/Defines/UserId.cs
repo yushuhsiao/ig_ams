@@ -6,10 +6,10 @@ using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute
 
 namespace InnateGlory
 {
-    public interface IUser
-    {
-        UserId Id { get; set; }
-    }
+    //public interface IUser
+    //{
+    //    UserId Id { get; set; }
+    //}
 
     /// <summary>
     /// 

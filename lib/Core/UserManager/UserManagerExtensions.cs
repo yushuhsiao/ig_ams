@@ -1,6 +1,7 @@
 ﻿using InnateGlory.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -9,11 +10,14 @@ using System.Security.Claims;
 
 namespace InnateGlory
 {
-    public static class UserManagerExtensions
+    public static partial class UserManagerExtensions
     {
         //[DebuggerStepThrough] private static UserManager /**/ _UserManagerFactory(IServiceProvider services) => services.GetService<UserManager>();
         //[DebuggerStepThrough]
-        private static amsUser _CurrentUserFactory(IServiceProvider services) => services.GetService<UserManager>()?.CurrentUser;
+        //private static UserIdentity _CurrentUserFactory(IServiceProvider services) => services.GetService<UserManager>()?.CurrentUser;
+        public static HttpContext GetHttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>().HttpContext;
+        public static UserIdentity GetCurrentUser(this IServiceProvider services) => /***********/ services.GetService<UserManager>().GetCurrentUser(services.GetHttpContext());
+        public static UserIdentity GetCurrentUser(this HttpContext context) => /**/ context.RequestServices.GetService<UserManager>().GetCurrentUser(context);
 
         public static IServiceCollection AddUserManager(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {
@@ -26,8 +30,8 @@ namespace InnateGlory
             services.AddHttpContextAccessor();
             services.AddSingleton<UserManager>();
             //services.AddSingleton<IUserManager>(_UserManagerFactory);
-            services.AddScoped(_CurrentUserFactory);
-            services.AddScoped<IUser>(_CurrentUserFactory);
+            services.AddScoped(GetCurrentUser);
+            //services.AddScoped<IUser>(_CurrentUserFactory);
 
             /// <see cref="AuthenticationCoreServiceCollectionExtensions.AddAuthenticationCore(IServiceCollection)"/>
             services.Replace(ServiceDescriptor.Scoped<IAuthenticationService, _AuthenticationService>());
@@ -36,16 +40,16 @@ namespace InnateGlory
             //services.Replace(ServiceDescriptor.Scoped<IAuthenticationHandlerProvider, _AuthenticationHandlerProvider>());
             //services.Replace(ServiceDescriptor.Singleton<IAuthenticationSchemeProvider, _AuthenticationSchemeProvider>());
 
-            services.AddAuthentication(options =>
+            var builder = services.AddAuthentication(options =>
             {
                 options.DefaultScheme = scheme;
-            })
-            .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
-            .AddCookie(_Consts.UserManager.AccessTokenScheme, options => { })
-            .AddCookie(scheme, options => { })
+            });
+
+            builder
+                .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
+                .AddCookie(_Consts.UserManager.AccessTokenScheme, options => { })
             ;
 
-            services.Configure<CookieAuthenticationOptions>(scheme, ConfigureCookie);
             //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, ConfigureCookie);
             services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, Authentication.AccessTokenAuthenticationHandler.Configure);
             //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.UserTokenScheme, (name, s, options) =>
@@ -53,6 +57,8 @@ namespace InnateGlory
             //    ConfigureCookie<TUser>(name, s, options);
             //    UserTokenAuthenticationHandler.Configure(name, s, options);
             //});
+            builder.AddCookie(scheme, options => { });
+            services.Configure<CookieAuthenticationOptions>(scheme, ConfigureCookie);
 
             return services;
         }

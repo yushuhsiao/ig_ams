@@ -10,7 +10,7 @@ namespace ams.Controllers
     public class IndexController : Controller
     {
         [HttpGet("/")]
-        public IActionResult Index([FromServices] IUser user)
+        public IActionResult Index([FromServices] UserIdentity user)
         {
             if (user.Id.IsGuest)
                 return View("/Pages/Home/Login.cshtml");
