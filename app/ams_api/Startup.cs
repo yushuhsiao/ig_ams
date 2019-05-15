@@ -3,32 +3,25 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
 using System.Reflection;
-
 
 namespace InnateGlory
 {
     internal class Startup
     {
-        //public amsStartup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-
-        //public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddUserManager();
             services.AddAMS();
-            services.AddMvc().AddAMS(actionSelectorOptions: options =>
+            services.AddMvc(options =>
+            {
+            }).AddAMS(actionSelectorOptions: options =>
             {
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
@@ -40,9 +33,7 @@ namespace InnateGlory
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ams api", Version = "v1" });
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(typeof(Startup), typeof(JsonHelper), typeof(amsExtensions), typeof(Models.LoginModel));
             });
         }
 
@@ -52,7 +43,7 @@ namespace InnateGlory
             app.UseSqlAppSettings();
 
             app.UseResponseCompression();
-         
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -67,7 +58,10 @@ namespace InnateGlory
             //app.UseHttpsRedirection();
 
             //app.UseMvcWithDefaultRoute();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                ;
+            });
 
             app.UseSignalR(routes =>
             {
@@ -84,6 +78,21 @@ namespace InnateGlory
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ams api V1");
             });
             ;
+        }
+    }
+}
+namespace Swashbuckle.AspNetCore.Swagger
+{
+    public static class SwaggerExtensions
+    {
+        public static void IncludeXmlComments(this SwaggerGenOptions swaggerGenOptions, params Type[] types)
+        {
+            for (int i = 0; i < types.Length; i++)
+            {
+                var xmlFile = $"{types[i].Assembly.GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                swaggerGenOptions.IncludeXmlComments(xmlPath);
+            }
         }
     }
 }

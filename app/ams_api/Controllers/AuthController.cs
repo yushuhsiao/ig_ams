@@ -116,15 +116,11 @@ namespace InnateGlory.Controllers
                 var user = ds.CreateInstance<UserIdentity>(userdata);
                 if (model.LoginMode == LoginMode.UserToken)
                 {
-                    //UserManager userManager = HttpContext.RequestServices.GetService<UserManager>();
-                    //string sessionId = await userManager.SignInAsync(user, userdata.Id, HttpContext, _Consts.UserManager.AccessTokenScheme);
                     string sessionId = await user.SignInAsync(HttpContext, _Consts.UserManager.AccessTokenScheme);
                     return new Models.LoginResult { UserId = userdata.Id, AccessToken = sessionId };
                 }
                 else
                 {
-                    //UserManager userManager = HttpContext.RequestServices.GetService<UserManager>();
-                    //await userManager.SignInAsync(user, userdata.Id, HttpContext);
                     await user.SignInAsync(HttpContext);
                     return new Models.LoginResult { UserId = userdata.Id };
                 }

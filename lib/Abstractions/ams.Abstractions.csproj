@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="AspNetCore\ConfigurationBinderExtensions.cs" />
     <Compile Remove="AspNetCore\HttpContextFactory.cs" />
     <Compile Remove="AspNetCore\KestrelServerOptionsExtensions.cs" />
     <Compile Remove="AspNetCore\PageContextAccessor.cs" />

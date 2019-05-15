@@ -162,14 +162,14 @@ namespace Microsoft.Extensions.DependencyInjection
 }
 namespace Microsoft.AspNetCore.Builder
 {
-    public static class _Extensions
-    {
-        public static IApplicationBuilder UseStaticFiles(this IApplicationBuilder app, Action<StaticFileOptions> configure)
-        {
-            var opts = app.ApplicationServices.GetService<IOptions<StaticFileOptions>>().Value
-                ?? new StaticFileOptions();
-            configure?.Invoke(opts);
-            return app.UseStaticFiles(opts);
-        }
-    }
+    //public static class _Extensions
+    //{
+    //    public static IApplicationBuilder UseStaticFiles(this IApplicationBuilder app, Action<StaticFileOptions> configure)
+    //    {
+    //        var opts = app.ApplicationServices.GetService<IOptions<StaticFileOptions>>().Value
+    //            ?? new StaticFileOptions();
+    //        configure?.Invoke(opts);
+    //        return app.UseStaticFiles(opts);
+    //    }
+    //}
 }

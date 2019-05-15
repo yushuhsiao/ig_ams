@@ -12,14 +12,17 @@
   <ItemGroup>
     <Compile Remove="AspNetCore\**" />
     <Compile Remove="Models\**" />
+    <Compile Remove="UserManager\Microsoft.AspNetCore.Authentication\**" />
     <Compile Remove="WebSockets\**" />
     <Compile Remove="_\**" />
     <EmbeddedResource Remove="AspNetCore\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="UserManager\Microsoft.AspNetCore.Authentication\**" />
     <EmbeddedResource Remove="WebSockets\**" />
     <EmbeddedResource Remove="_\**" />
     <None Remove="AspNetCore\**" />
     <None Remove="Models\**" />
+    <None Remove="UserManager\Microsoft.AspNetCore.Authentication\**" />
     <None Remove="WebSockets\**" />
     <None Remove="_\**" />
   </ItemGroup>
@@ -30,6 +33,8 @@
     <Compile Remove="Localization\Localization.cs" />
     <Compile Remove="PasswordEncryptor.cs" />
     <Compile Remove="ServerOptions.cs" />
+    <Compile Remove="UserManager\AccessTokenAuthenticationHandler.cs" />
+    <Compile Remove="UserManager\ApiAuthenticationHandler.cs" />
   </ItemGroup>
 
   <ItemGroup>
