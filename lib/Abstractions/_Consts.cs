@@ -23,6 +23,7 @@ namespace InnateGlory
             public const string DefaultValue = "redis01:6379";
             public const string ServerInfo = "ServerInfo";
             public const string TableVer = "TableVer";
+            public const string TableVer_DefaultValue = "redis01:6379,defaultDatabase=1";
             public const string Message = "Message";
             public const string Message_Reconnect = "Message.Reconnect";
 

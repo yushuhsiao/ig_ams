@@ -57,9 +57,8 @@ namespace InnateGlory
             {
                 if (_db == null)
                 {
-                    string configuration = Redis_Main();
-                    int dbindex = Redis_ServerInfo;
-                    _db = ConnectionMultiplexer.Connect(configuration).GetDatabase(dbindex);
+                    string configuration = Redis_ServerInfo;
+                    _db = ConnectionMultiplexer.Connect(configuration).GetDatabase();
                 }
                 return _db;
             }
@@ -82,7 +81,7 @@ namespace InnateGlory
         public string Redis_Main() => _config.GetValue<string>();
 
         [SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.Redis.ServerInfo), DefaultValue(2)]
-        public int Redis_ServerInfo => _config.GetValue<int>(); 
+        public string Redis_ServerInfo => _config.GetValue<string>(); 
 
         [SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = "ServerInfo.KeepAlive"), DefaultValue(5000)]
         public double Redis_KeepAlive => _config.GetValue<double>().Max(1000);

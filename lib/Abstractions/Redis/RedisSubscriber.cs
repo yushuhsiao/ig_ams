@@ -18,6 +18,7 @@ namespace StackExchange.Redis
         private List<_Channel> _channels1 = new List<_Channel>();
         private _Channel[] _channels2;
         private TimeCounter _timer = new TimeCounter(false);
+        private RedisMessage.Pool<TMessage> _msg_pool = new RedisMessage.Pool<TMessage>();
         public TimeCounter Timer => _timer;
 
         public RedisSubscriber(ILogger logger)
@@ -161,48 +162,37 @@ namespace StackExchange.Redis
 
         private void OnMessage(RedisChannel channel, RedisValue value)
         {
+            TMessage msg = _msg_pool.Alloc();
             try
             {
                 this.Timer.Reset();
-                using (TMessage msg = _pooling_Alloc())
+                int count = 0;
+                JsonHelper.PopulateObject(value, msg);
+                msg.Channel = channel;
+                msg.Value = value;
+                foreach (var n in GetChannels())
                 {
-                    int count = 0;
-                    JsonHelper.PopulateObject(value, msg);
-                    msg.Channel = channel;
-                    msg.Value = value;
-                    foreach (var n in GetChannels())
+                    try
                     {
-                        try
-                        {
-                            count++;
-                            n.Handler(this, msg);
-                        }
-                        catch { }
+                        count++;
+                        n.Handler(this, msg);
                     }
-                    if (count == 0)
-                    {
-                        try { GetSubscriber().Unsubscribe(channel); }
-                        catch { }
-                    }
+                    catch { }
+                }
+                if (count == 0)
+                {
+                    try { GetSubscriber().Unsubscribe(channel); }
+                    catch { }
                 }
             }
             catch { }
-        }
-
-        public IEnumerable<TMessage> Publish(RedisChannel channel)
-        {
-            var msg = _pooling_Alloc();
-            try
-            {
-                yield return msg;
-                string json = JsonHelper.SerializeObject(msg);
-                GetSubscriber().Publish(channel, json);
-            }
             finally
             {
-                _pooling_Release(msg);
+                _msg_pool.Release(msg);
             }
         }
+
+        public IEnumerable<TMessage> Publish(RedisChannel channel) => _msg_pool.Publish(GetSubscriber(), channel);
 
         private class _Channel
         {
@@ -210,44 +200,6 @@ namespace StackExchange.Redis
             public MessageHandler Handler { get; set; }
         }
 
-        #region Message Pooling
-
-        private static int _msg_id;
-
-        private static Queue<TMessage> _pooling = new Queue<TMessage>();
-
-        private static TMessage _pooling_Alloc()
-        {
-            TMessage msg;
-            lock (_pooling)
-            {
-                if (_pooling.Count == 0)
-                    msg = new TMessage();
-                else
-
-                    msg = _pooling.Dequeue();
-            }
-            msg.msg_id = Interlocked.Increment(ref _msg_id);
-            msg.msg_id &= 0x7fffffff;
-            return msg;
-        }
-
-        private static void _pooling_Release(TMessage msg)
-        {
-            if (msg == null) return;
-            using (msg)
-            {
-                lock (_pooling)
-                {
-                    if (_pooling.Contains(msg))
-                        return;
-                    else
-                        _pooling.Enqueue(msg);
-                }
-            }
-        }
-
-        #endregion
 
         #region IRedis, IRedisAsync
 

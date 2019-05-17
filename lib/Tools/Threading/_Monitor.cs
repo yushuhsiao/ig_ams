@@ -9,7 +9,7 @@ namespace System.Threading
         {
             if (lockTaken)
             {
-                _Monitor.ExitN(obj, ref lockTaken);
+                _Monitor.TryExit(obj, ref lockTaken);
                 Thread.Sleep(millisecondsTimeout);
                 _Monitor.EnterN(obj, ref lockTaken);
             }
@@ -113,6 +113,12 @@ namespace System.Threading
             return lockTaken = false;
         }
 
+        public static bool TryExit(object obj, ref bool lockTaken)
+        {
+            if (lockTaken) Monitor.Exit(obj);
+            return lockTaken = false;
+        }
+
         /// <summary>通知等候佇列中的執行緒，鎖定物件的狀態有所變更。</summary>
         /// <param name="obj">執行緒正等候的物件。</param>
         /// <exception cref="System.ArgumentNullException">obj 參數為 null。</exception>
@@ -179,12 +185,6 @@ namespace System.Threading
         /// <exception cref="System.ArgumentNullException">obj 參數為 null。</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">timeout 的毫秒值為負且不等於 System.Threading.Timeout.Infinite (-1 毫秒) 或大於 System.Int32.MaxValue。</exception>
         public static void TryEnter(object obj, TimeSpan timeout, ref bool lockTaken) => Monitor.TryEnter(obj, timeout, ref lockTaken);
-
-        public static bool ExitN(object obj, ref bool lockTaken)
-        {
-            if (lockTaken) _Monitor.Exit(obj);
-            return lockTaken = false;
-        }
 
         /// <summary>釋出物件的鎖並且封鎖目前的執行緒，直到這個執行緒重新取得鎖定為止。</summary>
         /// <param name="obj">要等候的物件。</param>

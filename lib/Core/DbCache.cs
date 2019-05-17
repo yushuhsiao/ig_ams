@@ -26,7 +26,8 @@ namespace InnateGlory
             this._services = services;
             this._logger = services.GetRequiredService<ILogger<DbCache>>();
             this._config = services.GetRequiredService<IConfiguration<DbCache>>();
-            this._redis = new RedisSubscriber<UpdateMessage2>(this._logger) { GetConfiguration = this.Redis_Main };
+            this._redis = new RedisDatabase();
+            //this._redis = new RedisSubscriber<UpdateMessage2>(this._logger) { GetConfiguration = this.Redis_TableVer };
         }
 
         #region Config
@@ -91,23 +92,25 @@ namespace InnateGlory
 
         //[SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.Redis.Main), DefaultValue(_Consts.Redis.DefaultValue)]
         //public string Redis_Main() => GetConfig().GetValue<string>();
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Main), DefaultValue(_Consts.Redis.DefaultValue)]
-        public string Redis_Main() => _config.GetValue<string>();
+        //[AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Main), DefaultValue(_Consts.Redis.DefaultValue)]
+        //public string Redis_Main() => _config.GetValue<string>();
 
         //[SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.Redis.TableVer), DefaultValue(1)]
         //public int Redis_TableVer() => GetConfig().GetValue<int>();
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.TableVer), DefaultValue(1)]
-        public int Redis_TableVer() => _config.GetValue<int>();
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.TableVer), DefaultValue(_Consts.Redis.TableVer_DefaultValue)]
+        public string Redis_TableVer() => _config.GetValue<string>();
 
         #endregion
 
         #region redis / sql
 
-        private object sync_redis = new object();
+        private RedisDatabase _redis;
+
+        //private object sync_redis = new object();
         private object sync_sql = new object();
-        private RedisSubscriber<UpdateMessage2> _redis;
+        //private RedisSubscriber<UpdateMessage2> _redis;
         //private ConnectionMultiplexer _mux;
-        private IDatabase _db;
+        //private IDatabase _db;
         //private ISubscriber _sub;
 
         //private ConnectionMultiplexer GetMultiplexer()
@@ -120,57 +123,66 @@ namespace InnateGlory
         //    return _mux;
         //}
 
-        private IDatabase GetDatabase()
-        {
-            if (_db == null)
-            {
-                int dbindex = Redis_TableVer();
-                //_db = GetMultiplexer().GetDatabase(dbindex);
-                _db = _redis.GetDatabase(dbindex);
-            }
-            return _db;
-        }
+        //private IDatabase GetDatabase()
+        //{
+        //    if (_db == null)
+        //    {
+        //        var config = this.Redis_TableVer();
+        //        _db = ConnectionMultiplexer.Connect(config).GetDatabase();
+        //        //int dbindex = Redis_TableVer();
+        //        //_db = GetMultiplexer().GetDatabase(dbindex);
+        //        //_db = _redis.GetDatabase();
+        //    }
+        //    return _db;
+        //}
 
-        private void ResetRedis(string msg, params object[] args)
-        {
-            _redis.Reset();
-            _logger.Log(LogLevel.Error, 0, msg, args);
-            _db = null;
-        }
+        //private void OnRedisError(Exception ex, string msg, params object[] args)
+        //{
+        //    _logger.Log(LogLevel.Error, 0, msg, args);
+        //    using (_db?.Multiplexer)
+        //        _db = null;
+        //}
+
+        //private void ResetRedis(string msg, params object[] args)
+        //{
+        //    _redis.Reset();
+        //    _logger.Log(LogLevel.Error, 0, msg, args);
+        //    _db = null;
+        //}
 
         internal bool RedisGetVersion(IDbCacheEntry entry, out long value)
         {
-            lock (sync_redis)
+            try
             {
-                try
-                {
-                    RedisValue n = this.GetDatabase().StringGet(entry.RedisKey);
-                    if (n.HasValue)
-                        return n.TryParse(out value);
-                }
-                catch (Exception ex)
-                {
-                    ResetRedis($"Redis StringGet : {entry.RedisKey}", ex); //_logger.LogError(ex, "Redis StringGet : {0}", entry.RedisKey);
-                }
+                var db = _redis.GetDatabase(null, Redis_TableVer);
+                RedisValue n = db.StringGet(entry.RedisKey);
+                _redis.SetIdle();
+                if (n.HasValue)
+                    return n.TryParse(out value);
+            }
+            catch (Exception ex)
+            {
+                _redis.OnError(_logger, ex, $"Redis StringGet : {entry.RedisKey}");
             }
             return _null.noop(false, out value);
         }
 
         internal bool RedisSetVersion(IDbCacheEntry entry, long? value)
         {
-            lock (sync_redis)
+            try
             {
-                try
-                {
-                    if (value.HasValue)
-                        return this.GetDatabase().StringSet(entry.RedisKey, value.Value.ToString(), expiry: entry.Parent.RedisKeyExpire);
-                    else
-                        return this.GetDatabase().KeyDelete(entry.RedisKey);
-                }
-                catch (Exception ex)
-                {
-                    ResetRedis($"Redis StringSet : {entry.RedisKey}, {value}", ex); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
-                }
+                var db = _redis.GetDatabase(null, Redis_TableVer);
+                bool result;
+                if (value.HasValue)
+                    result = db.StringSet(entry.RedisKey, value.Value.ToString(), expiry: entry.Parent.RedisKeyExpire);
+                else
+                    result = db.KeyDelete(entry.RedisKey);
+                _redis.SetIdle();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _redis.OnError(_logger, ex, $"Redis StringSet : {entry.RedisKey}, {value}"); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
             }
             return false;
         }
@@ -187,25 +199,24 @@ namespace InnateGlory
             [JsonProperty]
             public long? Version { get; set; }
         }
+        private static readonly RedisMessage.Pool<UpdateMessage2> _msg = new RedisMessage.Pool<UpdateMessage2>();
 
         internal long RedisUpdateVersion(IDbCacheEntry entry, long? value)
         {
-            lock (sync_redis)
+            try
             {
-                try
+                var db = _redis.GetDatabase(null, Redis_TableVer);
+                foreach (var m in _msg.Publish(db, _Consts.Redis.Channels.TableVer))
                 {
-                    foreach (var m in _redis.Publish(_Consts.Redis.Channels.TableVer))
-                    {
-                        m.Name = entry.Parent.Name;
-                        m.Index = entry.Index;
-                        m.Version = value;
-                    }
+                    m.Name = entry.Parent.Name;
+                    m.Index = entry.Index;
+                    m.Version = value;
                 }
-                catch (Exception ex)
-                {
-                    ResetRedis($"Redis Publish: {entry.RedisKey}, {value}", ex); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
-                    _db = null;
-                }
+                _redis.SetIdle();
+            }
+            catch (Exception ex)
+            {
+                _redis.OnError(_logger, ex, $"Redis Publish: {entry.RedisKey}, {value}"); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
             }
             return 0;
         }

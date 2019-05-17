@@ -16,7 +16,7 @@ namespace InnateGlory.Entity
 
         public ActiveState Active => Id.IsRoot ? ActiveState.Active : _active;
         [DbImport(nameof(Active))]
-        private ActiveState _active;
+        private ActiveState _active = ActiveState.Disabled;
 
         [DbImport]
         public string DisplayName { get; set; }

@@ -28,7 +28,7 @@ namespace InnateGlory
         [JsonProperty]
         public object data { get; set; }
 
-        protected override void OnDispose()
+        protected override void OnReset()
         {
             this.Name = null;
             this.from = null;
