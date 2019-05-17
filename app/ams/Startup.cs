@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
 //using Webpack;
@@ -156,6 +158,13 @@ namespace InnateGlory
             });
             ;
             //app.UseBlazor(new BlazorOptions() { ClientAssemblyPath = Blazor_Path });
+
+
+            var cn = app.ApplicationServices.GetService<IConfiguration>().GetValue<DbConnectionString>("ConnectionStrings:CoreDB_R");
+            ;
+            using (var conn = cn.OpenDbConnection<SqlConnection>(app.ApplicationServices, null))
+            {
+            }
         }
 
         //[AppSetting(SectionName = "Blazor", Key = "ClientPath")]

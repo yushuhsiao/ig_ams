@@ -6,7 +6,7 @@
     [b]          VARCHAR (50) NULL,
     [c]          VARCHAR (50) NULL,
     [Expiry]     INT          NULL,
-    [ExipreTime] AS           (dateadd(month,[Expiry],[CreateTime])),
+    [ExpireTime] AS           (dateadd(month,[Expiry],[CreateTime])),
     [CreateTime] DATETIME     CONSTRAINT [DF_Password_CreateTime] DEFAULT (getdate()) NOT NULL,
     [CreateUser] BIGINT       NOT NULL,
     CONSTRAINT [PK_Password] PRIMARY KEY CLUSTERED ([UserId] ASC)

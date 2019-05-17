@@ -6,7 +6,7 @@
     [b]          VARCHAR (50)  NULL,
     [c]          VARCHAR (50)  NULL,
     [Expiry]     INT           NULL,
-    [ExipreTime] AS            (dateadd(month,[Expiry],[CreateTime])),
+    [ExpireTime] AS            (dateadd(month,[Expiry],[CreateTime])),
     [CreateTime] DATETIME      NOT NULL,
     [CreateUser] BIGINT        NOT NULL,
     [x]          VARCHAR (100) NULL,

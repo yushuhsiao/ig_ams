@@ -80,13 +80,13 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("/user/agent/login"), AllowAnonymous]
-        public async Task<Models.LoginResult> AgentLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Agent, LoginMode.UserToken);
+        public async Task<Models.LoginResult> AgentLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Agent, LoginMode.AccessToken);
 
         [HttpPost("/user/admin/login"), AllowAnonymous]
-        public async Task<Models.LoginResult> AdminLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Admin, LoginMode.UserToken);
+        public async Task<Models.LoginResult> AdminLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Admin, LoginMode.AccessToken);
 
         [HttpPost("/user/member/login"), AllowAnonymous]
-        public async Task<Models.LoginResult> MemberLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Member, LoginMode.UserToken);
+        public async Task<Models.LoginResult> MemberLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Member, LoginMode.AccessToken);
 
         private async Task<Models.LoginResult> _UserLogin(Models.LoginModel model, UserType? loginType = null, LoginMode? mode = null)
         {
@@ -116,7 +116,7 @@ namespace InnateGlory.Controllers
 
                 var userManager = ds.GetService<UserManager>();
                 //var user = ds.CreateInstance<UserIdentity>(userdata);
-                if (model.LoginMode == LoginMode.UserToken)
+                if (model.LoginMode == LoginMode.AccessToken)
                 {
                     string sessionId = await userManager.SignInAsync(HttpContext, userdata.Id, _Consts.UserManager.AccessTokenScheme);
                     return new Models.LoginResult { UserId = userdata.Id, AccessToken = sessionId };

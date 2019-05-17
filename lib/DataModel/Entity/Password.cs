@@ -32,7 +32,7 @@ namespace InnateGlory.Entity.Abstractions
         /// <summary>
         /// 密碼到期日
         /// </summary>
-        public DateTime? ExipreTime
+        public DateTime? ExpireTime
         {
             get
             {
@@ -47,7 +47,7 @@ namespace InnateGlory.Entity.Abstractions
         {
             get
             {
-                DateTime? t = this.ExipreTime;
+                DateTime? t = this.ExpireTime;
                 if (t.HasValue)
                     return DateTime.Now >= t.Value;
                 return false;

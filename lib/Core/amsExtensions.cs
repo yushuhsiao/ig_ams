@@ -19,19 +19,21 @@ namespace InnateGlory
 
         //private class ServerOptionsSetup : IConfigureOptions<ServerOptions> { void IConfigureOptions<ServerOptions>.Configure(ServerOptions options) { } }
 
+
         public static IServiceCollection AddAMS(this IServiceCollection services/*, Action<ServerOptions> options = null*/)
         {
             services.AddHttpContextAccessor();
             //services.AddConfigurationBinder();
+
             services.AddSqlCmdPooling(
-                _services => _services.GetService<IHttpContextAccessor>()?.HttpContext,
-                _state =>
-                {
-                    HttpContext httpContext = _state as HttpContext;
-                    if (httpContext != null)
-                        return httpContext.Response.RegisterForDispose;
-                    return null;
-                });
+                _services => _services.GetHttpContext(),
+                (_state, _item) => _state.Cast<HttpContext>()?.Response.RegisterForDispose(_item));
+
+            services.AddDbConnectionPooling(
+                _connStr => new SqlConnection(_connStr),
+                _services => _services.GetHttpContext(),
+                (_state, _item) => (_state as HttpContext)?.Response.RegisterForDispose(_item));
+
             services.AddLogging(logging => logging.InjectConsole().AddSql().AddTextFile());
             //services.AddSingleton<ILoggerProvider, Tools.Logging.SqlLoggerProvider>();
             //services.AddSingleton<ILoggerProvider, Tools.Logging.TextFileLoggerProvider>();

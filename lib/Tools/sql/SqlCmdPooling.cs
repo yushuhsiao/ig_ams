@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
@@ -9,47 +8,73 @@ namespace System.Data.SqlClient
     [_DebuggerStepThrough]
     public static class SqlCmdPooling
     {
+        public static IServiceCollection AddSqlCmdPooling(this IServiceCollection services,
+            Func<IServiceProvider, object> getState,
+            Action<object, IDisposable> registerForDispose)
+        {
+            services.AddSingleton(new GetState()
+            {
+                GetSate = getState ?? _null.noop<IServiceProvider, object>,
+                RegisterForDispose = registerForDispose ?? _null.noop<object, IDisposable>
+            });
+            return services;
+        }
+
+        class GetState
+        {
+            public Func<IServiceProvider, object> GetSate { get; set; }
+            public Action<object, IDisposable> RegisterForDispose { get; set; }
+        }
+
         private class Pooling : List<PoolingItem>, IDisposable
         {
-            private static List<Pooling> _pooling = new List<Pooling>();
-            private static readonly Pooling _default = new Pooling() { state = new object() };
-
-            public static Pooling GetInstance(object state, bool create, IGetState getState)
-            {
-                if (state != null)
-                {
-                    lock (_pooling)
-                    {
-                        for (int i = 0, n = _pooling.Count; i < n; i++)
-                        {
-                            Pooling tmp = _pooling[i];
-                            if (object.ReferenceEquals(state, tmp.state))
-                                return tmp;
-                        }
-                        if (create)
-                        {
-                            var p = new Pooling() { state = state };
-                            _pooling.Add(p);
-                            getState?.RegisterForDispose?.Invoke(state)?.Invoke(p);
-                            return p;
-                        }
-                    }
-                }
-                return _default;
-            }
+            private static List<Pooling> _pooling1 = new List<Pooling>();
+            private static Queue<Pooling> _pooling2 = new Queue<Pooling>();
 
             public object state { get; private set; }
 
+            public static Pooling GetInstance(object state, bool create, GetState getState)
+            {
+                if (state == null)
+                    return null;
+                lock (_pooling1)
+                {
+                    foreach (var tmp in _pooling1)
+                        if (object.ReferenceEquals(state, tmp.state))
+                            return tmp;
+
+                    if (create)
+                    {
+                        Pooling p;
+                        if (_pooling2.Count == 0)
+                            p = new Pooling();
+                        else
+                            p = _pooling2.Dequeue();
+                        p.state = state;
+                        _pooling1.Add(p);
+                        getState.RegisterForDispose(state, p);
+                        return p;
+                    }
+                }
+                return null;
+            }
+
             void IDisposable.Dispose()
             {
-                if (object.ReferenceEquals(this, _default)) return;
-                lock (_pooling)
-                    _pooling.RemoveAll(this);
-
                 lock (this)
+                {
+                    this.state = null;
                     while (this.Count > 0)
                         using (this[0])
                             this.RemoveAt(0);
+                }
+                lock (_pooling1)
+                {
+                    _pooling1.RemoveAll(this);
+                    if (_pooling2.Contains(this) == false)
+                        _pooling2.Enqueue(this);
+                }
+
             }
         }
 
@@ -81,68 +106,14 @@ namespace System.Data.SqlClient
             }
         }
 
-        #region IServiceCollection
-
-        //private static object _GetState(IServiceProvider _services) => _services.GetService<IHttpContextAccessor>()?.HttpContext;
-        //private static Action<IDisposable> _RegisterForDispose(object _state)
-        //{
-        //    HttpContext httpContext = _state as HttpContext;
-        //    if (httpContext != null)
-        //        return httpContext.Response.RegisterForDispose;
-        //    return null;
-        //}
-
-        //public static IServiceCollection AddSqlCmdPooling(this IServiceCollection services) => services.AddSqlCmdPooling(_GetState, _RegisterForDispose);
-
-        public static IServiceCollection AddSqlCmdPooling(this IServiceCollection services, Func<IServiceProvider, object> getState, Func<object, Action<IDisposable>> registerForDispose)
-        {
-            services.TryAddEnumerable(ServiceDescriptor.Singleton<IGetState>(new GetState()
-            {
-                GetSate = getState,
-                RegisterForDispose = registerForDispose
-            }));
-            return services;
-            //return services.AddSingleton<IGetState>(new GetState() { GetSate = getState });
-        }
-
-        interface IGetState
-        {
-            Func<IServiceProvider, object> GetSate { get; set; }
-            Func<object, Action<IDisposable>> RegisterForDispose { get; set; }
-        }
-
-        class GetState : IGetState
-        {
-            public Func<IServiceProvider, object> GetSate { get; set; }
-            public Func<object, Action<IDisposable>> RegisterForDispose { get; set; }
-        }
-
-        #endregion
-
-
-        //private static readonly object default_state = new object();
-        //private static Dictionary<object, Pooling> _poolings = new Dictionary<object, Pooling>();
-
-
-
         public static SqlCmd Open(this DbConnectionString c, IServiceProvider services, object state = null)
         {
-            IGetState getState = null;
+            GetState getState = services.GetService<GetState>();
+            state = state ?? getState.GetSate(services);
             if (state == null)
-            {
-                foreach (var nn in services.GetServices<IGetState>())
-                {
-                    state = nn.GetSate?.Invoke(services);
-                    if (state != null)
-                    {
-                        getState = nn;
-                        break;
-                    }
-                }
-            }
+                return new SqlCmd(c, services);
 
             Pooling p = Pooling.GetInstance(state, true, getState);
-
             lock (p)
             {
                 for (var i = 0; i < p.Count; i++)
@@ -151,10 +122,6 @@ namespace System.Data.SqlClient
                 var result = new PoolingItem(p, services, c);
                 return result;
             }
-            //HttpContext context = serviceProvider.GetService<HttpContext>();
-            //if (context == null)
-            //    return new _SqlCmd(serviceProvider, c, true);
-            //var p = context.GetItem(() => new _Pooling());
         }
 
         public static void Release(object state)
@@ -171,23 +138,5 @@ namespace System.Data.SqlClient
             //                p.RemoveAt(0);
             //}
         }
-
-        //public static void Release(HttpContext context)
-        //{
-        //    var p = context?.GetItem<_Pooling>();
-        //    p?.RemoveWhen(Close, syncLock: true);
-        //}
-
-        //private static bool Close(KeyValuePair<string, PoolingItem> p)
-        //{
-        //    using (p.Value)
-        //        p.Value.disposable = true;
-        //    return true;
-        //}
-
-        //public static int ExecuteNonQuery/***/(this DbConnectionString c, IServiceProvider services, string commandText, bool transaction = false, /********************/ object state = null) { using (SqlCmd sqlcmd = c.Open(services, state)) return sqlcmd.ExecuteNonQuery/**/(commandText, transaction); }
-        //public static object ExecuteScalar/**/(this DbConnectionString c, IServiceProvider services, string commandText, bool transaction = false, /********************/ object state = null) { using (SqlCmd sqlcmd = c.Open(services, state)) return sqlcmd.ExecuteScalar/****/(commandText, transaction); }
-        //public static List<T> ToList<T>/*****/(this DbConnectionString c, IServiceProvider services, string commandText, bool transaction = false, Func<T> create = null, object state = null) { using (SqlCmd sqlcmd = c.Open(services, state)) return sqlcmd.ToList/***********/(commandText, transaction, r => (create ?? services.CreateInstance<T>)()); }
-        //public static T ToObject<T>/*********/(this DbConnectionString c, IServiceProvider services, string commandText, bool transaction = false, Func<T> create = null, object state = null) { using (SqlCmd sqlcmd = c.Open(services, state)) return sqlcmd.ToObject/*********/(commandText, transaction, r => (create ?? services.CreateInstance<T>)()); }
     }
 }

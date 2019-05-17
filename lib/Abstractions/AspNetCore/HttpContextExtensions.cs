@@ -80,6 +80,6 @@ namespace Microsoft.AspNetCore.Http
 
         }
 
-        public static HttpContext GetHttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>().HttpContext;
+        public static HttpContext GetHttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>()?.HttpContext;
     }
 }

@@ -33,7 +33,8 @@ namespace InnateGlory
             using (SqlCmd coredb = _dataService.CoreDB_R())
             {
                 var values = coredb.ToList<Entity.CorpInfo>(sql);
-                if (null != values.Find(x => x.Id == CorpId.Root))
+                var root = values.Find(x => x.Id == CorpId.Root);
+                if (root != null)
                     return values;
             }
             return CreateRoot(sql);

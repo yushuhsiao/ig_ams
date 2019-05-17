@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,27 +13,86 @@ using System.Threading;
 
 namespace InnateGlory
 {
+    public class SqlAppSettingsConfigurationProvider2 : ConfigurationProvider
+    {
+        private IServiceProvider _service;
+        private IConfiguration _config;
+        private ILogger _logger;
+
+        public SqlAppSettingsConfigurationProvider2() { }
+
+        internal static IApplicationBuilder Init(IApplicationBuilder app)
+        {
+            foreach (var config in app.ApplicationServices.GetServices<IConfiguration>())
+            {
+                if (config.TryCast(out IConfigurationRoot configRoot))
+                {
+                    foreach (var provider in configRoot.Providers)
+                    {
+                        if (provider.TryCast(out SqlAppSettingsConfigurationProvider2 obj))
+                        {
+                            obj._service = app.ApplicationServices;
+                            obj._config = config;
+                            obj._logger = app.ApplicationServices.GetService<ILogger<SqlAppSettingsConfigurationProvider2>>();
+                        }
+                    }
+                }
+            }
+            return app;
+        }
+
+        private double ExpireTime => _config.GetValue<double>("Config:ExpireTime");
+
+        private DbConnectionString Conn => _config.GetValue<DbConnectionString>("ConnectionStrings:CoreDB_R");
+
+        List<int> _busy = new List<int>();
+        public override bool TryGet(string key, out string value)
+        {
+            int t = Thread.CurrentThread.ManagedThreadId;
+            bool busy;
+            lock (_busy)
+            {
+                if (_busy.Contains(t))
+                    busy = true;
+                else
+                {
+                    _busy.Add(t);
+                    busy = false;
+                }
+            }
+            if (busy)
+                return base.TryGet(key, out value);
+            try
+            {
+                if (_config != null)
+                {
+                }
+            }
+            finally
+            {
+                lock (_busy)
+                    _busy.RemoveAll(t);
+            }
+            //Conn.Open()
+            return base.TryGet(key, out value);
+        }
+    }
     public class SqlAppSettingsConfigurationProvider : ConfigurationProvider//IConfigurationProvider
     {
         private DataService _services;
         private IConfiguration<SqlAppSettingsConfigurationProvider> _config;
         private ILogger _logger;
-        private List<int> _reject_TryGet = new List<int>();
-        private TimeCounter _time = new TimeCounter(false);
-        private object _sync;
+        private TimeCounter _timer = new TimeCounter(false);
+        private object _sync = new object();
 
-        public SqlAppSettingsConfigurationProvider()
-        {
-            _sync = base.Data;
-        }
+        public SqlAppSettingsConfigurationProvider() { }
 
         internal static void Init(IServiceProvider services)
         {
-            IConfigurationRoot config = services.GetService<IConfiguration>().TryCast<IConfigurationRoot>();
+            IConfigurationRoot config = services.GetService<IConfiguration>() as IConfigurationRoot;
             foreach (var n in config?.Providers)
             {
-                var obj = n as SqlAppSettingsConfigurationProvider;
-                if (obj != null)
+                if (n.TryCast(out SqlAppSettingsConfigurationProvider obj))
                 {
                     obj._services = services.GetService<DataService>();
                     obj._config = services.GetService<IConfiguration<SqlAppSettingsConfigurationProvider>>();
@@ -41,11 +102,11 @@ namespace InnateGlory
         }
 
         [DebuggerHidden]
-        [AppSetting(SectionName = "Config", Key = "ExipreTime"), DefaultValue(5 * 60 * 1000)]
-        public double ExipreTime
+        [AppSetting(SectionName = "Config", Key = "ExpireTime"), DefaultValue(5 * 60 * 1000)]
+        public double ExpireTime
         {
             //[DebuggerStepThrough]
-            get => _config.GetValue<int>();
+            get => _config.GetValue<double>();
         }
 
         private bool _Reload()
@@ -53,37 +114,25 @@ namespace InnateGlory
             if (_config == null)
                 return false;
 
-            double timeout = ExipreTime;
+            double timeout = ExpireTime;
 
-            bool _lock = false;
-            try
+            lock (_sync)
             {
-                if (Monitor.TryEnter(_sync))
-                {
-                    _lock = true;
+                if (base.Data.Count == 0)
+                    goto _read;
 
-                    if (base.Data.Count == 0)
-                        return _Read(ref _lock);
+                if (_timer.IsTimeout(timeout))
+                    goto _read;
 
-                    if (_time.IsTimeout(timeout))
-                        return _Read(ref _lock);
-
-                    // ToDo: check redis
-                }
-            }
-            finally
-            {
-                if (_lock)
-                    Monitor.Exit(_sync);
+                // ToDo: check redis
             }
             return false;
+        _read:
+            return _Read();
         }
 
-        private bool _Read(ref bool _lock)
+        private bool _Read()
         {
-            Monitor.Exit(_sync);
-            _lock = false;
-
             string cn = _services._CoreDB_R();// ConnectionString;
             try
             {
@@ -94,7 +143,7 @@ namespace InnateGlory
                     base.Data.Clear();
                     foreach (var row in tmp)
                         base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
-                    _time.Reset();
+                    _timer.Reset();
                 }
             }
             catch (Exception ex)
@@ -110,7 +159,7 @@ namespace InnateGlory
         //    if (_config == null)
         //        return;
 
-        //    double timeout = ExipreTime;
+        //    double timeout = ExpireTime;
         //    lock (_sync)
         //    {
         //        if (base.Data.Count == 0)
@@ -158,17 +207,18 @@ namespace InnateGlory
         //    }
         //}
 
+        private List<int> _TryGet_busy = new List<int>();
         public override bool TryGet(string key, out string value)
         {
             int t = Thread.CurrentThread.ManagedThreadId;
-            lock (_reject_TryGet)
+            lock (_TryGet_busy)
             {
-                if (_reject_TryGet.Contains(t))
+                if (_TryGet_busy.Contains(t))
                 {
                     value = null;
                     return false;
                 }
-                _reject_TryGet.Add(t);
+                _TryGet_busy.Add(t);
             }
             try
             {
@@ -178,9 +228,9 @@ namespace InnateGlory
             }
             finally
             {
-                lock (_reject_TryGet)
+                lock (_TryGet_busy)
                 {
-                    _reject_TryGet.Remove(t);
+                    _TryGet_busy.Remove(t);
                 }
             }
         }
