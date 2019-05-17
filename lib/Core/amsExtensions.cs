@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace InnateGlory
@@ -20,19 +21,27 @@ namespace InnateGlory
         //private class ServerOptionsSetup : IConfigureOptions<ServerOptions> { void IConfigureOptions<ServerOptions>.Configure(ServerOptions options) { } }
 
 
+        private static SqlConnection CreateSqlConnection(DbConnectionString cn) => new SqlConnection(cn);
+        private static void RegisterForDispose(object state, IDisposable item)
+        {
+            HttpContext context = state as HttpContext;
+            if (context != null)
+                context.Response.RegisterForDispose(item);
+        }
+
         public static IServiceCollection AddAMS(this IServiceCollection services/*, Action<ServerOptions> options = null*/)
         {
             services.AddHttpContextAccessor();
             //services.AddConfigurationBinder();
 
             services.AddSqlCmdPooling(
-                _services => _services.GetHttpContext(),
-                (_state, _item) => _state.Cast<HttpContext>()?.Response.RegisterForDispose(_item));
+                HttpContextExtensions.GetHttpContext,
+                RegisterForDispose);
 
             services.AddDbConnectionPooling(
-                _connStr => new SqlConnection(_connStr),
-                _services => _services.GetHttpContext(),
-                (_state, _item) => (_state as HttpContext)?.Response.RegisterForDispose(_item));
+                CreateSqlConnection,
+                HttpContextExtensions.GetHttpContext,
+                RegisterForDispose);
 
             services.AddLogging(logging => logging.InjectConsole().AddSql().AddTextFile());
             //services.AddSingleton<ILoggerProvider, Tools.Logging.SqlLoggerProvider>();

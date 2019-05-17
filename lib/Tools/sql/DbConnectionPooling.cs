@@ -132,6 +132,8 @@ namespace System.Data.SqlClient
 
             public static IDbConnection OpenDbConnection(DbConnectionString cn, IServiceProvider services, object state)
             {
+                if (services == null)
+                    return null;
                 _GetState getState = services.GetService<_GetState>();
                 state = state ?? getState.GetSate(services);
                 if (state == null)

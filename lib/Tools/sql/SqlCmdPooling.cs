@@ -52,7 +52,8 @@ namespace System.Data.SqlClient
                             p = _pooling2.Dequeue();
                         p.state = state;
                         _pooling1.Add(p);
-                        getState.RegisterForDispose(state, p);
+                        try { getState.RegisterForDispose(state, p); }
+                        catch { }
                         return p;
                     }
                 }

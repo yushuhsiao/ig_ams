@@ -10,14 +10,19 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading;
+using Dapper;
 
 namespace InnateGlory
 {
     public class SqlAppSettingsConfigurationProvider2 : ConfigurationProvider
     {
         private IServiceProvider _service;
-        private IConfiguration _config;
+        private IConfiguration<SqlAppSettingsConfigurationProvider2> _config;
         private ILogger _logger;
+        private TimeCounter _timer1 = new TimeCounter(false);
+        private TimeCounter _timer2 = new TimeCounter(false);
+        private int _read_count = 0;
+        private List<int> _busy = new List<int>();
 
         public SqlAppSettingsConfigurationProvider2() { }
 
@@ -31,9 +36,12 @@ namespace InnateGlory
                     {
                         if (provider.TryCast(out SqlAppSettingsConfigurationProvider2 obj))
                         {
-                            obj._service = app.ApplicationServices;
-                            obj._config = config;
-                            obj._logger = app.ApplicationServices.GetService<ILogger<SqlAppSettingsConfigurationProvider2>>();
+                            lock (obj)
+                            {
+                                obj._service = app.ApplicationServices;
+                                obj._config = app.ApplicationServices.GetService<IConfiguration<SqlAppSettingsConfigurationProvider2>>();
+                                obj._logger = app.ApplicationServices.GetService<ILogger<SqlAppSettingsConfigurationProvider2>>();
+                            }
                         }
                     }
                 }
@@ -41,31 +49,66 @@ namespace InnateGlory
             return app;
         }
 
-        private double ExpireTime => _config.GetValue<double>("Config:ExpireTime");
+        [AppSetting(SectionName = "Config", Key = "ExpireTime"), DefaultValue(5 * 60 * 1000)]
+        private double ExpireTime => _config.GetValue<double>();
 
-        private DbConnectionString Conn => _config.GetValue<DbConnectionString>("ConnectionStrings:CoreDB_R");
+        [AppSetting(SectionName = AppSettingAttribute.ConnectionStrings, Key = _Consts.db.CoreDB_R), DefaultValue(_Consts.db.CoreDB_Default)]
+        private DbConnectionString CoreDB_R => _config.GetValue<DbConnectionString>();
 
-        List<int> _busy = new List<int>();
         public override bool TryGet(string key, out string value)
         {
             int t = Thread.CurrentThread.ManagedThreadId;
-            bool busy;
             lock (_busy)
             {
                 if (_busy.Contains(t))
-                    busy = true;
+                    goto _exit;
                 else
-                {
                     _busy.Add(t);
-                    busy = false;
-                }
             }
-            if (busy)
-                return base.TryGet(key, out value);
             try
             {
-                if (_config != null)
+                lock (this)
                 {
+                    if (_service == null)
+                        goto _exit;
+
+                    if (_read_count == 0)
+                        goto _read;
+
+                    if (_timer1.IsTimeout(Math.Max(ExpireTime, 1000)))
+                        goto _read;
+                }
+                goto _exit;
+
+            _read:
+                if (_timer2.IsTimeout(100, true))
+                {
+                    try
+                    {
+                        var connStr = CoreDB_R;
+                        IDbConnection conn = connStr.OpenDbConnection<SqlConnection>(_service, null);
+                        if (conn == null)
+                            conn = new SqlConnection(connStr);
+                        string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0";
+                        lock (this)
+                        {
+                            using (conn)
+                            {
+                                var rows = conn.Query<Entity.Config>(sql);
+                                base.Data.Clear();
+                                foreach (var row in rows)
+                                    base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
+                                _read_count++;
+                                _timer1.Reset();
+                                _timer2.Reset();
+                            }
+                        }
+                        _logger.LogInformation("Reload configure...");
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, ex.Message);
+                    }
                 }
             }
             finally
@@ -73,8 +116,10 @@ namespace InnateGlory
                 lock (_busy)
                     _busy.RemoveAll(t);
             }
-            //Conn.Open()
-            return base.TryGet(key, out value);
+        _exit:
+            if (base.TryGet(key, out value))
+                return true;
+            return false;
         }
     }
     public class SqlAppSettingsConfigurationProvider : ConfigurationProvider//IConfigurationProvider
