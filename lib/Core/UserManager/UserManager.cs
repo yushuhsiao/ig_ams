@@ -1,44 +1,38 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace InnateGlory
 {
     public class UserManager
     {
-        private readonly DataService _services;
+        //private readonly DataService _services;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IOptions<AuthenticationOptions> _authenticationOptions;
-        private readonly IOptionsMonitor<CookieAuthenticationOptions> _cookieOptionsMonitor;
-        private readonly ILogger _logger;
+        //private readonly IOptions<AuthenticationOptions> _authenticationOptions;
+        //private readonly IOptionsMonitor<CookieAuthenticationOptions> _cookieOptionsMonitor;
+        //private readonly ILogger _logger;
         private readonly IConfiguration<UserManager> _config;
 
         public UserManager(DataService services)
         {
             ClaimsPrincipal.ClaimsPrincipalSelector = ClaimsPrincipalSelector;
-            this._services = services;
+            //this._services = services;
             this._httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
-            this._authenticationOptions = services.GetRequiredService<IOptions<AuthenticationOptions>>();
-            this._cookieOptionsMonitor = services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>();
-            this._logger = services.GetRequiredService<ILoggerFactory>().CreateLogger("UserManager");
+            //this._authenticationOptions = services.GetRequiredService<IOptions<AuthenticationOptions>>();
+            //this._cookieOptionsMonitor = services.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>();
+            //this._logger = services.GetRequiredService<ILoggerFactory>().CreateLogger("UserManager");
             this._config = services.GetService<IConfiguration<UserManager>>(); //_services.GetService<ISqlConfig<UserManager<TUser>>>();//.GetService(this);
             //this.Guest = services.CreateInstance<UserIdentity>(this, UserId.Guest);
             //this.Guest.Id = UserId.Root;
             //Tick.OnTick += this.Cleanup;
         }
 
-        public string SchemeName => _authenticationOptions.Value.DefaultScheme;
+        //public string SchemeName => _authenticationOptions.Value.DefaultScheme;
 
         //public UserIdentity Guest { get; }
 
@@ -57,7 +51,9 @@ namespace InnateGlory
         /// <see cref="ClaimsPrincipal.Current"/>
         private ClaimsPrincipal ClaimsPrincipalSelector() => _httpContextAccessor.HttpContext?.User;
 
-        public async Task<string> SignInAsync(/*UserIdentity user, */UserId userId, HttpContext context = null, string scheme = null)
+        private static string GetScheme(HttpContext context, string scheme) => scheme ?? context.RequestServices.GetService<IOptions<AuthenticationOptions>>().Value.DefaultScheme;
+
+        public async Task<string> SignInAsync(HttpContext context, UserId userId, string scheme = null)
         {
             ClaimsPrincipal principal = new ClaimsPrincipal();
             principal.SetUserId(userId);
@@ -66,22 +62,17 @@ namespace InnateGlory
             AuthenticationProperties properties = new AuthenticationProperties();
 
             context = context ?? _httpContextAccessor.HttpContext;
-            await context.SignInAsync(
-                scheme: scheme ?? this.SchemeName,
-                principal: principal,
-                properties: properties);
+            await context.SignInAsync(GetScheme(context, scheme), principal, properties);
 
             //properties.Parameters.TryGetValue(_Consts.UserManager.Ticket_SessionId, out object sessionId);
             principal.GetSessionId(out string sessionId);
             return await Task.FromResult(sessionId/* as string*/);
         }
 
-        public async Task SignOutAsync(HttpContext context = null)
+        public async Task SignOutAsync(HttpContext context, UserId userId, string scheme = null)
         {
             context = context ?? _httpContextAccessor.HttpContext;
-            await context.SignOutAsync(
-                scheme: this.SchemeName,
-                properties: null);
+            await context.SignOutAsync(GetScheme(context, scheme), null);
         }
 
         //public Task<string> SignInAsync(UserIdentity user, UserId userId, HttpContext context = null, string scheme = null)
@@ -110,7 +101,7 @@ namespace InnateGlory
         //        scheme: this.SchemeName,
         //        properties: null);
         //}
-        #region UserStore
+        //#region UserStore
 
         //private List<UserIdentity> _users = new List<UserIdentity>();
         //private TimeCounter _cleanup_timer = new TimeCounter();
@@ -208,7 +199,7 @@ namespace InnateGlory
         //    public UserStoreItem(UserIdentity user) { this.User = user; }
         //}
 
-        #endregion
+        //#endregion
 
         [AppSetting(SectionName = _Consts.UserManager.ConfigSection, Key = _Consts.UserManager.InternalApiServer), DefaultValue(false)]
         public bool InternalApiServer => _config.GetValue<bool>();
