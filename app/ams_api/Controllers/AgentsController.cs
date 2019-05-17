@@ -115,10 +115,11 @@ namespace InnateGlory.Controllers
 
         // agent tree root (webix)
         [HttpPost("tree_node/{include_root:bool}")]
-        public IEnumerable<webix.tree_node> tree_node([FromServices] DataService _data, [FromServices] UserIdentity _User, bool include_root = false)
+        public IEnumerable<webix.tree_node> tree_node([FromServices] DataService _data, bool include_root = false)
         {
+            UserId userId = HttpContext.User.GetUserId();
             List<webix.tree_node> tt = new List<webix.tree_node>();
-            var user = _data.Users.GetUser(_User.Id);
+            var user = _data.Users.GetUser(userId);
             if (user.CorpId.IsRoot)
             {
                 foreach (var c in _data.Corps.All)
@@ -142,11 +143,13 @@ namespace InnateGlory.Controllers
 
         // agent tree node (webix)
         [HttpPost("tree_node/{agentId}")]
-        public webix.tree_childs tree_node([FromServices] DataService _data, [FromServices] UserIdentity _User, UserId agentId)
+        public webix.tree_childs tree_node([FromServices] DataService _data, UserId agentId)
         {
             ModelState
                 .Valid(null, nameof(agentId), agentId)
                 .IsValid();
+
+            UserId userId = HttpContext.User.GetUserId();
 
             var n = _data.Agents.GetChilds(agentId);
             List<webix.tree_node> tt = new List<webix.tree_node>();

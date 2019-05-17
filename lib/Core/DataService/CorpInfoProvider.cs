@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -134,7 +135,7 @@ namespace InnateGlory
             if (this.Get(model.Name, out data))
                 return _null.noop(Status.CorpAlreadyExist, out result);
 
-            UserId op_user = _dataService.GetCurrentUser().Id;
+            UserId op_user = _dataService.GetHttpContext().User.GetUserId();// .GetCurrentUser().Id;
             var _sql = new SqlBuilder(typeof(Entity.CorpInfo))
             {
                 { "w", nameof(Entity.CorpInfo.Id)             , corpId},
@@ -162,7 +163,7 @@ namespace InnateGlory
 
         public Status Update(Models.CorpModel model, out Entity.CorpInfo result)
         {
-            UserId op_user = _dataService.GetCurrentUser().Id;
+            UserId op_user = _dataService.GetHttpContext().User.GetUserId();//.GetCurrentUser().Id;
 
             if (!this.Get(out var status, model.Id, model.Name, out result))
                 return status;
@@ -217,7 +218,7 @@ select * from {SqlBuilder.TableName} {sql_w}");
                 }
             }
 
-            UserId op_user = _dataService.GetCurrentUser().Id;
+            UserId op_user = _dataService.GetHttpContext().User.GetUserId();//.GetCurrentUser().Id;
 
             if (!_dataService.GetService<AclDataProvider>().HasPermission(corp, op_user))
             {

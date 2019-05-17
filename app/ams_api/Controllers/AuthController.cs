@@ -71,9 +71,9 @@ namespace InnateGlory.Controllers
         [HttpPost("logout")]
         public async Task<IApiResult> Logout([FromServices] UserManager userManager/*, [FromServices] amsUser user*/)
         {
-            var user = userManager.CurrentUser;
+            //var user = userManager.CurrentUser;
 
-            await user.SignOutAsync(HttpContext);
+            await userManager.SignOutAsync(HttpContext);
 
             return ApiResult.OK;
         }
@@ -113,15 +113,16 @@ namespace InnateGlory.Controllers
                 if (model.LoginMode == LoginMode.AuthOnly)
                     return new Models.LoginResult { UserId = userdata.Id };
 
-                var user = ds.CreateInstance<UserIdentity>(userdata);
+                var userManager = ds.GetService<UserManager>();
+                //var user = ds.CreateInstance<UserIdentity>(userdata);
                 if (model.LoginMode == LoginMode.UserToken)
                 {
-                    string sessionId = await user.SignInAsync(HttpContext, _Consts.UserManager.AccessTokenScheme);
+                    string sessionId = await userManager.SignInAsync(userdata.Id, HttpContext, _Consts.UserManager.AccessTokenScheme);
                     return new Models.LoginResult { UserId = userdata.Id, AccessToken = sessionId };
                 }
                 else
                 {
-                    await user.SignInAsync(HttpContext);
+                    await userManager.SignInAsync(userdata.Id, HttpContext);
                     return new Models.LoginResult { UserId = userdata.Id };
                 }
             }

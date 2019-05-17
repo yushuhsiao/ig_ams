@@ -38,29 +38,29 @@ namespace InnateGlory
 
 
 
-        public Task<string> SignInAsync(HttpContext context = null, string scheme = null)
-        {
-            ClaimsPrincipal principal = new ClaimsPrincipal();
-            var userStoreItem = _userManager.AddUserStoreItem(this, principal);
+        //public Task<string> SignInAsync(HttpContext context = null, string scheme = null)
+        //{
+        //    ClaimsPrincipal principal = new ClaimsPrincipal();
+        //    var userStoreItem = _userManager.AddUserStoreItem(this, principal);
 
-            AuthenticationProperties properties = new AuthenticationProperties();
+        //    AuthenticationProperties properties = new AuthenticationProperties();
 
-            //context = context ?? _httpContextAccessor.HttpContext;
-            context.SignInAsync(
-                scheme: scheme ?? _userManager.SchemeName,
-                principal: principal,
-                properties: properties);
+        //    //context = context ?? _httpContextAccessor.HttpContext;
+        //    context.SignInAsync(
+        //        scheme: scheme ?? _userManager.SchemeName,
+        //        principal: principal,
+        //        properties: properties);
 
-            properties.Parameters.TryGetValue(_Consts.UserManager.Ticket_SessionId, out object sessionId);
-            return Task.FromResult(sessionId as string);
-        }
+        //    properties.Parameters.TryGetValue(_Consts.UserManager.Ticket_SessionId, out object sessionId);
+        //    return Task.FromResult(sessionId as string);
+        //}
 
-        public Task SignOutAsync(HttpContext context = null)
-        {
-            context = context ?? _httpContextAccessor.HttpContext;
-            return context.SignOutAsync(
-                scheme: _userManager.SchemeName,
-                properties: null);
-        }
+        //public Task SignOutAsync(HttpContext context = null)
+        //{
+        //    context = context ?? _httpContextAccessor.HttpContext;
+        //    return context.SignOutAsync(
+        //        scheme: _userManager.SchemeName,
+        //        properties: null);
+        //}
     }
 }

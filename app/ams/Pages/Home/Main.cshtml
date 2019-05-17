@@ -1,12 +1,14 @@
 ﻿@*@page "/"*@
 @model InnateGlory.Pages.Home.MainModel
 @using InnateGlory.Models
-@inject UserIdentity user;
+@*@inject UserIdentity user;*@
 @inject RandomID rid
 @inject IViewLang menu
 @{
     lang.ResPath = "Main";
     menu.ResPath = "Menu";
+    UserId userId = this.User.GetUserId();
+    var userdata = _DataService.Users.GetUser(userId);
 }
 
 @section head {
@@ -23,8 +25,8 @@
         <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_left(false)"><i class="fa fa-bars"></i></div>
         <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_left(true) "><i class="fa fa-bars"></i></div>
         <div class="w-100"></div>
-        <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(2, false)"><i class="fa fa-user-alt"></i> @user.UserData.DisplayName</div>
-        <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_right(2, true) "><i class="fa fa-user-alt"></i> @user.UserData.DisplayName</div>
+        <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(2, false)"><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
+        <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_right(2, true) "><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
         <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(1, false)"><i class="fa fa-cogs"></i></div>
         <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_right(1, true) "><i class="fa fa-cogs"></i></div>
         <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(null, false)"><i class="fa fa-bars"></i></div>

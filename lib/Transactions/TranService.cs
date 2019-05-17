@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 
 namespace InnateGlory
 {
@@ -66,7 +67,7 @@ set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(
             decimal amount = (model.Amount1 ?? 0) + (model.Amount2 ?? 0) + (model.Amount3 ?? 0);
             if (amount == 0) return null;
 
-            UserId op_user = _dataService.GetCurrentUser().Id;
+            UserId op_user = _dataService.GetHttpContext().User.GetUserId();// .GetCurrentUser().Id;
             var _sql = new SqlBuilder(typeof(Entity.TranCorp1))
             {
                 { "w", nameof(Entity.TranCorp1.TranId)          , (SqlBuilder.Raw)"@TranId" },
@@ -100,7 +101,7 @@ declare @TranId uniqueidentifier set @TranId = newid()
         {
             SqlCmd userdb = null;
 
-            UserId op_user = _dataService.GetCurrentUser().Id;
+            UserId op_user = _dataService.GetHttpContext().User.GetUserId();// .GetCurrentUser().Id;
 
             data = data ?? FindTranData<Entity.TranCorp1>(op.TranId.Value, ref userdb, true);
 

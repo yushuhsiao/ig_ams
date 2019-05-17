@@ -73,7 +73,8 @@ namespace Microsoft.AspNetCore.Http
 
         private bool GetApiAuth(HttpRequest request, RequestHeaders headers, out ApiAuth result)
         {
-            var xx = _httpContext.RequestServices.GetCurrentUser();
+            //var xx = _httpContext.RequestServices.GetCurrentUser();
+            var xx = _httpContext.User.GetUserId();
             ;
             //bool is_internal;
             //if (request.Headers[_Consts.Api.Header2].ToString().ToBoolean(out is_internal) && is_internal)

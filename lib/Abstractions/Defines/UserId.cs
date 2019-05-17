@@ -118,15 +118,18 @@ namespace InnateGlory
 
         public static bool TryParse(string s, out UserId result)
         {
-            if (s.StartsWith("0x"))
+            if (!string.IsNullOrEmpty(s))
             {
-                try
+                if (s.StartsWith("0x"))
                 {
-                    long value = Convert.ToInt64(s, 16);
-                    result = (UserId)(Int64)value;
-                    return true;
+                    try
+                    {
+                        long value = Convert.ToInt64(s, 16);
+                        result = (UserId)(Int64)value;
+                        return true;
+                    }
+                    catch { }
                 }
-                catch { }
             }
             result = default(UserId);
             return false;

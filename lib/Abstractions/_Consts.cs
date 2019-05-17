@@ -44,11 +44,12 @@ namespace InnateGlory
             public const string TwoFactorUserIdScheme = CookiePrefix + ".TwoFactorUserId";
             public const string ApiAuthScheme = "ApiAuth";
             public const string AccessTokenScheme = "AccessToken";
-            public const string Ticket_SessionId = "Ticket_SessionId";
+            //public const string Ticket_SessionId = "Ticket_SessionId";
             public const string InternalApiServer = "InternalApiServer";
             public const string AUTH_INTERNAL = "IG-INTERNAL";
             public const string AUTH_USER = "IG-AUTH-USER";
             public const string AUTH_TOKEN = "IG-ACCESSTOKEN";
+            public const string AuthenticationType = ApplicationScheme;
         }
 
         public static class db

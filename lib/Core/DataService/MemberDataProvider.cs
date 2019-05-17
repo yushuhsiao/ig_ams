@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -21,7 +22,7 @@ namespace InnateGlory
         public Status Create(Models.MemberModel model, out Entity.Member result)
         {
             result = null;
-            UserId op_user = _dataService.GetCurrentUser().Id;
+            UserId op_user = _dataService.GetHttpContext().User.GetUserId();//.GetCurrentUser().Id;
 
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;

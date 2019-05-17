@@ -18,9 +18,8 @@ namespace InnateGlory
         //[DebuggerStepThrough] private static UserManager /**/ _UserManagerFactory(IServiceProvider services) => services.GetService<UserManager>();
         //[DebuggerStepThrough]
         //private static UserIdentity _CurrentUserFactory(IServiceProvider services) => services.GetService<UserManager>()?.CurrentUser;
-        public static HttpContext GetHttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>().HttpContext;
-        public static UserIdentity GetCurrentUser(this IServiceProvider services) => /***********/ services.GetService<UserManager>().GetCurrentUser(services.GetHttpContext());
-        public static UserIdentity GetCurrentUser(this HttpContext context) => /**/ context.RequestServices.GetService<UserManager>().GetCurrentUser(context);
+        //public static UserIdentity GetCurrentUser(this IServiceProvider services) => /***********/ services.GetService<UserManager>().GetCurrentUser(services.GetHttpContext());
+        //public static UserIdentity GetCurrentUser(this HttpContext context) => /**/ context.RequestServices.GetService<UserManager>().GetCurrentUser(context);
 
         public static IServiceCollection AddUserManager(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {
@@ -33,7 +32,7 @@ namespace InnateGlory
             services.AddHttpContextAccessor();
             services.AddSingleton<UserManager>();
             //services.AddSingleton<IUserManager>(_UserManagerFactory);
-            services.AddScoped(GetCurrentUser);
+            //services.AddScoped(GetCurrentUser);
             //services.AddScoped<IUser>(_CurrentUserFactory);
 
             services.Replace(ServiceDescriptor.Scoped<IAuthenticationService, _AuthenticationService>());
@@ -105,7 +104,7 @@ namespace InnateGlory
         private class _ConfigureCookie : IPostConfigureOptions<CookieAuthenticationOptions>
         {
             private IServiceProvider _services;
-         
+
             #region bind from appsettings.json
 
             public string CookieName { get; set; }
@@ -166,78 +165,101 @@ namespace InnateGlory
             }
         }
 
+        //class UserClaim : Claim
+        //{
+        //    public UserId UserId { get; }
 
+        //    public string SessionId { get; set; }
 
-        private const string UserIdClaim = "UserId";
+        //    public UserClaim(string type, UserId userid) : base(type, userid.ToString())
+        //    {
+        //        UserId = userid;
+        //    }
+        //}
+
 
         public static void SetUserId(this ClaimsPrincipal principal, UserId userId)
         {
-            if (principal == null) return;
-            string _id = userId.Id.ToString();
-            ClaimsIdentity identity = null;
-            foreach (var _identity in principal.Identities)
-            {
-                foreach (var claim in _identity.Claims)
-                {
-                    if (claim.Type == UserIdClaim)
-                    {
-                        if (claim.Value == _id)
-                            return;
-                        identity = _identity;
-                        identity.TryRemoveClaim(claim);
-                        break;
-                    }
-                }
-                if (identity != null)
-                    break;
-            }
-            if (identity == null)
-                principal.AddIdentity(identity = new ClaimsIdentity());
-            identity.AddClaim(new Claim(UserIdClaim, _id));
-        }
-        public static void SetUserId(this ClaimsIdentity identity, UserId userId)
-        {
-            if (identity == null) return;
-            string _id = userId.ToString();
-            foreach (var claim in identity.Claims)
-            {
-                if (claim.Type == UserIdClaim)
-                {
-                    if (claim.Value == _id)
-                        return;
-                    identity.TryRemoveClaim(claim);
-                    break;
-                }
-            }
-            identity.AddClaim(new Claim(UserIdClaim, _id));
+            principal.SetValue("_UserId", userId.ToString());
         }
 
         public static bool GetUserId(this ClaimsPrincipal principal, out UserId userId)
         {
-            if (principal != null)
-                foreach (var identity in principal.Identities)
-                    if (identity.GetUserId(out userId))
-                        return true;
+            if (principal.GetValue("_UserId", out var value))
+                return UserId.TryParse(value, out userId);
             return _null.noop(false, out userId);
         }
-        public static bool GetUserId(this ClaimsIdentity identity, out UserId userId)
+
+        public static UserId GetUserId(this ClaimsPrincipal principal)
         {
-            if (identity != null)
+            if (principal.GetUserId(out UserId userId))
+                return userId;
+            return UserId.Guest;
+        }
+
+        public static bool GetSessionId(this ClaimsPrincipal principal, out string sessionId)
+            => principal.GetValue("_SessionId", out sessionId);
+
+        public static void SetSessionId(this ClaimsPrincipal principal, string sessionId)
+            => principal.SetValue("_SessionId", sessionId);
+
+
+
+        private static bool GetValue(this ClaimsPrincipal principal, string type, out string value)
+        {
+            if (principal.GetIdentity(out var identity, create: false))
             {
                 foreach (var claim in identity.Claims)
                 {
-                    if (claim.Type == UserIdClaim && claim.Value.ToInt64(out long _userId))
+                    if (claim.Type == type)
                     {
-                        userId = _userId;
+                        value = claim.Value;
                         return true;
                     }
                 }
             }
-            return _null.noop(false, out userId);
+            return _null.noop(false, out value);
+        }
+        private static void SetValue(this ClaimsPrincipal principal, string type, string value)
+        {
+            if (principal.GetIdentity(out var identity, create: true))
+            {
+                foreach (var claim in identity.Claims)
+                {
+                    if (claim.Type == type)
+                    {
+                        if (claim.Value == value)
+                            return;
+                        identity.TryRemoveClaim(claim);
+                        break;
+                    }
+                }
+                identity.AddClaim(new Claim(type, value));
+            }
+        }
+
+
+        private static bool GetIdentity(this ClaimsPrincipal principal, out ClaimsIdentity result, bool create = false)
+            => GetIdentity(principal, _Consts.UserManager.AuthenticationType, out result, create);
+        private static bool GetIdentity(this ClaimsPrincipal principal, string authenticationType, out ClaimsIdentity result, bool create = false)
+        {
+            if (principal != null)
+            {
+                foreach (var identity in principal.Identities)
+                {
+                    if (identity.AuthenticationType == authenticationType)
+                    {
+                        result = identity;
+                        return true;
+                    }
+                }
+                if (create)
+                {
+                    principal.AddIdentity(result = new ClaimsIdentity(authenticationType));
+                    return true;
+                }
+            }
+            return _null.noop(false, out result);
         }
     }
-
-
-
 }
-

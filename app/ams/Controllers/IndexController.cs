@@ -10,9 +10,10 @@ namespace ams.Controllers
     public class IndexController : Controller
     {
         [HttpGet("/")]
-        public IActionResult Index([FromServices] UserIdentity user)
+        public IActionResult Index(/*[FromServices] UserIdentity user*/)
         {
-            if (user.Id.IsGuest)
+            UserId userId = HttpContext.User.GetUserId();
+            if (userId.IsGuest)
                 return View("/Pages/Home/Login.cshtml");
             else
                 return View("/Pages/Home/Main.cshtml");

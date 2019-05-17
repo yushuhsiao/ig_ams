@@ -9,7 +9,8 @@ namespace Microsoft.AspNetCore.Authentication
 {
     public static class JsonTicketSerializer
     {
-        public static TicketSerializer TicketSerializer => TicketSerializer.Default;
+        public static TicketSerializer Default => TicketSerializer.Default;
+
         static JsonTicketSerializer()
         {
             JsonContract contract;

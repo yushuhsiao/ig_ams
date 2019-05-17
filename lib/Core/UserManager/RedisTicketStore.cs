@@ -10,12 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
+using System.Threading;
 
 namespace InnateGlory
 {
     internal class RedisTicketStore : ITicketStore
     {
-        private struct _TicketData
+        private class _TicketData
         {
             public AuthenticationTicket Ticket { get; set; }
             public RedisValue json { get; set; }
@@ -28,7 +29,7 @@ namespace InnateGlory
                 {
                     data = new _TicketData();
                     data.Ticket = ticket;
-                    data.bin = JsonTicketSerializer.TicketSerializer.Serialize(data.Ticket);
+                    data.bin = JsonTicketSerializer.Default.Serialize(data.Ticket);
                     data.base64 = Convert.ToBase64String(data.bin);
                     data.json = JsonHelper.SerializeObject(data.Ticket, formatting: Formatting.Indented);
                     return true;
@@ -44,7 +45,7 @@ namespace InnateGlory
                     data = new _TicketData();
                     data.base64 = base64;
                     data.bin = Convert.FromBase64String(base64);
-                    data.Ticket = JsonTicketSerializer.TicketSerializer.Deserialize(data.bin);
+                    data.Ticket = JsonTicketSerializer.Default.Deserialize(data.bin);
                     data.json = JsonHelper.SerializeObject(data.Ticket);
                     return true;
                 }
@@ -80,6 +81,10 @@ namespace InnateGlory
 
         #region redis
 
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.Redis_Key2)]
+        private string RedisConfiguration() => _config.GetValue<string>();
+
+        private bool _redis_busy = false;
         private IDatabase _redis;
 
         private IDatabase GetRedis()
@@ -93,31 +98,47 @@ namespace InnateGlory
             }
         }
 
-        //[SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.UserManager.Redis_Key2)]
-        //private string RedisConfiguration() => _config.GetValue<string>();
+        private async Task<IDatabase> GetRedisAsync()
+        {
+            IDatabase _redis;
+            for (; ; await Task.Delay(1))
+            {
+                lock (this)
+                {
+                    if (_redis_busy == false)
+                    {
+                        _redis = this._redis;
+                        _redis_busy = true;
+                        break;
+                    }
+                }
+            }
+            if (_redis == null)
+            {
+                var config = RedisConfiguration();
+                _redis = (await ConnectionMultiplexer.ConnectAsync(config)).GetDatabase();
+                lock (this) this._redis = _redis;
+            }
+            return await Task.FromResult(_redis);
+        }
 
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.Redis_Key2)]
-        private string RedisConfiguration() => _config.GetValue<string>();
+        private void ReleaseRedis()
+        {
+            lock (this) _redis_busy = false;
+        }
 
         private void OnRedisError(Exception ex)
         {
             _logger.Log(LogLevel.Error, 0, null, ex); //_logger.LogError(ex, null);
             lock (this)
+            {
                 using (_redis?.Multiplexer)
                     _redis = null;
+                ReleaseRedis();
+            }
         }
 
         #endregion
-
-        Task ITicketStore.RemoveAsync(string key) { this._Remove(key); return Task.CompletedTask; }
-
-        Task ITicketStore.RenewAsync(string key, AuthenticationTicket ticket) { this._Store(ticket, key); return Task.CompletedTask; }
-
-        Task<AuthenticationTicket> ITicketStore.RetrieveAsync(string key) => Task.FromResult(this._Retrieve(key));
-
-        Task<string> ITicketStore.StoreAsync(AuthenticationTicket ticket) => Task.FromResult(this._Store(ticket, null));
-
-
 
         private RedisKey make_keyA(string key, AuthenticationTicket ticket) => $"{ticket?.AuthenticationScheme ?? this.SchemeName}:A_{key}";
 
@@ -125,17 +146,27 @@ namespace InnateGlory
 
 
 
-        private void _Remove(string key)
+        async Task ITicketStore.RemoveAsync(string key) => await this._RemoveAsync(key);
+
+        async Task ITicketStore.RenewAsync(string key, AuthenticationTicket ticket) => await this._StoreAsync(key, ticket);
+
+        async Task<AuthenticationTicket> ITicketStore.RetrieveAsync(string key) => await this._RetrieveAsync(key);
+
+        async Task<string> ITicketStore.StoreAsync(AuthenticationTicket ticket) => await this._StoreAsync(null, ticket);
+
+
+
+        private async Task _RemoveAsync(string key)
         {
             try
             {
                 this._tickets.TryRemove(key, syncLock: true);
-                var redis = this.GetRedis();
-                lock (redis)
-                {
-                    redis.KeyDelete(make_keyA(key, null));
-                    redis.KeyDelete(make_keyB(key, null));
-                }
+                var keyA = make_keyA(key, null);
+                var keyB = make_keyB(key, null);
+                var redis = await this.GetRedisAsync();
+                await redis.KeyDeleteAsync(keyA);
+                await redis.KeyDeleteAsync(keyB);
+                ReleaseRedis();
             }
             catch (Exception ex)
             {
@@ -143,73 +174,63 @@ namespace InnateGlory
             }
         }
 
-        private AuthenticationTicket _Retrieve(string key)
+        private async Task<AuthenticationTicket> _RetrieveAsync(string key)
         {
-            _TicketData ticket2 = this._tickets.GetValue(key, syncLock: true);
-            RedisValue base64;
             try
             {
-                var redis = this.GetRedis();
-                lock (redis)
-                    base64 = redis.StringGet(make_keyA(key, null));
-            }
-            catch (Exception ex)
-            {
-                this.OnRedisError(ex);
-                base64 = default(RedisValue);
-            }
+                var keyA = make_keyA(key, null);
+                var redis = await this.GetRedisAsync();
+                RedisValue base64 = await redis.StringGetAsync(keyA);
+                ReleaseRedis();
 
-            try
-            {
                 if (base64.HasValue)
                 {
-                    if (base64 == ticket2.base64)
-                    {
-                        _userManager.GetUserStoreItem(ticket2.Ticket.Principal, create: true).Timer.Reset();
+                    _TicketData ticket2 = this._tickets.GetValue(key, syncLock: true);
+                    if (ticket2 != null && base64 == ticket2.base64)
                         return ticket2.Ticket;
-                    }
 
                     if (_TicketData.Deserialize(base64, out _TicketData ticket1))
                     {
-                        if (_userManager.GetUserStoreItem(ticket1.Ticket.Principal, out var user, create: true))
+                        if (ticket1.Ticket.Principal.GetUserId(out UserId userId))
                         {
-                            user.Timer.Reset();
                             this._tickets.SetValue(key, ticket1);
                             return ticket1.Ticket;
                         }
                         else _logger.Log(LogLevel.Information, 0, "Invalid ticket data, UserId not found.");
                     }
                     else _logger.Log(LogLevel.Information, 0, "Deserialize ticket failed.");
+                    await _RemoveAsync(key);
                 }
                 else _logger.Log(LogLevel.Information, 0, $@"Ticket ""{key}"" not found."); // timeout or deleted (kicked)
             }
-            catch { }
-            _Remove(key);
+            catch (Exception ex)
+            {
+                this.OnRedisError(ex);
+            }
             return null;
         }
 
-        private string _Store(AuthenticationTicket ticket, string original_key)
+        private async Task<string> _StoreAsync(string original_key, AuthenticationTicket ticket)
         {
             //if (ticket.AuthenticationScheme == this.SchemeName)
             {
                 if (ticket.Principal.GetUserId(out UserId userId))
                 {
                     string key = original_key ?? Guid.NewGuid().ToString("N");
-                    ticket.Properties.Parameters[_Consts.UserManager.Ticket_SessionId] = key;
+                    ticket.Principal.SetSessionId(key);
+                    //ticket.Properties.Parameters[_Consts.UserManager.Ticket_SessionId] = key;
                     if (_TicketData.Serialize(ticket, out var data))
                     {
                         try
                         {
                             RedisKey keyA = make_keyA(key, ticket);
                             RedisKey keyB = make_keyB(key, ticket);
-                            var redis = this.GetRedis();
-                            lock (redis)
-                            {
-                                redis.StringSet(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
-                                redis.StringSet(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
-                            }
+                            var redis = await this.GetRedisAsync();
+                            await redis.StringSetAsync(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
+                            await redis.StringSetAsync(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
+                            ReleaseRedis();
                             this._tickets.SetValue(key, data, syncLock: true);
-                            _userManager.GetUserStoreItem(userId, create: true)?.Timer.Reset();
+                            //_userManager.GetUserStoreItem(userId, create: true)?.Timer.Reset();
                             return key;
                         }
                         catch (Exception ex)
@@ -217,11 +238,9 @@ namespace InnateGlory
                             this.OnRedisError(ex);
                         }
                     }
-                    else
-                        _logger.Log(LogLevel.Information, 0, "ticket serialize");
+                    else _logger.Log(LogLevel.Information, 0, "ticket serialize");
                 }
-                else
-                    _logger.Log(LogLevel.Information, 0, "Invalid ticket data, UserId not found.");
+                else _logger.Log(LogLevel.Information, 0, "Invalid ticket data, UserId not found.");
             }
             return original_key;
         }
