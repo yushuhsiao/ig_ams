@@ -66,39 +66,43 @@ namespace InnateGlory
 
         public override bool TryGet(string key, out string value)
         {
-            int t = Thread.CurrentThread.ManagedThreadId;
-            lock (_busy)
+            if (Monitor.TryEnter(this))
             {
-                if (_busy.Contains(t))
-                    goto _exit;
-                else
-                    _busy.Add(t);
-            }
-            try
-            {
-                if (Monitor.TryEnter(this))
+                int t = Thread.CurrentThread.ManagedThreadId;
+                try
                 {
+                    if (_busy.Contains(t))
+                        return base.TryGet(key, out value);
+                    _busy.Add(t);
+
                     try
                     {
                         if (_service == null)
-                            goto _exit;
+                            return base.TryGet(key, out value);
 
                         if (_read_count == 0)
-                            goto _read;
+                            return this.TryGet(true, key, out value);
 
                         if (_timer1.IsTimeout(ExpireTime))
-                            goto _read;
+                            return this.TryGet(false, key, out value);
+
+                        if (_dbcache.GetValues(out var tmp)) // redis has change
+                            return this.TryGet(false, key, out value);
+
+                        return base.TryGet(key, out value);
                     }
-                    finally { Monitor.Exit(this); }
-
-                    if (_dbcache.GetValues(out var tmp)) // check redis
-                        goto _read;
+                    finally { _busy.RemoveAll(t); }
                 }
-                goto _exit;
+                finally { Monitor.Exit(this); }
+            }
+            value = null;
+            return false;
+        }
 
-            _read:
-                if (!_timer2.IsTimeout(100, true))
-                    goto _exit;
+        private bool TryGet(bool force, string key, out string value)
+        {
+            if (force || _timer2.IsTimeout(100, true))
+            {
                 try
                 {
                     string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0";
@@ -108,17 +112,13 @@ namespace InnateGlory
                         null))
                     {
                         var rows = conn.Query<Entity.Config>(sql);
-                        lock (base.Data)
-                        {
-                            base.Data.Clear();
-                            foreach (var row in rows)
-                                base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
-                            _read_count++;
-                            _timer1.Reset();
-                            _timer2.Reset();
-                            _logger.LogInformation("Reload configure...");
-                            return base.TryGet(key, out value);
-                        }
+                        base.Data.Clear();
+                        foreach (var row in rows)
+                            base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
+                        _read_count++;
+                        _timer1.Reset();
+                        _timer2.Reset();
+                        _logger.LogInformation("Reload configure...");
                     }
                 }
                 catch (Exception ex)
@@ -126,14 +126,7 @@ namespace InnateGlory
                     _logger.LogError(ex, ex.Message);
                 }
             }
-            finally
-            {
-                lock (_busy)
-                    _busy.RemoveAll(t);
-            }
-        _exit:
-            lock (base.Data)
-                return base.TryGet(key, out value);
+            return base.TryGet(key, out value);
         }
     }
     //public class SqlAppSettingsConfigurationProvider : ConfigurationProvider//IConfigurationProvider

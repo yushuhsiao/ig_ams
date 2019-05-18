@@ -26,32 +26,32 @@ namespace InnateGlory.Entity
         [DbImport]
         public string Description { get; set; }
 
-        private string json => Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        //private string json => Newtonsoft.Json.JsonConvert.SerializeObject(this);
 
-        private object[] _values;
-        public bool GetValueAs<TValue>(out TValue result)
-        {
-            object[] values = Interlocked.CompareExchange(ref this._values, null, null);
-            int len = values?.Length ?? 0;
-            for (int i = 0; i < len; i++)
-            {
-                object value = values[i];
-                if (value == null)
-                    continue;
-                else if (value is TValue)
-                {
-                    result = (TValue)value;
-                    return true;
-                }
-            }
+        //private object[] _values;
+        //public bool GetValueAs<TValue>(out TValue result)
+        //{
+        //    object[] values = Interlocked.CompareExchange(ref this._values, null, null);
+        //    int len = values?.Length ?? 0;
+        //    for (int i = 0; i < len; i++)
+        //    {
+        //        object value = values[i];
+        //        if (value == null)
+        //            continue;
+        //        else if (value is TValue)
+        //        {
+        //            result = (TValue)value;
+        //            return true;
+        //        }
+        //    }
 
-            if (_Convert.ConvertTo(this.Value, out result))
-            {
-                Interlocked.Exchange(ref this._values, (values ?? new object[0]).Add(result));
-                return true;
-            }
-            return _null.noop(false, out result);
-        }
+        //    if (_Convert.ConvertTo(this.Value, out result))
+        //    {
+        //        Interlocked.Exchange(ref this._values, (values ?? new object[0]).Add(result));
+        //        return true;
+        //    }
+        //    return _null.noop(false, out result);
+        //}
     }
 }
 namespace InnateGlory.Models

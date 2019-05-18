@@ -578,6 +578,7 @@ namespace InnateGlory
         [DebuggerStepThrough]
         public TValue[] GetValues(ReadDataHandler readData = null, int index = 0) => this[index].GetValues(readData);
 
+        /// <returns>value has change</returns>
         [DebuggerStepThrough]
         public bool GetValues(out TValue[] result, ReadDataHandler readData = null, int index = 0) => this[index].GetValues(out result, readData);
 

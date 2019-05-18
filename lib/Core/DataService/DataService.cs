@@ -23,6 +23,8 @@ namespace InnateGlory
             _config = services.GetService<IConfiguration<DataService>>();
             _sqlConfig = services.GetService<ISqlConfig<DataService>>();
             //_config2 = services.GetSqlConfig(this);
+
+            IConfiguration c;
         }
 
         private Dictionary<Type, object> _instances = new Dictionary<Type, object>();

@@ -24,33 +24,25 @@ namespace InnateGlory
 
             private _Section GetRoot(CorpId corpId) => _sqlConfig._cache[corpId].GetFirstValue();
 
-            private string[] make_sections(PlatformId? platformId) => new string[] { $"{platformId ?? 0}" };
-
-            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string name, PlatformId? platformId)
+            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string name)
                 => GetRoot(corpId).GetValue<TCallerType, TValue>(
-                    parent_sections: make_sections(platformId),
                     section: null,
                     key: null,
                     name: name,
-                    //index: new object[] { corpId, platformId }
                     defaultValue: default(TValue));
 
-            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string key1, string key2, string name, PlatformId? platformId)
+            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string key1, string key2, string name)
                 => GetRoot(corpId).GetValue<TCallerType, TValue>(
-                    parent_sections: make_sections(platformId),
                     section: key1,
                     key: key2,
                     name: name,
-                    //index: new object[] { corpId, platformId }
                     defaultValue: default(TValue));
 
-            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, TValue defaultValue, string key1, string key2, string name, PlatformId? platformId)
+            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, TValue defaultValue, string key1, string key2, string name)
                 => GetRoot(corpId).GetValue<TCallerType, TValue>(
-                    parent_sections: make_sections(platformId),
                     section: key1,
                     key: key2,
                     name: name,
-                    //index: new object[] { corpId, platformId }
                     defaultValue: defaultValue);
         }
 
@@ -75,7 +67,7 @@ namespace InnateGlory
                 {
                     Entity.Config row = r.ToObject<Entity.Config>();
                     _root
-                        .GetSection(row.PlatformId.ToString(), true)
+                        //.GetSection(row.PlatformId.ToString(), true)
                         .GetSection(row.Key1, true)
                         .SetData(row);
                 }

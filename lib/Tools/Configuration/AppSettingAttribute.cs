@@ -15,7 +15,7 @@ namespace Microsoft.Extensions.Configuration
         public AppSettingAttribute(string key) : this(null, key) { }
         public AppSettingAttribute(string sectionName, string key) { this.SectionName = sectionName; this.Key = key; }
 
-        bool IAppSettingAttribute.GetValue(out string result, IConfiguration configuration, string section, string key,  params object[] index)
+        bool IAppSettingAttribute.GetValue(out string result, IConfiguration configuration, string section, string key, params object[] index)
         {
             result = null;
             if (configuration == null)
@@ -24,24 +24,27 @@ namespace Microsoft.Extensions.Configuration
             //section = section ?? this.SectionName;
             if (string.IsNullOrEmpty(key))
                 return false;
+
             if (string.IsNullOrEmpty(section))
-                result = configuration[key];
+                result = configuration.GetSection(key)?.Value;
             else
-            {
-                //IConfigurationSection _section;
-                //string[] sections = section.Split('.');
-                //_section = configuration.GetSection(sections[0]);
-                //for (int i = 1; i < sections.Length; i++)
-                //    _section = _section?.GetSection(sections[i]);
-                //result = _section?[key];
-                var _section = configuration.GetSection(section);
-                result = _section?[key];
-            }
+                result = configuration.GetSection(section)?.GetSection(key)?.Value;
+            //else
+            //{
+            //    //IConfigurationSection _section;
+            //    //string[] sections = section.Split('.');
+            //    //_section = configuration.GetSection(sections[0]);
+            //    //for (int i = 1; i < sections.Length; i++)
+            //    //    _section = _section?.GetSection(sections[i]);
+            //    //result = _section?[key];
+            //    var _section = configuration.GetSection(section);
+            //    result = _section?[key];
+            //}
             return !string.IsNullOrEmpty(result);
         }
 
-        bool IAppSettingAttribute.GetValue<TValue>(out TValue result, IConfiguration configuration, string section, string key, params object[] index)
-            => _null.noop(false, out result);
+        //bool IAppSettingAttribute.GetValue<TValue>(out TValue result, IConfiguration configuration, string section, string key, params object[] index)
+        //    => _null.noop(false, out result);
         //#if NET461 || NETCORE
 
         //        public static bool GetValue(string section, string key, out string result, params object[] index)

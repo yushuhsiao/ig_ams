@@ -41,17 +41,17 @@ namespace InnateGlory
             return _null.noop(false, out result);
         }
 
-        bool IAppSettingAttribute.GetValue<TValue>(out TValue result, IConfiguration configuration, string section, string key, params object[] index)
-        {
-            if (GetSection(configuration, section, out var obj))
-            {
-                if (obj.GetData(key, out var data))
-                {
-                    return data.GetValueAs(out result);
-                }
-            }
-            return _null.noop(false, out result);
-        }
+        //bool IAppSettingAttribute.GetValue<TValue>(out TValue result, IConfiguration configuration, string section, string key, params object[] index)
+        //{
+        //    if (GetSection(configuration, section, out var obj))
+        //    {
+        //        if (obj.GetData(key, out var data))
+        //        {
+        //            return data.GetValueAs(out result);
+        //        }
+        //    }
+        //    return _null.noop(false, out result);
+        //}
     }
 
     //[AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
