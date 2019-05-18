@@ -14,10 +14,10 @@ namespace System.Data.SqlClient
             Action<object, IDisposable> registerForDispose)
             where TConnection : IDbConnection
         {
-            services.AddSingleton(new db<TConnection>._GetState()
+            services.AddSingleton(new db<TConnection>.GetStateContainer()
             {
-                CreateConnection = createConnection ?? _null.noop<DbConnectionString, TConnection>,
-                GetSate = getState ?? _null.noop<IServiceProvider, object>,
+                CreateConnection = createConnection,
+                GetState = getState ?? _null.noop<IServiceProvider, object>,
                 RegisterForDispose = registerForDispose ?? _null.noop<object, IDisposable>
             });
             return services;
@@ -32,7 +32,7 @@ namespace System.Data.SqlClient
 
                 public object state { get; set; }
 
-                public static Pooling GetInstance(object state, bool create, _GetState getState)
+                public static Pooling GetInstance(object state, bool create, GetStateContainer getState)
                 {
                     if (state == null)
                         return null;
@@ -123,21 +123,49 @@ namespace System.Data.SqlClient
                 }
             }
 
-            public class _GetState
+            public class GetStateContainer
             {
                 public Func<DbConnectionString, TDbConnection> CreateConnection { get; set; }
-                public Func<IServiceProvider, object> GetSate { get; set; }
+                public Func<IServiceProvider, object> GetState { get; set; }
                 public Action<object, IDisposable> RegisterForDispose { get; set; }
             }
 
-            public static IDbConnection OpenDbConnection(DbConnectionString cn, IServiceProvider services, object state)
+            private static TDbConnection CreateConnection(DbConnectionString cn, Func<DbConnectionString, TDbConnection> createConnection, GetStateContainer getState)
+            {
+                if (createConnection != null)
+                {
+                    try
+                    {
+                        TDbConnection result = createConnection(cn);
+                        if (result != null)
+                            return result;
+                    }
+                    catch { }
+                }
+                if (getState != null && getState.CreateConnection != null)
+                {
+                    try
+                    {
+                        return getState.CreateConnection(cn);
+                    }
+                    catch { }
+                }
+                return default(TDbConnection);
+            }
+
+            public static IDbConnection OpenDbConnection(
+                DbConnectionString cn,
+                Func<DbConnectionString, TDbConnection> createConnection,
+                IServiceProvider services,
+                object state)
             {
                 if (services == null)
                     return null;
-                _GetState getState = services.GetService<_GetState>();
-                state = state ?? getState.GetSate(services);
+
+                GetStateContainer getState = services.GetService<GetStateContainer>();
+                state = state ?? getState.GetState(services);
                 if (state == null)
-                    return getState.CreateConnection(cn);
+                    return CreateConnection(cn, createConnection, getState);
 
                 var p = Pooling.GetInstance(state, true, getState);
                 lock (p)
@@ -146,7 +174,8 @@ namespace System.Data.SqlClient
                         if (c.ConnectionString == cn)
                             return c;
 
-                    var result = new PoolingConnection(p, getState.CreateConnection(cn));
+                    TDbConnection connection = CreateConnection(cn, createConnection, getState);
+                    var result = new PoolingConnection(p, connection);
                     p.Add(result);
                     return result;
                 }
@@ -161,10 +190,20 @@ namespace System.Data.SqlClient
 
         }
 
-        public static IDbConnection OpenDbConnection<TConnection>(this DbConnectionString c, IServiceProvider services, object state = null) where TConnection : IDbConnection
-            => db<TConnection>.OpenDbConnection(c, services, state);
+        public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
+            Func<DbConnectionString, TDbConnection> createConnection,
+            IServiceProvider services,
+            object state = null)
+            where TDbConnection : IDbConnection
+            => db<TDbConnection>.OpenDbConnection(cn, createConnection, services, state);
 
-        public static void Release<TConnection>(object state) where TConnection : IDbConnection
-            => db<TConnection>.Release(state);
+        public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
+            IServiceProvider services,
+            object state = null)
+            where TDbConnection : IDbConnection
+            => db<TDbConnection>.OpenDbConnection(cn, null, services, state);
+
+        public static void Release<TDbConnection>(object state) where TDbConnection : IDbConnection
+            => db<TDbConnection>.Release(state);
     }
 }

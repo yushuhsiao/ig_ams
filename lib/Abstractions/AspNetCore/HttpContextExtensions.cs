@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Microsoft.AspNetCore.Http
 {
@@ -80,6 +81,7 @@ namespace Microsoft.AspNetCore.Http
 
         }
 
+        [DebuggerStepThrough]
         public static HttpContext GetHttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>()?.HttpContext;
     }
 }

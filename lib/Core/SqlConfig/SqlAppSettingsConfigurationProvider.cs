@@ -22,7 +22,6 @@ namespace InnateGlory
         private ILogger _logger;
         private TimeCounter _timer1 = new TimeCounter(false);
         private TimeCounter _timer2 = new TimeCounter(false);
-        private TimeCounter _timer3 = new TimeCounter(false);
         private int _read_count = 0;
         private List<int> _busy = new List<int>();
         private DbCache<Entity.Config> _dbcache;
@@ -56,28 +55,11 @@ namespace InnateGlory
 
         private IEnumerable<Entity.Config> ReadData(DbCache<Entity.Config>.Entry sender, Entity.Config[] oldValue)
         {
-            var connStr = CoreDB_R;
-            IDbConnection conn = connStr.OpenDbConnection<SqlConnection>(_service, null);
-            if (conn == null)
-                conn = new SqlConnection(connStr);
-            string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0";
-            using (conn)
-            {
-                var rows = conn.Query<Entity.Config>(sql);
-                base.Data.Clear();
-                foreach (var row in rows)
-                    base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
-                _read_count++;
-                _timer1.Reset();
-                _timer2.Reset();
-                _timer3.Reset();
-                _logger.LogInformation("Reload configure...");
-                return rows;
-            }
+            yield break;
         }
 
         [AppSetting(SectionName = "Config", Key = "ExpireTime"), DefaultValue(5 * 60 * 1000)]
-        private double ExpireTime => _config.GetValue<double>();
+        private double ExpireTime => Math.Max(1000, _config.GetValue<double>());
 
         [AppSetting(SectionName = AppSettingAttribute.ConnectionStrings, Key = _Consts.db.CoreDB_R), DefaultValue(_Consts.db.CoreDB_Default)]
         private DbConnectionString CoreDB_R => _config.GetValue<DbConnectionString>();
@@ -94,54 +76,54 @@ namespace InnateGlory
             }
             try
             {
-                lock (this)
+                if (Monitor.TryEnter(this))
                 {
-                    if (_service == null)
-                        goto _exit;
+                    try
+                    {
+                        if (_service == null)
+                            goto _exit;
 
-                    if (_read_count == 0)
+                        if (_read_count == 0)
+                            goto _read;
+
+                        if (_timer1.IsTimeout(ExpireTime))
+                            goto _read;
+                    }
+                    finally { Monitor.Exit(this); }
+
+                    if (_dbcache.GetValues(out var tmp)) // check redis
                         goto _read;
-
-                    var timeout = Math.Max(ExpireTime, 1000);
-
-                    if (_timer1.IsTimeout(timeout))
-                        goto _read;
-
-                    if (_timer3.IsTimeout(5000, true))
-                        goto _read;
-
                 }
                 goto _exit;
 
             _read:
-                if (_timer2.IsTimeout(100, true))
+                if (!_timer2.IsTimeout(100, true))
+                    goto _exit;
+                try
                 {
-                    try
+                    string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0";
+                    using (IDbConnection conn = CoreDB_R.OpenDbConnection(
+                        _connStr => new SqlConnection(_connStr),
+                        _service,
+                        null))
                     {
-                        var nn = _dbcache.GetValues();
-                        //var connStr = CoreDB_R;
-                        //IDbConnection conn = connStr.OpenDbConnection<SqlConnection>(_service, null);
-                        //if (conn == null)
-                        //    conn = new SqlConnection(connStr);
-                        //string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0";
-                        //lock (this)
-                        //{
-                        //    using (conn)
-                        //    {
-                        //        var rows = conn.Query<Entity.Config>(sql);
-                        //        base.Data.Clear();
-                        //        foreach (var row in rows)
-                        //            base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
-                        //        _read_count++;
-                        //        _timer1.Reset();
-                        //        _timer2.Reset();
-                        //    }
-                        //}
+                        var rows = conn.Query<Entity.Config>(sql);
+                        lock (base.Data)
+                        {
+                            base.Data.Clear();
+                            foreach (var row in rows)
+                                base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;
+                            _read_count++;
+                            _timer1.Reset();
+                            _timer2.Reset();
+                            _logger.LogInformation("Reload configure...");
+                            return base.TryGet(key, out value);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, ex.Message);
                 }
             }
             finally
@@ -150,9 +132,8 @@ namespace InnateGlory
                     _busy.RemoveAll(t);
             }
         _exit:
-            if (base.TryGet(key, out value))
-                return true;
-            return false;
+            lock (base.Data)
+                return base.TryGet(key, out value);
         }
     }
     //public class SqlAppSettingsConfigurationProvider : ConfigurationProvider//IConfigurationProvider

@@ -363,7 +363,7 @@ namespace InnateGlory
 
             public TValue GetFirstValue(ReadDataHandler readData = null)
             {
-                TValue[] values = this.GetValues(readData);
+                GetValues(out var values, readData);
                 if (values == null) return default(TValue);
                 if (values.Length == 0) return default(TValue);
                 return values[0];
@@ -371,28 +371,31 @@ namespace InnateGlory
 
             public TValue[] GetValues(ReadDataHandler readData = null)
             {
-                if (Monitor.TryEnter(timer1) == false)
-                {
-                    for (; Monitor.TryEnter(timer1) == false;)
-                        Thread.Sleep(10);
-                    try { return this._values; }
-                    finally { Monitor.Exit(timer1); }
-                }
+                GetValues(out var values, readData);
+                return values;
+            }
 
-                TValue[] oldValue = this._values;
+            public bool GetValues(out TValue[] result, ReadDataHandler readData = null)
+            {
+                TValue[] oldValue = Interlocked.CompareExchange(ref this._values, null, null);
+                result = oldValue;
+                if (Monitor.TryEnter(timer1) == false)
+                    return false;
+
                 try
                 {
                     var isBusy = Interlocked.CompareExchange(ref this._busy, this, null) != null;
                     if (isBusy)
-                        return oldValue;
+                    {
+                        result = null;
+                        return false;
+                    }
 
                     try
                     {
-                        //isBusy = true;
-
                         if (oldValue == null)
                         {
-                            this._values = oldValue = new TValue[0];
+                            oldValue = new TValue[0];
                             goto _read;
                         }
 
@@ -409,15 +412,16 @@ namespace InnateGlory
 
                             timer2.Reset();
                         }
-                        return oldValue;
+                        return false;
 
                     _read:
                         try
                         {
                             this.IsReading = true;
                             if (!Parent.Root.ReadData(this, oldValue, out TValue[] newValue, readData ?? Parent.ReadData/*, readData2 ?? Parent.ReadData2*/))
-                                return oldValue;
-                            this._values = newValue;
+                                return false;
+                            result = newValue;
+                            Interlocked.Exchange(ref this._values, newValue);
                             Parent.Root.SqlGetVersion(this, out long version);
                             this.Version = version;
                             Parent.Root.RedisSetVersion(this, version);
@@ -432,7 +436,7 @@ namespace InnateGlory
                             }
                             timer2.Reset();
                             timer1.Reset();
-                            return newValue;
+                            return true;
                         }
                         finally
                         {
@@ -442,7 +446,6 @@ namespace InnateGlory
                     finally
                     {
                         Interlocked.Exchange(ref this._busy, null);
-                        isBusy = false;
                     }
                 }
                 finally
@@ -450,171 +453,6 @@ namespace InnateGlory
                     Monitor.Exit(timer1);
                 }
             }
-
-            //public TValue[] GetValues2(ReadDataHandler readData = null)
-            //{
-            //    TValue[] oldValue;
-            //    lock (timer2)
-            //    {
-            //        oldValue = this._values;
-            //        if (oldValue == null)
-            //            this._values = new TValue[0];
-
-            //        if (isBusy)
-            //            return oldValue;
-            //        else
-            //            isBusy = true;
-            //    }
-            //    try
-            //    {
-            //        if (oldValue == null)
-            //            goto _read;
-
-            //        if (timer1.IsTimeout(Parent.Timeout, reset: false))
-            //            goto _read;
-
-            //        if (timer2.IsTimeout(Parent.RedisInterval, false))
-            //        {
-            //            if (!Parent.Root.RedisGetVersion(this, out long version))
-            //                goto _read;
-
-            //            if (version != this.Version)
-            //                goto _read;
-
-            //            timer2.Reset();
-            //        }
-            //        return oldValue;
-
-            //    _read:
-            //        try
-            //        {
-            //            lock (timer2)
-            //            {
-            //                isReading = true;
-            //            }
-            //            if (Parent.Root.ReadData(this, oldValue, out TValue[] newValue, readData ?? Parent.ReadData/*, readData2 ?? Parent.ReadData2*/))
-            //            {
-            //                lock (timer2)
-            //                {
-            //                    this._values = newValue;
-            //                }
-
-            //                Parent.Root.SqlGetVersion(this, out long version);
-            //                this.Version = version;
-            //                Parent.Root.RedisSetVersion(this, version);
-            //                oldValue = oldValue ?? _null<TValue>.array;
-            //                //ReadOnlyCollection<TValue> n = newValue.AsReadOnly();
-            //                for (int i = 0; i < oldValue.Length; i++)
-            //                {
-            //                    TValue n = oldValue[i];
-            //                    oldValue[i] = default(TValue);
-            //                    if (!newValue.Contains(n))
-            //                        using (n as IDisposable)
-            //                            continue;
-            //                }
-            //                timer2.Reset();
-            //                timer1.Reset();
-            //                return newValue;
-            //            }
-            //        }
-            //        finally
-            //        {
-            //            lock (timer2)
-            //            {
-            //                isReading = false;
-            //            }
-            //        }
-            //    }
-            //    finally
-            //    {
-            //        lock (timer2)
-            //        {
-            //            isBusy = false;
-            //        }
-            //    }
-            //    return oldValue;
-            //}
-
-            void xx1() { }
-
-            //bool _reading = false;
-            //private int busy;
-            //private int busy_id;
-
-            //public TValue[] GetValues2(ReadDataHandler readData = null)
-            //{
-            //    int busy_id = Interlocked.Increment(ref this.busy_id);
-            //    int busy;
-            //    TValue[] oldValue = Interlocked.CompareExchange(ref this._values, _null<TValue>.array, null);
-            //    if (oldValue == null)
-            //    {
-            //        Interlocked.Exchange(ref this.busy, busy_id);
-            //    }
-            //    else
-            //    {
-            //        busy = Interlocked.CompareExchange(ref this.busy, busy_id, 0);
-            //        if (busy != 0)
-            //            return oldValue;
-            //    }
-            //    busy = busy_id;
-
-            //    try
-            //    {
-            //        if (oldValue == null)
-            //            goto _read;
-
-            //        if (timer1.IsTimeout(Parent.Timeout, reset: false))
-            //            goto _read;
-
-            //        if (timer2.IsTimeout(Parent.RedisInterval, false))
-            //        {
-            //            if (!Parent.Root.RedisGetVersion(this, out long version))
-            //                goto _read;
-            //            if (version != this.Version)
-            //                goto _read;
-            //            timer2.Reset();
-            //        }
-            //        return oldValue;
-
-            //    _read:
-            //        lock (timer1)
-            //        {
-            //            try
-            //            {
-            //                _reading = true;
-            //                if (Parent.Root.ReadData(this, oldValue, out TValue[] newValue, readData ?? Parent.ReadData/*, readData2 ?? Parent.ReadData2*/))
-            //                {
-            //                    Interlocked.Exchange(ref this._values, newValue);
-            //                    Parent.Root.SqlGetVersion(this, out long version);
-            //                    this.Version = version;
-            //                    Parent.Root.RedisSetVersion(this, version);
-            //                    oldValue = oldValue ?? _null<TValue>.array;
-            //                    //ReadOnlyCollection<TValue> n = newValue.AsReadOnly();
-            //                    for (int i = 0; i < oldValue.Length; i++)
-            //                    {
-            //                        TValue n = oldValue[i];
-            //                        oldValue[i] = default(TValue);
-            //                        if (!newValue.Contains(n))
-            //                            using (n as IDisposable)
-            //                                continue;
-            //                    }
-            //                    timer2.Reset();
-            //                    timer1.Reset();
-            //                    return newValue;
-            //                }
-            //            }
-            //            finally
-            //            {
-            //                _reading = false;
-            //            }
-            //        }
-            //    }
-            //    finally
-            //    {
-            //        Interlocked.CompareExchange(ref this.busy, 0, busy);
-            //    }
-            //    return oldValue;
-            //}
 
             public void ClearValues() => timer1.ClearTicks();
 
@@ -629,8 +467,6 @@ namespace InnateGlory
                     timer1.ClearTicks();
                 }
             }
-
-            //public SqlConfig SqlConfig() => Parent.Root.GetConfig().Root;
         }
 
         public DbCache Root { get; }
@@ -741,6 +577,9 @@ namespace InnateGlory
 
         [DebuggerStepThrough]
         public TValue[] GetValues(ReadDataHandler readData = null, int index = 0) => this[index].GetValues(readData);
+
+        [DebuggerStepThrough]
+        public bool GetValues(out TValue[] result, ReadDataHandler readData = null, int index = 0) => this[index].GetValues(out result, readData);
 
         [DebuggerStepThrough]
         public void ClearValues(int index = 0) => this[index].ClearValues();

@@ -10,14 +10,12 @@ namespace InnateGlory
         /// </remarks>
         public static IConfigurationBuilder AddSqlAppSettings(this IConfigurationBuilder builder)
         {
-            //builder.Add(new SqlAppSettingsConfigurationSource());
             builder.Add(new SqlAppSettingsConfigurationSource());
             return builder;
         }
 
         public static IApplicationBuilder UseSqlAppSettings(this IApplicationBuilder app)
         {
-            //SqlAppSettingsConfigurationProvider.Init(app.ApplicationServices);
             return SqlAppSettingsConfigurationProvider.Init(app);
         }
     }
