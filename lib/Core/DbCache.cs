@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace InnateGlory
 {
@@ -263,22 +264,36 @@ namespace InnateGlory
                 {
                     lock (sync_sql)
                     {
-                        using (SqlCmd coredb = cn.Open(_services, state: this))
+                        using (IDbConnection conn = cn.OpenDbConnection<SqlConnection>(_services, this))
                         {
-                            object tmp1 = coredb.ExecuteScalar(sql, transaction: isWrite);
-                            SqlTimeStamp tmp2;
-                            if (SqlTimeStamp.Create(tmp1, out tmp2))
+                            IDbTransaction transaction = null;
+                            if (isWrite) transaction = conn.BeginTransaction();
+                            object tmp1 = conn.ExecuteScalar(sql,
+                                transaction: transaction,
+                                commandType: CommandType.Text);
+                            if (SqlTimeStamp.Create(tmp1, out SqlTimeStamp tmp2))
                             {
-                                //log.message("TableVer", $"{RedisKey} = {(long)tmp2}");
                                 value = tmp2;
                                 return true;
                             }
+                            //using (SqlCmd coredb = cn.Open(_services, state: this))
+                            //{
+                            //    object tmp1 = coredb.ExecuteScalar(sql, transaction: isWrite);
+                            //    SqlTimeStamp tmp2;
+                            //    if (SqlTimeStamp.Create(tmp1, out tmp2))
+                            //    {
+                            //        //log.message("TableVer", $"{RedisKey} = {(long)tmp2}");
+                            //        value = tmp2;
+                            //        return true;
+                            //    }
+                            //}
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    SqlCmdPooling.Release(this);
+                    DbConnectionPooling.Release<SqlConnection>(this);
+                    //SqlCmdPooling.Release(this);
                     GetLogger().LogError(ex, ex.Message); //_logger.LogError(ex, null);
                 }
             }
@@ -296,11 +311,7 @@ namespace InnateGlory
         #endregion
 
         [DebuggerStepThrough]
-        internal bool ReadData<TValue>(
-            DbCache<TValue>.Entry sender,
-            TValue[] values,
-            out TValue[] result,
-            DbCache<TValue>.ReadDataHandler readData)
+        internal bool ReadData<TValue>(DbCache<TValue>.Entry sender, TValue[] values, out TValue[] result, DbCache<TValue>.ReadDataHandler readData)
         {
             try
             {

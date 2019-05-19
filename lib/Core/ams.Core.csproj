@@ -12,16 +12,19 @@
   <ItemGroup>
     <Compile Remove="AspNetCore\**" />
     <Compile Remove="Models\**" />
+    <Compile Remove="SqlConfig\**" />
     <Compile Remove="UserManager\Microsoft.AspNetCore.Authentication\**" />
     <Compile Remove="WebSockets\**" />
     <Compile Remove="_\**" />
     <EmbeddedResource Remove="AspNetCore\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="SqlConfig\**" />
     <EmbeddedResource Remove="UserManager\Microsoft.AspNetCore.Authentication\**" />
     <EmbeddedResource Remove="WebSockets\**" />
     <EmbeddedResource Remove="_\**" />
     <None Remove="AspNetCore\**" />
     <None Remove="Models\**" />
+    <None Remove="SqlConfig\**" />
     <None Remove="UserManager\Microsoft.AspNetCore.Authentication\**" />
     <None Remove="WebSockets\**" />
     <None Remove="_\**" />
@@ -33,13 +36,6 @@
     <Compile Remove="Localization\Localization.cs" />
     <Compile Remove="PasswordEncryptor.cs" />
     <Compile Remove="ServerOptions.cs" />
-    <Compile Remove="SqlConfig\ISqlConfig.cs" />
-    <Compile Remove="SqlConfig\ISqlConfigSection.cs" />
-    <Compile Remove="SqlConfig\SqlAppSettingsConfigurationSource.cs" />
-    <Compile Remove="SqlConfig\SqlAppSettingsExtensions.cs" />
-    <Compile Remove="SqlConfig\SqlConfig.cs" />
-    <Compile Remove="SqlConfig\SqlConfigAttribute.cs" />
-    <Compile Remove="SqlConfig\SqlConfigExtensions.cs" />
     <Compile Remove="UserManager\AccessTokenAuthenticationHandler.cs" />
     <Compile Remove="UserManager\ApiAuthenticationHandler.cs" />
     <Compile Remove="UserManager\UserIdentity.cs" />

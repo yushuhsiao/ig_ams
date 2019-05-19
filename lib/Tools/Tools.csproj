@@ -22,6 +22,8 @@
     <Compile Remove="Configuration\IAppSettingAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
@@ -63,6 +65,10 @@
     <Compile Include="_\Legacy\Microsoft.Extensions.DependencyInjection.Abstractions\ActivatorUtilities.cs" Link="Legacy\ActivatorUtilities.cs" />
     <Compile Include="_\Legacy\IntrospectionExtensions.cs" Link="Legacy\IntrospectionExtensions.cs" />
     <Compile Include="_\Legacy\AsyncLocal.cs" Link="Legacy\AsyncLocal.cs" />
+    <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config\ConfigurationKeyComparer.cs" Link="Legacy\Microsoft.Extensions.Configuration\ConfigurationKeyComparer.cs" />
+    <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config\ConfigurationProvider.cs" Link="Legacy\Microsoft.Extensions.Configuration\ConfigurationProvider.cs" />
+    <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config\ConfigurationReloadToken.cs" Link="Legacy\Microsoft.Extensions.Configuration\ConfigurationReloadToken.cs" />
+    <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\ConfigurationPath.cs" Link="Legacy\Microsoft.Extensions.Configuration.Abstractions\ConfigurationPath.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfiguration.cs" Link="Legacy\Microsoft.Extensions.Configuration.Abstractions\IConfiguration.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfigurationSection.cs" Link="Legacy\Microsoft.Extensions.Configuration.Abstractions\IConfigurationSection.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfigurationProvider.cs" Link="Legacy\Microsoft.Extensions.Configuration\IConfigurationProvider.cs" />

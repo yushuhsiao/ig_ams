@@ -87,7 +87,12 @@
         attachEvents($$('grid1'), webix.events.datatable);
 
         //console.log('loading...')
-        util.api('@Url.Action("List", "Corps")', {}, function (result) {
+        util.api('@Url.Action("List", "Corps")', {
+            Paging: {
+                PageIndex: 0,
+                PageSize: 50
+            }
+        }, function (result) {
             if (result.IsSuccess) {
                 $$('grid1').parse(result.Data);
             }

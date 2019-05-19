@@ -50,7 +50,13 @@
                             listUser_h = setTimeout(function () {
                                 listUser_h = null;
                                 //console.log('loading ' + id + '...');
-                                util.api('@Url.Action("List", "Members")', { parentId: id }, function (result) {
+                                util.api('@Url.Action("List", "Members")', {
+                                    parentId: id,
+                                    Paging: {
+                                        PageIndex: 0,
+                                        PageSize: 50
+                                    }
+                                }, function (result) {
                                     if (result.IsSuccess) {
                                         $$('grid1').clearAll();
                                         $$('grid1').parse(result.Data);

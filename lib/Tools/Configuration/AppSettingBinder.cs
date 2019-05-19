@@ -30,10 +30,10 @@ namespace Microsoft.Extensions.Configuration
             return binder.OnGetValue<TValue>(configuration, name, index);
         }
 
-        public interface IProvider : IConfigurationProvider
+        public abstract class Provider : ConfigurationProvider
         {
-            void Init(IServiceProvider service);
-            bool OnGetValue(string _section, string _key, out string value, params object[] index);
+            public abstract void OnInit(IServiceProvider service);
+            public abstract bool OnGetValue(string section, string key, out string value, params object[] index);
         }
 
         private abstract class _Binder
@@ -70,7 +70,7 @@ namespace Microsoft.Extensions.Configuration
             protected IServiceProvider _service;
             protected IConfiguration _configuration;
             private _BinderMember[] _members;
-            private IProvider _provider;
+            private Provider _provider;
 
             public _Binder(IServiceProvider service, IConfiguration configuration)
             {
@@ -82,10 +82,10 @@ namespace Microsoft.Extensions.Configuration
                 {
                     foreach (var provider in configRoot.Providers)
                     {
-                        if (provider.TryCast(out IProvider obj))
+                        if (provider.TryCast(out Provider obj))
                         {
                             _provider = obj;
-                            obj.Init(service);
+                            obj.OnInit(service);
                         }
                     }
                 }
@@ -129,10 +129,6 @@ namespace Microsoft.Extensions.Configuration
                     {
                         string _section = item.src.SectionName;
                         string _key = item.src.Key ?? item.Member.Name;
-                        //if (item.src.GetValue(out string _result, configuration, _section, _key) &&
-                        //    _Convert.ConvertTo(_result, out TValue result))
-                        //    return result;
-                        //return item.GetDefaultValue<TValue>();
                         TValue defaultValue = item.GetDefaultValue<TValue>();
 
                         if (_provider != null && _provider.OnGetValue(_section, _key, out string _value, index))
@@ -146,8 +142,6 @@ namespace Microsoft.Extensions.Configuration
                         var section = _configuration.GetSection(_section);
                         if (section != null)
                             return section.GetValue<TValue>(_key, defaultValue);
-                        //string config_key = $"{_section}:{_key}";
-                        //return _configuration.GetValue<TValue>(config_key, defaultValue);
                         return defaultValue;
                     }
                 }
@@ -158,7 +152,8 @@ namespace Microsoft.Extensions.Configuration
         [DebuggerStepThrough]
         private class _Binder<TCallerType> : _Binder, IConfiguration<TCallerType>
         {
-            public _Binder(IServiceProvider service, IConfiguration configuration) : base(service, configuration)
+            public _Binder(IServiceProvider service, IConfiguration configuration)
+                : base(service, configuration)
             {
             }
 

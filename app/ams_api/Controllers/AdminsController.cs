@@ -91,7 +91,7 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("list")]
-        public IEnumerable<Entity.Admin> List([FromBody] Models.UserListModel model)
+        public IEnumerable<Entity.Admin> List([FromBody] Models.UserListModel<Entity.Admin> model)
         {
             string sql = $"select * from {TableName<Entity.Admin>.Value} nolock where ParentId = {model.ParentId} {model.Paging.ToSql()}";
             using (SqlCmd userdb = _dataService.UserDB_R(model.ParentId.CorpId))

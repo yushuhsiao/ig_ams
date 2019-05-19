@@ -88,10 +88,10 @@ namespace InnateGlory.Controllers
         }
 
         [HttpPost("list")]
-        public IEnumerable<Entity.CorpInfo> List([FromBody] Models.PagingModel<Entity.CorpInfo> paging)
+        public IEnumerable<Entity.CorpInfo> List([FromBody] Models.ListModel<Entity.CorpInfo> model)
         {
             //paging += 0;
-            string sql = $"select * from {TableName<Entity.CorpInfo>.Value} {paging.ToSql()}";
+            string sql = $"select * from {TableName<Entity.CorpInfo>.Value} {model.Paging.ToSql()}";
             using (SqlCmd coredb = _dataService.CoreDB_R())
                 return coredb.ToList<Entity.CorpInfo>(sql);
         }

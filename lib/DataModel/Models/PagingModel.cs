@@ -8,7 +8,7 @@ using System.Text;
 namespace InnateGlory.Models
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public abstract class PagingModel
+    public class PagingModel
     {
         public const int PageSize_Min = 1;
         public const int PageSize_Max = 1000;
@@ -55,7 +55,7 @@ namespace InnateGlory.Models
                     _PageSize = value;
             }
         }
-        private int _PageSize;
+        private int _PageSize = 100;
 
         [JsonProperty]
         public virtual string SortKey { get; set; }
