@@ -59,7 +59,15 @@ insert into [SqlLogs] ([sn], [DataSource], [ExecuteTime], [CommandText]) values 
         [_DebuggerStepThrough]
         internal static void WriteLog<TCommand>(this IDbCmdLogging<TCommand> dbcmd, Exception ex) where TCommand : IDbCommand
         {
-            ILogger logger = (dbcmd.ServiceProvider ?? Global.ServiceProvider).GetService<ILogger<TCommand>>();
+            ILogger logger;
+            try
+            {
+                logger = (dbcmd.ServiceProvider ?? Global.ServiceProvider)?.GetService<ILogger<TCommand>>();
+            }
+            catch
+            {
+                return;
+            }
             if (logger == null) return;
 
             string DataSource = dbcmd.Connection.Database;

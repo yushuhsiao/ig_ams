@@ -19,6 +19,9 @@
     <None Remove="_\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Configuration\IAppSettingAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
@@ -62,7 +65,9 @@
     <Compile Include="_\Legacy\AsyncLocal.cs" Link="Legacy\AsyncLocal.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfiguration.cs" Link="Legacy\Microsoft.Extensions.Configuration.Abstractions\IConfiguration.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfigurationSection.cs" Link="Legacy\Microsoft.Extensions.Configuration.Abstractions\IConfigurationSection.cs" />
+    <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfigurationProvider.cs" Link="Legacy\Microsoft.Extensions.Configuration\IConfigurationProvider.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Binder\BinderOptions.cs" Link="Legacy\Microsoft.Extensions.Configuration.Binder\BinderOptions.cs" />
+    <Compile Include="..\..\lib.ext\Universe\modules\Configuration\src\Config.Abstractions\IConfigurationRoot.cs" Link="Legacy\Microsoft.Extensions.Configuration\IConfigurationRoot.cs" />
     <Compile Include="_\Legacy\Microsoft.Extensions.Configuration.Binder\ConfigurationBinder.cs" Link="Legacy\Microsoft.Extensions.Configuration.Binder\ConfigurationBinder.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Logging\src\Microsoft.Extensions.Logging.Abstractions\IExternalScopeProvider.cs" Link="Legacy\Microsoft.Extensions.Logging.Abstractions\IExternalScopeProvider.cs" />
     <Compile Include="..\..\lib.ext\Universe\modules\Logging\src\Microsoft.Extensions.Logging.Abstractions\ISupportExternalScope.cs" Link="Legacy\Microsoft.Extensions.Logging.Abstractions\ISupportExternalScope.cs" />

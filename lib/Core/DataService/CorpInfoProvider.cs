@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ namespace InnateGlory
     public class CorpInfoProvider : IDataService
     {
         private DataService _dataService;
-        private SqlConfig _config;
+        //private SqlConfig _config;
+        private IConfiguration _config;
         private DbCache<Entity.CorpInfo> _cache;
 
         public CorpInfoProvider(DataService dataService)
         {
             this._dataService = dataService;
-            this._config = dataService.GetService<SqlConfig>();// .GetSqlConfig(this);
+            this._config = dataService.GetService<IConfiguration<CorpInfoProvider>>();// .GetSqlConfig(this);
             this._cache = dataService.GetDbCache<Entity.CorpInfo>(ReadData);
         }
 
@@ -231,24 +233,24 @@ select * from {SqlBuilder.TableName} {sql_w}");
             return true;
         }
 
-        public int SetDbConfig(CorpId id, DbConnectionString user_r, DbConnectionString user_w, DbConnectionString log_r, DbConnectionString log_w)
-        {
-            if (user_r.IsEmpty &&
-                user_w.IsEmpty &&
-                log_r.IsEmpty &&
-                log_w.IsEmpty)
-                return 0;
+        //public int SetDbConfig(CorpId id, DbConnectionString user_r, DbConnectionString user_w, DbConnectionString log_r, DbConnectionString log_w)
+        //{
+        //    if (user_r.IsEmpty &&
+        //        user_w.IsEmpty &&
+        //        log_r.IsEmpty &&
+        //        log_w.IsEmpty)
+        //        return 0;
 
-            List<Entity.Config> values = new List<Entity.Config>();
-            if (SqlCmd.TestConnectionString(user_r))
-                values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.UserDB_R, Value = user_r });
-            if (SqlCmd.TestConnectionString(user_w))
-                values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.UserDB_W, Value = user_w });
-            if (SqlCmd.TestConnectionString(log_r))
-                values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.LogDB_R, Value = log_r });
-            if (SqlCmd.TestConnectionString(log_w))
-                values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.LogDB_W, Value = log_w });
-            return _config.SetConfigData(values.ToArray()).Length;
-        }
+        //    List<Entity.Config> values = new List<Entity.Config>();
+        //    if (SqlCmd.TestConnectionString(user_r))
+        //        values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.UserDB_R, Value = user_r });
+        //    if (SqlCmd.TestConnectionString(user_w))
+        //        values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.UserDB_W, Value = user_w });
+        //    if (SqlCmd.TestConnectionString(log_r))
+        //        values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.LogDB_R, Value = log_r });
+        //    if (SqlCmd.TestConnectionString(log_w))
+        //        values.Add(new Entity.Config() { CorpId = id, PlatformId = 0, Key1 = _Consts.db.SqlConnection, Key2 = _Consts.db.LogDB_W, Value = log_w });
+        //    return _config.SetConfigData(values.ToArray()).Length;
+        //}
     }
 }

@@ -16,7 +16,7 @@ namespace ams.Controllers
         [HttpGet("/")]
         public IActionResult Index(/*[FromServices] UserIdentity user*/)
         {
-            var cn = HttpContext.RequestServices.GetService<IConfiguration>().GetValue<DbConnectionString>("ConnectionStrings:CoreDB_R");
+            var cn = ConfigurationBinder.GetValue<DbConnectionString>(HttpContext.RequestServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
             ;
             using (var conn = cn.OpenDbConnection<SqlConnection>(HttpContext.RequestServices, null))
             {

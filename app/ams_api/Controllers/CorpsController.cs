@@ -39,7 +39,7 @@ namespace InnateGlory.Controllers
             var s = _dataService.Corps.Create(model, out Entity.CorpInfo corp);
             if (s == Status.Success)
             {
-                _dataService.Corps.SetDbConfig(corp.Id, model.UserDB_R, model.UserDB_W, model.LogDB_R, model.LogDB_W);
+                //_dataService.Corps.SetDbConfig(corp.Id, model.UserDB_R, model.UserDB_W, model.LogDB_R, model.LogDB_W);
                 return corp;
             }
             else
@@ -63,7 +63,7 @@ namespace InnateGlory.Controllers
             var s = _dataService.Corps.Update(model, out var corp);
             if (s == Status.Success)
             {
-                _dataService.Corps.SetDbConfig(corp.Id, model.UserDB_R, model.UserDB_W, model.LogDB_R, model.LogDB_W);
+                //_dataService.Corps.SetDbConfig(corp.Id, model.UserDB_R, model.UserDB_W, model.LogDB_R, model.LogDB_W);
                 return corp;
             }
             else

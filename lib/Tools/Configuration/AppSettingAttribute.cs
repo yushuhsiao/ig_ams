@@ -4,7 +4,7 @@ using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute
 namespace Microsoft.Extensions.Configuration
 {
     [_DebuggerStepThrough]
-    public class AppSettingAttribute : Attribute, IAppSettingAttribute
+    public class AppSettingAttribute : Attribute//, IAppSettingAttribute
     {
         public const string ConnectionStrings = "ConnectionStrings";
 
@@ -15,33 +15,44 @@ namespace Microsoft.Extensions.Configuration
         public AppSettingAttribute(string key) : this(null, key) { }
         public AppSettingAttribute(string sectionName, string key) { this.SectionName = sectionName; this.Key = key; }
 
-        bool IAppSettingAttribute.GetValue(out string result, IConfiguration configuration, string section, string key, params object[] index)
-        {
-            result = null;
-            if (configuration == null)
-                return false;
-            //key = key ?? this.Key;
-            //section = section ?? this.SectionName;
-            if (string.IsNullOrEmpty(key))
-                return false;
+        //bool IAppSettingAttribute.GetValue(out string result, IConfiguration configuration, string section, string key, params object[] index)
+        //{
+        //    result = null;
+        //    if (configuration == null)
+        //        return false;
+        //    if (string.IsNullOrEmpty(key))
+        //        return false;
+        //    if (string.IsNullOrEmpty(section))
+        //        result = configuration.GetSection(key)?.Value;
+        //    else
+        //        result = configuration.GetSection(section)?.GetSection(key)?.Value;
+        //    return !string.IsNullOrEmpty(result);
+        //}
+        //bool IAppSettingAttribute.GetValue(out string result, IConfiguration configuration, string section, string key, params object[] index)
+        //{
+        //    result = null;
+        //    if (configuration == null)
+        //        return false;
+        //    if (string.IsNullOrEmpty(key))
+        //        return false;
 
-            if (string.IsNullOrEmpty(section))
-                result = configuration.GetSection(key)?.Value;
-            else
-                result = configuration.GetSection(section)?.GetSection(key)?.Value;
-            //else
-            //{
-            //    //IConfigurationSection _section;
-            //    //string[] sections = section.Split('.');
-            //    //_section = configuration.GetSection(sections[0]);
-            //    //for (int i = 1; i < sections.Length; i++)
-            //    //    _section = _section?.GetSection(sections[i]);
-            //    //result = _section?[key];
-            //    var _section = configuration.GetSection(section);
-            //    result = _section?[key];
-            //}
-            return !string.IsNullOrEmpty(result);
-        }
+        //    if (string.IsNullOrEmpty(section))
+        //        result = configuration.GetSection(key)?.Value;
+        //    else
+        //        result = configuration.GetSection(section)?.GetSection(key)?.Value;
+        //    //else
+        //    //{
+        //    //    //IConfigurationSection _section;
+        //    //    //string[] sections = section.Split('.');
+        //    //    //_section = configuration.GetSection(sections[0]);
+        //    //    //for (int i = 1; i < sections.Length; i++)
+        //    //    //    _section = _section?.GetSection(sections[i]);
+        //    //    //result = _section?[key];
+        //    //    var _section = configuration.GetSection(section);
+        //    //    result = _section?[key];
+        //    //}
+        //    return !string.IsNullOrEmpty(result);
+        //}
 
         //bool IAppSettingAttribute.GetValue<TValue>(out TValue result, IConfiguration configuration, string section, string key, params object[] index)
         //    => _null.noop(false, out result);

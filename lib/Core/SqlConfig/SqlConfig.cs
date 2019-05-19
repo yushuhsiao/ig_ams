@@ -25,25 +25,28 @@ namespace InnateGlory
             private _Section GetRoot(CorpId corpId) => _sqlConfig._cache[corpId].GetFirstValue();
 
             TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string name)
-                => GetRoot(corpId).GetValue<TCallerType, TValue>(
-                    section: null,
-                    key: null,
-                    name: name,
-                    defaultValue: default(TValue));
+                => default(TValue);
 
-            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string key1, string key2, string name)
-                => GetRoot(corpId).GetValue<TCallerType, TValue>(
-                    section: key1,
-                    key: key2,
-                    name: name,
-                    defaultValue: default(TValue));
+            //TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string name)
+            //    => GetRoot(corpId).GetValue<TCallerType, TValue>(
+            //        section: null,
+            //        key: null,
+            //        name: name,
+            //        defaultValue: default(TValue));
 
-            TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, TValue defaultValue, string key1, string key2, string name)
-                => GetRoot(corpId).GetValue<TCallerType, TValue>(
-                    section: key1,
-                    key: key2,
-                    name: name,
-                    defaultValue: defaultValue);
+            //TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, string key1, string key2, string name)
+            //    => GetRoot(corpId).GetValue<TCallerType, TValue>(
+            //        section: key1,
+            //        key: key2,
+            //        name: name,
+            //        defaultValue: default(TValue));
+
+            //TValue ISqlConfig<TCallerType>.GetValue<TValue>(CorpId corpId, TValue defaultValue, string key1, string key2, string name)
+            //    => GetRoot(corpId).GetValue<TCallerType, TValue>(
+            //        section: key1,
+            //        key: key2,
+            //        name: name,
+            //        defaultValue: defaultValue);
         }
 
 

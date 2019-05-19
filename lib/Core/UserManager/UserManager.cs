@@ -11,12 +11,12 @@ namespace InnateGlory
 {
     public class UserManager
     {
-        //private readonly DataService _services;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration<UserManager> _config;
+        //private readonly DataService _services;
         //private readonly IOptions<AuthenticationOptions> _authenticationOptions;
         //private readonly IOptionsMonitor<CookieAuthenticationOptions> _cookieOptionsMonitor;
         //private readonly ILogger _logger;
-        private readonly IConfiguration<UserManager> _config;
 
         public UserManager(DataService services)
         {

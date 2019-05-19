@@ -71,7 +71,7 @@ namespace InnateGlory
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)
         {
-            app.UseSqlAppSettings();
+            //app.UseSqlAppSettings();
 
             app.UseResponseCompression();
          
@@ -160,7 +160,7 @@ namespace InnateGlory
             //app.UseBlazor(new BlazorOptions() { ClientAssemblyPath = Blazor_Path });
 
 
-            var cn = app.ApplicationServices.GetService<IConfiguration>().GetValue<DbConnectionString>("ConnectionStrings:CoreDB_R");
+            var cn = ConfigurationBinder.GetValue<DbConnectionString>(app.ApplicationServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
             ;
             using (var conn = cn.OpenDbConnection<SqlConnection>(app.ApplicationServices, null))
             {

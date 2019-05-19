@@ -77,13 +77,13 @@ namespace InnateGlory
 
         #region Config for redis
 
-        [SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.Redis.Main), DefaultValue(_Consts.Redis.DefaultValue)]
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Main), DefaultValue(_Consts.Redis.DefaultValue)]
         public string Redis_Main() => _config.GetValue<string>();
 
-        [SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.Redis.ServerInfo), DefaultValue(2)]
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.ServerInfo), DefaultValue(2)]
         public string Redis_ServerInfo => _config.GetValue<string>(); 
 
-        [SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = "ServerInfo.KeepAlive"), DefaultValue(5000)]
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = "ServerInfo.KeepAlive"), DefaultValue(5000)]
         public double Redis_KeepAlive => _config.GetValue<double>().Max(1000);
 
         //[SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = "ServerInfo.Reconnect"), DefaultValue(30 * 60 * 1000)]

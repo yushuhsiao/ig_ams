@@ -16,12 +16,12 @@ namespace Microsoft.Extensions.Logging
         private IServiceProvider _services;
         private IOptions<SqlLoggerOptions> _options;
 
-        public SqlLoggerProvider(IServiceProvider services, IOptions<SqlLoggerOptions> options, IConfiguration<SqlLoggerOptions> configuration2)
+        public SqlLoggerProvider(IServiceProvider services, IOptions<SqlLoggerOptions> options, IConfiguration<SqlLoggerOptions> configuration)
         {
             //Global.ServiceProvider = services;
             _services = services;
             _options = options;
-            _options.Value.Init(configuration2);
+            _options.Value.Init(configuration);
             Task.Factory.StartNew(WriteProc);
         }
 

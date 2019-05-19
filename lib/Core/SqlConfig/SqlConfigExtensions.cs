@@ -15,7 +15,7 @@ namespace InnateGlory
         {
             services.TryAddSingleton<SqlConfig>();
             services.TryAddSingleton(typeof(ISqlConfig<>), SqlConfig.BinderType);
-            services.AddConfigurationBinder();
+            //services.AddConfigurationBinder();
             return services;
         }
     }

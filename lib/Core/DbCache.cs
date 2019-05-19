@@ -24,10 +24,20 @@ namespace InnateGlory
         internal DbCache(IServiceProvider services)
         {
             this._services = services;
-            this._logger = services.GetRequiredService<ILogger<DbCache>>();
+            //this.__logger = services.GetRequiredService<ILogger<DbCache>>();
             this._config = services.GetRequiredService<IConfiguration<DbCache>>();
             this._redis = new RedisDatabase();
             //this._redis = new RedisSubscriber<UpdateMessage2>(this._logger) { GetConfiguration = this.Redis_TableVer };
+        }
+
+        private ILogger GetLogger()
+        {
+            var logger = Interlocked.CompareExchange(ref _logger, null, null);
+            if (logger != null)
+                return logger;
+            logger = _services.GetService<ILogger<DbCache>>();
+            Interlocked.Exchange(ref _logger, logger);
+            return logger;
         }
 
         #region Config
@@ -48,11 +58,16 @@ namespace InnateGlory
 
         #region Items, Add, Get
 
-        private SyncList<IDbCache> items = new SyncList<IDbCache>();
+        private List<IDbCache> _items1 = new List<IDbCache>();
+        private IDbCache[] _items2 = new IDbCache[0];
 
         internal void Add<TValue>(DbCache<TValue> item)
         {
-            items.TryAdd(item);
+            lock (_items1)
+            {
+                _items1.TryAdd(item);
+                _items2 = Interlocked.Exchange(ref _items2, _items1.ToArray());
+            }
             //lock (items1)
             //{
             //    if (items1.Contains(item))
@@ -64,9 +79,23 @@ namespace InnateGlory
 
         public DbCache<TValue> Get<TValue>(DbCache<TValue>.ReadDataHandler readData = null, string name = null)
         {
-            return (DbCache<TValue>)items.Find(
-                    x => x is DbCache<TValue>,
-                    () => new DbCache<TValue>(_services, this, name) { ReadData = readData });
+            lock (_items1)
+            {
+                var _items = Interlocked.CompareExchange(ref _items2, null, null);
+                DbCache<TValue> item;
+                for (int i = 0; i < _items.Length; i++)
+                {
+                    item = _items[i] as DbCache<TValue>;
+                    if (item != null)
+                        return item;
+                }
+                item = new DbCache<TValue>(_services, this, name) { ReadData = readData };
+                this.Add(item);
+                return item;
+            }
+            //return (DbCache<TValue>)_items.Find(
+            //        x => x is DbCache<TValue>,
+            //        () => new DbCache<TValue>(_services, this, name) { ReadData = readData });
         }
 
         #endregion
@@ -76,14 +105,14 @@ namespace InnateGlory
         [RedisAction(Channel = _Consts.Redis.Channels.AppControl, Name = nameof(ServerCommands.PurgeCache), Instance = InstanceFlags.FromService)]
         public void PurgeCache(params string[] cacheTypes)
         {
-            var list2 = items.ToArray();
-            for (int i = 0, n = list2.Length; i < n; i++)
+            var _items = Interlocked.CompareExchange(ref _items2, null, null);
+            for (int i = 0, n = _items.Length; i < n; i++)
             {
-                IDbCache obj = list2[i];
+                IDbCache obj = _items[i];
                 if (cacheTypes.Contains(obj.Name))
                     obj.PurgeCache();
             }
-            _logger.Log(LogLevel.Information, 0, "PurgeCache");
+            GetLogger().Log(LogLevel.Information, 0, "PurgeCache");
         }
 
         #endregion
@@ -162,7 +191,7 @@ namespace InnateGlory
             }
             catch (Exception ex)
             {
-                _redis.OnError(_logger, ex, $"Redis StringGet : {entry.RedisKey}");
+                _redis.OnError(GetLogger(), ex, $"Redis StringGet : {entry.RedisKey}");
             }
             return _null.noop(false, out value);
         }
@@ -182,7 +211,7 @@ namespace InnateGlory
             }
             catch (Exception ex)
             {
-                _redis.OnError(_logger, ex, $"Redis StringSet : {entry.RedisKey}, {value}"); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
+                _redis.OnError(GetLogger(), ex, $"Redis StringSet : {entry.RedisKey}, {value}"); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
             }
             return false;
         }
@@ -216,7 +245,7 @@ namespace InnateGlory
             }
             catch (Exception ex)
             {
-                _redis.OnError(_logger, ex, $"Redis Publish: {entry.RedisKey}, {value}"); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
+                _redis.OnError(GetLogger(), ex, $"Redis Publish: {entry.RedisKey}, {value}"); //_logger.LogError(ex, "Redis StringSet : {0}, {1}", entry.RedisKey, value);
             }
             return 0;
         }
@@ -250,7 +279,7 @@ namespace InnateGlory
                 catch (Exception ex)
                 {
                     SqlCmdPooling.Release(this);
-                    _logger.Log(LogLevel.Error, 0, null, ex); //_logger.LogError(ex, null);
+                    GetLogger().LogError(ex, ex.Message); //_logger.LogError(ex, null);
                 }
             }
             return _null.noop(false, out value);
@@ -266,6 +295,7 @@ namespace InnateGlory
 
         #endregion
 
+        [DebuggerStepThrough]
         internal bool ReadData<TValue>(
             DbCache<TValue>.Entry sender,
             TValue[] values,
@@ -294,7 +324,7 @@ namespace InnateGlory
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, 0, null, ex); //this._logger.LogError(ex, null);
+                GetLogger().LogError(ex, ex.Message);
                 return _null.noop(false, out result);
             }
         }
@@ -378,7 +408,7 @@ namespace InnateGlory
             public bool GetValues(out TValue[] result, ReadDataHandler readData = null)
             {
                 TValue[] oldValue = Interlocked.CompareExchange(ref this._values, null, null);
-                result = oldValue;
+                result = oldValue ?? _null<TValue>.array;
                 if (Monitor.TryEnter(timer1) == false)
                     return false;
 
@@ -386,10 +416,7 @@ namespace InnateGlory
                 {
                     var isBusy = Interlocked.CompareExchange(ref this._busy, this, null) != null;
                     if (isBusy)
-                    {
-                        result = null;
                         return false;
-                    }
 
                     try
                     {
@@ -471,11 +498,12 @@ namespace InnateGlory
 
         public DbCache Root { get; }
         public Entry Default => this[0];
-        private ILogger _logger;
+        //private IServiceProvider _services;
 
         internal DbCache(IServiceProvider services, DbCache dbCache, string name)
         {
-            this._logger = services.GetRequiredService<ILogger<DbCache<TValue>>>();
+            //this._services = services;
+            //this.__logger = services.GetRequiredService<ILogger<DbCache<TValue>>>();
             this.Root = dbCache;
             this.Root.Add(this);
             Interlocked.Exchange(ref this._entrys2, new Entry[] { new Entry(this, 0) });
@@ -511,14 +539,24 @@ namespace InnateGlory
             }   //
         }
 
-        private string _name;
-        public string Name => _name;
+        public string Name { get; private set; }
+
+        //private ILogger _logger;
+        //private ILogger GetLogger()
+        //{
+        //    var logger = Interlocked.CompareExchange(ref _logger, null, null);
+        //    if (logger != null)
+        //        return logger;
+        //    logger = _services.GetService<ILogger<DbCache<TValue>>>();
+        //    Interlocked.Exchange(ref _logger, logger);
+        //    return logger;
+        //}
 
         #region SetName
 
         private void SetName(string value)
         {
-            this._name = value.Trim(true) ?? TableName<TValue>.Value.Trim(true) ?? typeof(TValue).Name;
+            this.Name = value.Trim(true) ?? TableName<TValue>.Value.Trim(true) ?? typeof(TValue).Name;
             var entrys = Interlocked.CompareExchange(ref this._entrys2, null, null);
             for (int i = 0, n = entrys.Length; i < n; i++)
                 entrys[i].SetName();
@@ -540,7 +578,7 @@ namespace InnateGlory
             set => Interlocked.Exchange(ref _Timeout, value);
         }
 
-        private double _RedisInterval = 1000;
+        private double _RedisInterval = 3000;
         public double RedisInterval
         {
             get => Interlocked.CompareExchange(ref _RedisInterval, 0, 0).Max(500);

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -50,7 +51,8 @@ namespace InnateGlory
             //services.TryAddEnumerable(ServiceDescriptor.Transient<IConfigureOptions<ServerOptions>, ServerOptionsSetup>());
             //services.Configure(options ?? _null.noop);
             services.TryAddSingleton(serviceProvider => new DbCache(serviceProvider));
-            services.AddSqlConfig();
+            //services.AddSqlConfig();
+            services.AddConfigurationBinder();
             services.TryAddSingleton<ServerInfo>();
             services.TryAddSingleton<MessageInvoker<RedisActionAttribute>>();
             services.TryAddSingleton<Redis.RedisMessager>();
@@ -66,7 +68,11 @@ namespace InnateGlory
             {
                 Global.ServiceProvider = app.ApplicationServices;
                 //app.ApplicationServices.GetService<ServerInfo>();
-                app.ApplicationServices.GetService<Redis.RedisMessager>();
+                try
+                {
+                    //app.ApplicationServices.GetService<Redis.RedisMessager>();
+                }
+                catch { }
                 //LoggerHelper.LoggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
                 //app.ApplicationServices.GetServiceOrCreateInstance<ServerInfo>();
                 app.Use((context, next) =>
