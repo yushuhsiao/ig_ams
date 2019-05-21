@@ -42,7 +42,7 @@ namespace InnateGlory
             {
                 ;
                 //opts.Conventions.AuthorizeFolder("/").AllowAnonymousToPage("/Login.cshtml");
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            }).AddLang().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {
             });
@@ -162,7 +162,7 @@ namespace InnateGlory
 
             var cn = ConfigurationBinder.GetValue<DbConnectionString>(app.ApplicationServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
             ;
-            using (var conn = cn.OpenDbConnection<SqlConnection>(app.ApplicationServices, null))
+            using (var conn = cn.OpenDbConnection(app.ApplicationServices, null))
             {
             }
         }

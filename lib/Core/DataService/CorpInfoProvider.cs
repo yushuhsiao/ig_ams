@@ -32,7 +32,7 @@ namespace InnateGlory
         private IEnumerable<Entity.CorpInfo> ReadData(DbCache<Entity.CorpInfo>.Entry sender, Entity.CorpInfo[] oldValue)
         {
             string sql = $"select * from {TableName<Entity.CorpInfo>.Value} nolock";
-            using (SqlCmd coredb = _dataService.CoreDB_R())
+            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
             {
                 var values = coredb.ToList<Entity.CorpInfo>(sql);
                 var root = values.Find(x => x.Id == CorpId.Root);
@@ -115,7 +115,7 @@ namespace InnateGlory
             };
 
             string sql = _sql.FormatWith($@"{_sql.insert_into()}");
-            using (SqlCmd coredb = _dataService.CoreDB_W())
+            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
             {
                 try { coredb.ExecuteNonQuery(sql, transaction: true); }
                 catch (SqlException ex) when (ex.IsDuplicateKey()) { }
@@ -153,7 +153,7 @@ namespace InnateGlory
 {_sql.select_where()}");
             try
             {
-                using (SqlCmd coredb = _dataService.CoreDB_W())
+                using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
                     result = coredb.ToObject<Entity.CorpInfo>(sql, transaction: true);
             }
             catch (SqlException ex) when (ex.IsDuplicateKey())
@@ -188,7 +188,7 @@ namespace InnateGlory
                 string sql = _sql.FormatWith($@"{sql_u} {sql_w}
 select * from {SqlBuilder.TableName} {sql_w}");
 
-                using (SqlCmd coredb = _dataService.CoreDB_W())
+                using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
                     result = coredb.ToObject<Entity.CorpInfo>(sql, transaction: true);
                 _cache.UpdateVersion();
             }

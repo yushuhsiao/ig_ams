@@ -9,12 +9,22 @@ namespace InnateGlory
     {
         /// <see cref="Microsoft.Extensions.DependencyInjection.LocalizationServiceCollectionExtensions.AddLocalizationServices(IServiceCollection)"/>
         /// <see cref="Microsoft.AspNetCore.Mvc.Localization.Internal.MvcLocalizationServices.AddMvcLocalizationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat, Action{LocalizationOptions})"/>
-        public static IServiceCollection AddLang(this IServiceCollection services)
+        public static IMvcBuilder AddLang(this IMvcBuilder mvc)
         {
-            services.AddLocalization();
-            services.TryAddSingleton<LangService>();
-            services.TryAddTransient(GetViewLang);
-            return services;
+            mvc.Services.AddLocalization();
+            mvc.Services.TryAddSingleton<LangService>();
+            mvc.Services.TryAddTransient(GetViewLang);
+            mvc.AddDataAnnotationsLocalization(/*opts =>
+            {
+                opts.DataAnnotationLocalizerProvider = (modelType, stringLocalizerFactory) =>
+                {
+                    return stringLocalizerFactory.Create(modelType);
+                };
+            }*/);
+            //InnateGlory.loc
+            //mvc.InitializeTagHelper()
+            mvc.AddViewLocalization();
+            return mvc;
         }
 
         //[DebuggerStepThrough]

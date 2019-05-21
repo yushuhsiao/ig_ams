@@ -92,7 +92,7 @@ namespace InnateGlory.Controllers
         {
             //paging += 0;
             string sql = $"select * from {TableName<Entity.CorpInfo>.Value} {model.Paging.ToSql()}";
-            using (SqlCmd coredb = _dataService.CoreDB_R())
+            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
                 return coredb.ToList<Entity.CorpInfo>(sql);
         }
 

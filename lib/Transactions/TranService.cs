@@ -43,7 +43,7 @@ set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(
         {
             foreach (var c in _dataService.Corps.All)
             {
-                _dataService.UserDB_W(ref userdb, c.Id);
+                _dataService.SqlCmds.UserDB_W(ref userdb, c.Id);
                 string sql = $"select * from {TableName<T>.Value} nolock where TranId = '{tranId}'";
                 var data = userdb.ToObject<T>(sql);
                 if (data != null)
@@ -91,7 +91,7 @@ declare @TranId uniqueidentifier set @TranId = newid()
 {_sql.insert_into()};
 {_sql.select_where()};");
 
-            using (SqlCmd sqlcmd = _dataService.UserDB_W(model.CorpId.Value))
+            using (SqlCmd sqlcmd = _dataService.SqlCmds.UserDB_W(model.CorpId.Value))
             {
                 return sqlcmd.ToObject<Entity.TranCorp1>(sql, transaction: true);
             }
@@ -124,7 +124,7 @@ if @@rowcount = 1 and @f = 1
 exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}"
 .FormatWith(data, true);
 
-                _dataService.UserDB_W(ref userdb, data.CorpId);
+                _dataService.SqlCmds.UserDB_W(ref userdb, data.CorpId);
                 foreach (var commit in userdb.BeginTran())
                 {
                     var log = userdb.ToObject<_CorpTranLog>(sql_update);
@@ -178,7 +178,7 @@ where TranId = '{data.TranId}'";
 
         private int SaveLog(SqlCmd logdb, Entity.TranLog log)
         {
-            using (_dataService.LogDB_W(ref logdb, log.CorpId))
+            using (_dataService.SqlCmds.LogDB_W(ref logdb, log.CorpId))
             {
                 SqlSchemaTable t = SqlSchemaTable.GetSchema(logdb, TableName<Entity.TranLog>.Value);
                 SqlBuilder _sql = new SqlBuilder(log);

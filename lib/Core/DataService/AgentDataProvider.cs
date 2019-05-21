@@ -62,12 +62,12 @@ namespace InnateGlory
     {_sql.select_where()}");
             try
             {
-                using (SqlCmd userdb = _dataService.UserDB_W(corp.Id, state: _sql))
+                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id, state: _sql))
                     result = userdb.ToObject<Entity.Agent>(sql, transaction: true);
             }
             catch (SqlException ex) when (ex.IsDuplicateKey())
             {
-                using (SqlCmd userdb = _dataService.UserDB_R(corp.Id))
+                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(corp.Id))
                     result = userdb.ToObject<Entity.Agent>(_sql.select_where());
             }
             return result != null;
@@ -102,7 +102,7 @@ namespace InnateGlory
             if (this.Get(agentId, out var agent))
             {
                 string sql = $"select * from {TableName<Entity.Agent>.Value} where ParentId={agentId}";
-                using (SqlCmd userdb = _dataService.UserDB_R(agent.CorpId))
+                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(agent.CorpId))
                     return userdb.ToList<Entity.Agent>(sql);
             }
             return null;
@@ -119,7 +119,7 @@ namespace InnateGlory
 
             //if (!_dataService.Corps.GetWithAcl(null, model.CorpId, model.CorpName, op_user, out Status statusCode, out Data.CorpInfo corp))
             //    return statusCode;
-            using (SqlCmd userdb = _dataService.UserDB_W(corp.Id))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id))
             {
                 if (_dataService.Agents.Get(model.CorpId, model.Name, out var _agent) ||
                     _dataService.Members.Get(model.CorpId, model.Name, out var _member))
@@ -217,7 +217,7 @@ namespace InnateGlory
         public Entity.UserBalance GetBalance(Entity.Agent agent)
         {
             string sql = $"select * from {TableName<Entity.UserBalance>.Value} where Id={agent.Id}";
-            using (SqlCmd userdb = _dataService.UserDB_R(agent.CorpId))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(agent.CorpId))
                 return userdb.ToObject<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = agent.Id };
         }
     }

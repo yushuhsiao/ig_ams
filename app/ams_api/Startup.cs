@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
 using System.Reflection;
+using InnateGlory;
 
 namespace InnateGlory
 {
@@ -23,7 +24,9 @@ namespace InnateGlory
             {
             }).AddAMS(actionSelectorOptions: options =>
             {
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            })
+            .AddLang()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {
             });

@@ -32,7 +32,6 @@
   <ItemGroup>
     <Compile Remove="Api\ApiUrls.cs" />
     <Compile Remove="DataService\_Localization.cs" />
-    <Compile Remove="Localization\Localization.cs" />
     <Compile Remove="PasswordEncryptor.cs" />
     <Compile Remove="ServerOptions.cs" />
     <Compile Remove="UserManager\AccessTokenAuthenticationHandler.cs" />

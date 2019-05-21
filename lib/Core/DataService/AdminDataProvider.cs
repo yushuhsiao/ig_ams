@@ -21,7 +21,7 @@ namespace InnateGlory
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;
 
-            using (SqlCmd userdb = _dataService.UserDB_W(corp.Id))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id))
             {
                 if (_dataService.Admins.Get(model.CorpId, model.Name, out var _admin))
                     return Status.AdminAlreadyExist;

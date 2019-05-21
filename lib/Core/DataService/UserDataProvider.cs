@@ -174,7 +174,7 @@ namespace InnateGlory
                 string sql = _sql.FormatWith(_sql.insert_into());
 
                 var dataService = httpContext.RequestServices.GetService<DataService>();
-                using (SqlCmd logdb = dataService.LogDB_W(corpId ?? CorpId.Root))
+                using (SqlCmd logdb = dataService.SqlCmds.LogDB_W(corpId ?? CorpId.Root))
                     logdb.ExecuteNonQuery(sql, transaction: true);
             }
             catch
@@ -230,7 +230,7 @@ namespace InnateGlory.Entity.Abstractions
                 //else
                 sql = $"select * from {TableName<TUserData>.Value} nolock where Id={id.Value}";
 
-                using (SqlCmd userdb = _dataService.UserDB_R(id.Value.CorpId))
+                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(id.Value.CorpId))
                     result = userdb.ToObject<TUserData>(sql);
 
                 //cache?.SetValue(_id, result, syncLock: true);
@@ -251,7 +251,7 @@ namespace InnateGlory.Entity.Abstractions
                 //        return result != null;
                 //}
                 string sql = $"select * from {TableName<TUserData>.Value} nolock where CorpId={corpId.Value} and Name='{name}'";
-                using (SqlCmd userdb = _dataService.UserDB_R(corpId.Value))
+                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(corpId.Value))
                     result = userdb.ToObject<TUserData>(sql);
                 cache?.SetValue(name, result, syncLock: true);
             }

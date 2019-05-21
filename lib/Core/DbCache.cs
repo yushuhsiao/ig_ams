@@ -259,12 +259,12 @@ namespace InnateGlory
         {
             for (int r = 0; r < 3; r++)
             {
-                var cn = _services.GetService<DataService>()._CoreDB_W(); // GetConfig().Root.CoreDB_W;
+                var cn = _services.GetService<DataService>().Connections.CoreDB_W(); // GetConfig().Root.CoreDB_W;
                 try
                 {
                     lock (sync_sql)
                     {
-                        using (IDbConnection conn = cn.OpenDbConnection<SqlConnection>(_services, this))
+                        using (IDbConnection conn = cn.OpenDbConnection(_services, this))
                         {
                             IDbTransaction transaction = null;
                             if (isWrite) transaction = conn.BeginTransaction();

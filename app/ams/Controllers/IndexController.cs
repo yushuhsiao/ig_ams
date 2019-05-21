@@ -18,10 +18,10 @@ namespace ams.Controllers
         {
             var cn = ConfigurationBinder.GetValue<DbConnectionString>(HttpContext.RequestServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
             ;
-            using (var conn = cn.OpenDbConnection<SqlConnection>(HttpContext.RequestServices, null))
+            using (var conn = cn.OpenDbConnection(HttpContext.RequestServices, null))
             {
             }
-            using (var conn = cn.OpenDbConnection<SqlConnection>(HttpContext.RequestServices, null))
+            using (var conn = cn.OpenDbConnection(HttpContext.RequestServices, null))
             {
             }
 

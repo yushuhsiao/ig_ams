@@ -18,7 +18,7 @@ namespace InnateGlory
 
         public Entity.Password Get(UserId userId)
         {
-            using (SqlCmd userdb = _dataService.UserDB_R(userId.CorpId))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(userId.CorpId))
             {
                 var p = userdb.ToObject<Entity.Password>($"select * from {TableName<Entity.Password>.Value} nolock where UserId={userId}");
                 if (p != null)
@@ -55,7 +55,7 @@ namespace InnateGlory
             string sql = $@"{_sql.exec("UpdatePassword")}
 {_sql.select_where()}";
             sql = _sql.FormatWith(sql);
-            using (SqlCmd userdb = _dataService.UserDB_W(userId.CorpId))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(userId.CorpId))
                 return userdb.ToObject<Entity.Password>(sql, transaction: true);
         }
 

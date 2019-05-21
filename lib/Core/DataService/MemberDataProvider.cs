@@ -27,7 +27,7 @@ namespace InnateGlory
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;
 
-            using (SqlCmd userdb = _dataService.UserDB_W(corp.Id))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id))
             {
                 if (_dataService.Agents.Get(model.CorpId, model.Name, out var _agent) ||
                     _dataService.Members.Get(model.CorpId, model.Name, out var _member))
@@ -86,7 +86,7 @@ namespace InnateGlory
         public Entity.UserBalance GetBalance(Entity.Member member)
         {
             string sql = $"select * from {TableName<Entity.UserBalance>.Value} where Id={member.Id}";
-            using (SqlCmd userdb = _dataService.UserDB_R(member.CorpId))
+            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(member.CorpId))
                 return userdb.ToObject<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = member.Id };
         }
     }

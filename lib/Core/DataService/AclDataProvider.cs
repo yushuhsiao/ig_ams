@@ -23,7 +23,7 @@ namespace InnateGlory
 
         private IEnumerable<Entity.AclDefine> ReadData(DbCache<Entity.AclDefine>.Entry sender, Entity.AclDefine[] oldValue)
         {
-            using (SqlCmd coredb = _dataService.CoreDB_R())
+            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
                 //return _config.CoreDB_R.ToList<Data.AclDefine>(_config, $"select * from {TableName<Data.AclDefine>.Value} nolock");
                 //return coredb.ToList<Data.AclDefine>(SqlBuilder.select_all_from<Data.AclDefine>());
                 return coredb.ToList<Entity.AclDefine>($"select * from {TableName<Entity.AclDefine>.Value} nolock");

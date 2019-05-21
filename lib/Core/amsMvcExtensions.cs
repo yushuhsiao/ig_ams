@@ -28,18 +28,8 @@ namespace InnateGlory
             mvc.Services.AddActionContextAccessor();
             //CurrentControllerAccessor.AddService(services);
 
-            mvc.Services.AddLang();
+            //mvc.Services.AddLang();
             //mvc.Services.AddLocalization();
-            mvc.AddDataAnnotationsLocalization(/*opts =>
-            {
-                opts.DataAnnotationLocalizerProvider = (modelType, stringLocalizerFactory) =>
-                {
-                    return stringLocalizerFactory.Create(modelType);
-                };
-            }*/);
-            //InnateGlory.loc
-            //mvc.InitializeTagHelper()
-            mvc.AddViewLocalization();
 
             #region //
 

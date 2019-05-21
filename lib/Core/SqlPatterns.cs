@@ -15,15 +15,6 @@ namespace InnateGlory
             { "", nameof(Entity.Config.Value)         }
         }.exec("Config_SetValue");
 
-        public static string Lang_Set = new SqlBuilder
-        {
-            { " w", nameof(Entity.Lang.PlatformId)  },
-            { " w", nameof(Entity.Lang.Path)        },
-            { " w", nameof(Entity.Lang.Type)        },
-            { " w", nameof(Entity.Lang.Key)         },
-            { " w", nameof(Entity.Lang.LCID)        },
-            { "Nu", nameof(Entity.Lang.Text)        }
-        }.exec("Lang_Set");
         /*.build(s =>
         {
             string sql_w = s.where();

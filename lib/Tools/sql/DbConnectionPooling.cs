@@ -1,20 +1,21 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
-namespace System.Data.SqlClient
+namespace System.Data
 {
     [_DebuggerStepThrough]
     public static class DbConnectionPooling
     {
-        public static IServiceCollection AddDbConnectionPooling<TConnection>(this IServiceCollection services,
-            Func<DbConnectionString, TConnection> createConnection,
+        public static IServiceCollection AddDbConnectionPooling<TDbConnection>(this IServiceCollection services,
+            Func<DbConnectionString, TDbConnection> createConnection,
             Func<IServiceProvider, object> getState,
             Action<object, IDisposable> registerForDispose)
-            where TConnection : IDbConnection
+            where TDbConnection : IDbConnection
         {
-            services.AddSingleton(new db<TConnection>.GetStateContainer()
+            services.AddSingleton(new db<TDbConnection>.GetStateContainer()
             {
                 CreateConnection = createConnection,
                 GetState = getState ?? _null.noop<IServiceProvider, object>,
@@ -202,6 +203,11 @@ namespace System.Data.SqlClient
             object state = null)
             where TDbConnection : IDbConnection
             => db<TDbConnection>.OpenDbConnection(cn, null, services, state);
+
+        public static IDbConnection OpenDbConnection(this DbConnectionString cn,
+            IServiceProvider services,
+            object state = null)
+            => db<SqlConnection>.OpenDbConnection(cn, null, services, state);
 
         public static void Release<TDbConnection>(object state) where TDbConnection : IDbConnection
             => db<TDbConnection>.Release(state);
