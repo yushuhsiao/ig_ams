@@ -4,7 +4,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace>$(RootNamespace)</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

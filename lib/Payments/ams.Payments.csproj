@@ -4,9 +4,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>$(RootNamespace)</RootNamespace>
-    <Version>$(LibVersion)</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>$(LibVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>

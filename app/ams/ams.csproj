@@ -7,8 +7,8 @@
     <UserSecretsId>6bd7d59a-85c4-4170-9429-b8e9620ad76c</UserSecretsId>
     <!--<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>-->
     <!--<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>-->
-    <RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
-    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <!--<RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.10-x64</RuntimeIdentifiers>-->
+    <!--<TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>-->
   </PropertyGroup>
   
   <ItemGroup>
