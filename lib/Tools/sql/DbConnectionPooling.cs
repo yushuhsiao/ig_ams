@@ -209,6 +209,12 @@ namespace System.Data
             object state = null)
             => db<SqlConnection>.OpenDbConnection(cn, null, services, state);
 
+        public static void TryOpen(this IDbConnection conn)
+        {
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+        }
+
         public static void Release<TDbConnection>(object state) where TDbConnection : IDbConnection
             => db<TDbConnection>.Release(state);
     }

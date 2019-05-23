@@ -37,6 +37,7 @@
     <Compile Remove="UserManager\AccessTokenAuthenticationHandler.cs" />
     <Compile Remove="UserManager\ApiAuthenticationHandler.cs" />
     <Compile Remove="UserManager\UserIdentity.cs" />
+    <Compile Remove="UserManager\UserManager.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -138,6 +138,7 @@ namespace Microsoft.Extensions.Logging
     }
 
 
+    [_DebuggerStepThrough]
     class AsyncQueue<T>
     {
         private Queue<TaskCompletionSource<T>> _waiters;
@@ -213,6 +214,7 @@ namespace Microsoft.Extensions.Logging.Abstractions
 
         public abstract void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter);
 
+        [_DebuggerStepThrough]
         private class Scope<TState> : IDisposable
         {
             private TLogger _logger;

@@ -225,7 +225,7 @@ select * from {SqlBuilder.TableName} {sql_w}");
 
             if (!_dataService.GetService<AclDataProvider>().HasPermission(corp, op_user))
             {
-                status = Status.AccessDenied;
+                status = Status.Unauthorized;
                 return false;
             }
 

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using InnateGlory;
+﻿using InnateGlory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
 
 namespace ams.Controllers
 {
     public class IndexController : Controller
     {
         [HttpGet("/")]
+        [AllowAnonymous]
         public IActionResult Index(/*[FromServices] UserIdentity user*/)
         {
             var cn = ConfigurationBinder.GetValue<DbConnectionString>(HttpContext.RequestServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");

@@ -53,46 +53,44 @@ namespace InnateGlory
         public List<Entity.Lang> Init(IServiceProvider services, PlatformId? platformId, string respath)
         {
             var dataService = services.GetService<DataService>();
-            using (IDbConnection conn = dataService.Connections.CoreDB_W().OpenDbConnection(services))
-            using (SqlCmd sqlcmd = services.GetService<DataService>().SqlCmds.CoreDB_W())
+            var items = new List<LangItem>();
+            foreach (var n1 in _cache.GetValues())
             {
-                var items = new List<LangItem>();
-                foreach (var n1 in _cache.GetValues())
+                if (platformId == null || platformId == n1.PlatformId)
                 {
-                    if (platformId == null || platformId == n1.PlatformId)
-                    {
-                        if (respath == null)
-                            items.AddRange(n1.All);
-                        else if (n1.GetChild(respath, out var n2))
-                            items.Add(n2);
-                    }
+                    if (respath == null)
+                        items.AddRange(n1.All);
+                    else if (n1.GetChild(respath, out var n2))
+                        items.Add(n2);
                 }
+            }
 
-                List<Entity.Lang> result = new List<Entity.Lang>();
-                foreach (var commit in sqlcmd.BeginTran())
+            List<Entity.Lang> result = new List<Entity.Lang>();
+
+            using (IDbConnection conn = dataService.Connections.CoreDB_W().OpenDbConnection(services))
+            {
+                conn.TryOpen();
+                using (var tran = conn.BeginTransaction())
                 {
                     foreach (var n2 in items)
                     {
                         foreach (var row in n2.GetRows(r => r.LCID == 0))
                         {
-                            string _sql = new SqlBuilder
-                            {
-                                { " w", nameof(Entity.Lang.PlatformId)  },
-                                { " w", nameof(Entity.Lang.Path)        },
-                                { " w", nameof(Entity.Lang.Type)        },
-                                { " w", nameof(Entity.Lang.Key)         },
-                                { " w", nameof(Entity.Lang.LCID)        },
-                                { "Nu", nameof(Entity.Lang.Text)        }
-                            }.exec("Lang_Set");
+                            var p = new DynamicParameters();
+                            p.Add("@PlatformId", row.PlatformId.Id);
+                            p.Add("@Path", row.Path);
+                            p.Add("@Type", row.Type);
+                            p.Add("@Key", row.Key);
+                            p.Add("@LCID", row.LCID);
+                            p.Add("@Text", row.Text);
 
-                            string sql = _sql.FormatWith(row, true);
-                            if (sqlcmd.ExecuteNonQuery(sql) > 0)
+                            if (conn.Execute("Lang_Set", p, tran, commandType: CommandType.StoredProcedure) > 0)
                             {
                                 result.Add(row);
                             }
                         }
                     }
-                    commit();
+                    tran.Commit();
                 }
                 _cache.UpdateVersion();
                 return result;

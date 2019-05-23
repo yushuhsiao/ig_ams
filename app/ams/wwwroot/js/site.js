@@ -21,7 +21,7 @@
         if (this.Errors == null)
             this.Errors = {};
         if (this.StatusCode == null)
-            this.StatusCode = 0;
+            this.StatusCode = 200;
         if (this.StatusText == null)
             this.StatusText = "Unknown";
         if (this.Message == null) {
@@ -42,7 +42,7 @@
 
     Object.defineProperty(ApiResult.prototype, "IsSuccess", {
         get: function () {
-            return this.StatusCode === 1;
+            return this.StatusCode === 200;
         }
     });
 

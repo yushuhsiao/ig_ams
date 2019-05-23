@@ -69,14 +69,14 @@ namespace InnateGlory.Controllers
         public Task<Models.LoginResult> Login([FromBody] Models.LoginModel model) => _UserLogin(model);
 
         [HttpPost("logout")]
-        public async Task<IApiResult> Logout([FromServices] UserManager userManager/*, [FromServices] amsUser user*/)
+        public async Task Logout()
         {
             //var user = userManager.CurrentUser;
             UserId userId = HttpContext.User.GetUserId();
 
-            await userManager.SignOutAsync(HttpContext, userId);
+            await HttpContext.SignOutAsync(userId);
 
-            return ApiResult.OK;
+            //return ApiResult.OK;
         }
 
         [HttpPost("/user/agent/login"), AllowAnonymous]
@@ -114,16 +114,16 @@ namespace InnateGlory.Controllers
                 if (model.LoginMode == LoginMode.AuthOnly)
                     return new Models.LoginResult { UserId = userdata.Id };
 
-                var userManager = ds.GetService<UserManager>();
+                //var userManager = ds.GetService<UserManager>();
                 //var user = ds.CreateInstance<UserIdentity>(userdata);
                 if (model.LoginMode == LoginMode.AccessToken)
                 {
-                    string sessionId = await userManager.SignInAsync(HttpContext, userdata.Id, _Consts.UserManager.AccessTokenScheme);
+                    string sessionId = await HttpContext.SignInAsync(userdata.Id, _Consts.UserManager.AccessTokenScheme);
                     return new Models.LoginResult { UserId = userdata.Id, AccessToken = sessionId };
                 }
                 else
                 {
-                    await userManager.SignInAsync(HttpContext, userdata.Id);
+                    await HttpContext.SignInAsync(userdata.Id);
                     return new Models.LoginResult { UserId = userdata.Id };
                 }
             }

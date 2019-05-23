@@ -22,7 +22,7 @@ namespace InnateGlory
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddWebpack();
-            services.AddUserManager();
+            //services.AddAuthenticationExtensions();
             services.AddAMS();
             services.AddMvc(options =>
             {

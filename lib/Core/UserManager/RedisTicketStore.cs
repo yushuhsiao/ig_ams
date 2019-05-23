@@ -60,7 +60,7 @@ namespace InnateGlory
         private readonly IConfiguration<RedisTicketStore> _config;
         private readonly ILogger _logger;
 
-        public RedisTicketStore(IServiceProvider services, UserManager userManager)
+        public RedisTicketStore(IServiceProvider services)
         {
             //this._userManager = userManager;
             this._cookieOptionsMonitor = services.GetService<IOptionsMonitor<CookieAuthenticationOptions>>();

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory
@@ -10,6 +12,7 @@ namespace InnateGlory
     public class UserDataProvider : IDataService
     {
         private readonly DataService _dataService;
+        private IConfiguration _config;
 
         //public AgentDataProvider Agents => _dataService.Agents;
         //public AdminDataProvider Admins => _dataService.Admins;
@@ -18,6 +21,7 @@ namespace InnateGlory
         public UserDataProvider(DataService dataService)
         {
             this._dataService = dataService;
+            this._config = dataService.GetService<IConfiguration<UserDataProvider>>();
         }
 
 
@@ -71,7 +75,6 @@ namespace InnateGlory
 
         public Status UserLogin(Models.LoginModel model, out Entity.UserData userData, bool loginLog = false)
         {
-            UserManager userManager = _dataService.GetService<UserManager>();
             userData = null;
 
             if (_dataService.Corps.Get(model.CorpName, out var corp))
@@ -85,7 +88,7 @@ namespace InnateGlory
 
             if (model.LoginType == UserType.Agent)
             {
-                if (!userManager.AllowAgentLogin)
+                if (!this.AllowAgentLogin)
                     return Status.UserTypeNotAllow;
 
                 if (_dataService.Agents.Get(corp.Id, model.UserName, out var agent))
@@ -100,7 +103,7 @@ namespace InnateGlory
             }
             else if (model.LoginType == UserType.Admin)
             {
-                if (!userManager.AllowAdminLogin)
+                if (!this.AllowAdminLogin)
                     return Status.UserTypeNotAllow;
 
                 if (_dataService.Admins.Get(corp.Id, model.UserName, out var admin))
@@ -115,7 +118,7 @@ namespace InnateGlory
             }
             else if (model.LoginType == UserType.Member)
             {
-                if (!userManager.AllowMemberLogin)
+                if (!this.AllowMemberLogin)
                     return Status.UserTypeNotAllow;
 
                 if (_dataService.Members.Get(corp.Id, model.UserName, out var member))
@@ -181,6 +184,20 @@ namespace InnateGlory
             {
             }
         }
+
+
+
+        [AppSetting(SectionName = _Consts.UserManager.ConfigSection, Key = _Consts.UserManager.InternalApiServer), DefaultValue(false)]
+        public bool InternalApiServer => _config.GetValue<bool>();
+
+        [AppSetting(SectionName = _Consts.UserManager.ConfigSection), DefaultValue(true)]
+        public bool AllowAgentLogin => _config.GetValue<bool>();
+
+        [AppSetting(SectionName = _Consts.UserManager.ConfigSection), DefaultValue(true)]
+        public bool AllowAdminLogin => _config.GetValue<bool>();
+
+        [AppSetting(SectionName = _Consts.UserManager.ConfigSection), DefaultValue(false)]
+        public bool AllowMemberLogin => _config.GetValue<bool>();
     }
 }
 namespace InnateGlory.Entity.Abstractions

@@ -33,6 +33,7 @@ namespace InnateGlory
         public static IServiceCollection AddAMS(this IServiceCollection services/*, Action<ServerOptions> options = null*/)
         {
             services.AddHttpContextAccessor();
+            services.AddAuthenticationExtensions();
             //services.AddConfigurationBinder();
 
             services.AddSqlCmdPooling(

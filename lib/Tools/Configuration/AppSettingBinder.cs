@@ -26,7 +26,7 @@ namespace Microsoft.Extensions.Configuration
         {
             _Binder binder = configuration as _Binder;
             if (binder == null)
-                return Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue(configuration, name, default(TValue));
+                return ConfigurationBinder.GetValue(configuration, name, default(TValue));
             return binder.OnGetValue<TValue>(configuration, name, index);
         }
 

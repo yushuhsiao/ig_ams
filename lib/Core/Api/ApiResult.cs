@@ -101,8 +101,6 @@ namespace InnateGlory
                     ContentType = n.ContentType,
                     HttpStatusCode = (HttpStatusCode?)n.StatusCode
                 };
-                //result.ContentType = n.ContentType;
-                //result.HttpStatusCode = (HttpStatusCode?)n.StatusCode;
             }
             else if (src is ObjectResult)
             {
@@ -113,6 +111,10 @@ namespace InnateGlory
                     HttpStatusCode = (HttpStatusCode?)n.StatusCode
                 };
                 //result.HttpStatusCode = (HttpStatusCode?)n.StatusCode;
+            }
+            else if (src is EmptyResult)
+            {
+                return ApiResult.OK;
             }
             return new ApiResult(src);
         }

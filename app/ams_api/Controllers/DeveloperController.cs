@@ -15,33 +15,10 @@ namespace InnateGlory.Controllers
     public class DeveloperController : Controller
     {
         [HttpPost("ping")]
-        public IActionResult Ping([FromServices] DataService dataService)
+        public async Task<Models.PingResult> Ping([FromServices] DataService dataService)
         {
-            return ApiResult.Success(new { Time = DateTime.Now }) ;
-        }
-
-        [HttpPost("/lang/init")]
-        public IApiResult LangInit(
-            [ModelBinder(Name = "PlatformId")] PlatformId? platformId,
-            [ModelBinder(Name = "ResPath")] string respath,
-            [FromServices] LangService langService)
-        {
-            var r = langService.Init(HttpContext.RequestServices, platformId, respath);
-            return ApiResult.Success(r);
-        }
-
-        [HttpPost("/lang/set")]
-        public IApiResult LangSet(Models.LangModel[] models, [FromServices] LangService langService
-            //, [FromServices] IOptionsMonitorCache<SqlLoggerOptions> opts1
-            //, [FromServices] IOptionsMonitor<SqlLoggerOptions> opts2
-            )
-        {
-
-            //opts1.Clear();
-            //opts2.CurrentValue.ConnectionString += "1";
-            //opts3.GetChangeToken().
-            var result = langService.Set(models);
-            return ApiResult.Success(result);
+            await Task.Delay(0);
+            return new Models.PingResult { Time = DateTime.Now };
         }
 
         //[HttpPost("/sys/config/set")]

@@ -15,7 +15,7 @@ namespace InnateGlory
         void IAuthorizationFilter.OnAuthorization(AuthorizationFilterContext context)
         {
             ActionDescriptor d = context.ActionDescriptor;
-            var dd = d as Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor;
+            //var dd = d as Microsoft.AspNetCore.Mvc.RazorPages.CompiledPageActionDescriptor;
             //if (dd != null)
             //{
             //    //dd.h
@@ -24,33 +24,33 @@ namespace InnateGlory
             ApiAttribute api = null;
             AclAttribute acl = null;
             bool allowAnonymous = false;
-            var filters = d.FilterDescriptors;
-            for (int i = 0, n = filters.Count; i < n; i++)
+            foreach (var _filter in d.FilterDescriptors)
             {
-                var filter = filters[i].Filter;
+                var filter = _filter.Filter;
                 api = api ?? filter as ApiAttribute;
                 acl = acl ?? filter as AclAttribute;
-                allowAnonymous = allowAnonymous | filter is IAllowAnonymousFilter;
+                if (filter is IAllowAnonymousFilter)
+                    allowAnonymous = true;
             }
             //var acl = context.HttpContext.RequestServices.DataService<AclDataProvider>();
             //var acl2 = context.HttpContext.RequestServices.DataService<AclDataProvider>();
             //var users = context.HttpContext.RequestServices.GetService<IUserManager>();
             //var user = users?.CurrentUser;
-            if (api != null || dd != null)
+            //if (api != null)
+            //{
+            //UserIdentity user = context.HttpContext.GetCurrentUser();
+            UserId userId = context.HttpContext.User.GetUserId();
+            if (userId.IsGuest)
             {
-                //UserIdentity user = context.HttpContext.GetCurrentUser();
-                UserId userId = context.HttpContext.User.GetUserId();
-                if (userId.IsGuest)
-                {
-                    if (allowAnonymous)
-                        return;
-                    else
-                        context.Result = ApiResult.Forbidden;
-                }
+                if (allowAnonymous)
+                    return;
                 else
-                {
-                }
+                    context.Result = ApiResult.Forbidden;
             }
+            else
+            {
+            }
+            //}
             //context.Result = new ForbidResult();
         }
     }

@@ -58,6 +58,7 @@ namespace InnateGlory
         public GameTypeInfoProvider GameTypes => this.GetService<GameTypeInfoProvider>();
         public GameInfoProvider Games => this.GetService<GameInfoProvider>();
         public PaymentInfoProvider Payments => this.GetService<PaymentInfoProvider>();
+        public PlatformInfoProvider Platforms => this.GetService<PlatformInfoProvider>();
 
 
 
@@ -94,12 +95,12 @@ namespace InnateGlory
         public sealed class _SqlCmds
         {
             private DataService _services;
-            private IConfiguration _config;
+            //private IConfiguration _config;
 
             public _SqlCmds(DataService services)
             {
                 _services = services;
-                _config = services.GetService<IConfiguration<_SqlCmds>>();
+                //_config = services.GetService<IConfiguration<_SqlCmds>>();
             }
 
             public SqlCmd CoreDB_R(object state = null) => _services.Connections.CoreDB_R().Open(_services, state);
