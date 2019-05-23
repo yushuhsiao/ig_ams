@@ -69,7 +69,6 @@ namespace InnateGlory
 
             using (IDbConnection conn = dataService.Connections.CoreDB_W().OpenDbConnection(services))
             {
-                conn.TryOpen();
                 using (var tran = conn.BeginTransaction())
                 {
                     foreach (var n2 in items)

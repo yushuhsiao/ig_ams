@@ -17,7 +17,7 @@ namespace System.Data
         {
             services.AddSingleton(new db<TDbConnection>.GetStateContainer()
             {
-                CreateConnection = createConnection,
+                CreateConnection = createConnection ?? _null.noop<DbConnectionString, TDbConnection>,
                 GetState = getState ?? _null.noop<IServiceProvider, object>,
                 RegisterForDispose = registerForDispose ?? _null.noop<object, IDisposable>
             });
@@ -133,32 +133,30 @@ namespace System.Data
 
             private static TDbConnection CreateConnection(DbConnectionString cn, Func<DbConnectionString, TDbConnection> createConnection, GetStateContainer getState)
             {
+                TDbConnection result = default(TDbConnection);
                 if (createConnection != null)
                 {
-                    try
-                    {
-                        TDbConnection result = createConnection(cn);
-                        if (result != null)
-                            return result;
-                    }
+                    try { result = createConnection(cn); }
                     catch { }
                 }
-                if (getState != null && getState.CreateConnection != null)
+                if (result == null && getState != null)
+                {
+                    try { result = getState.CreateConnection(cn); }
+                    catch { }
+                }
+                if (result != null)
                 {
                     try
                     {
-                        return getState.CreateConnection(cn);
+                        if (result.State != ConnectionState.Open)
+                            result.Open();
                     }
                     catch { }
                 }
-                return default(TDbConnection);
+                return result;
             }
 
-            public static IDbConnection OpenDbConnection(
-                DbConnectionString cn,
-                Func<DbConnectionString, TDbConnection> createConnection,
-                IServiceProvider services,
-                object state)
+            public static IDbConnection OpenDbConnection(DbConnectionString cn, Func<DbConnectionString, TDbConnection> createConnection, IServiceProvider services, object state)
             {
                 if (services == null)
                     return null;
@@ -188,7 +186,6 @@ namespace System.Data
                 {
                 }
             }
-
         }
 
         public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
@@ -208,12 +205,6 @@ namespace System.Data
             IServiceProvider services,
             object state = null)
             => db<SqlConnection>.OpenDbConnection(cn, null, services, state);
-
-        public static void TryOpen(this IDbConnection conn)
-        {
-            if (conn.State != ConnectionState.Open)
-                conn.Open();
-        }
 
         public static void Release<TDbConnection>(object state) where TDbConnection : IDbConnection
             => db<TDbConnection>.Release(state);

@@ -94,35 +94,53 @@ namespace InnateGlory
 
         async Task<string> ITicketStore.StoreAsync(AuthenticationTicket ticket) => await this._StoreAsync(null, ticket);
 
+        const int redis_retry = 3;
 
 
         private async Task _RemoveAsync(string key)
         {
-            try
+            this._tickets.TryRemove(key, syncLock: true);
+            var keyA = make_keyA(key, null);
+            var keyB = make_keyB(key, null);
+            for (int i = 0; i < redis_retry; i++)
             {
-                this._tickets.TryRemove(key, syncLock: true);
-                var keyA = make_keyA(key, null);
-                var keyB = make_keyB(key, null);
-                var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
-                await redis.KeyDeleteAsync(keyA);
-                await redis.KeyDeleteAsync(keyB);
-                _redis.SetIdle();
-            }
-            catch (Exception ex)
-            {
-                _redis.OnError(_logger, ex, ex.Message);
+                try
+                {
+                    var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
+                    await redis.KeyDeleteAsync(keyA);
+                    await redis.KeyDeleteAsync(keyB);
+                    _redis.SetIdle();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    _redis.OnError(_logger, ex, ex.Message);
+                }
             }
         }
 
         private async Task<AuthenticationTicket> _RetrieveAsync(string key)
         {
+            var keyA = make_keyA(key, null);
+            RedisValue base64 = default(RedisValue);
+
+            for (int i = 0; i < redis_retry; i++)
+            {
+                try
+                {
+                    var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
+                    base64 = await redis.StringGetAsync(keyA);
+                    _redis.SetIdle();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    _redis.OnError(_logger, ex, ex.Message);
+                }
+            }
+
             try
             {
-                var keyA = make_keyA(key, null);
-                var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
-                RedisValue base64 = await redis.StringGetAsync(keyA);
-                _redis.SetIdle();
-
                 if (base64.HasValue)
                 {
                     _TicketData ticket2 = this._tickets.GetValue(key, syncLock: true);
@@ -145,7 +163,7 @@ namespace InnateGlory
             }
             catch (Exception ex)
             {
-                _redis.OnError(_logger, ex, ex.Message);
+                _logger.LogError(ex, ex.Message);
             }
             return null;
         }
@@ -161,22 +179,26 @@ namespace InnateGlory
                     //ticket.Properties.Parameters[_Consts.UserManager.Ticket_SessionId] = key;
                     if (_TicketData.Serialize(ticket, out var data))
                     {
-                        try
+                        RedisKey keyA = make_keyA(key, ticket);
+                        RedisKey keyB = make_keyB(key, ticket);
+                        for (int i = 0; i < redis_retry; i++)
                         {
-                            RedisKey keyA = make_keyA(key, ticket);
-                            RedisKey keyB = make_keyB(key, ticket);
-                            var db = await _redis.GetDatabaseAsync(null, RedisConfiguration);
-                            await db.StringSetAsync(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
-                            await db.StringSetAsync(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
-                            _redis.SetIdle();
-                            this._tickets.SetValue(key, data, syncLock: true);
-                            //_userManager.GetUserStoreItem(userId, create: true)?.Timer.Reset();
-                            return key;
+                            try
+                            {
+                                var db = await _redis.GetDatabaseAsync(null, RedisConfiguration);
+                                await db.StringSetAsync(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
+                                await db.StringSetAsync(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
+                                _redis.SetIdle();
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                _redis.OnError(_logger, ex, ex.Message);
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            _redis.OnError(_logger, ex, ex.Message);
-                        }
+                        this._tickets.SetValue(key, data, syncLock: true);
+                        //_userManager.GetUserStoreItem(userId, create: true)?.Timer.Reset();
+                        return key;
                     }
                     else _logger.LogInformation("ticket serialize");
                 }

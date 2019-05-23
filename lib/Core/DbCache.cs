@@ -251,53 +251,60 @@ namespace InnateGlory
             return 0;
         }
 
-        internal bool SqlGetVersion(IDbCacheEntry entry, out long value) => sql_exec(false, $"exec TableVer_get @name='{sql_name(entry.Parent.Name)}', @index={entry.Index}", out value);
+        internal bool SqlGetVersion(IDbCacheEntry entry, out long value)
+        {
+            return sql_exec(false, "TableVer_get", _services.GetService<DataService>().Connections.CoreDB_R(), entry, out value);
+        }
 
-        internal bool SqlSetVersion(IDbCacheEntry entry, out long value) => sql_exec(true, $"exec TableVer_set @name='{sql_name(entry.Parent.Name)}', @index={entry.Index}", out value);
+        internal bool SqlSetVersion(IDbCacheEntry entry, out long value)
+        {
+            return sql_exec(true, "TableVer_set", _services.GetService<DataService>().Connections.CoreDB_W(), entry, out value);
+        }
 
-        private bool sql_exec(bool isWrite, string sql, out long value)
+        private bool sql_exec(bool isWrite, string sp, DbConnectionString cn, IDbCacheEntry entry, out long value)
         {
             for (int r = 0; r < 3; r++)
             {
-                var cn = _services.GetService<DataService>().Connections.CoreDB_W(); // GetConfig().Root.CoreDB_W;
                 try
                 {
                     lock (sync_sql)
                     {
                         using (IDbConnection conn = cn.OpenDbConnection(_services, this))
                         {
-                            IDbTransaction transaction = null;
-                            if (isWrite) transaction = conn.BeginTransaction();
-                            object tmp1 = conn.ExecuteScalar(sql,
-                                transaction: transaction,
-                                commandType: CommandType.Text);
+                            var p = new DynamicParameters();
+                            p.Add("@name", sql_name(entry.Parent.Name));
+                            p.Add("@index", entry.Index);
+                            object tmp1;
+
+                            try
+                            {
+                                IDbTransaction tran = null;
+                                if (isWrite) tran = conn.BeginTransaction();
+                                using (tran)
+                                {
+                                    tmp1 = conn.ExecuteScalar(sp, p, transaction: tran, commandType: CommandType.StoredProcedure);
+                                    tran?.Commit();
+                                }
+                            }
+                            catch
+                            {
+                                throw;
+                            }
                             if (SqlTimeStamp.Create(tmp1, out SqlTimeStamp tmp2))
                             {
                                 value = tmp2;
                                 return true;
                             }
-                            //using (SqlCmd coredb = cn.Open(_services, state: this))
-                            //{
-                            //    object tmp1 = coredb.ExecuteScalar(sql, transaction: isWrite);
-                            //    SqlTimeStamp tmp2;
-                            //    if (SqlTimeStamp.Create(tmp1, out tmp2))
-                            //    {
-                            //        //log.message("TableVer", $"{RedisKey} = {(long)tmp2}");
-                            //        value = tmp2;
-                            //        return true;
-                            //    }
-                            //}
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    DbConnectionPooling.Release<SqlConnection>(this);
-                    //SqlCmdPooling.Release(this);
                     GetLogger().LogError(ex, ex.Message); //_logger.LogError(ex, null);
                 }
             }
-            return _null.noop(false, out value);
+            value = 0;
+            return false;
         }
 
         [DebuggerStepThrough]
