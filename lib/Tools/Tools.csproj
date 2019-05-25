@@ -22,8 +22,6 @@
     <Compile Remove="Configuration\IAppSettingAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
@@ -31,7 +29,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />-->
+    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\Hosting\Abstractions\src\Microsoft.AspNetCore.Hosting.Abstractions.csproj" />
     <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.1.1" />-->
     <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\Hosting\src\Microsoft.AspNetCore.Hosting.Abstractions\Microsoft.AspNetCore.Hosting.Abstractions.csproj" />-->
   </ItemGroup>
