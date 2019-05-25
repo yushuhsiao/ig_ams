@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace InnateGlory.Entity
@@ -8,36 +9,51 @@ namespace InnateGlory.Entity
     {
         [DbImport]
         public PlatformId PlatformId;
+
         [DbImport]
         public string Path;
+
+        /// <summary>
+        /// enum type name
+        /// </summary>
         [DbImport]
         public string Type;
+
         [DbImport]
         public string Key;
+
         [DbImport]
         public int LCID;
+
         [DbImport]
         public string Text;
-
-        //public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }
 namespace InnateGlory.Models
 {
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public struct LangModel
+    public class LangInitModel
     {
-        [JsonProperty]
+        [Required]
         public PlatformId? PlatformId { get; set; }
-        [JsonProperty]
+
+        [Required]
+        public string ResPath { get; set; }
+    }
+
+    public class LangModel
+    {
+        [Required]
+        public PlatformId? PlatformId { get; set; }
+
         public string Path { get; set; }
-        [JsonProperty]
+
         public string Type { get; set; }
-        [JsonProperty]
+
+        [Required]
         public string Key { get; set; }
-        [JsonProperty]
+
         public int? LCID { get; set; }
-        [JsonProperty]
+
         public string Text { get; set; }
     }
 }

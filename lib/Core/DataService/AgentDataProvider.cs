@@ -112,7 +112,7 @@ namespace InnateGlory
         public Status Create(Models.AgentModel model, out Entity.Agent result)
         {
             result = null;
-            UserId op_user = _dataService.GetHttpContext().User.GetUserId();// .GetCurrentUser().Id;
+            UserId op_user = _dataService.HttpContext().User.GetUserId();// .GetCurrentUser().Id;
 
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;
@@ -185,7 +185,7 @@ namespace InnateGlory
         {
             if (base.Get(out status, id, corpId, corpname, name, out result, chechActive))
             {
-                var op_userId = _dataService.GetHttpContext().User.GetUserId();//.GetCurrentUser().Id;
+                var op_userId = _dataService.HttpContext().User.GetUserId();//.GetCurrentUser().Id;
                 if (op_userId.IsRoot)
                     return true;
                 if (result.CorpId == op_userId.CorpId && op_userId.IsCorpRoot)

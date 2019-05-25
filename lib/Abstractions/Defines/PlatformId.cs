@@ -50,7 +50,7 @@ namespace InnateGlory
 
         public override int GetHashCode() => base.GetHashCode();
 
-        public override string ToString() => "0x" + this.Id.ToString("x4");
+        //public override string ToString() => "0x" + this.Id.ToString("x4");
 
         [_DebuggerStepThrough]
         class _TypeConverter : TypeConverter

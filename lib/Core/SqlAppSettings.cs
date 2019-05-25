@@ -53,7 +53,8 @@ namespace InnateGlory
             if (_dataService != null)
             {
                 string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = {sender.Index}";
-                using (IDbConnection conn = _dataService.Connections.CoreDB_R().OpenDbConnection(_dataService, null))
+                var cn = _dataService.ConnectionStrings.CoreDB_R();
+                using (IDbConnection conn = cn.OpenDbConnection(_dataService, null))
                 {
                     return conn.Query<Entity.Config>(sql);
                 }

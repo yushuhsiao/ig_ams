@@ -11,9 +11,11 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using _DebuggerStepThroughAttribute = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace Microsoft.Extensions.Logging
 {
+    [_DebuggerStepThrough]
     partial class _Extensions
     {
         public static ILoggingBuilder AddTextFile(this ILoggingBuilder logging/*, Action<TextFileLoggerOptions> configure = null*/)
@@ -72,6 +74,7 @@ namespace Microsoft.Extensions.Logging
     //    private int? _RetryCount;
     //}
 
+    [_DebuggerStepThrough]
     public class TextFileLoggerProvider : Abstractions._LoggerProvider<TextFileLoggerProvider, TextFileLogger>
     {
         private IConfiguration<TextFileLoggerProvider> _config;
@@ -113,6 +116,7 @@ namespace Microsoft.Extensions.Logging
         public int RetryCount => _config.GetValue<int>();
     }
 
+    [_DebuggerStepThrough]
     public class TextFileLogger : Abstractions._Logger<TextFileLoggerProvider, TextFileLogger>
     {
         public TextFileLogger(TextFileLoggerProvider provider, string categoryName) : base(provider, categoryName)

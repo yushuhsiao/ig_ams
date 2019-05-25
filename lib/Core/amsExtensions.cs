@@ -37,12 +37,12 @@ namespace InnateGlory
             //services.AddConfigurationBinder();
 
             services.AddSqlCmdPooling(
-                HttpContextExtensions.GetHttpContext,
+                HttpContextExtensions.HttpContext,
                 RegisterForDispose);
 
             services.AddDbConnectionPooling(
                 CreateSqlConnection,
-                HttpContextExtensions.GetHttpContext,
+                HttpContextExtensions.HttpContext,
                 RegisterForDispose);
 
             services.AddLogging(logging => logging.InjectConsole().AddSql().AddTextFile());

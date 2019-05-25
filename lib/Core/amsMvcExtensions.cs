@@ -74,7 +74,7 @@ namespace InnateGlory
             mvc.AddMvcOptions(opts =>
             {
                 //opts.ModelMetadataDetailsProviders.Insert(0, new BaseTypeMetadataDetailsProvider());
-                opts.Filters.Add<Api.ApiExceptionFilter>();
+                //opts.Filters.Add<Api.ApiExceptionFilter>();
                 opts.Filters.Add<Api.ApiResultFilter>();
                 opts.Filters.Add<AclFilter>();
                 //opts.ValueProviderFactories.Add(new ApiValueProviderFactory());

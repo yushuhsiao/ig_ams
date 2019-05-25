@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InnateGlory
 {
-    public class LangService //: IPageApplicationModelConvention
+    public class LangService : IDataService //: IPageApplicationModelConvention
     {
-        //private IServiceProvider _services;
-        //private PathList<ViewLang> _viewLang;
         private DataService _service;
         private DbCache<LangItem> _cache;
 
@@ -22,9 +21,11 @@ namespace InnateGlory
             this._cache = services.GetDbCache<LangItem>(this.ReadData, name: TableName<Entity.Lang>.Value);
         }
 
+        internal DbCache<LangItem>.Entry GetCacheEntry(PlatformId platformId) => _cache[platformId];
+
         private IEnumerable<LangItem> ReadData(DbCache<LangItem>.Entry sender, LangItem[] oldValue)
         {
-            using (IDbConnection conn = _service.Connections.CoreDB_R().OpenDbConnection(_service))
+            using (IDbConnection conn = _service.ConnectionStrings.CoreDB_R().OpenDbConnection(_service))
             //using (SqlCmd coredb = _service.SqlCmds.CoreDB_R())
             {
                 string sql = $"select * from {TableName<Entity.Lang>.Value} nolock where PlatformId={sender.Index}";
@@ -36,23 +37,40 @@ namespace InnateGlory
             }
         }
 
-        public Entity.Lang[] Set(Models.LangModel[] models)
+        public Entity.Lang Set(Models.LangModel model)
         {
-            LangItem root = _cache[0].GetFirstValue();
-            return new List<Entity.Lang>(root.GetRows()).ToArray();
-            //return _null;
+            DataService service = _service.GetService<DataService>();
+            using (IDbConnection conn = service.SqlConnections.CoreDB_W())
+            {
+                int platformId = model.PlatformId?.Id ?? 0;
+                var p = new DynamicParameters();
+                p.Add("@PlatformId", platformId);
+                p.Add("@Path", model.Path ?? "");
+                p.Add("@Type", model.Type ?? "");
+                p.Add("@Key", model.Key);
+                p.Add("@LCID", model.LCID ?? 0);
+                p.Add("@Text", model.Text);
+                using (var tran = conn.BeginTransaction())
+                {
+                    //var _row = conn.Execute("Lang_Set @PlatformId=@PlatformId, @Path=@Path, @Type=@Type, @Key=@Key, @LCID=@LCID, @Text=@Text", p, tran);
+                    var _cnt = conn.Execute("Lang_Set", p, tran, null, CommandType.StoredProcedure);
+                    //foreach (var __row in _row)
+                    //    yield return __row;
+                    tran.Commit();
+                }
+                var _row = conn.QuerySingle<Entity.Lang>(sql_GetRow, p, null);
+                _cache.UpdateVersion(platformId);
+                return _row;
+            }
+            //yield break;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="platformId">null for all</param>
-        /// <param name="respath">null for all</param>
-        /// <returns></returns>
-        public List<Entity.Lang> Init(IServiceProvider services, PlatformId? platformId, string respath)
+        private string sql_GetRow => $@"select * from {TableName<Entity.Lang>.Value}
+where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LCID=@LCID";
+
+        public IEnumerable<Entity.Lang> Init(PlatformId? platformId, string respath)
         {
-            var dataService = services.GetService<DataService>();
+            DataService service = _service.GetService<DataService>();
             var items = new List<LangItem>();
             foreach (var n1 in _cache.GetValues())
             {
@@ -65,9 +83,8 @@ namespace InnateGlory
                 }
             }
 
-            List<Entity.Lang> result = new List<Entity.Lang>();
-
-            using (IDbConnection conn = dataService.Connections.CoreDB_W().OpenDbConnection(services))
+            List<int> platformIds = null;
+            using (IDbConnection conn = service.SqlConnections.CoreDB_W(service))
             {
                 using (var tran = conn.BeginTransaction())
                 {
@@ -83,16 +100,15 @@ namespace InnateGlory
                             p.Add("@LCID", row.LCID);
                             p.Add("@Text", row.Text);
 
-                            if (conn.Execute("Lang_Set", p, tran, commandType: CommandType.StoredProcedure) > 0)
-                            {
-                                result.Add(row);
-                            }
+                            var _cnt = conn.Execute("Lang_Set", p, tran, null, CommandType.StoredProcedure);
+                            var _row = conn.QuerySingle<Entity.Lang>(sql_GetRow, p, tran);
+                            _null._new(ref platformIds).Add(row.PlatformId.Id);
+                            yield return _row;
                         }
                     }
                     tran.Commit();
                 }
-                _cache.UpdateVersion();
-                return result;
+                _cache.UpdateVersion(platformIds);
             }
         }
 
@@ -103,7 +119,6 @@ namespace InnateGlory
         //        n1.Model = model;
         //}
 
-        internal DbCache<LangItem>.Entry GetEntry(PlatformId platformId) => _cache[platformId];
 
         //internal ViewLang GetViewLang(IServiceProvider services)
         //{

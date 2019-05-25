@@ -19,7 +19,8 @@ namespace InnateGlory
         {
             _services = services;
             _config = services.GetService<IConfiguration<DataService>>();
-            this.Connections = new _Connections(this);
+            this.ConnectionStrings = new _ConnectionStrings(this);
+            this.SqlConnections = new _SqlConnections(this);
             this.SqlCmds = new _SqlCmds(this);
         }
 
@@ -47,7 +48,8 @@ namespace InnateGlory
             return result;
         }
 
-        public _Connections Connections { get; }
+        public _ConnectionStrings ConnectionStrings { get; }
+        public _SqlConnections SqlConnections { get; }
         public _SqlCmds SqlCmds { get; }
 
         public CorpInfoProvider Corps => this.GetService<CorpInfoProvider>();
@@ -60,17 +62,15 @@ namespace InnateGlory
         public PaymentInfoProvider Payments => this.GetService<PaymentInfoProvider>();
         public PlatformInfoProvider Platforms => this.GetService<PlatformInfoProvider>();
 
-
-
-        public sealed class _Connections
+        public sealed class _ConnectionStrings
         {
             private DataService _services;
             private IConfiguration _config;
 
-            public _Connections(DataService services)
+            public _ConnectionStrings(DataService services)
             {
                 _services = services;
-                _config = services.GetService<IConfiguration<_Connections>>();
+                _config = services.GetService<IConfiguration<_ConnectionStrings>>();
             }
 
             [AppSetting(SectionName = AppSettingAttribute.ConnectionStrings, Key = _Consts.db.CoreDB_R), DefaultValue(_Consts.db.CoreDB_Default)]
@@ -92,6 +92,23 @@ namespace InnateGlory
             public DbConnectionString LogDB_W(CorpId id) => _config.GetValue<string>(id);
         }
 
+        public sealed class _SqlConnections
+        {
+            private DataService _services;
+
+            public _SqlConnections(DataService services)
+            {
+                _services = services;
+            }
+
+            public IDbConnection CoreDB_R( /*     */ object state = null) => _services.ConnectionStrings.CoreDB_R().OpenDbConnection(_services, state);
+            public IDbConnection CoreDB_W( /*     */ object state = null) => _services.ConnectionStrings.CoreDB_W().OpenDbConnection(_services, state);
+            public IDbConnection UserDB_R(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_R(id).OpenDbConnection(_services, state);
+            public IDbConnection UserDB_W(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_W(id).OpenDbConnection(_services, state);
+            public IDbConnection LogDB_R(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_R(id).OpenDbConnection(_services, state);
+            public IDbConnection LogDB_W(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_W(id).OpenDbConnection(_services, state);
+        }
+
         public sealed class _SqlCmds
         {
             private DataService _services;
@@ -103,19 +120,19 @@ namespace InnateGlory
                 //_config = services.GetService<IConfiguration<_SqlCmds>>();
             }
 
-            public SqlCmd CoreDB_R(object state = null) => _services.Connections.CoreDB_R().Open(_services, state);
-            public SqlCmd CoreDB_W(object state = null) => _services.Connections.CoreDB_W().Open(_services, state);
-            public SqlCmd UserDB_R(CorpId id, object state = null) => _services.Connections.UserDB_R(id).Open(_services, state);
-            public SqlCmd UserDB_W(CorpId id, object state = null) => _services.Connections.UserDB_W(id).Open(_services, state);
-            public SqlCmd LogDB_R(CorpId id, object state = null) => _services.Connections.LogDB_R(id).Open(_services, state);
-            public SqlCmd LogDB_W(CorpId id, object state = null) => _services.Connections.LogDB_W(id).Open(_services, state);
+            public SqlCmd CoreDB_R(object state = null) => _services.ConnectionStrings.CoreDB_R().Open(_services, state);
+            public SqlCmd CoreDB_W(object state = null) => _services.ConnectionStrings.CoreDB_W().Open(_services, state);
+            public SqlCmd UserDB_R(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_R(id).Open(_services, state);
+            public SqlCmd UserDB_W(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_W(id).Open(_services, state);
+            public SqlCmd LogDB_R(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_R(id).Open(_services, state);
+            public SqlCmd LogDB_W(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_W(id).Open(_services, state);
 
-            public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null) => _Open(_services.Connections.CoreDB_R, CoreDB_R, ref sqlcmd, state);
-            public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null) => _Open(_services.Connections.CoreDB_W, CoreDB_W, ref sqlcmd, state);
-            public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.Connections.UserDB_R, UserDB_R, ref sqlcmd, id, state);
-            public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.Connections.UserDB_W, UserDB_W, ref sqlcmd, id, state);
-            public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.Connections.LogDB_R, LogDB_R, ref sqlcmd, id, state);
-            public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.Connections.LogDB_W, LogDB_W, ref sqlcmd, id, state);
+            public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null) => _Open(_services.ConnectionStrings.CoreDB_R, CoreDB_R, ref sqlcmd, state);
+            public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null) => _Open(_services.ConnectionStrings.CoreDB_W, CoreDB_W, ref sqlcmd, state);
+            public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_R, UserDB_R, ref sqlcmd, id, state);
+            public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_W, UserDB_W, ref sqlcmd, id, state);
+            public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_R, LogDB_R, ref sqlcmd, id, state);
+            public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_W, LogDB_W, ref sqlcmd, id, state);
 
             private IDisposable _Open(Func<DbConnectionString> _conn, Func<object, SqlCmd> _db, ref SqlCmd sqlcmd, object state = null)
             {

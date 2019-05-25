@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Html;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using LCID = System.Int32;
 
 namespace InnateGlory
 {
-    internal class ViewLang : /*IViewLang, */ IViewLang
+    internal class ViewLang : IViewLang
     {
         private LangService _langService;
         public PlatformId PlatformId { get; set; }
@@ -24,16 +25,18 @@ namespace InnateGlory
         //internal string ViewEnginePath { get; set; }
         //internal string FullPath { get; set; }
 
-        internal ViewLang(LangService langService)
+        internal static IViewLang GetInstance(IServiceProvider service) => new ViewLang(service.GetService<DataService>());
+
+        private ViewLang(DataService service)
         {
-            _langService = langService;
+            service.GetService(ref _langService);
         }
 
         private IEnumerable<LangItem> GetLangItem()
         {
             if (_langItem == null)
             {
-                var n01 = _langService.GetEntry(this.PlatformId);
+                var n01 = _langService.GetCacheEntry(this.PlatformId);
                 LangItem n0 = n01.GetFirstValue();
 
                 _langItem = n0.GetChild(this.ResPath.Trim(false), true);
@@ -78,11 +81,6 @@ namespace InnateGlory
                     return _html;
             return new HtmlString(text);
         }
-
-        //string IViewLang.this[string key, LCID? lcid] => this.GetEnum(key, key, lcid).Value;
-        //string IViewLang.this[object key, LCID? lcid] => this.GetEnum(key, key?.ToString(), lcid).Value;
-        //string IViewLang.this[string key, string text, LCID? lcid] => this.GetEnum(key, text, lcid).Value;
-        //string IViewLang.this[object key, string text, LCID? lcid] => this.GetEnum(key, text, lcid).Value;
 
         IHtmlContent IViewLang.this[string key, LCID? lcid] => this.GetEnum(key, key, lcid);
         IHtmlContent IViewLang.this[object key, LCID? lcid] => this.GetEnum(key, key?.ToString(), lcid);

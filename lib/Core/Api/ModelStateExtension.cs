@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InnateGlory;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System;
@@ -10,7 +11,7 @@ using System.Reflection;
 using _DebuggerStepThrough = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
 
-namespace InnateGlory.Api
+namespace Microsoft.AspNetCore.Mvc
 {
     public static class ModelStateExtension
     {

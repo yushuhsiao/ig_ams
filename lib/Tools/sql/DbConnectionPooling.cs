@@ -188,18 +188,18 @@ namespace System.Data
             }
         }
 
-        public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
-            Func<DbConnectionString, TDbConnection> createConnection,
-            IServiceProvider services,
-            object state = null)
-            where TDbConnection : IDbConnection
-            => db<TDbConnection>.OpenDbConnection(cn, createConnection, services, state);
+        //public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
+        //    Func<DbConnectionString, TDbConnection> createConnection,
+        //    IServiceProvider services,
+        //    object state = null)
+        //    where TDbConnection : IDbConnection
+        //    => db<TDbConnection>.OpenDbConnection(cn, createConnection, services, state);
 
-        public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
-            IServiceProvider services,
-            object state = null)
-            where TDbConnection : IDbConnection
-            => db<TDbConnection>.OpenDbConnection(cn, null, services, state);
+        //public static IDbConnection OpenDbConnection<TDbConnection>(this DbConnectionString cn,
+        //    IServiceProvider services,
+        //    object state = null)
+        //    where TDbConnection : IDbConnection
+        //    => db<TDbConnection>.OpenDbConnection(cn, null, services, state);
 
         public static IDbConnection OpenDbConnection(this DbConnectionString cn,
             IServiceProvider services,

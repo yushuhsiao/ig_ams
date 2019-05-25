@@ -16,7 +16,7 @@ namespace InnateGlory
         public Status Create(Models.AdminModel model, out Entity.Admin result)
         {
             result = null;
-            UserId op_user = _dataService.GetHttpContext().User.GetUserId();// .GetCurrentUser().Id;
+            UserId op_user = _dataService.HttpContext().User.GetUserId();// .GetCurrentUser().Id;
 
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;

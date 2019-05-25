@@ -253,12 +253,12 @@ namespace InnateGlory
 
         internal bool SqlGetVersion(IDbCacheEntry entry, out long value)
         {
-            return sql_exec(false, "TableVer_get", _services.GetService<DataService>().Connections.CoreDB_R(), entry, out value);
+            return sql_exec(false, "TableVer_get", _services.GetService<DataService>().ConnectionStrings.CoreDB_R(), entry, out value);
         }
 
         internal bool SqlSetVersion(IDbCacheEntry entry, out long value)
         {
-            return sql_exec(true, "TableVer_set", _services.GetService<DataService>().Connections.CoreDB_W(), entry, out value);
+            return sql_exec(true, "TableVer_set", _services.GetService<DataService>().ConnectionStrings.CoreDB_W(), entry, out value);
         }
 
         private bool sql_exec(bool isWrite, string sp, DbConnectionString cn, IDbCacheEntry entry, out long value)
@@ -643,6 +643,13 @@ namespace InnateGlory
 
         [DebuggerStepThrough]
         public void UpdateVersion(int index = 0) => this[index].UpdateVersion();
+
+        [DebuggerStepThrough]
+        public void UpdateVersion(IEnumerable<int> indexes)
+        {
+            foreach (int index in indexes)
+                this[index].UpdateVersion();
+        }
 
         //#region util
 

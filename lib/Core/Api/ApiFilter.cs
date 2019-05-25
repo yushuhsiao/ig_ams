@@ -45,7 +45,11 @@ namespace InnateGlory.Api
         void IActionFilter.OnActionExecuted(ActionExecutedContext context) { }
     }
 
-    public class ApiExceptionFilter : IExceptionFilter
+    //public class ApiExceptionFilter : IExceptionFilter
+    //{
+    //}
+
+    public class ApiResultFilter : IResultFilter, IExceptionFilter
     {
         void IExceptionFilter.OnException(ExceptionContext context)
         {
@@ -55,10 +59,7 @@ namespace InnateGlory.Api
             else if (context.ActionDescriptor.IsApi())
                 context.Result = new ApiException(Status.Unknown, ex.Message, ex);
         }
-    }
-
-    public class ApiResultFilter : IResultFilter
-    {
+ 
         // 具有 ApiAttribute 的 Action, 會強制使用 IApiResult 的格式輸出
         void IResultFilter.OnResultExecuting(ResultExecutingContext context)
         {

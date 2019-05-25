@@ -5,11 +5,19 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class _Extensions
     {
+        [DebuggerStepThrough]
+        public static T GetService<T>(this IServiceProvider service, ref T location)
+        {
+            location = service.GetService<T>();
+            return location;
+        }
+
         #region AddStartup
 
         private class _StartupFilter : IStartupFilter

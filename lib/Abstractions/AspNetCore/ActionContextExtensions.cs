@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Microsoft.AspNetCore.Mvc
@@ -16,9 +17,7 @@ namespace Microsoft.AspNetCore.Mvc
             return services;
         }
 
-        public static ActionContext ActionContext(this IServiceProvider services)
-        {
-            return services.GetService<IActionContextAccessor>()?.ActionContext;
-        }
+        [DebuggerStepThrough]
+        public static ActionContext ActionContext(this IServiceProvider services) => services.GetService<IActionContextAccessor>()?.ActionContext;
     }
 }

@@ -82,6 +82,6 @@ namespace Microsoft.AspNetCore.Http
         }
 
         [DebuggerStepThrough]
-        public static HttpContext GetHttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>()?.HttpContext;
+        public static HttpContext HttpContext(this IServiceProvider services) => services.GetService<IHttpContextAccessor>()?.HttpContext;
     }
 }

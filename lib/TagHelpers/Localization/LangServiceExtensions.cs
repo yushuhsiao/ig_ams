@@ -12,8 +12,8 @@ namespace InnateGlory
         public static IMvcBuilder AddLang(this IMvcBuilder mvc)
         {
             mvc.Services.AddLocalization();
-            mvc.Services.TryAddSingleton<LangService>();
-            mvc.Services.TryAddTransient(GetViewLang);
+            //mvc.Services.TryAddSingleton<LangService>();
+            mvc.Services.TryAddTransient(ViewLang.GetInstance);
             mvc.AddDataAnnotationsLocalization(/*opts =>
             {
                 opts.DataAnnotationLocalizerProvider = (modelType, stringLocalizerFactory) =>
@@ -30,8 +30,8 @@ namespace InnateGlory
         //[DebuggerStepThrough]
         //private static IViewLang GetViewLang(IServiceProvider services) => services.GetRequiredService<LangService>().GetViewLang(services);
 
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         //private static IViewLang GetViewLang(IServiceProvider services) => services.GetRequiredService<LangService>().GetViewLang(services);
-        private static IViewLang GetViewLang(IServiceProvider services) => new ViewLang(services.GetRequiredService<LangService>());
+        //private static IViewLang GetViewLang(IServiceProvider services) => new ViewLang(services.GetRequiredService<LangService>());
     }
 }
