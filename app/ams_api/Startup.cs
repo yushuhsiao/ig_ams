@@ -25,7 +25,7 @@ namespace InnateGlory
             }).AddAMS(actionSelectorOptions: options =>
             {
             })
-            .AddLang()
+            .AddLang(defaultPlatformId: 0)
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory.Controllers
 {
@@ -9,17 +10,19 @@ namespace InnateGlory.Controllers
     public class LanguageController : Controller
     {
         [HttpPost("init")]
-        public async Task<IEnumerable<Entity.Lang>> LangInit([FromBody] Models.LangInitModel model, [FromServices] LangService langService)
+        public async Task<IEnumerable<Entity.Lang>> LangInit([FromBody] Models.LangInitModel model, [FromServices] DataService service)
         {
             ModelState.IsValid();
-            var result = langService.Init(model.PlatformId, model.ResPath);
+            service.GetService(out LangService langService);
+            var result = langService.InitRes(model.PlatformId, model.ResPath);
             return await Task.FromResult(result);
         }
 
         [HttpPost("set")]
-        public async Task<Entity.Lang> LangSet([FromBody] Models.LangModel model, [FromServices] LangService langService)
+        public async Task<Entity.Lang> LangSet([FromBody] Models.LangModel model, [FromServices] DataService service)
         {
             ModelState.IsValid();
+            service.GetService(out LangService langService);
             var result = langService.Set(model);
             return await Task.FromResult(result);
         }

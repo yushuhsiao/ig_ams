@@ -22,9 +22,14 @@ namespace System.Collections.Generic
         public PathList<TValue> RootNode => root;
         public bool IsRoot => object.ReferenceEquals(this, root);
 
+        const string RootName = "~";
+        const string PathSeparator = "/";
+        const string RootPathName = RootName + PathSeparator;
+        const string PathSeparatorEx = PathSeparator + "\\?";
+
         public TValue Value { get; set; }
 
-        public PathList() : this(null, "~/") { }
+        public PathList() : this(null, RootPathName) { }
 
         private PathList(PathList<TValue> parent, string name)
         {
@@ -36,17 +41,17 @@ namespace System.Collections.Generic
                 this.root = _this;
                 this.all = new Dictionary<int, PathList<TValue>>();
                 this.all.Add(this.ID, _this);
-                if (this.Name == "~" || this.Name == "~/")
-                    this.FullPath = "~/";
+                if (this.Name == RootName || this.Name == RootPathName)
+                    this.FullPath = RootPathName;
                 else
-                    this.FullPath = "/" + this.Name;
+                    this.FullPath = PathSeparator + this.Name;
             }
             else
             {
                 this.root = parent.root;
                 StringBuilder s = new StringBuilder(parent.FullPath);
-                if (!parent.FullPath.EndsWith("/"))
-                    s.Append('/');
+                if (!parent.FullPath.EndsWith(PathSeparator))
+                    s.Append(PathSeparator);
                 s.Append(this.Name);
                 this.FullPath = s.ToString();
             }
@@ -89,13 +94,13 @@ namespace System.Collections.Generic
             PathList<TValue> _this = this;
             if (path == null) goto _not_found;
             if (path == "") { result = this; return true; }
-            string name, next;// = parse_path(path, out next);
-            path.Split("/\\?", out name, out next);
+            string name, next;
+            path.Split(PathSeparatorEx, out name, out next);
 
             lock (root.all)
             {
                 PathList<TValue> node;
-                if (name == "~")
+                if (name == RootName)
                     node = root;
                 else if (name == "")
                     node = _this;
@@ -138,10 +143,8 @@ namespace System.Collections.Generic
                     {
                         if (createValue != null)
                             result.Value = createValue(result);
-#if NETCORE
                         else if (serviceProvider != null)
                             result.Value = ActivatorUtilities.CreateInstance<TValue>(serviceProvider, parameters);
-#endif
                         else
                             result.Value = _ctor.CreateInstance<TValue>();
                     }
@@ -183,7 +186,7 @@ namespace System.Collections.Generic
         #endregion
 
         #region GetChild with IServiceProvider
-#if NETCORE
+
         public PathList<TValue> GetChild(string path, IServiceProvider serviceProvider, params object[] parameters)
         {
             GetChild(path, out var result, serviceProvider, parameters);
@@ -194,7 +197,7 @@ namespace System.Collections.Generic
         {
             return this.GetChild(path, out result, serviceProvider != null, null, serviceProvider, parameters);
         }
-#endif
+      
         #endregion
 
         public PathList<TValue> SetChildValue(string path, TValue value, bool replace = false)

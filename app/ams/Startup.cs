@@ -42,7 +42,9 @@ namespace InnateGlory
             {
                 ;
                 //opts.Conventions.AuthorizeFolder("/").AllowAnonymousToPage("/Login.cshtml");
-            }).AddLang().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            })
+            .AddLang(defaultPlatformId: 0)
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {
             });

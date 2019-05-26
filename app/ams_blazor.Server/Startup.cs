@@ -33,6 +33,12 @@ namespace ams_blazor.Server
                 app.UseBlazorDebugging();
             }
 
+            app.Use(async (context, next) =>
+            {
+                var path = context.Request.Path;
+                await next();
+            });
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

@@ -10,7 +10,7 @@
     <NoWarn>$(NoWarn);1591;1570;1584;1587;1574;1723;</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>NETCORE</DefineConstants>
+    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net461' ">
     <DefineConstants>netfx</DefineConstants>

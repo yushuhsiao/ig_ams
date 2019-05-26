@@ -20,13 +20,13 @@ namespace System.Globalization
             {
                 if (self)
                     yield return cultureInfo;
-                for (; ;)
+                for (; ; )
                 {
-                    CultureInfo p = cultureInfo.Parent;
-                    if (cultureInfo.LCID == p.LCID)
+                    CultureInfo parent = cultureInfo.Parent;
+                    if (parent.LCID == cultureInfo.LCID)
                         break;
-                    yield return p;
-                    cultureInfo = p;
+                    yield return parent;
+                    cultureInfo = parent;
                 }
             }
         }

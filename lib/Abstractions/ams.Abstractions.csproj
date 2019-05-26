@@ -49,23 +49,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />-->
-    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\DefaultBuilder\src\Microsoft.AspNetCore.csproj" />
-    <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore" Version="2.1.3" />-->
-    <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\MetaPackages\src\Microsoft.AspNetCore\Microsoft.AspNetCore.csproj" />-->
-    <!--<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />-->
-    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\Mvc\Mvc\src\Microsoft.AspNetCore.Mvc.csproj" />
-    <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />-->
-    <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\Mvc\src\Microsoft.AspNetCore.Mvc\Microsoft.AspNetCore.Mvc.csproj" />-->
-    <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />-->
-    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\Security\Authentication\Cookies\src\Microsoft.AspNetCore.Authentication.Cookies.csproj" />
-    <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.2" />-->
-    <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\Security\src\Microsoft.AspNetCore.Authentication.Cookies\Microsoft.AspNetCore.Authentication.Cookies.csproj" />-->
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />-->
-    <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Universe\modules\StaticFiles\src\Microsoft.AspNetCore.StaticFiles\Microsoft.AspNetCore.StaticFiles.csproj" />-->
     <!--<PackageReference Include="Tools" Version="1.0.42" />-->
   </ItemGroup>
+  <ItemGroup Condition=" '$(SolutionName)' != 'ams.asp' ">
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(SolutionName)' == 'ams.asp' ">
+    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\DefaultBuilder\src\Microsoft.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\Mvc\Mvc\src\Microsoft.AspNetCore.Mvc.csproj" />
+    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\Security\Authentication\Cookies\src\Microsoft.AspNetCore.Authentication.Cookies.csproj" />
+    <ProjectReference Include="..\..\lib.ext\AspNetCore\src\Middleware\HttpsPolicy\src\Microsoft.AspNetCore.HttpsPolicy.csproj" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\Tools\Tools.csproj" />

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="LangTagHelper.cs" />
+    <Compile Remove="Localization\LangItem.cs" />
   </ItemGroup>
 
   <ItemGroup>

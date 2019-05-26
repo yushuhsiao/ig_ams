@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static partial class _Extensions
     {
         [DebuggerStepThrough]
-        public static T GetService<T>(this IServiceProvider service, ref T location)
+        public static T GetService<T>(this IServiceProvider service, out T location)
         {
             location = service.GetService<T>();
             return location;

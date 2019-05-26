@@ -5,7 +5,7 @@ namespace InnateGlory
 {
     public interface IViewLang
     {
-        PlatformId PlatformId { get; set; }
+        //PlatformId PlatformId { get; set; }
         string ResPath { get; set; }
         IHtmlContent this[string key, LCID? lcid = null] { get; }
         IHtmlContent this[string key, string text, LCID? lcid = null] { get; }

@@ -30,7 +30,7 @@ namespace InnateGlory
 
         private Dictionary<string, Dictionary<string, Dictionary<int, _row>>> _datas =
             new Dictionary<string, Dictionary<string, Dictionary<int, _row>>>(StringComparer.OrdinalIgnoreCase);
-        private SyncList<_row> _rows = new SyncList<_row>();
+        private List<_row> _rows = new List<_row>();
 
         public PlatformId PlatformId { get; }
 
