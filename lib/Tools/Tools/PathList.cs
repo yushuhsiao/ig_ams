@@ -89,7 +89,24 @@ namespace System.Collections.Generic
             }
         }
 
-        private bool GetChildNode(string path, out PathList<TValue> result, bool create)
+        public void InitNode(CreateValueHandler createValue, IServiceProvider serviceProvider, params object[] parameters)
+        {
+            var node = this;
+            lock (node)
+            {
+                if (object.ReferenceEquals(node.Value, null))
+                {
+                    if (createValue != null)
+                        node.Value = createValue(node);
+                    else if (serviceProvider != null)
+                        node.Value = ActivatorUtilities.CreateInstance<TValue>(serviceProvider, parameters);
+                    else
+                        node.Value = _ctor.CreateInstance<TValue>();
+                }
+            }
+        }
+
+        private bool GetChildNode(string path, out PathList<TValue> result, bool create, CreateValueHandler createValue, IServiceProvider serviceProvider, params object[] parameters)
         {
             PathList<TValue> _this = this;
             if (path == null) goto _not_found;
@@ -120,50 +137,30 @@ namespace System.Collections.Generic
                             node = new PathList<TValue>(_this, name);
                             _this.childs.Add(node);
                             root.all.Add(node.ID, node);
+                            node.InitNode(createValue, serviceProvider, parameters);
                         }
                         else
                             goto _not_found;
                     }
                 }
-                return node.GetChildNode(next, out result, create);
+                return node.GetChildNode(next, out result, create, createValue, serviceProvider, parameters);
             }
             _not_found:
             result = null;
             return false;
         }
 
-        public bool GetChild(string path, out PathList<TValue> result, bool create, CreateValueHandler createValue, IServiceProvider serviceProvider, params object[] parameters)
-        {
-            bool r = this.GetChildNode(path, out result, create);
-            if (result != null)
-            {
-                lock (result)
-                {
-                    if (object.ReferenceEquals(result.Value, null))
-                    {
-                        if (createValue != null)
-                            result.Value = createValue(result);
-                        else if (serviceProvider != null)
-                            result.Value = ActivatorUtilities.CreateInstance<TValue>(serviceProvider, parameters);
-                        else
-                            result.Value = _ctor.CreateInstance<TValue>();
-                    }
-                }
-            }
-            return r;
-        }
-
         #region GetChild
 
         public PathList<TValue> GetChild(string path, bool create = false)
         {
-            GetChild(path, out var result, create);
+            GetChildNode(path, out var result, create, null,null);
             return result;
         }
 
         public bool GetChild(string path, out PathList<TValue> result, bool create = false)
         {
-            return GetChild(path, out result, create, null, null);
+            return GetChildNode(path, out result, create, null, null);
         }
 
         #endregion
@@ -174,13 +171,13 @@ namespace System.Collections.Generic
 
         public PathList<TValue> GetChild(string path, CreateValueHandler createValue)
         {
-            GetChild(path, out var result, createValue);
+            GetChildNode(path, out var result, createValue != null, createValue, null);
             return result;
         }
 
         public bool GetChild(string path, out PathList<TValue> result, CreateValueHandler createValue)
         {
-            return this.GetChild(path, out result, createValue != null, createValue, null);
+            return this.GetChildNode(path, out result, createValue != null, createValue, null);
         }
 
         #endregion
@@ -189,20 +186,20 @@ namespace System.Collections.Generic
 
         public PathList<TValue> GetChild(string path, IServiceProvider serviceProvider, params object[] parameters)
         {
-            GetChild(path, out var result, serviceProvider, parameters);
+            GetChildNode(path, out var result, serviceProvider != null, null, serviceProvider, parameters);
             return result;
         }
 
         public bool GetChild(string path, out PathList<TValue> result, IServiceProvider serviceProvider, params object[] parameters)
         {
-            return this.GetChild(path, out result, serviceProvider != null, null, serviceProvider, parameters);
+            return this.GetChildNode(path, out result, serviceProvider != null, null, serviceProvider, parameters);
         }
-      
+
         #endregion
 
         public PathList<TValue> SetChildValue(string path, TValue value, bool replace = false)
         {
-            if (this.GetChildNode(path, out var result, true))
+            if (this.GetChildNode(path, out var result, true, null, null))
             {
                 TValue v = replace ? default(TValue) : value;
                 lock (result)
