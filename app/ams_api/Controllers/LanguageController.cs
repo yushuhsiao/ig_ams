@@ -9,7 +9,7 @@ namespace InnateGlory.Controllers
     [Route("/lang")]
     public class LanguageController : Controller
     {
-        [HttpPost("init")]
+        [HttpPost("initres")]
         public async Task<IEnumerable<Entity.Lang>> LangInit([FromBody] Models.LangInitModel model, [FromServices] DataService service)
         {
             ModelState.IsValid();

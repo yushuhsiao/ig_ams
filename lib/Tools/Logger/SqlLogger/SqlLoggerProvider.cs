@@ -6,7 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
-using _DebuggerStepThroughAttribute = System.Diagnostics.DebuggerStepThroughAttribute;
+using Dapper;
+using _DebuggerStepThroughAttribute = System.Diagnostics.FakeDebuggerStepThroughAttribute;
 
 namespace Microsoft.Extensions.Logging
 {
@@ -31,61 +32,71 @@ namespace Microsoft.Extensions.Logging
 
         internal Guid InstanceId => Global.InstanceId;
         internal string InstanceName => _options.Value.ApplicationName.Trim(true) ?? System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+
+        public object IDbConnection { get; private set; }
+
         private long _processId = -1;
 
-        const string sql_GetProcessId = "select Id from [Process] nolock where [Guid] = {InstanceId}";
+        const string sql_GetProcessId = "select Id from [Process] nolock where [Guid] = @InstanceId";
         const string sql_ProcessId = @"
 if not exists (" + sql_GetProcessId + @")
-    insert into [Process] ([Guid], [Name]) values ({InstanceId}, {InstanceName})
+    insert into [Process] ([Guid], [Name]) values (@InstanceId, @InstanceName)
 " + sql_GetProcessId;
 
         const string sql_WriteLog = @"
 insert into [Logs] ([ProcessId], [MessageId], [Time], [Category], [LogLevel], [EventId], [EventName], [Message], [Exception])
-values ({ProcessId}, {Metadata.Id}, {Metadata.Time:" + StringFormatWith.SqlDateTimeFormat + "}, {CategoryName:varchar(200)}, {Metadata.LogLevel}, {Metadata.EventId.Id}, {Metadata.EventId.Name:varchar(200)}, {Message:nvarchar}, {Exception:nvarchar})";
+values (@ProcessId,  @Metadata_Id, @Metadata_Time, @CategoryName, @Metadata_LogLevel, @Metadata_EventId, @Metadata_EventId_Name, @Message, @Exception)";
 
         private async Task WriteProc()
         {
-            _start:
-            SqlCmd sqlcmd = null;
+        _start:
             try
             {
-                _write:
+            _write:
                 var msg = await messages.DequeueAsync();
                 ILoggerMessageExt ext = msg.State as ILoggerMessageExt;
                 if (ext == null)
                     msg.Message = msg.State.MessageFormatter(msg.State, msg.Exception);
-                StringBuilder sql = sql_WriteLog.FormatWith(new StringBuilder(), msg, true, getValue: GetValue);
-                ext?.FormatSql(msg.logger, sql);
 
                 DbConnectionString cn = _options.Value.ConnectionString;
-                if (sqlcmd == null || sqlcmd.ConnectionString != cn)
+                using (IDbConnection dbx = cn.OpenDbConnection(_services))
+                using (var tran = dbx.BeginTransaction())
                 {
-                    SqlCmd.Close(ref sqlcmd);
+                    long processId;
                     try
                     {
-                        sqlcmd = new SqlCmd(cn, _services) { WriteLog = false };
-                        string sql_init = sql_ProcessId.FormatWith(this, sql: true);
-                        long processId = (long)sqlcmd.ExecuteScalar(sql_init, transaction: true);
-                        sqlcmd.WriteLog = false;
+                        string sql = sql_ProcessId;
+                        processId = (long)dbx.Execute(sql, new
+                        {
+                            InstanceId = this.InstanceId,
+                            InstanceName = this.InstanceName
+                        }, tran, null, null);
                         this._processId = processId;
                     }
                     catch
                     {
-                        SqlCmd.Close(ref sqlcmd);
-                        this._processId = -1;
+                        this._processId = processId = -1;
                     }
-                }
 
-                sqlcmd?.ExecuteNonQuery(sql.ToString());
+                    string sql2 = sql_WriteLog;
+                    dbx.Execute(sql2, new
+                    {
+                        ProcessId = processId,
+                        Metadata_Id = msg.Metadata.Id,
+                        Metadata_Time = msg.Metadata.Time,
+                        CategoryName = msg.CategoryName,
+                        Metadata_LogLevel = msg.Metadata.LogLevel,
+                        Metadata_EventId = msg.Metadata.Id,
+                        Metadata_EventId_Name = msg.Metadata.EventId.Name,
+                        Message = msg.Message,
+                        Exception = msg.Exception?.ToString()
+                    }, tran, null, null);
+
+                    //dbx?.Execute(sql.ToString());
+                }
                 goto _write;
             }
-            catch
-            {
-            }
-            finally
-            {
-                SqlCmd.Close(ref sqlcmd);
-            }
+            catch { }
             goto _start;
         }
 
