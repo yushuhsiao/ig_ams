@@ -19,7 +19,7 @@ namespace InnateGlory
         {
             string sql_w = s.where();
             return $@"
-if not exists (select [Text] from {SqlBuilder.TableName} nolock {sql_w})
+if not exists (select [Text] from {SqlBuilder.TableName} {sql_w})
 {s.insert_into()}
 else
 update {SqlBuilder.TableName} set {s.update()} {sql_w}";

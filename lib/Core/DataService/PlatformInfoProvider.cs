@@ -26,7 +26,7 @@ namespace InnateGlory
 
         private IEnumerable<Entity.PlatformInfo> ReadData(DbCache<Entity.PlatformInfo>.Entry sender, Entity.PlatformInfo[] oldValue)
         {
-            string sql1 = $"select * from {TableName<Entity.PlatformInfo>.Value} nolock";
+            string sql1 = $"select * from {TableName<Entity.PlatformInfo>.Value}";
             using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
             {
                 foreach (SqlDataReader r in coredb.ExecuteReaderEach(sql1))

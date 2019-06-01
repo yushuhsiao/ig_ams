@@ -271,9 +271,11 @@ namespace InnateGlory
                     {
                         using (IDbConnection conn = cn.OpenDbConnection(_services, this))
                         {
-                            var p = new DynamicParameters();
-                            p.Add("@name", sql_name(entry.Parent.Name));
-                            p.Add("@index", entry.Index);
+                            var param = new
+                            {
+                                name= sql_name(entry.Parent.Name),
+                                index = entry.Index
+                            };
                             object tmp1;
 
                             try
@@ -282,7 +284,7 @@ namespace InnateGlory
                                 if (isWrite) tran = conn.BeginTransaction();
                                 using (tran)
                                 {
-                                    tmp1 = conn.ExecuteScalar(sp, p, transaction: tran, commandType: CommandType.StoredProcedure);
+                                    tmp1 = conn.ExecuteScalar(sp, param, transaction: tran, commandType: CommandType.StoredProcedure);
                                     tran?.Commit();
                                 }
                             }

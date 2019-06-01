@@ -13,14 +13,14 @@ namespace ams.Controllers
         [AllowAnonymous]
         public IActionResult Index(/*[FromServices] UserIdentity user*/)
         {
-            var cn = ConfigurationBinder.GetValue<DbConnectionString>(HttpContext.RequestServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
-            ;
-            using (var conn = cn.OpenDbConnection(HttpContext.RequestServices, null))
-            {
-            }
-            using (var conn = cn.OpenDbConnection(HttpContext.RequestServices, null))
-            {
-            }
+            //var cn = ConfigurationBinder.GetValue<DbConnectionString>(HttpContext.RequestServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
+            //;
+            //using (var conn = cn.OpenDbConnection(HttpContext.RequestServices, null))
+            //{
+            //}
+            //using (var conn = cn.OpenDbConnection(HttpContext.RequestServices, null))
+            //{
+            //}
 
             UserId userId = HttpContext.User.GetUserId();
             if (userId.IsGuest)

@@ -138,25 +138,27 @@ where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LC
         public Entity.Lang Set(Models.LangModel model)
         {
             DataService service = _service.GetService<DataService>();
-            using (IDbConnection conn = service.SqlConnections.CoreDB_W())
+            using (IDbConnection conn = service.DbConnections.CoreDB_W())
             {
                 int platformId = model.PlatformId?.Id ?? 0;
-                var p = new DynamicParameters();
-                p.Add("@PlatformId", platformId);
-                p.Add("@Path", model.Path ?? "");
-                p.Add("@Type", model.Type ?? "");
-                p.Add("@Key", model.Key);
-                p.Add("@LCID", model.LCID ?? 0);
-                p.Add("@Text", model.Text);
+                var param = new
+                {
+                    PlatformId = platformId,
+                    Path = model.Path ?? "",
+                    Type = model.Type ?? "",
+                    Key = model.Key,
+                    LCID = model.LCID ?? 0,
+                    Text = model.Text
+                };
                 using (var tran = conn.BeginTransaction())
                 {
                     //var _row = conn.Execute("Lang_Set @PlatformId=@PlatformId, @Path=@Path, @Type=@Type, @Key=@Key, @LCID=@LCID, @Text=@Text", p, tran);
-                    var _cnt = conn.Execute("Lang_Set", p, tran, null, CommandType.StoredProcedure);
+                    var _cnt = conn.Execute("Lang_Set", param, tran, null, CommandType.StoredProcedure);
                     //foreach (var __row in _row)
                     //    yield return __row;
                     tran.Commit();
                 }
-                var _row = conn.QuerySingle<Entity.Lang>(sql_GetRow, p, null);
+                var _row = conn.QuerySingle<Entity.Lang>(sql_GetRow, param, null);
                 _cache.UpdateVersion(platformId);
                 return _row;
             }
@@ -200,22 +202,23 @@ where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LC
             List<int> platformIds = null;
             if (items != null && items.Count > 0)
             {
-                using (IDbConnection conn = service.SqlConnections.CoreDB_W(service))
+                using (IDbConnection conn = service.DbConnections.CoreDB_W(service))
                 {
                     using (var tran = conn.BeginTransaction())
                     {
                         foreach (var row in items)
                         {
-                            var p = new DynamicParameters();
-                            p.Add("@PlatformId", row.PlatformId.Id);
-                            p.Add("@Path", row.Path ?? "");
-                            p.Add("@Type", row.Type ?? "");
-                            p.Add("@Key", row.Key ?? "");
-                            p.Add("@LCID", row.LCID);
-                            p.Add("@Text", row.Text);
-
-                            var _cnt = conn.Execute("Lang_Set", p, tran, null, CommandType.StoredProcedure);
-                            var _row = conn.QuerySingle<Entity.Lang>(sql_GetRow, p, tran);
+                            var param = new
+                            {
+                                PlatformId = (int)row.PlatformId,
+                                Path = row.Path ?? "",
+                                Type = row.Type ?? "",
+                                Key = row.Key ?? "",
+                                LCID = row.LCID,
+                                Text = row.Text
+                            };
+                            var _cnt = conn.Execute("Lang_Set", param, tran, null, CommandType.StoredProcedure);
+                            var _row = conn.QuerySingle<Entity.Lang>(sql_GetRow, param, tran);
                             _null._new(ref platformIds).Add(row.PlatformId.Id);
                             yield return _row;
                         }

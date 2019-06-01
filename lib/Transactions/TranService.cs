@@ -44,7 +44,7 @@ set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(
             foreach (var c in _dataService.Corps.All)
             {
                 _dataService.SqlCmds.UserDB_W(ref userdb, c.Id);
-                string sql = $"select * from {TableName<T>.Value} nolock where TranId = '{tranId}'";
+                string sql = $"select * from {TableName<T>.Value} where TranId = '{tranId}'";
                 var data = userdb.ToObject<T>(sql);
                 if (data != null)
                     return data;
@@ -155,7 +155,7 @@ exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Am
                 {
                     var schema = SqlSchemaTable.GetSchema(userdb, TableName<Entity.TranCorp2>.Value);
                     string fields = string.Join(", ", schema.Keys);
-                    string sql_delete = $@"select * from {TableName<Entity.TranCorp1>.Value} nolock where TranId = '{data.TranId}'
+                    string sql_delete = $@"select * from {TableName<Entity.TranCorp1>.Value} where TranId = '{data.TranId}'
 insert into {TableName<Entity.TranCorp2>.Value} ({fields})
 select {fields} from {TableName<Entity.TranCorp1>.Value}
 where TranId = '{data.TranId}'
@@ -164,7 +164,7 @@ where TranId = '{data.TranId}'";
                     data = userdb.ToObject<Entity.TranCorp1>(sql_delete, transaction: true);
                 }
                 else
-                    data = userdb.ToObject<Entity.TranCorp1>("select * from {:TableName} nolock where TranId = {TranId}".FormatWith(data, true));
+                    data = userdb.ToObject<Entity.TranCorp1>("select * from {:TableName} where TranId = {TranId}".FormatWith(data, true));
             }
             return data;
         }

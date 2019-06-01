@@ -52,12 +52,10 @@ namespace InnateGlory
             var _dataService = Interlocked.CompareExchange(ref this._dataService, null, null);
             if (_dataService != null)
             {
-                string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = {sender.Index}";
+                string sql = $"select * from {TableName<Entity.Config>.Value} where CorpId = {sender.Index}";
                 var cn = _dataService.ConnectionStrings.CoreDB_R();
                 using (IDbConnection conn = cn.OpenDbConnection(_dataService, null))
-                {
                     return conn.Query<Entity.Config>(sql);
-                }
             }
             return null;
         }
@@ -160,7 +158,7 @@ namespace InnateGlory
     //        {
     //            try
     //            {
-    //                string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0";
+    //                string sql = $"select * from {TableName<Entity.Config>.Value} where CorpId = 0";
     //                using (IDbConnection conn = CoreDB_R.OpenDbConnection(
     //                    _connStr => new SqlConnection(_connStr),
     //                    _service,
@@ -218,7 +216,7 @@ namespace InnateGlory
 
     //    private IEnumerable<Entity.Config> ReadData(DbCache<Entity.Config>.Entry sender, Entity.Config[] oldValue)
     //    {
-    //        string sql = $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = {sender.Index}";
+    //        string sql = $"select * from {TableName<Entity.Config>.Value} where CorpId = {sender.Index}";
     //        using (IDbConnection conn = _service._CoreDB_R().OpenDbConnection(
     //            _connStr => new SqlConnection(_connStr),
     //            _service,
@@ -321,7 +319,7 @@ namespace InnateGlory
     //        {
     //            lock (_sync)
     //            {
-    //                List<Entity.Config> tmp = SqlCmd.ToList<Entity.Config>(cn, _services, $"select * from {TableName<Entity.Config>.Value} nolock where CorpId = 0");
+    //                List<Entity.Config> tmp = SqlCmd.ToList<Entity.Config>(cn, _services, $"select * from {TableName<Entity.Config>.Value} where CorpId = 0");
 
     //                base.Data.Clear();
     //                foreach (var row in tmp)
@@ -362,7 +360,7 @@ namespace InnateGlory
     //    //    {
     //    //        List<Data.Config> tmp;
     //    //        using (SqlCmd sqlcmd = new SqlCmd(cn, _services))
-    //    //            tmp = sqlcmd.ToList<Data.Config>($"select * from {TableName<Data.Config>.Value} nolock where CorpId = 0");
+    //    //            tmp = sqlcmd.ToList<Data.Config>($"select * from {TableName<Data.Config>.Value} where CorpId = 0");
     //    //        lock (_sync)
     //    //        {
     //    //            base.Data.Clear();
@@ -375,7 +373,7 @@ namespace InnateGlory
     //    //        //    using (SqlCmd sqlcmd = new SqlCmd(cn, _services))
     //    //        //    {
     //    //        //        base.Data.Clear();
-    //    //        //        foreach (SqlDataReader r in sqlcmd.ExecuteReaderEach($"select * from {TableName<Data.Config>.Value} nolock where CorpId = 0"))
+    //    //        //        foreach (SqlDataReader r in sqlcmd.ExecuteReaderEach($"select * from {TableName<Data.Config>.Value} where CorpId = 0"))
     //    //        //        {
     //    //        //            Data.Config row = r.ToObject<Data.Config>();
     //    //        //            base.Data[$"{row.Key1}:{row.Key2}"] = row.Value;

@@ -4,6 +4,7 @@ using System.Diagnostics;
 namespace InnateGlory.Entity
 {
     [DebuggerDisplay("Id : {Id}, Name : {Name}")]
+    [TableName("Users")]
     public abstract class UserData : Abstractions.BaseData
     {
         public abstract UserType UserType { get; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,18 @@ namespace InnateGlory
         protected override Status Status_UserDisabled => Status.AgentDisabled;
 
         public AgentDataProvider(DataService dataService) : base(dataService) { }
+
+        protected override string sql_get(UserId id)
+            => $@"select * from {TableName<Entity.UserData>.Value} a
+left join {TableName<Entity.Users_Agent>.Value} b
+on a.Id=b.Id
+where a.Id=@Id";
+
+        protected override string sql_get(CorpId corpId, UserName name)
+            => $@"select * from {TableName<Entity.UserData>.Value} a
+left join {TableName<Entity.Users_Agent>.Value} b
+on a.Id=b.Id
+where a.CorpId=@CorpId and a.Name=@Name";
 
         public override bool Get(UserId? id, out Entity.Agent result/*, bool withCorpId = true*/)
         {
@@ -43,35 +56,81 @@ namespace InnateGlory
 
         public bool GetRootAgent(Entity.CorpInfo corp, out Entity.Agent result) => this.Get((UserId)corp.Id, out result);
 
+        /// <summary>
+        /// 建立頂級代理
+        /// </summary>
         private bool CreateRootAgent(Entity.CorpInfo corp, out Entity.Agent result)
         {
-            var _sql = new SqlBuilder(typeof(Entity.Agent))
+            var sql_select = sql_get(default(UserId));
+            var sql = $@"
+if not exists (select Id from [{TableName<Entity.UserData>.Value}] where [Id] = @Id)
+begin
+    insert into [{TableName<Entity.UserData>.Value}] ([Id], [UserType], [CorpId], [Name], [Active], [ParentId], [DisplayName], [Depth], [CreateUser], [ModifyUser])
+    values (@Id, @UserType, @CorpId, @Name, @Active, @ParentId, @DisplayName, @Depth, @CreateUser, @ModifyUser)
+    if not exists (select Id from [{TableName<Entity.Users_Agent>.Value}] where Id=@Id)
+        insert into [{TableName<Entity.Users_Agent>.Value}] ([Id], [MaxDepth]) values (@Id, @MaxDepth)
+end
+{sql_select}";
+            var param = new
             {
-                { "w", nameof(Entity.Agent.Id)            , corp.Id },
-                { " ", nameof(Entity.Agent.CorpId)        , corp.Id },
-                { " ", nameof(Entity.Agent.Name)          , corp.Name },
-                { " ", nameof(Entity.Agent.Active)        , ActiveState.Active },
-                { " ", nameof(Entity.Agent.ParentId)      , UserId.Null },
-                { "N", nameof(Entity.Agent.DisplayName)   , corp.DisplayName ?? corp.Name},
-                { " ", nameof(Entity.Agent.MaxDepth)      , corp.Id.IsRoot ? 0 : 1},
-                { " ", nameof(Entity.Agent.Depth)         , 1 },
-                { corp.CreateUser, corp.CreateUser }
+                Id = (int)corp.Id,
+                UserType = (int)UserType.Agent,
+                CorpId = (long)corp.Id,
+                Name = (string)corp.Name,
+                Active = (int)ActiveState.Active,
+                ParentId = (int)UserId.Null,
+                DisplayName = corp.DisplayName ?? corp.Name,
+                MaxDepth = corp.Id.IsRoot ? 0 : 1,
+                Depth = 1,
+                CreateUser = (int)corp.CreateUser,
+                ModifyUser = (int)corp.CreateUser
             };
-            string sql = _sql.FormatWith($@"if not exists (select Id from {SqlBuilder.TableName} {_sql.where()})
-    {_sql.insert_into()}
-    {_sql.select_where()}");
             try
             {
-                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id, state: _sql))
-                    result = userdb.ToObject<Entity.Agent>(sql, transaction: true);
+                using (IDbConnection userdb = _dataService.DbConnections.UserDB_W(corp.Id))
+                using (IDbTransaction tran = userdb.BeginTransaction())
+                {
+                    //result = userdb.ToObject<Entity.Agent>(sql, transaction: true);
+                    result = userdb.QuerySingleOrDefault<Entity.Agent>(sql, param, tran);
+                    tran.Commit();
+                }
             }
             catch (SqlException ex) when (ex.IsDuplicateKey())
             {
-                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(corp.Id))
-                    result = userdb.ToObject<Entity.Agent>(_sql.select_where());
+                using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(corp.Id))
+                {
+                    result = userdb.QuerySingleOrDefault<Entity.Agent>(sql_select, param);
+                }
             }
             return result != null;
 
+            //        var _sql = new SqlBuilder(typeof(Entity.Agent))
+            //        {
+            //            { "w", nameof(Entity.Agent.Id)            , corp.Id },
+            //            { " ", nameof(Entity.Agent.CorpId)        , corp.Id },
+            //            { " ", nameof(Entity.Agent.Name)          , corp.Name },
+            //            { " ", nameof(Entity.Agent.Active)        , ActiveState.Active },
+            //            { " ", nameof(Entity.Agent.ParentId)      , UserId.Null },
+            //            { "N", nameof(Entity.Agent.DisplayName)   , corp.DisplayName ?? corp.Name},
+            //            { " ", nameof(Entity.Agent.MaxDepth)      , corp.Id.IsRoot ? 0 : 1},
+            //            { " ", nameof(Entity.Agent.Depth)         , 1 },
+            //            { corp.CreateUser, corp.CreateUser }
+            //        };
+            //        string sql = _sql.FormatWith($@"if not exists (select Id from {SqlBuilder.TableName} {_sql.where()})
+            //{_sql.insert_into()}
+            //{_sql.select_where()}");
+
+            //        try
+            //        {
+            //            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id, state: _sql))
+            //                result = userdb.ToObject<Entity.Agent>(sql, transaction: true);
+            //        }
+            //        catch (SqlException ex) when (ex.IsDuplicateKey())
+            //        {
+            //            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(corp.Id))
+            //                result = userdb.ToObject<Entity.Agent>(_sql.select_where());
+            //        }
+            //        return result != null;
         }
 
         #endregion

@@ -20,7 +20,7 @@ namespace InnateGlory
             _services = services;
             _config = services.GetService<IConfiguration<DataService>>();
             this.ConnectionStrings = new _ConnectionStrings(this);
-            this.SqlConnections = new _SqlConnections(this);
+            this.DbConnections = new _DbConnections(this);
             this.SqlCmds = new _SqlCmds(this);
         }
 
@@ -49,7 +49,7 @@ namespace InnateGlory
         }
 
         public _ConnectionStrings ConnectionStrings { get; }
-        public _SqlConnections SqlConnections { get; }
+        public _DbConnections DbConnections { get; }
         public _SqlCmds SqlCmds { get; }
 
         public CorpInfoProvider Corps => this.GetService<CorpInfoProvider>();
@@ -92,11 +92,11 @@ namespace InnateGlory
             public DbConnectionString LogDB_W(CorpId id) => _config.GetValue<string>(id);
         }
 
-        public sealed class _SqlConnections
+        public sealed class _DbConnections
         {
             private DataService _services;
 
-            public _SqlConnections(DataService services)
+            public _DbConnections(DataService services)
             {
                 _services = services;
             }

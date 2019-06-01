@@ -1,4 +1,5 @@
-﻿using InnateGlory.Api;
+﻿using Dapper;
+using InnateGlory.Api;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Data;
@@ -94,9 +95,9 @@ namespace InnateGlory.Controllers
         [HttpPost("list")]
         public IEnumerable<Entity.Member> List([FromBody] Models.UserListModel<Entity.Member> model)
         {
-            string sql = $"select * from {TableName<Entity.Member>.Value} nolock where ParentId = {model.ParentId} {model.Paging.ToSql()}";
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(model.ParentId.CorpId))
-                return userdb.ToList<Entity.Member>(sql);
+            string sql = $"select * from {TableName<Entity.Member>.Value} where ParentId = {model.ParentId} {model.Paging.ToSql()}";
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(model.ParentId.CorpId))
+                return userdb.Query<Entity.Member>(sql);
         }
     }
 }

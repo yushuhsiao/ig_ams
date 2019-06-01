@@ -21,7 +21,7 @@
         if (this.Errors == null)
             this.Errors = {};
         if (this.StatusCode == null)
-            this.StatusCode = 200;
+            this.StatusCode = 0;
         if (this.StatusText == null)
             this.StatusText = "Unknown";
         if (this.Message == null) {
@@ -35,7 +35,7 @@
             this.Data = {};
 
         if (this.httpStatus == null)
-            this.httpStatus = 200;
+            this.httpStatus = 0;
         if (this.httpStatusText == null)
             this.httpStatusText = "OK";
     }

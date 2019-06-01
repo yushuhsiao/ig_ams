@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,9 +19,10 @@ namespace InnateGlory
 
         public Entity.Password Get(UserId userId)
         {
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(userId.CorpId))
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(userId.CorpId))
             {
-                var p = userdb.ToObject<Entity.Password>($"select * from {TableName<Entity.Password>.Value} nolock where UserId={userId}");
+                var sql = $"select * from {TableName<Entity.Password>.Value} where UserId={userId}";
+                var p = userdb.QuerySingleOrDefault<Entity.Password>(sql);
                 if (p != null)
                     return p;
             }
@@ -39,24 +41,56 @@ namespace InnateGlory
         public Entity.Password Set(UserId userId, string input, string old_value = null)
         {
             Entity.Password p = Create(input);
-            SqlBuilder _sql = new SqlBuilder(typeof(Entity.Password))
-            {
-                { "w", "UserId"     , userId        },
-                { " ", "Encrypt"    , p.Type        },
-                { " ", "a"          , p.Ciphertext  },
-                { " ", "b"          , p.Password    },
-                { " ", "c"          , p.Salt        },
-                { userId, null }
-            };
+            //SqlBuilder _sql = new SqlBuilder(typeof(Entity.Password))
+            //{
+            //    { "w", "UserId"     , userId        },
+            //    { " ", "Encrypt"    , p.Type        },
+            //    { " ", "a"          , p.Ciphertext  },
+            //    { " ", "b"          , p.Password    },
+            //    { " ", "c"          , p.Salt        },
+            //    { userId, null }
+            //};
             old_value = old_value.Trim(true);
-            if (old_value != null)
-                _sql.Add(" ", "x", old_value);
+            //if (old_value != null)
+            //    _sql.Add(" ", "x", old_value);
+            object param = new
+            {
+                UserId = (int)userId,
+                Encrypt = p.Type,
+                a = p.Ciphertext,
+                b = p.Password,
+                c = p.Salt,
+                CreateUser = (int)userId,
+                Expiry = default(int?),
+                x = old_value
+            };
+            string sql = $@"
+insert into [{TableName<Entity.PasswordHist>.Value}] ([UserId], [ver], [Encrypt], [a], [b], [c], [Expiry], [CreateTime], [CreateUser], [x])
+select [UserId], convert(bigint, [ver]),[Encrypt], [a], [b], [c], [Expiry], [CreateTime], [CreateUser], @x
+from [{TableName<Entity.Password>.Value}]
+where UserId = @UserId
 
-            string sql = $@"{_sql.exec("UpdatePassword")}
-{_sql.select_where()}";
-            sql = _sql.FormatWith(sql);
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(userId.CorpId))
-                return userdb.ToObject<Entity.Password>(sql, transaction: true);
+delete from [{TableName<Entity.Password>.Value}]
+where UserId = @UserId
+
+insert into [{TableName<Entity.Password>.Value}] ([UserId], [Encrypt], [a], [b], [c], [Expiry], [CreateTime], [CreateUser])
+values (@UserId, @Encrypt, @a, @b, @c, @Expiry, getdate(), @CreateUser)
+
+select * from [{TableName<Entity.Password>.Value}]
+where UserId = @UserId
+";
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_W(userId.CorpId))
+            using (IDbTransaction tran = userdb.BeginTransaction())
+            {
+                var result = userdb.QuerySingle<Entity.Password>(sql, param, tran);
+                tran.Commit();
+                return result;
+            }
+//            string sql = $@"{_sql.exec("UpdatePassword")}
+//{_sql.select_where()}";
+//            sql = _sql.FormatWith(sql);
+//            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(userId.CorpId))
+//                return userdb.ToObject<Entity.Password>(sql, transaction: true);
         }
 
         public bool IsMatch(Entity.Password data, string input)

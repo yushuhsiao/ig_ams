@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Dapper;
 
 namespace InnateGlory
 {
@@ -31,14 +32,21 @@ namespace InnateGlory
 
         private IEnumerable<Entity.CorpInfo> ReadData(DbCache<Entity.CorpInfo>.Entry sender, Entity.CorpInfo[] oldValue)
         {
-            string sql = $"select * from {TableName<Entity.CorpInfo>.Value} nolock";
-            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
+            string sql = $"select * from {TableName<Entity.CorpInfo>.Value}";
+            using (var coredb = _dataService.DbConnections.CoreDB_R())
             {
-                var values = coredb.ToList<Entity.CorpInfo>(sql);
-                var root = values.Find(x => x.Id == CorpId.Root);
-                if (root != null)
-                    return values;
+                var values = coredb.Query<Entity.CorpInfo>(sql);
+                foreach (var corp in values)
+                    if (corp.Id.IsRoot)
+                        return values;
             }
+            //using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
+            //{
+            //    var values = coredb.ToList<Entity.CorpInfo>(sql);
+            //    var root = values.Find(x => x.Id == CorpId.Root);
+            //    if (root != null)
+            //        return values;
+            //}
             return CreateRoot(sql);
 
             //for (bool f = true; ; f = false)
@@ -104,22 +112,50 @@ namespace InnateGlory
 
         private IEnumerable<Entity.CorpInfo> CreateRoot(string sql_all)
         {
-            var _sql = new SqlBuilder(typeof(Entity.CorpInfo))
+            //var _sql = new SqlBuilder(typeof(Entity.CorpInfo))
+            //{
+            //    { "w", nameof(Entity.CorpInfo.Id)             , CorpId.Root },
+            //    { " ", nameof(Entity.CorpInfo.Name)           , UserName.root },
+            //    { " ", nameof(Entity.CorpInfo.Active)         , ActiveState.Active },
+            //    { "N", nameof(Entity.CorpInfo.DisplayName)    , UserName.root },
+            //    { " ", nameof(Entity.CorpInfo.Currency)       , CurrencyCode.Default },
+            //    { UserId.System, UserId.System }
+            //};
+
+            //string sql = _sql.FormatWith($@"{_sql.insert_into()}");
+
+            //using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
+            //{
+            //    try { coredb.ExecuteNonQuery(sql, transaction: true); }
+            //    catch (SqlException ex) when (ex.IsDuplicateKey()) { }
+            //    return coredb.ToList<Entity.CorpInfo>(sql_all);
+            //}
+
+            string sql = @"insert into [Corps] ([Id], [Name], [Active], [DisplayName], [Currency], [CreateUser], [ModifyUser])
+values (@Id, @Name, @Active, @DisplayName, @Currency, @CreateUser, @ModifyUser)";
+            var param = new
             {
-                { "w", nameof(Entity.CorpInfo.Id)             , CorpId.Root },
-                { " ", nameof(Entity.CorpInfo.Name)           , UserName.root },
-                { " ", nameof(Entity.CorpInfo.Active)         , ActiveState.Active },
-                { "N", nameof(Entity.CorpInfo.DisplayName)    , UserName.root },
-                { " ", nameof(Entity.CorpInfo.Currency)       , CurrencyCode.Default },
-                { UserId.System, UserId.System }
+                 Id = CorpId.Root.Id,
+                 Name = UserName.root.Value,
+                 Active = (int)ActiveState.Active,
+                 DisplayName = UserName.root.Value,
+                 Currency = CurrencyCode.Default,
+                 CreateUser = UserId.System.Id,
+                 ModifyUser = UserId.System.Id
             };
 
-            string sql = _sql.FormatWith($@"{_sql.insert_into()}");
-            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
+            using (var coredb = _dataService.DbConnections.CoreDB_W())
             {
-                try { coredb.ExecuteNonQuery(sql, transaction: true); }
+                try
+                {
+                    using (var tran = coredb.BeginTransaction())
+                    {
+                        coredb.Execute(sql, param, tran);
+                        tran.Commit();
+                    }
+                }
                 catch (SqlException ex) when (ex.IsDuplicateKey()) { }
-                return coredb.ToList<Entity.CorpInfo>(sql_all);
+                return coredb.Query<Entity.CorpInfo>(sql_all);
             }
             throw new Exception("System Error! Unable to init root");
         }

@@ -20,7 +20,7 @@ namespace System.Data
 
         public static SqlSchemaTable GetSchema(SqlCmd sqlcmd, string tableName, string id = null)
         {
-            return SqlSchemaTable.GetSchemaFromCommandText(sqlcmd, string.Format("select top(0) * from {0} nolock", tableName), id ?? tableName);
+            return SqlSchemaTable.GetSchemaFromCommandText(sqlcmd, string.Format("select top(0) * from {0}", tableName), id ?? tableName);
         }
 
         public static SqlSchemaTable GetSchemaFromCommandText(SqlCmd sqlcmd, string commandText, string id = null)

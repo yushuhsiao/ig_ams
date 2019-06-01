@@ -57,6 +57,9 @@ namespace InnateGlory.Entity
 
         #endregion
     }
+
+    [TableName("Users_Agent", Database = _Consts.db.UserDB)]
+    public class Users_Agent { }
 }
 namespace InnateGlory.Models
 {

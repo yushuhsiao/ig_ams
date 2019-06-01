@@ -156,7 +156,7 @@ namespace System.Data
                 return result;
             }
 
-            public static IDbConnection OpenDbConnection(DbConnectionString cn, Func<DbConnectionString, TDbConnection> createConnection, IServiceProvider services, object state)
+            public static IDbConnection OpenDbConnection(DbConnectionString cn, IServiceProvider services, Func<DbConnectionString, TDbConnection> createConnection,  object state)
             {
                 if (services == null)
                     return null;
@@ -201,10 +201,11 @@ namespace System.Data
         //    where TDbConnection : IDbConnection
         //    => db<TDbConnection>.OpenDbConnection(cn, null, services, state);
 
+
         public static IDbConnection OpenDbConnection(this DbConnectionString cn,
             IServiceProvider services,
             object state = null)
-            => db<SqlConnection>.OpenDbConnection(cn, null, services, state);
+            => db<SqlConnection>.OpenDbConnection(cn, services, null, state);
 
         public static void Release<TDbConnection>(object state) where TDbConnection : IDbConnection
             => db<TDbConnection>.Release(state);

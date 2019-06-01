@@ -401,7 +401,7 @@ namespace InnateGlory
 values ({values})";
         }
 
-        public string select_where() => $"select * from {SqlBuilder.TableName} nolock {this.where()}";
+        public string select_where() => $"select * from {SqlBuilder.TableName} {this.where()}";
 
         //public string build(Func<SqlBuilder, string> cb) => cb(this);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,10 +14,6 @@ namespace InnateGlory
     {
         private readonly DataService _dataService;
         private IConfiguration _config;
-
-        //public AgentDataProvider Agents => _dataService.Agents;
-        //public AdminDataProvider Admins => _dataService.Admins;
-        //public MemberDataProvider Members => _dataService.Members;
 
         public UserDataProvider(DataService dataService)
         {
@@ -210,9 +207,6 @@ namespace InnateGlory.Entity.Abstractions
         protected abstract Status Status_UserDisabled { get; }
 
         protected readonly DataService _dataService;
-        //protected UserDataProvider UserService => _dataService.Users;
-        //protected DbCache<Dictionary<UserName, TUserData>> _cache_by_name;
-        //protected DbCache<Dictionary<UserId, TUserData>> _cache_by_id;
 
         public UserDataProvider(DataService dataService)
         {
@@ -221,36 +215,23 @@ namespace InnateGlory.Entity.Abstractions
             //this._cache_by_id = dataService.GetDbCache<Dictionary<UserId, TUserData>>(_ReadData, name: $"UserCacheById_{typeof(TUserData).Name}");
         }
 
-        //private IEnumerable<Dictionary<UserName, TUserData>> _ReadData(DbCache<Dictionary<UserName, TUserData>>.Entry sender, Dictionary<UserName, TUserData>[] oldValue)
-        //{
-        //    yield return new Dictionary<UserName, TUserData>();
-        //}
-        //private IEnumerable<Dictionary<UserId, TUserData>> _ReadData(DbCache<Dictionary<UserId, TUserData>>.Entry sender, Dictionary<UserId, TUserData>[] oldValue)
-        //{
-        //    yield return new Dictionary<UserId, TUserData>();
-        //}
+        protected virtual string sql_get(UserId id)
+            => $@"select * from {TableName<UserData>.Value} where Id=@Id";
+        protected virtual string sql_get(CorpId corpId, UserName name)
+            => $@"select * from {TableName<UserData>.Value} where CorpId=@CorpId and Name=@Name";
 
         public virtual bool Get(UserId? id, out TUserData result)
         {
             if (id.HasValue && id.Value.IsValid)
             {
-                //Dictionary<UserId, TUserData> cache = null;
-                //if (fromCache)
-                //{
-                //    cache = _cache_by_id[id.CorpId].GetFirstValue();
-                //    if (cache.TryGetValue(id, out result, syncLock: true))
-                //        return result != null;
-                //}
-                string sql;
-                //if (withCorpId)
-                //    sql = $"{SqlBuilder.select_all_from<TUserData>()} where CorpId={id.CorpId} and Id={id}";
-                //else
-                sql = $"select * from {TableName<TUserData>.Value} nolock where Id={id.Value}";
-
-                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(id.Value.CorpId))
-                    result = userdb.ToObject<TUserData>(sql);
-
-                //cache?.SetValue(_id, result, syncLock: true);
+                string sql = sql_get(id.Value);
+                using (var userdb = _dataService.DbConnections.UserDB_W(id.Value.CorpId))
+                {
+                    result = userdb.QueryFirstOrDefault<TUserData>(sql, new
+                    {
+                        Id = id.Value.Id
+                    });
+                }
             }
             else result = null;
             return result != null;
@@ -260,17 +241,26 @@ namespace InnateGlory.Entity.Abstractions
         {
             if (corpId.HasValue && corpId.Value.IsValid && name.IsValid)
             {
-                Dictionary<UserName, TUserData> cache = null;
-                //if (fromCache)
-                //{
-                //    cache = _cache_by_name[corpId].GetFirstValue();
-                //    if (cache.TryGetValue(name, out result, syncLock: true))
-                //        return result != null;
-                //}
-                string sql = $"select * from {TableName<TUserData>.Value} nolock where CorpId={corpId.Value} and Name='{name}'";
-                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(corpId.Value))
-                    result = userdb.ToObject<TUserData>(sql);
-                cache?.SetValue(name, result, syncLock: true);
+                string sql = sql_get(corpId.Value, name);
+                using (var userdb = _dataService.DbConnections.UserDB_W(corpId.Value))
+                {
+                    result = userdb.QueryFirstOrDefault<TUserData>(sql, new
+                    {
+                        CorpId = corpId.Value.Id,
+                        Name = name.Value
+                    });
+                }
+                //Dictionary<UserName, TUserData> cache = null;
+                ////if (fromCache)
+                ////{
+                ////    cache = _cache_by_name[corpId].GetFirstValue();
+                ////    if (cache.TryGetValue(name, out result, syncLock: true))
+                ////        return result != null;
+                ////}
+                //string sql = $"select * from {TableName<TUserData>.Value} where CorpId={corpId.Value} and Name='{name}'";
+                //using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(corpId.Value))
+                //    result = userdb.ToObject<TUserData>(sql);
+                //cache?.SetValue(name, result, syncLock: true);
             }
             else result = null;
             return result != null;
@@ -375,7 +365,7 @@ namespace InnateGlory.Entity.Abstractions
                         if (n.HasValue)
                         {
                             result = n.Value.SetCorpId(corpId);
-                            string sql2 = $"select Id from {TableName<TUserData>.Value} nolock where Id={result}";
+                            string sql2 = $"select Id from {TableName<TUserData>.Value} where Id={result}";
                             foreach (SqlDataReader r in userdb.ExecuteReaderEach(sql2))
                                 n = null;
 
@@ -404,8 +394,26 @@ namespace InnateGlory.Entity.Abstractions
         {
             if (maxValue.HasValue && maxValue.Value > 0)
             {
-                string sql = $"select count(Id) as cnt from {TableName<TUserData>.Value} nolock where ParentId={parentId}";
+                string sql = $"select count(Id) as cnt from {TableName<TUserData>.Value} where ParentId={parentId} and UserType={(int)UserType}";
                 int count = (int)userdb.ExecuteScalar(sql);
+                if (count >= maxValue.Value)
+                    return true;
+            }
+            return false;
+        }
+
+        protected bool CheckMaxLimit(IDbConnection userdb, UserId parentId, int? maxValue)
+        {
+            if (maxValue.HasValue && maxValue.Value > 0)
+            {
+                string sql =
+                    $@"select count(Id) as cnt from {TableName<UserData>.Value}
+where ParentId=@ParentId and UserType=@UserType";
+                int count = userdb.ExecuteScalar<int>(sql, new
+                {
+                    ParentId = (int)parentId,
+                    UserType = (int)this.UserType
+                });
                 if (count >= maxValue.Value)
                     return true;
             }
