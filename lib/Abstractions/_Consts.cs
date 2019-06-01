@@ -43,8 +43,8 @@ namespace InnateGlory
             public const string ExternalScheme = CookiePrefix + ".External";
             public const string TwoFactorRememberMeScheme = CookiePrefix + ".TwoFactorRememberMe";
             public const string TwoFactorUserIdScheme = CookiePrefix + ".TwoFactorUserId";
-            public const string ApiAuthScheme = "ApiAuth";
-            public const string AccessTokenScheme = "AccessToken";
+            public const string ApiAuthScheme = Microsoft.Net.Http.Headers.HeaderNames.Authorization;
+            //public const string AccessTokenScheme = "AccessToken";
             //public const string Ticket_SessionId = "Ticket_SessionId";
             public const string InternalApiServer = "InternalApiServer";
             public const string AUTH_INTERNAL = "IG-INTERNAL";

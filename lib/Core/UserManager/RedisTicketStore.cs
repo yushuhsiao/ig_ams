@@ -56,17 +56,19 @@ namespace InnateGlory
 
         private readonly Dictionary<string, _TicketData> _tickets = new Dictionary<string, _TicketData>();
         //private readonly UserManager _userManager;
+        private readonly IServiceProvider _service;
         private readonly IOptionsMonitor<CookieAuthenticationOptions> _cookieOptionsMonitor;
         private readonly IConfiguration<RedisTicketStore> _config;
         private readonly ILogger _logger;
 
-        public RedisTicketStore(IServiceProvider services)
+        public RedisTicketStore(IServiceProvider service)
         {
             //this._userManager = userManager;
-            this._cookieOptionsMonitor = services.GetService<IOptionsMonitor<CookieAuthenticationOptions>>();
-            this._config = services.GetService<IConfiguration<RedisTicketStore>>();
-            this._logger = services.GetRequiredService<ILoggerFactory>().CreateLogger<RedisTicketStore>();
-            this._redis = new RedisDatabase();
+            this._service = service;
+            this._cookieOptionsMonitor = service.GetService<IOptionsMonitor<CookieAuthenticationOptions>>();
+            this._config = service.GetService<IConfiguration<RedisTicketStore>>();
+            this._logger = service.GetRequiredService<ILoggerFactory>().CreateLogger<RedisTicketStore>();
+            //this._redis = new RedisDatabase();
         }
 
         public string SchemeName { get; set; }
@@ -78,7 +80,7 @@ namespace InnateGlory
         [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.Redis_Key2)]
         private string RedisConfiguration() => _config.GetValue<string>();
 
-        private RedisDatabase _redis;
+        //private RedisDatabase _redis;
 
         private RedisKey make_keyA(string key, AuthenticationTicket ticket) => $"{ticket?.AuthenticationScheme ?? this.SchemeName}:A_{key}";
 
@@ -104,18 +106,27 @@ namespace InnateGlory
             var keyB = make_keyB(key, null);
             for (int i = 0; i < redis_retry; i++)
             {
-                try
+                using (var redis = await _service.GetRedisConnectionAsync(RedisConfiguration()))
                 {
-                    var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
-                    await redis.KeyDeleteAsync(keyA);
-                    await redis.KeyDeleteAsync(keyB);
-                    _redis.SetIdle();
-                    break;
+                    if (redis.IsAlive)
+                    {
+                        await redis.KeyDeleteAsync(keyA);
+                        await redis.KeyDeleteAsync(keyB);
+                        break;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    _redis.OnError(_logger, ex, ex.Message);
-                }
+                //try
+                //{
+                //    var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
+                //    await redis.KeyDeleteAsync(keyA);
+                //    await redis.KeyDeleteAsync(keyB);
+                //    _redis.SetIdle();
+                //    break;
+                //}
+                //catch (Exception ex)
+                //{
+                //    _redis.OnError(_logger, ex, ex.Message);
+                //}
             }
         }
 
@@ -126,17 +137,25 @@ namespace InnateGlory
 
             for (int i = 0; i < redis_retry; i++)
             {
-                try
+                using (var redis = await _service.GetRedisConnectionAsync(RedisConfiguration()))
                 {
-                    var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
-                    base64 = await redis.StringGetAsync(keyA);
-                    _redis.SetIdle();
-                    break;
+                    if (redis.IsAlive)
+                    {
+                        base64 = await redis.StringGetAsync(keyA);
+                        break;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    _redis.OnError(_logger, ex, ex.Message);
-                }
+                //try
+                //{
+                //    var redis = await _redis.GetDatabaseAsync(null, RedisConfiguration);
+                //    base64 = await redis.StringGetAsync(keyA);
+                //    _redis.SetIdle();
+                //    break;
+                //}
+                //catch (Exception ex)
+                //{
+                //    _redis.OnError(_logger, ex, ex.Message);
+                //}
             }
 
             try
@@ -183,18 +202,27 @@ namespace InnateGlory
                         RedisKey keyB = make_keyB(key, ticket);
                         for (int i = 0; i < redis_retry; i++)
                         {
-                            try
+                            using (var redis = await _service.GetRedisConnectionAsync(RedisConfiguration()))
                             {
-                                var db = await _redis.GetDatabaseAsync(null, RedisConfiguration);
-                                await db.StringSetAsync(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
-                                await db.StringSetAsync(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
-                                _redis.SetIdle();
-                                break;
+                                if (redis.IsAlive)
+                                {
+                                    await redis.StringSetAsync(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
+                                    await redis.StringSetAsync(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
+                                    break;
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                _redis.OnError(_logger, ex, ex.Message);
-                            }
+                            //try
+                            //{
+                            //    var db = await _redis.GetDatabaseAsync(null, RedisConfiguration);
+                            //    await db.StringSetAsync(key: keyA, value: data.base64, expiry: _cookieOptions.ExpireTimeSpan);
+                            //    await db.StringSetAsync(key: keyB, value: data.json, expiry: _cookieOptions.ExpireTimeSpan);
+                            //    _redis.SetIdle();
+                            //    break;
+                            //}
+                            //catch (Exception ex)
+                            //{
+                            //    _redis.OnError(_logger, ex, ex.Message);
+                            //}
                         }
                         this._tickets.SetValue(key, data, syncLock: true);
                         //_userManager.GetUserStoreItem(userId, create: true)?.Timer.Reset();

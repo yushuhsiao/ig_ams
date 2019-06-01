@@ -63,6 +63,8 @@ namespace InnateGlory
             services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<CookieAuthenticationOptions>, _ConfigureCookie>());
             builder.AddCookie(scheme);
 
+            builder.AddScheme<_ApiAuthOptions, _ApiAuthHandler>(_Consts.UserManager.ApiAuthScheme, o => { });
+
             return services;
         }
 
@@ -128,6 +130,25 @@ namespace InnateGlory
                     options.Cookie.Name = this.CookieName;
                 options.ExpireTimeSpan = this.Expire ?? TimeSpan.FromMinutes(10);
                 options.SlidingExpiration = this.SlidingExpiration ?? true;
+            }
+        }
+
+        private class _ApiAuthOptions : AuthenticationSchemeOptions
+        {
+        }
+        private class _ApiAuthHandler : AuthenticationHandler<_ApiAuthOptions>
+        {
+            public _ApiAuthHandler(IOptionsMonitor<_ApiAuthOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+                : base(options, logger, encoder, clock)
+            {
+            }
+
+            protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+            {
+                var _id = new ClaimsIdentity("ApiAuth");
+                var id = new ClaimsPrincipal(_id);
+                var ticket = new AuthenticationTicket(id, _Consts.UserManager.ApiAuthScheme);
+                return Task.FromResult(AuthenticateResult.Success(ticket));
             }
         }
 

@@ -39,6 +39,7 @@
     <Compile Remove="AspNetCore\_HttpContext.cs" />
     <Compile Remove="IBaseType.cs" />
     <Compile Remove="IUserManager.cs" />
+    <Compile Remove="Redis\RedisDatabase.cs" />
     <Compile Remove="Redis\RedisDatabaseWithLock.cs" />
     <Compile Remove="_Fakes.cs" />
   </ItemGroup>

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using StackExchange.Redis;
 
 namespace InnateGlory
 {
@@ -32,6 +33,7 @@ namespace InnateGlory
 
         public static IServiceCollection AddAMS(this IServiceCollection services/*, Action<ServerOptions> options = null*/)
         {
+            services.AddRedisConnectionPool();
             services.AddHttpContextAccessor();
             services.AddAuthenticationExtensions();
             //services.AddConfigurationBinder();

@@ -62,6 +62,9 @@ namespace StackExchange.Redis
             }
 
 
+
+            public IEnumerable<TMessage> Publish(IRedisConnection redis, RedisChannel channel) => Publish(redis.Publish, channel);
+
             public IEnumerable<TMessage> Publish(IDatabase db, RedisChannel channel) => Publish(db.Publish, channel);
 
             public IEnumerable<TMessage> Publish(ISubscriber sub, RedisChannel channel) => Publish(sub.Publish, channel);
