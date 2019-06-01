@@ -11,31 +11,24 @@ namespace InnateGlory.Entity
 
         #region Properties
 
-        [DbImport]
-        public virtual UserId Id { get; set; }
+        public UserId Id { get; set; }
 
-        [DbImport]
-        public virtual CorpId CorpId { get; set; }
+        public CorpId CorpId { get; set; }
 
-        [DbImport]
-        public virtual UserName Name { get; set; }
+        public UserName Name { get; set; }
 
-        [DbImport]
         public ActiveState Active
         {
-            get => Id.IsRoot ? ActiveState.Active : _Active;
-            set => _Active = value;
+            get => Id.IsRoot ? ActiveState.Active : _active;
+            set => _active = value;
         }
-        private ActiveState _Active;
+        private ActiveState _active;
 
-        [DbImport]
-        public virtual UserId ParentId { get; set; }
+        public UserId ParentId { get; set; }
 
-        [DbImport]
-        public virtual string DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
-        [DbImport]
-        public virtual int Depth { get; set; }
+        public int Depth { get; set; }
 
         #endregion
     }

@@ -8,10 +8,7 @@ namespace InnateGlory.Entity
     [DebuggerDisplay("Id : {Id}, Name : {Name}")]
     public class CorpInfo : Abstractions.BaseData
     {
-        [DbImport]
         public CorpId Id { get; set; }
-
-        [DbImport]
         public UserName Name { get; set; }
 
         public ActiveState Active
@@ -19,13 +16,9 @@ namespace InnateGlory.Entity
             get => Id.IsRoot ? ActiveState.Active : _active;
             set => _active = value;
         }
-        [DbImport(nameof(Active))]
+        //[DbImport(nameof(Active))]
         private ActiveState _active = ActiveState.Disabled;
-
-        [DbImport]
         public string DisplayName { get; set; }
-
-        [DbImport]
         public CurrencyCode Currency { get; set; }
     }
 }

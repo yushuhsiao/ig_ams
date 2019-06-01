@@ -18,8 +18,7 @@ namespace InnateGlory.Entity
         /// <summary>
         /// 最大層數
         /// </summary>
-        [DbImport]
-        public virtual int MaxDepth
+        public int MaxDepth
         {
             get => this.CorpId.IsRoot ? 0 : _MaxDepth;
             set => _MaxDepth = value;
@@ -28,8 +27,7 @@ namespace InnateGlory.Entity
         /// <summary>
         /// 子代理帳號數量限制, null=不限
         /// </summary>
-        [DbImport]
-        public virtual int? MaxAgents
+        public int? MaxAgents
         {
             get => this.CorpId.IsRoot ? 0 : _MaxAgents;
             set => _MaxAgents = value;
@@ -38,8 +36,7 @@ namespace InnateGlory.Entity
         /// <summary>
         /// 附屬管理帳號數量限制, null=不限
         /// </summary>
-        [DbImport]
-        public virtual int? MaxAdmins
+        public int? MaxAdmins
         {
             get => this.CorpId.IsRoot ? null : _MaxAdmins;
             set => _MaxAdmins = value;
@@ -48,8 +45,7 @@ namespace InnateGlory.Entity
         /// <summary>
         /// 子會員帳號數量限制, null=不限
         /// </summary>
-        [DbImport]
-        public virtual int? MaxMembers
+        public int? MaxMembers
         {
             get => this.CorpId.IsRoot ? 0 : _MaxMembers;
             set => _MaxMembers = value;

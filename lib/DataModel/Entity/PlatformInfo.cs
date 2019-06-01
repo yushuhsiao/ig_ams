@@ -1,13 +1,6 @@
 ﻿using InnateGlory.Entity.Abstractions;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.Internal;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace InnateGlory.Entity
 {
@@ -17,19 +10,10 @@ namespace InnateGlory.Entity
     [TableName("Platforms", Database = _Consts.db.CoreDB)]
     public class PlatformInfo : BaseData
     {
-        [DbImport]
         public PlatformId Id { get; set; }
-
-        [DbImport]
         public UserName Name { get; set; }
-
-        [DbImport]
         public PlatformType PlatformType { get; set; }
-
-        [DbImport]
         public CurrencyCode Currency { get; set; }
-
-        [DbImport]
         public PlatformActiveState Active { get; set; }
     }
 }

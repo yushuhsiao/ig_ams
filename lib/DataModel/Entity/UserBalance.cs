@@ -6,34 +6,33 @@ namespace InnateGlory.Entity
     [TableName("UserBalance", Database = _Consts.db.UserDB, SortKey = nameof(Id))]
     public class UserBalance
     {
-        [DbImport]
         public UserId Id { get; set; }
 
-        [DbImport]
-        public SqlTimeStamp ver { get; set; }
+        internal byte[] ver;
+        public SqlTimeStamp Version
+        {
+            get => (SqlTimeStamp)ver;
+            set => ver = value.data;
+        }
         
         /// <summary>
         /// 額度1,現金額度
         /// </summary>
-        [DbImport]
         public decimal Balance1 { get; set; }
         
         /// <summary>
         /// 額度2,信用額度
         /// </summary>
-        [DbImport]
         public decimal Balance2 { get; set; }
         
         /// <summary>
         /// 額度3
         /// </summary>
-        [DbImport]
         public decimal Balance3 { get; set; }
         
         /// <summary>
         /// 總額度
         /// </summary>
-        [DbImport]
         public decimal Balance { get; set; }
     }
 }

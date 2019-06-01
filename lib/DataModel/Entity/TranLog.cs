@@ -8,88 +8,33 @@ namespace InnateGlory.Entity
     [TableName("TranLog", Database = _Consts.db.LogDB, SortKey = nameof(CreateTime))]
     public class TranLog
     {
-        [DbImport]
-        public virtual long sn { get; set; }
-
-        [DbImport]
-        public virtual LogType LogType { get; set; }
-
-        [DbImport]
-        public virtual CorpId CorpId { get; set; }
-
-        [DbImport]
-        public virtual UserName CorpName { get; set; }
-
-        [DbImport]
-        public virtual UserId ParentId { get; set; }
-
-        [DbImport]
-        public virtual UserName ParentName { get; set; }
-
-        [DbImport]
-        public virtual UserId UserId { get; set; }
-
-        [DbImport]
-        public virtual UserName UserName { get; set; }
-
-        [DbImport]
-        public virtual int PlatformId { get; set; }
-
-        [DbImport]
-        public virtual string PlatformName { get; set; }
-
-        [DbImport]
-        public virtual Guid TranId { get; set; }
-
-        [DbImport]
-        public virtual Guid? PaymentAccount { get; set; }
-
-        [DbImport]
-        public virtual string SerialNumber { get; set; }
-
-        [DbImport]
-        public virtual decimal PrevBalance1 { get; set; }
-
-        [DbImport]
-        public virtual decimal Amount1 { get; set; }
-
-        [DbImport]
-        public virtual decimal Balance1 { get; set; }
-
-        [DbImport]
-        public virtual decimal PrevBalance2 { get; set; }
-
-        [DbImport]
-        public virtual decimal Amount2 { get; set; }
-
-        [DbImport]
-        public virtual decimal Balance2 { get; set; }
-
-        [DbImport]
-        public virtual decimal PrevBalance3 { get; set; }
-
-        [DbImport]
-        public virtual decimal Amount3 { get; set; }
-
-        [DbImport]
-        public virtual decimal Balance3 { get; set; }
-
-        [DbImport]
-        public virtual CurrencyCode CurrencyA { get; set; }
-
-        [DbImport]
-        public virtual CurrencyCode CurrencyB { get; set; }
-
-        [DbImport]
-        public virtual decimal CurrencyX { get; set; }
-
-        [DbImport]
-        public virtual string RequestIP { get; set; }
-
-        [DbImport]
-        public virtual DateTime RequestTime { get; set; }
-
-        [DbImport]
-        public virtual DateTime CreateTime { get; set; }
+        public long sn { get; set; }
+        public LogType LogType { get; set; }
+        public CorpId CorpId { get; set; }
+        public UserName CorpName { get; set; }
+        public UserId ParentId { get; set; }
+        public UserName ParentName { get; set; }
+        public UserId UserId { get; set; }
+        public UserName UserName { get; set; }
+        public PlatformId PlatformId { get; set; }
+        public string PlatformName { get; set; }
+        public Guid TranId { get; set; }
+        public Guid? PaymentAccount { get; set; }
+        public string SerialNumber { get; set; }
+        public decimal PrevBalance1 { get; set; }
+        public decimal Amount1 { get; set; }
+        public decimal Balance1 { get; set; }
+        public decimal PrevBalance2 { get; set; }
+        public decimal Amount2 { get; set; }
+        public decimal Balance2 { get; set; }
+        public decimal PrevBalance3 { get; set; }
+        public decimal Amount3 { get; set; }
+        public decimal Balance3 { get; set; }
+        public CurrencyCode CurrencyA { get; set; }
+        public CurrencyCode CurrencyB { get; set; }
+        public decimal CurrencyX { get; set; }
+        public string RequestIP { get; set; }
+        public DateTime RequestTime { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

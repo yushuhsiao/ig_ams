@@ -9,7 +9,7 @@ using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System.Data.SqlClient
 {
-    [DebuggerStepThrough]
+    [_DebuggerStepThrough]
     public class SqlCmd : DbCmd<SqlCmd, SqlCommand, SqlConnection, SqlTransaction, SqlDataReader, SqlParameter, SqlParameterCollection>
     {
         public SqlCmd(SqlConnection connection, IServiceProvider services = null) : base(connection, services) { }
@@ -23,9 +23,6 @@ namespace System.Data.SqlClient
             using (IDisposable x = location)
                 location = null;
         }
-
-        [DebuggerStepThrough]
-        public static string magic_quote(string input) => StringFormatWith.sql_magic_quote(input);
 
         public static bool TestConnectionString(DbConnectionString cn)
         {

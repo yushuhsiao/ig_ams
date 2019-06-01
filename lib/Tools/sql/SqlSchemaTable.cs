@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
+using Dapper;
 using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System.Data
@@ -17,10 +18,20 @@ namespace System.Data
                 for (int i = 0; i < r.FieldCount; i++)
                     this[r.GetName(i)] = r.GetFieldType(i);
         }
+        private SqlSchemaTable(IDbConnection conn, string commandText, string tag)
+        {
+            using(IDataReader r = conn.ExecuteReader(commandText))
+                for (int i = 0; i < r.FieldCount; i++)
+                    this[r.GetName(i)] = r.GetFieldType(i);
+        }
 
         public static SqlSchemaTable GetSchema(SqlCmd sqlcmd, string tableName, string id = null)
         {
             return SqlSchemaTable.GetSchemaFromCommandText(sqlcmd, string.Format("select top(0) * from {0}", tableName), id ?? tableName);
+        }
+        public static SqlSchemaTable GetSchema(IDbConnection conn, string tableName, string id = null)
+        {
+            return SqlSchemaTable.GetSchemaFromCommandText(conn, string.Format("select top(0) * from {0}", tableName), id ?? tableName);
         }
 
         public static SqlSchemaTable GetSchemaFromCommandText(SqlCmd sqlcmd, string commandText, string id = null)
@@ -32,6 +43,17 @@ namespace System.Data
                     return cache[_id];
                 else
                     return cache[_id] = new SqlSchemaTable(sqlcmd, commandText, id);
+            }
+        }
+        public static SqlSchemaTable GetSchemaFromCommandText(IDbConnection conn, string commandText, string id = null)
+        {
+            lock (cache)
+            {
+                string _id = id ?? commandText;
+                if (cache.ContainsKey(_id))
+                    return cache[_id];
+                else
+                    return cache[_id] = new SqlSchemaTable(conn, commandText, id);
             }
         }
 

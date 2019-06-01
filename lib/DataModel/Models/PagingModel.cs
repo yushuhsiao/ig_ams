@@ -62,7 +62,7 @@ namespace InnateGlory.Models
 
         public int Offset => this.PageSize * this.PageIndex;
 
-        public string ToSql(string orderBy = null) => $"order by {SqlCmd.magic_quote(orderBy ?? this.SortKey)} offset {this.Offset} rows fetch next {this.PageSize} rows only";
+        public string ToSql(string orderBy = null) => $"order by {DbCmdExtension.magic_quote(orderBy ?? this.SortKey)} offset {this.Offset} rows fetch next {this.PageSize} rows only";
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]

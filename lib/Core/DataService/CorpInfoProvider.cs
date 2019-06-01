@@ -189,8 +189,12 @@ values (@Id, @Name, @Active, @DisplayName, @Currency, @CreateUser, @ModifyUser)"
 {_sql.select_where()}");
             try
             {
-                using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
-                    result = coredb.ToObject<Entity.CorpInfo>(sql, transaction: true);
+                using (IDbConnection coredb = _dataService.DbConnections.CoreDB_W())
+                using (IDbTransaction tran = coredb.BeginTransaction())
+                {
+                    result = coredb.QuerySingleOrDefault<Entity.CorpInfo>(sql, null, tran);
+                    tran.Commit();
+                }
             }
             catch (SqlException ex) when (ex.IsDuplicateKey())
             {
@@ -224,8 +228,12 @@ values (@Id, @Name, @Active, @DisplayName, @Currency, @CreateUser, @ModifyUser)"
                 string sql = _sql.FormatWith($@"{sql_u} {sql_w}
 select * from {SqlBuilder.TableName} {sql_w}");
 
-                using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_W())
-                    result = coredb.ToObject<Entity.CorpInfo>(sql, transaction: true);
+                using (IDbConnection coredb = _dataService.DbConnections.CoreDB_W())
+                using (IDbTransaction tran = coredb.BeginTransaction())
+                {
+                    result = coredb.QuerySingleOrDefault<Entity.CorpInfo>(sql, null, tran);
+                    tran.Commit();
+                }
                 _cache.UpdateVersion();
             }
             return Status.Success;

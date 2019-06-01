@@ -5,17 +5,22 @@ namespace InnateGlory.Entity.Abstractions
 {
     public abstract class Currency
     {
-        [DbImport]
+        internal byte[] _ver;
+        internal Decimal X;
+
+        public SqlTimeStamp Version
+        {
+            get => (SqlTimeStamp)_ver;
+            set => _ver = value.data;
+        }
         public CurrencyCode A { get; set; }
-        [DbImport]
         public CurrencyCode B { get; set; }
-        [DbImport]
-        public SqlTimeStamp _ver { get; set; }
-        [DbImport("X")]
-        public Decimal ExchangeRate { get; set; }
-        [DbImport]
+        public Decimal ExchangeRate
+        {
+            get => X;
+            set => X = value;
+        }
         public DateTime ModifyTime { get; set; }
-        [DbImport]
         public UserId ModifyUser { get; set; }
     }
 }

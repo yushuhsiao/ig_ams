@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace InnateGlory
@@ -21,7 +23,7 @@ namespace InnateGlory
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;
 
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id))
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_W(corp.Id))
             {
                 if (_dataService.Admins.Get(model.CorpId, model.Name, out var _admin))
                     return Status.AdminAlreadyExist;
@@ -52,18 +54,23 @@ namespace InnateGlory
                 if (CheckMaxLimit(userdb, parent.Id, parent.MaxAdmins))
                     return Status.MaxAdminLimit;
 
-                if (!AllocUserId(userdb, corp.Id, UserType.Admin, model.Name, out UserId new_id, out statusCode))
+                if (!AllocUserId(userdb, corp.Id, UserType.Admin, model.Name, out var new_id, out statusCode, out var tran))
                     return statusCode;
-                _sql[nameof(Entity.Admin.Id)] = new_id;
 
-                string sql_insert = _sql.FormatWith($@"{_sql.insert_into()}
-{_sql.select_where()}");
-                result = userdb.ToObject<Entity.Admin>(sql_insert, transaction: true);
-                if (result != null)
+                using (tran)
                 {
-                    //_cache_by_name.UpdateVersion(result.CorpId);
-                    //_cache_by_id.UpdateVersion(result.CorpId);
-                    return Status.Success;
+                    _sql[nameof(Entity.Admin.Id)] = new_id;
+
+                    string sql_insert = _sql.FormatWith($@"{_sql.insert_into()}
+{_sql.select_where()}");
+                    result = userdb.QuerySingleOrDefault<Entity.Admin>(sql_insert, null, tran);
+                    if (result != null)
+                    {
+                        //_cache_by_name.UpdateVersion(result.CorpId);
+                        //_cache_by_id.UpdateVersion(result.CorpId);
+                        tran.Commit();
+                        return Status.Success;
+                    }
                 }
             }
             return Status.Unknown;

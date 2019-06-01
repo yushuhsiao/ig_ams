@@ -21,7 +21,7 @@ namespace InnateGlory
             _config = services.GetService<IConfiguration<DataService>>();
             this.ConnectionStrings = new _ConnectionStrings(this);
             this.DbConnections = new _DbConnections(this);
-            this.SqlCmds = new _SqlCmds(this);
+            //this.SqlCmds = new _SqlCmds(this);
         }
 
         private Dictionary<Type, object> _instances = new Dictionary<Type, object>();
@@ -50,7 +50,7 @@ namespace InnateGlory
 
         public _ConnectionStrings ConnectionStrings { get; }
         public _DbConnections DbConnections { get; }
-        public _SqlCmds SqlCmds { get; }
+        //public _SqlCmds SqlCmds { get; }
 
         public CorpInfoProvider Corps => this.GetService<CorpInfoProvider>();
         public UserDataProvider Users => this.GetService<UserDataProvider>();
@@ -101,57 +101,75 @@ namespace InnateGlory
                 _services = services;
             }
 
-            public IDbConnection CoreDB_R( /*     */ object state = null) => _services.ConnectionStrings.CoreDB_R().OpenDbConnection(_services, state);
-            public IDbConnection CoreDB_W( /*     */ object state = null) => _services.ConnectionStrings.CoreDB_W().OpenDbConnection(_services, state);
-            public IDbConnection UserDB_R(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_R(id).OpenDbConnection(_services, state);
-            public IDbConnection UserDB_W(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_W(id).OpenDbConnection(_services, state);
-            public IDbConnection LogDB_R(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_R(id).OpenDbConnection(_services, state);
-            public IDbConnection LogDB_W(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_W(id).OpenDbConnection(_services, state);
-        }
+            public IDbConnection CoreDB_R/*************/(object state = null) => _services.ConnectionStrings.CoreDB_R().OpenDbConnection(_services, state);
+            public IDbConnection CoreDB_W/*************/(object state = null) => _services.ConnectionStrings.CoreDB_W().OpenDbConnection(_services, state);
+            public IDbConnection UserDB_R/**/(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_R(id).OpenDbConnection(_services, state);
+            public IDbConnection UserDB_W/**/(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_W(id).OpenDbConnection(_services, state);
+            public IDbConnection LogDB_R/***/(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_R(id).OpenDbConnection(_services, state);
+            public IDbConnection LogDB_W/***/(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_W(id).OpenDbConnection(_services, state);
 
-        public sealed class _SqlCmds
-        {
-            private DataService _services;
-            //private IConfiguration _config;
+            public IDisposable CoreDB_R/**/(ref IDbConnection sqlcmd, /********/ object state = null) => _Open(_services.ConnectionStrings.CoreDB_R, CoreDB_R, ref sqlcmd, state);
+            public IDisposable CoreDB_W/**/(ref IDbConnection sqlcmd, /********/ object state = null) => _Open(_services.ConnectionStrings.CoreDB_W, CoreDB_W, ref sqlcmd, state);
+            public IDisposable UserDB_R/**/(ref IDbConnection sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_R, UserDB_R, ref sqlcmd, id, state);
+            public IDisposable UserDB_W/**/(ref IDbConnection sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_W, UserDB_W, ref sqlcmd, id, state);
+            public IDisposable LogDB_R/***/(ref IDbConnection sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_R, LogDB_R, ref sqlcmd, id, state);
+            public IDisposable LogDB_W/***/(ref IDbConnection sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_W, LogDB_W, ref sqlcmd, id, state);
 
-            public _SqlCmds(DataService services)
+            private IDisposable _Open(Func<DbConnectionString> _conn, Func<object, IDbConnection> _db, ref IDbConnection conn, object state = null)
             {
-                _services = services;
-                //_config = services.GetService<IConfiguration<_SqlCmds>>();
-            }
-
-            public SqlCmd CoreDB_R(object state = null) => _services.ConnectionStrings.CoreDB_R().Open(_services, state);
-            public SqlCmd CoreDB_W(object state = null) => _services.ConnectionStrings.CoreDB_W().Open(_services, state);
-            public SqlCmd UserDB_R(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_R(id).Open(_services, state);
-            public SqlCmd UserDB_W(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_W(id).Open(_services, state);
-            public SqlCmd LogDB_R(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_R(id).Open(_services, state);
-            public SqlCmd LogDB_W(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_W(id).Open(_services, state);
-
-            public IDisposable CoreDB_R(ref SqlCmd sqlcmd, object state = null) => _Open(_services.ConnectionStrings.CoreDB_R, CoreDB_R, ref sqlcmd, state);
-            public IDisposable CoreDB_W(ref SqlCmd sqlcmd, object state = null) => _Open(_services.ConnectionStrings.CoreDB_W, CoreDB_W, ref sqlcmd, state);
-            public IDisposable UserDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_R, UserDB_R, ref sqlcmd, id, state);
-            public IDisposable UserDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_W, UserDB_W, ref sqlcmd, id, state);
-            public IDisposable LogDB_R(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_R, LogDB_R, ref sqlcmd, id, state);
-            public IDisposable LogDB_W(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_W, LogDB_W, ref sqlcmd, id, state);
-
-            private IDisposable _Open(Func<DbConnectionString> _conn, Func<object, SqlCmd> _db, ref SqlCmd sqlcmd, object state = null)
-            {
-                if (sqlcmd == null || sqlcmd.ConnectionString != _conn())
-                    return sqlcmd = _db(state);
+                if (conn == null || conn.ConnectionString != _conn())
+                    return conn = _db(state);
                 else
                     return null;
             }
 
-            private IDisposable _Open(Func<CorpId, DbConnectionString> _conn, Func<CorpId, object, SqlCmd> _db, ref SqlCmd sqlcmd, CorpId id, object state = null)
+            private IDisposable _Open(Func<CorpId, DbConnectionString> _conn, Func<CorpId, object, IDbConnection> _db, ref IDbConnection conn, CorpId id, object state = null)
             {
-                if (sqlcmd == null || sqlcmd.ConnectionString != _conn(id))
-                    return sqlcmd = _db(id, state);
+                if (conn == null || conn.ConnectionString != _conn(id))
+                    return conn = _db(id, state);
                 else
                     return null;
             }
         }
-    }
-    public static partial class DataServiceExtensions
-    {
+
+        //public sealed class _SqlCmds
+        //{
+        //    private DataService _services;
+
+        //    public _SqlCmds(DataService services)
+        //    {
+        //        _services = services;
+        //    }
+
+        //    public SqlCmd CoreDB_R/*************/(object state = null) => _services.ConnectionStrings.CoreDB_R().Open(_services, state);
+        //    public SqlCmd CoreDB_W/*************/(object state = null) => _services.ConnectionStrings.CoreDB_W().Open(_services, state);
+        //    public SqlCmd UserDB_R/**/(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_R(id).Open(_services, state);
+        //    public SqlCmd UserDB_W/**/(CorpId id, object state = null) => _services.ConnectionStrings.UserDB_W(id).Open(_services, state);
+        //    public SqlCmd LogDB_R/***/(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_R(id).Open(_services, state);
+        //    public SqlCmd LogDB_W/***/(CorpId id, object state = null) => _services.ConnectionStrings.LogDB_W(id).Open(_services, state);
+
+        //    public IDisposable CoreDB_R/**/(ref SqlCmd sqlcmd, /********/ object state = null) => _Open(_services.ConnectionStrings.CoreDB_R, CoreDB_R, ref sqlcmd, state);
+        //    public IDisposable CoreDB_W/**/(ref SqlCmd sqlcmd, /********/ object state = null) => _Open(_services.ConnectionStrings.CoreDB_W, CoreDB_W, ref sqlcmd, state);
+        //    public IDisposable UserDB_R/**/(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_R, UserDB_R, ref sqlcmd, id, state);
+        //    public IDisposable UserDB_W/**/(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.UserDB_W, UserDB_W, ref sqlcmd, id, state);
+        //    public IDisposable LogDB_R/***/(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_R, LogDB_R, ref sqlcmd, id, state);
+        //    public IDisposable LogDB_W/***/(ref SqlCmd sqlcmd, CorpId id, object state = null) => _Open(_services.ConnectionStrings.LogDB_W, LogDB_W, ref sqlcmd, id, state);
+
+        //    private IDisposable _Open(Func<DbConnectionString> _conn, Func<object, SqlCmd> _db, ref SqlCmd sqlcmd, object state = null)
+        //    {
+        //        if (sqlcmd == null || sqlcmd.ConnectionString != _conn())
+        //            return sqlcmd = _db(state);
+        //        else
+        //            return null;
+        //    }
+
+        //    private IDisposable _Open(Func<CorpId, DbConnectionString> _conn, Func<CorpId, object, SqlCmd> _db, ref SqlCmd sqlcmd, CorpId id, object state = null)
+        //    {
+        //        if (sqlcmd == null || sqlcmd.ConnectionString != _conn(id))
+        //            return sqlcmd = _db(id, state);
+        //        else
+        //            return null;
+        //    }
+        //}
     }
 }

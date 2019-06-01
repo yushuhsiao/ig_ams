@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using Dapper;
 
 namespace InnateGlory
 {
@@ -27,9 +28,11 @@ namespace InnateGlory
         private IEnumerable<Entity.PlatformInfo> ReadData(DbCache<Entity.PlatformInfo>.Entry sender, Entity.PlatformInfo[] oldValue)
         {
             string sql1 = $"select * from {TableName<Entity.PlatformInfo>.Value}";
-            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
+            using (IDbConnection coredb = _dataService.DbConnections.CoreDB_R())
+            using (IDataReader r = coredb.ExecuteReader(sql1))
             {
-                foreach (SqlDataReader r in coredb.ExecuteReaderEach(sql1))
+                foreach (var _r in r.ForEach())
+                //foreach (SqlDataReader r in coredb.ExecuteReaderEach(sql1))
                 {
                     PlatformType t1 = (PlatformType)r.GetInt32("PlatformType");
                     Platform t2 = GetInstance(t1) ?? GetInstance(PlatformType.Main);

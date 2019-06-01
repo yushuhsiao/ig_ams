@@ -7,25 +7,19 @@ namespace InnateGlory.Entity
     [TableName("Lang", Database = _Consts.db.CoreDB)]
     public class Lang
     {
-        [DbImport]
         public PlatformId PlatformId;
 
-        [DbImport]
         public string Path;
 
         /// <summary>
         /// enum type name
         /// </summary>
-        [DbImport]
         public string Type;
 
-        [DbImport]
         public string Key;
 
-        [DbImport]
         public int LCID;
 
-        [DbImport]
         public string Text;
     }
 }

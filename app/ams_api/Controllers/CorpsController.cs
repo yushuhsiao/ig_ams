@@ -1,4 +1,5 @@
-﻿using InnateGlory.Api;
+﻿using Dapper;
+using InnateGlory.Api;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -92,8 +93,8 @@ namespace InnateGlory.Controllers
         {
             //paging += 0;
             string sql = $"select * from {TableName<Entity.CorpInfo>.Value} {model.Paging.ToSql()}";
-            using (SqlCmd coredb = _dataService.SqlCmds.CoreDB_R())
-                return coredb.ToList<Entity.CorpInfo>(sql);
+            using (IDbConnection coredb = _dataService.DbConnections.CoreDB_R())
+                return coredb.Query<Entity.CorpInfo>(sql);
         }
 
         [HttpPost("balance/set")]

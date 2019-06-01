@@ -11,19 +11,12 @@ namespace InnateGlory.Entity
     [TableName("Config", Database = _Consts.db.CoreDB)]
     public class Config
     {
-        [DbImport]
         public long Id { get; set; }
-        [DbImport]
         public CorpId CorpId { get; set; }
-        [DbImport]
         public PlatformId PlatformId { get; set; }
-        [DbImport]
         public string Key1 { get; set; }
-        [DbImport]
         public string Key2 { get; set; }
-        [DbImport]
         public string Value { get; set; }
-        [DbImport]
         public string Description { get; set; }
 
         //private string json => Newtonsoft.Json.JsonConvert.SerializeObject(this);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -27,7 +28,7 @@ namespace InnateGlory
             if (!_dataService.Corps.Get(out var statusCode, model.CorpId, model.CorpName, out var corp))
                 return statusCode;
 
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id))
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_W(corp.Id))
             {
                 if (_dataService.Agents.Get(model.CorpId, model.Name, out var _agent) ||
                     _dataService.Members.Get(model.CorpId, model.Name, out var _member))
@@ -59,18 +60,22 @@ namespace InnateGlory
                 if (CheckMaxLimit(userdb, parent.Id, parent.MaxMembers))
                     return Status.MaxMemberLimit;
 
-                if (!AllocUserId(userdb, corp.Id, UserType.Agent | UserType.Member, model.Name, out UserId new_id, out statusCode))
+                if (!AllocUserId(userdb, corp.Id, UserType.Agent | UserType.Member, model.Name, out var new_id, out statusCode, out var tran))
                     return statusCode;
-                _sql[nameof(Entity.Member.Id)] = new_id;
-
-                string sql_insert = _sql.FormatWith($@"{_sql.insert_into()}
-{_sql.select_where()}");
-                result = userdb.ToObject<Entity.Member>(sql_insert, transaction: true);
-                if (result != null)
+                using (tran)
                 {
-                    //_cache_by_name.UpdateVersion(result.CorpId);
-                    //_cache_by_id.UpdateVersion(result.CorpId);
-                    return Status.Success;
+                    _sql[nameof(Entity.Member.Id)] = new_id;
+
+                    string sql_insert = _sql.FormatWith($@"{_sql.insert_into()}
+{_sql.select_where()}");
+                    result = userdb.QueryFirstOrDefault<Entity.Member>(sql_insert, null, tran);
+                    if (result != null)
+                    {
+                        //_cache_by_name.UpdateVersion(result.CorpId);
+                        //_cache_by_id.UpdateVersion(result.CorpId);
+                        tran.Commit();
+                        return Status.Success;
+                    }
                 }
             }
             return Status.Unknown;
@@ -86,8 +91,8 @@ namespace InnateGlory
         public Entity.UserBalance GetBalance(Entity.Member member)
         {
             string sql = $"select * from {TableName<Entity.UserBalance>.Value} where Id={member.Id}";
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(member.CorpId))
-                return userdb.ToObject<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = member.Id };
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(member.CorpId))
+                return userdb.QuerySingleOrDefault<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = member.Id };
         }
     }
 }

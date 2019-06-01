@@ -39,13 +39,13 @@ namespace InnateGlory
 select @prefix='{prefix}', @sn2 = next value for dbo.TranId;
 set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(@prefix));";
 
-        private T FindTranData<T>(Guid? tranId, ref SqlCmd userdb, bool throwError) where T : Entity.Abstractions.TranData
+        private T FindTranData<T>(Guid? tranId, ref IDbConnection userdb, bool throwError) where T : Entity.Abstractions.TranData
         {
             foreach (var c in _dataService.Corps.All)
             {
-                _dataService.SqlCmds.UserDB_W(ref userdb, c.Id);
+                _dataService.DbConnections.UserDB_W(ref userdb, c.Id);
                 string sql = $"select * from {TableName<T>.Value} where TranId = '{tranId}'";
-                var data = userdb.ToObject<T>(sql);
+                var data = userdb.QuerySingleOrDefault<T>(sql);
                 if (data != null)
                     return data;
             }
@@ -91,15 +91,18 @@ declare @TranId uniqueidentifier set @TranId = newid()
 {_sql.insert_into()};
 {_sql.select_where()};");
 
-            using (SqlCmd sqlcmd = _dataService.SqlCmds.UserDB_W(model.CorpId.Value))
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_W(model.CorpId.Value))
+            using (IDbTransaction tran = userdb.BeginTransaction())
             {
-                return sqlcmd.ToObject<Entity.TranCorp1>(sql, transaction: true);
+                var data = userdb.QuerySingleOrDefault<Entity.TranCorp1>(sql, null, tran);
+                tran.Commit();
+                return data;
             }
         }
 
         public Entity.TranCorp1 Corp_Update(Entity.TranCorp1 data, Models.TranOperationModel op)
         {
-            SqlCmd userdb = null;
+            IDbConnection userdb = null;
 
             UserId op_user = _dataService.HttpContext().User.GetUserId();// .GetCurrentUser().Id;
 
@@ -124,10 +127,10 @@ if @@rowcount = 1 and @f = 1
 exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}"
 .FormatWith(data, true);
 
-                _dataService.SqlCmds.UserDB_W(ref userdb, data.CorpId);
-                foreach (var commit in userdb.BeginTran())
+                _dataService.DbConnections.UserDB_W(ref userdb, data.CorpId);
+                using (var tran = userdb.BeginTransaction())
                 {
-                    var log = userdb.ToObject<_CorpTranLog>(sql_update);
+                    var log = userdb.QueryFirstOrDefault<_CorpTranLog>(sql_update, null, tran);
                     if (log != null)
                     {
                         log.LogType = data.LogType;
@@ -147,9 +150,9 @@ exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Am
                         log.CurrencyX = data.CurrencyX;
                         log.RequestIP = data.RequestIP;
                         log.RequestTime = data.RequestTime;
-                        SaveLog(null, log);
+                        SaveLog(log);
+                        tran.Commit();
                     }
-                    commit();
                 }
                 if (op.Delete.HasValue && op.Delete.Value)
                 {
@@ -161,10 +164,17 @@ select {fields} from {TableName<Entity.TranCorp1>.Value}
 where TranId = '{data.TranId}'
 delete from {TableName<Entity.TranCorp1>.Value}
 where TranId = '{data.TranId}'";
-                    data = userdb.ToObject<Entity.TranCorp1>(sql_delete, transaction: true);
+                    using (var tran = userdb.BeginTransaction())
+                    {
+                        data = userdb.QuerySingleOrDefault<Entity.TranCorp1>(sql_delete, null, tran);
+                        tran.Commit();
+                    }
                 }
                 else
-                    data = userdb.ToObject<Entity.TranCorp1>("select * from {:TableName} where TranId = {TranId}".FormatWith(data, true));
+                {
+                    string sql = "select * from {:TableName} where TranId = {TranId}".FormatWith(data, true);
+                    data = userdb.QuerySingleOrDefault<Entity.TranCorp1>(sql);
+                }
             }
             return data;
         }
@@ -172,27 +182,31 @@ where TranId = '{data.TranId}'";
         [TableName("TranLog", Database = _Consts.db.LogDB, SortKey = nameof(CreateTime))]
         class _CorpTranLog : Entity.TranLog
         {
-            [DbImport]
             public decimal Balance { get; set; }
         }
 
-        private int SaveLog(SqlCmd logdb, Entity.TranLog log)
+        private int SaveLog(Entity.TranLog log)
         {
-            using (_dataService.SqlCmds.LogDB_W(ref logdb, log.CorpId))
+            using (var logdb = _dataService.DbConnections.LogDB_W(log.CorpId))
             {
-                SqlSchemaTable t = SqlSchemaTable.GetSchema(logdb, TableName<Entity.TranLog>.Value);
-                SqlBuilder _sql = new SqlBuilder(log);
-                foreach (var m in t.GetValueMembers(log))
+                using (var tran = logdb.BeginTransaction())
                 {
-                    object value = m.GetValue(log);
-                    if (value is UserName) _sql.Add("n", m.Name, value);
-                    else if (m.Name == nameof(Entity.TranLog.sn)) continue;
-                    else if (m.Name == nameof(Entity.TranLog.CreateTime)) continue;
-                    else if (value == null) _sql.Add(" ", m.Name, SqlBuilder.raw_null);
-                    else _sql.Add(" ", m.Name, value);
+                    SqlSchemaTable t = SqlSchemaTable.GetSchema(logdb, TableName<Entity.TranLog>.Value);
+                    SqlBuilder _sql = new SqlBuilder(log);
+                    foreach (var m in t.GetValueMembers(log))
+                    {
+                        object value = m.GetValue(log);
+                        if (value is UserName) _sql.Add("n", m.Name, value);
+                        else if (m.Name == nameof(Entity.TranLog.sn)) continue;
+                        else if (m.Name == nameof(Entity.TranLog.CreateTime)) continue;
+                        else if (value == null) _sql.Add(" ", m.Name, SqlBuilder.raw_null);
+                        else _sql.Add(" ", m.Name, value);
+                    }
+                    string sql = _sql.FormatWith($"{_sql.insert_into()}");
+                    var cnt = logdb.Execute(sql, null, tran);
+                    tran.Commit();
+                    return cnt;
                 }
-                string sql = _sql.FormatWith($"{_sql.insert_into()}");
-                return logdb.ExecuteNonQuery(sql, logdb.Transaction == null);
             }
         }
 

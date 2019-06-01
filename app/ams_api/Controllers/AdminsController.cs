@@ -1,4 +1,5 @@
-﻿using InnateGlory.Api;
+﻿using Dapper;
+using InnateGlory.Api;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Data;
@@ -94,8 +95,8 @@ namespace InnateGlory.Controllers
         public IEnumerable<Entity.Admin> List([FromBody] Models.UserListModel<Entity.Admin> model)
         {
             string sql = $"select * from {TableName<Entity.Admin>.Value} where ParentId = {model.ParentId} {model.Paging.ToSql()}";
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(model.ParentId.CorpId))
-                return userdb.ToList<Entity.Admin>(sql);
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(model.ParentId.CorpId))
+                return userdb.Query<Entity.Admin>(sql);
         }
     }
 }

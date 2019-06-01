@@ -1,12 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using _DebuggerStepThrough = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace System.Data
 {
-
     [_DebuggerStepThrough]
     public static partial class DbCmdExtension
     {
+        public static string magic_quote(string input) => StringFormatWith.sql_magic_quote(input);
+
+        public static IDisposable BeginTransaction(this IDbConnection conn, IDbTransaction input, out IDbTransaction output)
+        {
+            if (input == null)
+                return output = conn.BeginTransaction();
+            output = input;
+            return null;
+        }
+
+        public static IDisposable BeginTransaction(this IDbConnection conn, ref IDbTransaction tran)
+        {
+            if (tran == null)
+                return tran = conn.BeginTransaction();
+            return null;
+        }
+
+
         public static IEnumerable<TDataReader> ForEach<TDataReader>(this TDataReader r) where TDataReader : IDataReader
         {
             do

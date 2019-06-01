@@ -156,13 +156,23 @@ end
 
         public IEnumerable<Entity.Agent> GetParents(UserId agentId, bool include_self) => GetParents(Get(agentId), include_self);
 
-        public List<Entity.Agent> GetChilds(UserId agentId)
+        //public List<Entity.Agent> GetChilds(UserId agentId)
+        //{
+        //    if (this.Get(agentId, out var agent))
+        //    {
+        //        string sql = $"select * from {TableName<Entity.Agent>.Value} where ParentId={agentId}";
+        //        using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(agent.CorpId))
+        //            return userdb.ToList<Entity.Agent>(sql);
+        //    }
+        //    return null;
+        //}
+        public IEnumerable<Entity.Agent> GetChilds(UserId agentId)
         {
             if (this.Get(agentId, out var agent))
             {
-                string sql = $"select * from {TableName<Entity.Agent>.Value} where ParentId={agentId}";
-                using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(agent.CorpId))
-                    return userdb.ToList<Entity.Agent>(sql);
+                string sql = $"select * from {TableName<Entity.UserData>.Value} where ParentId={agentId} and UserType={(int)UserType.Agent}";
+                using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(agent.CorpId))
+                    return userdb.Query<Entity.Agent>(sql);
             }
             return null;
         }
@@ -178,7 +188,7 @@ end
 
             //if (!_dataService.Corps.GetWithAcl(null, model.CorpId, model.CorpName, op_user, out Status statusCode, out Data.CorpInfo corp))
             //    return statusCode;
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_W(corp.Id))
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_W(corp.Id))
             {
                 if (_dataService.Agents.Get(model.CorpId, model.Name, out var _agent) ||
                     _dataService.Members.Get(model.CorpId, model.Name, out var _member))
@@ -217,18 +227,22 @@ end
                 if (CheckMaxLimit(userdb, parent.Id, parent.MaxAgents))
                     return Status.MaxAgentLimit;
 
-                if (!AllocUserId(userdb, corp.Id, UserType.Agent | UserType.Member, model.Name, out UserId new_id, out statusCode))
+                if (!AllocUserId(userdb, corp.Id, UserType.Agent | UserType.Member, model.Name, out var new_id, out statusCode, out var tran))
                     return statusCode;
-                _sql[nameof(Entity.Agent.Id)] = new_id;
-
-                string sql_insert = _sql.FormatWith($@"{_sql.insert_into()}
-{_sql.select_where()}");
-                result = userdb.ToObject<Entity.Agent>(sql_insert, transaction: true);
-                if (result != null)
+                using (tran)
                 {
-                    //_cache_by_name.UpdateVersion(result.CorpId);
-                    //_cache_by_id.UpdateVersion(result.CorpId);
-                    return Status.Success;
+                    _sql[nameof(Entity.Agent.Id)] = new_id;
+
+                    string sql_insert = _sql.FormatWith($@"{_sql.insert_into()}
+{_sql.select_where()}");
+                    result = userdb.QuerySingleOrDefault<Entity.Agent>(sql_insert, null, tran);
+                    if (result != null)
+                    {
+                        //_cache_by_name.UpdateVersion(result.CorpId);
+                        //_cache_by_id.UpdateVersion(result.CorpId);
+                        tran.Commit();
+                        return Status.Success;
+                    }
                 }
             }
             return Status.Unknown;
@@ -276,8 +290,8 @@ end
         public Entity.UserBalance GetBalance(Entity.Agent agent)
         {
             string sql = $"select * from {TableName<Entity.UserBalance>.Value} where Id={agent.Id}";
-            using (SqlCmd userdb = _dataService.SqlCmds.UserDB_R(agent.CorpId))
-                return userdb.ToObject<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = agent.Id };
+            using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(agent.CorpId))
+                return userdb.QuerySingleOrDefault<Entity.UserBalance>(sql) ?? new Entity.UserBalance() { Id = agent.Id };
         }
     }
 }

@@ -5,28 +5,43 @@ namespace InnateGlory.Entity.Abstractions
 {
     public abstract class PasswordBase
     {
-        [DbImport]
+        internal int Encrypt;
+        internal string a;
+        internal string b;
+        internal string c;
+
         public UserId UserId { get; set; }
 
         /// <summary>
         /// Encrypt Type
         /// </summary>
-        [DbImport("Encrypt")]
-        public int Type { get; set; }
+        public int Type
+        {
+            get => Encrypt;
+            set => Encrypt = value;
+        }
 
-        [DbImport("a")]
-        public string Ciphertext { get; set; }
+        public string Ciphertext
+        {
+            get => a;
+            set => a = value;
+        }
 
-        [DbImport("b")]
-        public string Password { get; set; }
+        public string Password
+        {
+            get => b;
+            set => b = value;
+        }
 
-        [DbImport("c")]
-        public string Salt { get; set; }
+        public string Salt
+        {
+            get => c;
+            set => c = value;
+        }
 
         /// <summary>
         /// 密碼過期時間
         /// </summary>
-        [DbImport("Expiry")]
         public int? Expiry { get; set; }
 
         /// <summary>
@@ -54,10 +69,8 @@ namespace InnateGlory.Entity.Abstractions
             }
         }
 
-        [DbImport]
         public DateTime CreateTime { get; set; }
 
-        [DbImport]
         public UserId CreateUser { get; set; }
     }
 }
@@ -66,14 +79,16 @@ namespace InnateGlory.Entity
     [TableName("Password", Database = _Consts.db.UserDB)]
     public class Password : Abstractions.PasswordBase
     {
-        [DbImport("ver")]
-        public SqlTimeStamp Version { get; set; }
+        internal byte[] ver;
+
+        public SqlTimeStamp Version => (SqlTimeStamp)ver;
     }
 
     [TableName("PasswordHist", Database = _Consts.db.UserDB)]
     public class PasswordHist : Abstractions.PasswordBase
     {
-        [DbImport("ver")]
-        public long Version { get; set; }
+        internal long ver;
+
+        public long Version => ver;
     }
 }

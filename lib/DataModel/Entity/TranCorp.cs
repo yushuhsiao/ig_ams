@@ -10,8 +10,12 @@ namespace InnateGlory.Entity
     [TableName("TranCorp1", Database = _Consts.db.UserDB, SortKey = nameof(RequestTime))]
     public class TranCorp1 : Abstractions.TranCorp
     {
-        [DbImport]
-        public SqlTimeStamp _ver { get; set; }
+        internal byte[] _ver;
+        public SqlTimeStamp Version
+        {
+            get => (SqlTimeStamp)_ver;
+            set => _ver = value.data;
+        }
     }
 
     [TableName("TranCorp2", Database = _Consts.db.UserDB, SortKey = nameof(RequestTime))]

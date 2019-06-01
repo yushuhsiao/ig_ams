@@ -174,8 +174,12 @@ namespace InnateGlory
                 string sql = _sql.FormatWith(_sql.insert_into());
 
                 var dataService = httpContext.RequestServices.GetService<DataService>();
-                using (SqlCmd logdb = dataService.SqlCmds.LogDB_W(corpId ?? CorpId.Root))
-                    logdb.ExecuteNonQuery(sql, transaction: true);
+                using (IDbConnection logdb = dataService.DbConnections.LogDB_W(corpId ?? CorpId.Root))
+                using (IDbTransaction tran = logdb.BeginTransaction())
+                {
+                    logdb.Execute(sql, null, tran);
+                    tran.Commit();
+                }
             }
             catch
             {
@@ -340,42 +344,88 @@ namespace InnateGlory.Entity.Abstractions
         //    return result;
         //}
 
-        protected bool AllocUserId(SqlCmd userdb, CorpId corpId, UserType userType, UserName userName, out UserId result, out Status statusCode)
+        //protected bool AllocUserId(SqlCmd userdb, CorpId corpId, UserType userType, UserName userName, out UserId result, out Status statusCode)
+        //{
+        //    result = default(UserId);
+        //    statusCode = Status.Unknown;
+        //    try
+        //    {
+        //        for (int retry = 5; retry >= 0; retry--)
+        //        {
+        //            foreach (Action commit in userdb.BeginTran())
+        //            {
+        //                string sql1 = new SqlBuilder()
+        //                {
+        //                    { "", "CorpId"  , corpId   },
+        //                    { "", "UserType", userType },
+        //                    { "", "UserName", userName }
+        //                }.exec("alloc_UserId", formatWith: true);
+        //                //string sql1 = @"exec alloc_UserId @CorpId={CorpId}, @UserType={UserType}, @UserName={UserName}".
+        //                //    FormatWith(new { CorpId = corpId, UserType = userType, UserName = userName }, sql: true);
+        //                UserId? n = null;
+        //                foreach (SqlDataReader r in userdb.ExecuteReaderEach(sql1))
+        //                    n = r.GetInt64N("Id");
+
+        //                if (n.HasValue)
+        //                {
+        //                    result = n.Value.SetCorpId(corpId);
+        //                    string sql2 = $"select Id from {TableName<TUserData>.Value} where Id={result}";
+        //                    foreach (SqlDataReader r in userdb.ExecuteReaderEach(sql2))
+        //                        n = null;
+
+        //                    if (n.HasValue)
+        //                    {
+        //                        commit();
+        //                        return true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        statusCode = Status.UnableAllocateUserID;
+        //        return false;
+        //    }
+        //    catch (SqlException ex) when (ex.IsDuplicateKey())
+        //    {
+        //        statusCode = Status_UserAlreadyExist;
+        //    }
+        //    catch
+        //    {
+        //    }
+        //    return false;
+        //}
+        protected bool AllocUserId(IDbConnection userdb, CorpId corpId, UserType userType, UserName userName, 
+            out UserId result, out Status statusCode, out IDbTransaction transaction)
         {
             result = default(UserId);
             statusCode = Status.Unknown;
+            transaction = null;
             try
             {
                 for (int retry = 5; retry >= 0; retry--)
                 {
-                    foreach (Action commit in userdb.BeginTran())
-                    {
-                        string sql1 = new SqlBuilder()
+                    var tran = userdb.BeginTransaction();
+                    string sql1 = new SqlBuilder()
                         {
                             { "", "CorpId"  , corpId   },
                             { "", "UserType", userType },
                             { "", "UserName", userName }
                         }.exec("alloc_UserId", formatWith: true);
-                        //string sql1 = @"exec alloc_UserId @CorpId={CorpId}, @UserType={UserType}, @UserName={UserName}".
-                        //    FormatWith(new { CorpId = corpId, UserType = userType, UserName = userName }, sql: true);
-                        UserId? n = null;
-                        foreach (SqlDataReader r in userdb.ExecuteReaderEach(sql1))
-                            n = r.GetInt64N("Id");
+                    UserId? n = userdb.ExecuteScalar<long>(sql1, null, tran);
+
+                    if (n.HasValue)
+                    {
+                        result = n.Value.SetCorpId(corpId);
+                        string sql2 = $"select Id from {TableName<UserData>.Value} where Id={result}";
+                        n = userdb.ExecuteScalar<long>(sql2, null, tran);
 
                         if (n.HasValue)
                         {
-                            result = n.Value.SetCorpId(corpId);
-                            string sql2 = $"select Id from {TableName<TUserData>.Value} where Id={result}";
-                            foreach (SqlDataReader r in userdb.ExecuteReaderEach(sql2))
-                                n = null;
-
-                            if (n.HasValue)
-                            {
-                                commit();
-                                return true;
-                            }
+                            transaction = tran;
+                            return true;
                         }
                     }
+                    using (tran)
+                        tran.Rollback();
                 }
                 statusCode = Status.UnableAllocateUserID;
                 return false;
@@ -390,24 +440,22 @@ namespace InnateGlory.Entity.Abstractions
             return false;
         }
 
-        protected bool CheckMaxLimit(SqlCmd userdb, UserId parentId, int? maxValue)
-        {
-            if (maxValue.HasValue && maxValue.Value > 0)
-            {
-                string sql = $"select count(Id) as cnt from {TableName<TUserData>.Value} where ParentId={parentId} and UserType={(int)UserType}";
-                int count = (int)userdb.ExecuteScalar(sql);
-                if (count >= maxValue.Value)
-                    return true;
-            }
-            return false;
-        }
-
+        //protected bool CheckMaxLimit(SqlCmd userdb, UserId parentId, int? maxValue)
+        //{
+        //    if (maxValue.HasValue && maxValue.Value > 0)
+        //    {
+        //        string sql = $"select count(Id) as cnt from {TableName<TUserData>.Value} where ParentId={parentId} and UserType={(int)UserType}";
+        //        int count = (int)userdb.ExecuteScalar(sql);
+        //        if (count >= maxValue.Value)
+        //            return true;
+        //    }
+        //    return false;
+        //}
         protected bool CheckMaxLimit(IDbConnection userdb, UserId parentId, int? maxValue)
         {
             if (maxValue.HasValue && maxValue.Value > 0)
             {
-                string sql =
-                    $@"select count(Id) as cnt from {TableName<UserData>.Value}
+                string sql = $@"select count(Id) as cnt from {TableName<UserData>.Value}
 where ParentId=@ParentId and UserType=@UserType";
                 int count = userdb.ExecuteScalar<int>(sql, new
                 {
