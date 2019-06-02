@@ -6,14 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 using System;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace InnateGlory
 {
-    public static class AuthenticationExtensions
+    public static partial class AuthenticationExtensions
     {
         public static IServiceCollection AddAuthenticationExtensions(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {
@@ -62,34 +64,48 @@ namespace InnateGlory
 
             services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<CookieAuthenticationOptions>, _ConfigureCookie>());
             builder.AddCookie(scheme);
+            builder.Services.AddApiAuth();
 
-            builder.AddScheme<_ApiAuthOptions, _ApiAuthHandler>(_Consts.UserManager.ApiAuthScheme, o => { });
+            //builder.AddScheme<_ApiAuthOptions, _ApiAuthHandler>(_Consts.UserManager.ApiAuthScheme, o => { });
 
             return services;
         }
 
-        private static string GetScheme(HttpContext context, string scheme) => scheme ?? context.RequestServices.GetService<IOptions<AuthenticationOptions>>().Value.DefaultScheme;
+        private static string GetScheme(this HttpContext context, string scheme) => scheme ?? context.RequestServices.GetService<IOptions<AuthenticationOptions>>().Value.DefaultScheme;
 
         public static async Task<string> SignInAsync(this HttpContext context, UserId userId, string scheme = null)
         {
-            ClaimsPrincipal principal = new ClaimsPrincipal();
-            principal.SetUserId(userId);
-            //var userStoreItem = this.AddUserStoreItem(user, principal);
+            ClaimsPrincipal user = new ClaimsPrincipal();
+            user.SetUserId(userId);
 
             AuthenticationProperties properties = new AuthenticationProperties();
 
-            //context = context ?? _httpContextAccessor.HttpContext;
-            await context.SignInAsync(GetScheme(context, scheme), principal, properties);
-
-            //properties.Parameters.TryGetValue(_Consts.UserManager.Ticket_SessionId, out object sessionId);
-            principal.GetSessionId(out string sessionId);
+            if (scheme == _Consts.UserManager.ApiAuthScheme)
+            {
+                await context.RequestServices.GetService<_ApiAuthSignInHandler>()
+                    .SignInAsync(user, properties);
+            }
+            else
+            {
+                await context
+                    .SignInAsync(context.GetScheme(scheme), user, properties);
+            }
+            user.GetSessionId(out string sessionId);
             return await Task.FromResult(sessionId/* as string*/);
         }
 
         public static async Task SignOutAsync(this HttpContext context, UserId userId, string scheme = null)
         {
-            //context = context ?? _httpContextAccessor.HttpContext;
-            await context.SignOutAsync(GetScheme(context, scheme), null);
+            if (scheme == _Consts.UserManager.ApiAuthScheme)
+            {
+                await context.RequestServices.GetService<_ApiAuthSignOutHandler>()
+                    .SignOutAsync(null);
+            }
+            else
+            {
+                await context
+                    .SignOutAsync(context.GetScheme(scheme), null);
+            }
         }
 
         private class _ConfigureCookie : IPostConfigureOptions<CookieAuthenticationOptions>
@@ -105,13 +121,14 @@ namespace InnateGlory
 
             #endregion
 
-            public _ConfigureCookie(IServiceProvider services)
+            public _ConfigureCookie(IServiceProvider service)
             {
-                _services = services;
+                _services = service;
+                _httpContextAccessor = service.GetService<IHttpContextAccessor>();
                 ClaimsPrincipal.ClaimsPrincipalSelector = ClaimsPrincipalSelector;
             }
 
-            private ClaimsPrincipal ClaimsPrincipalSelector() => _httpContextAccessor.HttpContext?.User;
+            private ClaimsPrincipal ClaimsPrincipalSelector() => _httpContextAccessor?.HttpContext?.User;
 
             void IPostConfigureOptions<CookieAuthenticationOptions>.PostConfigure(string name, CookieAuthenticationOptions options)
             {
@@ -133,91 +150,18 @@ namespace InnateGlory
             }
         }
 
-        private class _ApiAuthOptions : AuthenticationSchemeOptions
-        {
-        }
-        private class _ApiAuthHandler : AuthenticationHandler<_ApiAuthOptions>
-        {
-            public _ApiAuthHandler(IOptionsMonitor<_ApiAuthOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
-                : base(options, logger, encoder, clock)
-            {
-            }
-
-            protected override Task<AuthenticateResult> HandleAuthenticateAsync()
-            {
-                var _id = new ClaimsIdentity("ApiAuth");
-                var id = new ClaimsPrincipal(_id);
-                var ticket = new AuthenticationTicket(id, _Consts.UserManager.ApiAuthScheme);
-                return Task.FromResult(AuthenticateResult.Success(ticket));
-            }
-        }
-
-
-        class Test2 : IAuthenticationHandler
-        {
-            Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync()
-            {
-                throw new NotImplementedException();
-            }
-
-            Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties)
-            {
-                throw new NotImplementedException();
-            }
-
-            Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties)
-            {
-                throw new NotImplementedException();
-            }
-
-            Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-
-        static void testConfigure(Test1Options options)
-        {
-        }
-
-        class Test1PostConfig : IPostConfigureOptions<Test1Options>
-        {
-            void IPostConfigureOptions<Test1Options>.PostConfigure(string name, Test1Options options)
-            {
-                throw new NotImplementedException();
-            }
-        }
-        class Test1Options : AuthenticationSchemeOptions
-        {
-        }
-        class Test1Handler : AuthenticationHandler<Test1Options>
-        {
-            protected override Task<AuthenticateResult> HandleAuthenticateAsync()
-            {
-                throw new NotImplementedException();
-            }
-
-            public Test1Handler(IOptionsMonitor<Test1Options> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
-                : base(options, logger, encoder, clock)
-            {
-            }
-        }
-
 
 
         public static void SetUserId(this ClaimsPrincipal principal, UserId userId)
         {
             principal.SetValue("_UserId", userId.ToString());
         }
-
         public static bool GetUserId(this ClaimsPrincipal principal, out UserId userId)
         {
             if (principal.GetValue("_UserId", out var value))
                 return UserId.TryParse(value, out userId);
             return _null.noop(false, out userId);
         }
-
         public static UserId GetUserId(this ClaimsPrincipal principal)
         {
             if (principal.GetUserId(out UserId userId))
@@ -227,7 +171,6 @@ namespace InnateGlory
 
         public static bool GetSessionId(this ClaimsPrincipal principal, out string sessionId)
             => principal.GetValue("_SessionId", out sessionId);
-
         public static void SetSessionId(this ClaimsPrincipal principal, string sessionId)
             => principal.SetValue("_SessionId", sessionId);
 
@@ -265,7 +208,6 @@ namespace InnateGlory
                 identity.AddClaim(new Claim(type, value));
             }
         }
-
 
         private static bool GetIdentity(this ClaimsPrincipal principal, out ClaimsIdentity result, bool create = false)
             => GetIdentity(principal, _Consts.UserManager.AuthenticationType, out result, create);

@@ -49,6 +49,7 @@
     <!--<PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Https" Version="2.0.1" />-->
     <!--<PackageReference Include="Microsoft.Extensions.ActivatorUtilities.Sources" Version="2.0.0" />-->
     <!--<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.ObjectMethodExecutor.Sources" Version="2.2.0" />
   </ItemGroup>
 

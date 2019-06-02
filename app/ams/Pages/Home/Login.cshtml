@@ -82,7 +82,7 @@
                         var data = form.getValues();
 
                         form.disable();
-                        util.api('@Url.Action("Login", "Auth")', data, function (result) {
+                        util.api('@Url.Action("AgentLogin", "Auth")', data, function (result) {
                             if (result.IsSuccess) {
                                 window.location.reload(true);
                             } else {

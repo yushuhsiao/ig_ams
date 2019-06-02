@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using InnateGlory;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -168,7 +170,8 @@ namespace StackExchange.Redis
                         {
                             try
                             {
-                                return JsonConvert.DeserializeObject<T>(value.ToString());
+                                var x = JsonTicketSerializer.Default;
+                                return JsonHelper.DeserializeObject<T>(value.ToString());
                             }
                             catch (Exception ex)
                             {
@@ -188,7 +191,8 @@ namespace StackExchange.Redis
             {
                 if (this.IsAlive)
                 {
-                    RedisValue value = JsonConvert.SerializeObject(obj);
+                    var x = JsonTicketSerializer.Default;
+                    RedisValue value = JsonHelper.SerializeObject(obj);
                     try
                     {
                         return await this._database.StringSetAsync(key, value, expiry: expiry);

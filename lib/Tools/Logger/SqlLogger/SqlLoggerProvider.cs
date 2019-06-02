@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
-using _DebuggerStepThroughAttribute = System.Diagnostics.FakeDebuggerStepThroughAttribute;
+using _DebuggerStepThroughAttribute = System.Diagnostics.DebuggerStepThroughAttribute;
 
 namespace Microsoft.Extensions.Logging
 {

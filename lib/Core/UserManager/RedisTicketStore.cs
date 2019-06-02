@@ -77,7 +77,7 @@ namespace InnateGlory
 
 
 
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.Redis_Key2)]
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.UserSession)]
         private string RedisConfiguration() => _config.GetValue<string>();
 
         //private RedisDatabase _redis;

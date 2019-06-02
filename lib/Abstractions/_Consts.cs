@@ -36,13 +36,14 @@ namespace InnateGlory
 
         public static class UserManager
         {
-            public const string Redis_Key2 = "UserSession";
+            public const string UserSession = "UserSession";
             public const string ConfigSection = "Authentication";
             private const string CookiePrefix = "InnateGlory";
             public const string ApplicationScheme = CookiePrefix + ".Application";
             public const string ExternalScheme = CookiePrefix + ".External";
             public const string TwoFactorRememberMeScheme = CookiePrefix + ".TwoFactorRememberMe";
             public const string TwoFactorUserIdScheme = CookiePrefix + ".TwoFactorUserId";
+            public const string ApiAuth = "ApiAuth";
             public const string ApiAuthScheme = Microsoft.Net.Http.Headers.HeaderNames.Authorization;
             //public const string AccessTokenScheme = "AccessToken";
             //public const string Ticket_SessionId = "Ticket_SessionId";
