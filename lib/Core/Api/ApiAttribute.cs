@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 
 namespace InnateGlory
@@ -64,25 +62,6 @@ namespace InnateGlory
         //}
     }
 
-    public static class _ApiExtensions
-    {
-        public static bool IsApi(this ActionDescriptor actionDescriptor)
-        {
-            if (actionDescriptor != null)
-            {
-                for (int i = actionDescriptor.FilterDescriptors.Count - 1; i >= 0; i--)
-                    if (actionDescriptor.FilterDescriptors[i].Filter is ApiAttribute)
-                        return true;
-                //if (actionDescriptor.TryCast(out ControllerActionDescriptor c))
-                //{
-                //    if (null != c.ControllerTypeInfo.GetCustomAttribute<ApiAttribute>())
-                //        return true;
-                //}
-            }
-            return false;
-            //return null != actionDescriptor?.FilterDescriptors.FirstOrDefault(x => x.Filter is InnateGlory.ApiAttribute);
-        }
-    }
 
     //public interface IApi
     //{

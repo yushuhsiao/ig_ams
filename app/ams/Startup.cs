@@ -5,14 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Reflection;
-//using Webpack;
-
 
 namespace InnateGlory
 {
@@ -21,42 +16,28 @@ namespace InnateGlory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddWebpack();
-            //services.AddAuthenticationExtensions();
             services.AddAMS();
+            services.AddCookieAuth();
+
+            services.AddActionContextAccessor();
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
-            }).AddAMS(actionSelectorOptions: options =>
-            {
-                //options.SelectCandidate = (context, action) =>
-                //{
-                //    bool result = true;
-                //    if (action.RelativePath.IsEquals("/Pages/Home/Main.cshtml"))
-                //        result = !context.HttpContext.RequestServices.GetCurrentUser().Id.IsGuest;
-                //    else if (action.RelativePath.IsEquals("/Pages/Home/Login.cshtml"))
-                //        result = context.HttpContext.RequestServices.GetCurrentUser().Id.IsGuest;
-                //    return result;
-                //};
-            }).AddRazorPagesOptions(opts =>
-            {
-                ;
-                //opts.Conventions.AuthorizeFolder("/").AllowAnonymousToPage("/Login.cshtml");
             })
-            .AddLang(defaultPlatformId: 0)
+            .AddApiServices()
+            .AddViewServices()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSignalR(opts =>
-            {
-            });
+            //services.AddSignalR(opts =>
+            //{
+            //});
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
-            services.AddPageBundlesTagHelper();
             services.AddResponseCompression();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "ams api", Version = "v1" });
-                c.IncludeXmlComments(typeof(Startup), typeof(JsonHelper), typeof(amsExtensions), typeof(Models.LoginModel));
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new Info { Title = "ams api", Version = "v1" });
+            //    c.IncludeXmlComments(typeof(Startup), typeof(JsonHelper), typeof(amsExtensions), typeof(Models.LoginModel));
+            //});
             #region
             //services.Configure<RazorPagesOptions>(options =>
             //{
@@ -144,14 +125,14 @@ namespace InnateGlory
                 ;
             });
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<Hub1>("/hub1", (HttpConnectionDispatcherOptions opts) =>
-                {
-                    //opts.Transports = HttpTransportType.LongPolling;
-                    //opts.LongPolling.PollTimeout = TimeSpan.FromSeconds(20);
-                });
-            });
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<Hub1>("/hub1", (HttpConnectionDispatcherOptions opts) =>
+            //    {
+            //        //opts.Transports = HttpTransportType.LongPolling;
+            //        //opts.LongPolling.PollTimeout = TimeSpan.FromSeconds(20);
+            //    });
+            //});
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -173,3 +154,18 @@ namespace InnateGlory
         //public string Blazor_Path => Configuration.GetValue<amsStartup, string>();
     }
 }
+
+/*
+.AddAMS(actionSelectorOptions: options =>
+{
+    //options.SelectCandidate = (context, action) =>
+    //{
+    //    bool result = true;
+    //    if (action.RelativePath.IsEquals("/Pages/Home/Main.cshtml"))
+    //        result = !context.HttpContext.RequestServices.GetCurrentUser().Id.IsGuest;
+    //    else if (action.RelativePath.IsEquals("/Pages/Home/Login.cshtml"))
+    //        result = context.HttpContext.RequestServices.GetCurrentUser().Id.IsGuest;
+    //    return result;
+    //};
+})
+*/

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace InnateGlory
+namespace InnateGlory.Api
 {
     internal class AclFilter : IAuthorizationFilter
     {

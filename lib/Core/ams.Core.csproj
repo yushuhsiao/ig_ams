@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="amsMvcExtensions.cs" />
     <Compile Remove="Api\ApiUrls.cs" />
     <Compile Remove="Api\ApiValueProvider.cs" />
     <Compile Remove="Api\ApiValueProviderFactory.cs" />

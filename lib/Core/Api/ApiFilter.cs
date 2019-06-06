@@ -15,7 +15,7 @@ namespace InnateGlory.Api
     //    void IPageFilter.OnPageHandlerExecuted(PageHandlerExecutedContext context) { }
     //}
 
-    public class ApiActionFilter : IActionFilter
+    internal class ApiActionFilter : IActionFilter
     {
         private void ExecuteValidation(ActionExecutingContext context)
         {
@@ -49,7 +49,7 @@ namespace InnateGlory.Api
     //{
     //}
 
-    public class ApiResultFilter : IResultFilter, IExceptionFilter
+    internal class ApiResultFilter : IResultFilter, IExceptionFilter
     {
         void IExceptionFilter.OnException(ExceptionContext context)
         {

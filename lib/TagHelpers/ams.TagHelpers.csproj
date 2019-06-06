@@ -10,11 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="LangTagHelper.cs" />
-    <Compile Remove="Localization\LangItem.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core\ams.Core.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
 
 </Project>

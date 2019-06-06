@@ -221,7 +221,7 @@
         //});
 
         setTimeout(function () {
-            util.api('@Url.Action("List", "Corps")', {}, function (result) {
+            util.api('@config.ApiUrl', '@_urls.sys_corp_list', {}, function (result) {
                 if (result.IsSuccess) {
                     $$('grid1').parse(result.Data);
                 }

@@ -25,7 +25,7 @@
             on: {
                 onItemClick: function (id, e) {
                     console.log(arguments);
-                    util.api('@Url.Action("SetBalance", "Corps")', {
+                    util.api('@config.ApiUrl', '@_urls.corp_balance_set', {
                         CorpId: @Model.Id,
                         Amount1: 10,
                         Amount2: 20,

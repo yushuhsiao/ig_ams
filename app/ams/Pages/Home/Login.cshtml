@@ -23,6 +23,8 @@
 <script src="~/js/site.js"></script>
 @*<script src="~/lib/jquery/jquery.js"></script>*@
 <script>
+    delCookie('@IndexController.relogin_token_name');
+
     webix.ready(function () {
         webix.ui({
             container: 'login_container',
@@ -40,9 +42,9 @@
                 {
                     view: 'segmented', label: '@lang["LoginType"]', name: 'LoginType', multiview: true, value: '@UserType.Agent',
                     options: [
-                        { id: 'Agent', value: '@lang[UserType.Agent, "Agent"]' },
-                        { id: 'Admin', value: '@lang[UserType.Admin, "Admin"]' },
-                        { id: 'Member', value: '@lang[UserType.Member, "Member"]' }
+                        { id: 'Agent', value: '@lang[UserType.Agent]' },
+                        { id: 'Admin', value: '@lang[UserType.Admin]' },
+                        { id: 'Member', value: '@lang[UserType.Member]' }
                     ]
                 },
                 {
@@ -82,9 +84,16 @@
                         var data = form.getValues();
 
                         form.disable();
-                        util.api('@Url.Action("AgentLogin", "Auth")', data, function (result) {
+                        util.api('@config.ApiUrl', '@_urls.auth_login', data, function (result) {
                             if (result.IsSuccess) {
-                                window.location.reload(true);
+                                //document.cookie = result.Data.SetCookie;
+                                //setCookie(result.Data.SetCookie_Name, result.Data.SetCookie_Value);
+                                //document.cookie = result.Data.SetCookie_Name + '=' + escape(result.Data.SetCookie_Value);
+                                setCookie('@IndexController.relogin_token_name', result.Data.AccessToken);
+                                setCookie('Authorization', result.Data.AccessToken);
+                                setTimeout(function () {
+                                    window.location.reload(true);
+                                }, 1000);
                             } else {
                                 form.enable();
                                 msg.setValue(result.Message);

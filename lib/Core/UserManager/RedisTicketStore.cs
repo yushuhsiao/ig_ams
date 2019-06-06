@@ -61,17 +61,32 @@ namespace InnateGlory
         private readonly IConfiguration<RedisTicketStore> _config;
         private readonly ILogger _logger;
 
-        public RedisTicketStore(IServiceProvider service)
+        private static List<RedisTicketStore> _instances = new List<RedisTicketStore>();
+        public static RedisTicketStore GetInstance(IServiceProvider service, string scheme)
+        {
+            lock (_instances)
+            {
+                foreach (var obj in _instances)
+                    if (obj.SchemeName == scheme)
+                        return obj;
+                var n = new RedisTicketStore(service, scheme);
+                _instances.Add(n);
+                return n;
+            }
+        }
+
+        public RedisTicketStore(IServiceProvider service, string scheme)
         {
             //this._userManager = userManager;
             this._service = service;
             this._cookieOptionsMonitor = service.GetService<IOptionsMonitor<CookieAuthenticationOptions>>();
             this._config = service.GetService<IConfiguration<RedisTicketStore>>();
             this._logger = service.GetRequiredService<ILoggerFactory>().CreateLogger<RedisTicketStore>();
+            this.SchemeName = scheme;
             //this._redis = new RedisDatabase();
         }
 
-        public string SchemeName { get; set; }
+        public string SchemeName { get; private set; }
 
         private CookieAuthenticationOptions _cookieOptions => _cookieOptionsMonitor.Get(this.SchemeName);
 
@@ -193,9 +208,16 @@ namespace InnateGlory
             {
                 if (ticket.Principal.GetUserId(out UserId userId))
                 {
-                    string key = original_key ?? Guid.NewGuid().ToString("N");
-                    ticket.Principal.SetSessionId(key);
-                    //ticket.Properties.Parameters[_Consts.UserManager.Ticket_SessionId] = key;
+                    string key;
+                    if (original_key == null)
+                    {
+                        if (ticket.Principal.GetSessionId(out key) == false)
+                            ticket.Principal.SetSessionId(key = Guid.NewGuid().ToString("N"));
+                    }
+                    else
+                    {
+                        ticket.Principal.SetSessionId(key = original_key);
+                    }
                     if (_TicketData.Serialize(ticket, out var data))
                     {
                         RedisKey keyA = make_keyA(key, ticket);
@@ -232,7 +254,7 @@ namespace InnateGlory
                 }
                 else _logger.LogInformation("Invalid ticket data, UserId not found.");
             }
-            return original_key;
+            return await Task.FromResult(original_key);
         }
     }
 }

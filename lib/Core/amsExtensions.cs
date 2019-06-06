@@ -35,7 +35,6 @@ namespace InnateGlory
         {
             services.AddRedisConnectionPool();
             services.AddHttpContextAccessor();
-            services.AddAuthenticationExtensions();
             //services.AddConfigurationBinder();
 
             services.AddSqlCmdPooling(
@@ -69,7 +68,7 @@ namespace InnateGlory
             });
             return services.AddStartup(app =>
             {
-                Global.ServiceProvider = app.ApplicationServices;
+                //Global.ServiceProvider = app.ApplicationServices;
                 //app.ApplicationServices.GetService<ServerInfo>();
                 try
                 {
@@ -80,7 +79,7 @@ namespace InnateGlory
                 //app.ApplicationServices.GetServiceOrCreateInstance<ServerInfo>();
                 app.Use((context, next) =>
                 {
-                    Global.ServiceProvider = context.RequestServices;
+                    //Global.ServiceProvider = context.RequestServices;
                     return next();
                 });
             });

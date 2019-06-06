@@ -10,7 +10,7 @@ namespace InnateGlory.Controllers
             _dataService = dataService;
         }
 
-        [HttpPost("/corp/balance/get/{id_or_name}")]
+        [HttpPost(_urls.corp_balance_get + "/{id_or_name}")]
         public Entity.UserBalance GetCorpBalance(string id_or_name)
         {
             Entity.CorpInfo corp;
@@ -34,7 +34,7 @@ namespace InnateGlory.Controllers
             return _dataService.Agents.GetBalance(agent);
         }
 
-        [HttpPost("/agent/balance/get/{userId}")]
+        [HttpPost(_urls.agent_balance_get + "/{userId}")]
         public Entity.UserBalance GetAgentBalance(UserId userId)
         {
             if (!_dataService.Agents.Get(userId, out var agent))
@@ -42,7 +42,7 @@ namespace InnateGlory.Controllers
             return _dataService.Agents.GetBalance(agent);
         }
 
-        [HttpPost("/agent/balance/get/{corpId}/{userName}")]
+        [HttpPost(_urls.agent_balance_get + "/{corpId}/{userName}")]
         public Entity.UserBalance GetAgentBalance(CorpId corpId, UserName userName)
         {
             if (!_dataService.Agents.Get(corpId, userName, out var agent))
@@ -50,7 +50,7 @@ namespace InnateGlory.Controllers
             return _dataService.Agents.GetBalance(agent);
         }
 
-        [HttpPost("/member/balance/get/{userId}")]
+        [HttpPost(_urls.member_balance_get + "/{userId}")]
         public Entity.UserBalance GetMemberBalance(UserId userId)
         {
             if (!_dataService.Members.Get(userId, out var member))
@@ -58,7 +58,7 @@ namespace InnateGlory.Controllers
             return _dataService.Members.GetBalance(member);
         }
 
-        [HttpPost("/member/balance/get/{corpId}/{userName}")]
+        [HttpPost(_urls.member_balance_get + "/{corpId}/{userName}")]
         public Entity.UserBalance GetMemberBalance(CorpId corpId, UserName userName)
         {
             if (!_dataService.Members.Get(corpId, userName, out var member))

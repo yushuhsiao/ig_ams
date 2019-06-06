@@ -23,7 +23,7 @@ namespace InnateGlory
 
     internal class ViewLang : IViewLang, IViewContextAware
     {
-        private LangService _langService;
+        private ViewLangService _langService;
         public ViewContext ViewContext { get; private set; }
         public string ResPath { get; set; }
 

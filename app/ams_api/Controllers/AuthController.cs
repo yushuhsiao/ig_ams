@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using InnateGlory.Api;
 using System.Data.SqlClient;
 using System.Threading;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.Net.Http.Headers;
 
 namespace InnateGlory.Controllers
 {
@@ -65,10 +67,10 @@ namespace InnateGlory.Controllers
         //    }
         //}
 
-        [HttpPost("login"), AllowAnonymous]
+        [HttpPost(_urls.auth_login), AllowAnonymous]
         public Task<Models.LoginResult> Login([FromBody] Models.LoginModel model) => _UserLogin(model);
 
-        [HttpPost("logout")]
+        [HttpPost(_urls.auth_logout)]
         public async Task Logout()
         {
             //var user = userManager.CurrentUser;
@@ -79,14 +81,14 @@ namespace InnateGlory.Controllers
             //return ApiResult.OK;
         }
 
-        [HttpPost("/user/agent/login"), AllowAnonymous]
-        public async Task<Models.LoginResult> AgentLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Agent, LoginMode.AccessToken);
+        //[HttpPost("/user/agent/login"), AllowAnonymous]
+        //public async Task<Models.LoginResult> AgentLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Agent, LoginMode.AccessToken);
 
-        [HttpPost("/user/admin/login"), AllowAnonymous]
-        public async Task<Models.LoginResult> AdminLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Admin, LoginMode.AccessToken);
+        //[HttpPost("/user/admin/login"), AllowAnonymous]
+        //public async Task<Models.LoginResult> AdminLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Admin, LoginMode.AccessToken);
 
-        [HttpPost("/user/member/login"), AllowAnonymous]
-        public async Task<Models.LoginResult> MemberLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Member, LoginMode.AccessToken);
+        //[HttpPost("/user/member/login"), AllowAnonymous]
+        //public async Task<Models.LoginResult> MemberLogin([FromBody] Models.LoginModel model) => await _UserLogin(model, UserType.Member, LoginMode.AccessToken);
 
         private async Task<Models.LoginResult> _UserLogin(Models.LoginModel model, UserType? loginType = null, LoginMode? mode = null)
         {
@@ -94,7 +96,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(Status.InvalidParameter);
 
             model.LoginType = loginType ?? model.LoginType;
-            model.LoginMode = mode ?? model.LoginMode ?? LoginMode.Cookie;
+            model.LoginMode = mode ?? model.LoginMode ?? LoginMode.Normal;
 
             ModelState
                 .Valid(model, nameof(model.UserName))
@@ -114,18 +116,15 @@ namespace InnateGlory.Controllers
                 if (model.LoginMode == LoginMode.AuthOnly)
                     return new Models.LoginResult { UserId = userdata.Id };
 
-                //var userManager = ds.GetService<UserManager>();
-                //var user = ds.CreateInstance<UserIdentity>(userdata);
-                if (model.LoginMode == LoginMode.AccessToken)
+                var result = new Models.LoginResult
                 {
-                    string sessionId = await HttpContext.SignInAsync(userdata.Id, _Consts.UserManager.ApiAuthScheme);
-                    return new Models.LoginResult { UserId = userdata.Id, AccessToken = sessionId };
-                }
-                else
-                {
-                    await HttpContext.SignInAsync(userdata.Id);
-                    return new Models.LoginResult { UserId = userdata.Id };
-                }
+                    UserId = userdata.Id,
+                    AccessToken = await HttpContext.SignInAsync(userdata.Id)
+                };
+
+                //HttpContext.Response.Headers.TryRemove(Microsoft.Net.Http.Headers.HeaderNames.SetCookie);
+            
+                return result;
             }
             finally
             {

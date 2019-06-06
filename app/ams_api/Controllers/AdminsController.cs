@@ -18,7 +18,7 @@ namespace InnateGlory.Controllers
             //this._cache = dataService.GetDbCache<Data.AclDefine>(ReadData);
         }
 
-        [HttpPost("add")]
+        [HttpPost(_urls.user_admin_add)]
         public Entity.Admin Create([FromBody] Models.AdminModel model)
         {
             ModelState
@@ -42,22 +42,19 @@ namespace InnateGlory.Controllers
             //return ApiResult.IsSuccess(s, admin);
         }
 
-        [HttpPost("set")]
+        [HttpPost(_urls.user_admin_set)]
         public Entity.Admin Update([FromBody] Models.AdminModel model)
         {
             _dataService.Admins.Update(model, out Entity.Admin agent);
             return agent;
         }
 
-        [HttpPost("get")]
+        [HttpPost(_urls.user_admin_get)]
         public Entity.Admin Get([FromBody] Models.AdminModel model)
         {
             ModelState
                 .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
                 .IsValid();
-            //var validator = new ApiModelValidator(model)
-            //    .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
-            //    .Validate();
 
             if (_dataService.Admins.Get(out var status, model.Id, model.CorpId, model.CorpName, model.Name, out var admin, chechActive: false))
                 return admin;
@@ -65,33 +62,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(status);
         }
 
-        [HttpPost("get/{userId}")]
-        public Entity.Admin Get(UserId userId)
-        {
-            ModelState
-                .Valid(null, nameof(UserId), userId)
-                .IsValid();
-
-            if (_dataService.Admins.Get(userId, out var admin))
-                return admin;
-            throw new ApiException(Status.AdminNotExist);
-        }
-
-        [HttpPost("get/{corpId}/{adminName}")]
-        public Entity.Admin Get(CorpId corpId, UserName adminName)
-        {
-            ModelState
-                .Valid(null, nameof(CorpId), corpId)
-                .Valid(null, nameof(adminName), adminName)
-                .IsValid();
-
-            if (_dataService.Admins.Get(corpId, adminName, out var admin))
-                return admin;
-            else
-                throw new ApiException(Status.AdminNotExist);
-        }
-
-        [HttpPost("list")]
+        [HttpPost(_urls.user_admin_list)]
         public IEnumerable<Entity.Admin> List([FromBody] Models.UserListModel<Entity.Admin> model)
         {
             string sql = $"select * from {TableName<Entity.Admin>.Value} where ParentId = {model.ParentId} {model.Paging.ToSql()}";

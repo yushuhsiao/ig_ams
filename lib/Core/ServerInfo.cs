@@ -18,7 +18,8 @@ namespace InnateGlory
 {
     public class ServerInfo
     {
-        public Guid Id => Global.InstanceId;
+        //public Guid Id => Global.InstanceId;
+        public readonly Guid Id = Guid.NewGuid();
         private IServiceProvider _services;
         //public DataService DataService { get; }
         private ServerInfoData Data { get; }

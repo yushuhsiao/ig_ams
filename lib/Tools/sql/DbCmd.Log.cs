@@ -62,7 +62,7 @@ insert into [SqlLogs] ([sn], [DataSource], [ExecuteTime], [CommandText]) values 
             ILogger logger;
             try
             {
-                logger = (dbcmd.ServiceProvider ?? Global.ServiceProvider)?.GetService<ILogger<TCommand>>();
+                logger = dbcmd.ServiceProvider?.GetService<ILogger<TCommand>>();
             }
             catch
             {

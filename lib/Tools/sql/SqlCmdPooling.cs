@@ -12,7 +12,7 @@ namespace System.Data.SqlClient
             Func<IServiceProvider, object> getState,
             Action<object, IDisposable> registerForDispose)
         {
-            services.AddSingleton(new GetState()
+            services.TryAddSingleton(new GetState()
             {
                 GetSate = getState ?? _null.noop<IServiceProvider, object>,
                 RegisterForDispose = registerForDispose ?? _null.noop<object, IDisposable>

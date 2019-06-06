@@ -50339,19 +50339,22 @@ Bridge.assembly("site.js", function ($asm, globals) {
     Bridge.define("util", {
         statics: {
             methods: {
-                api: function (url, data, callback, opts) {
+                api: function (baseurl, url, data, callback, opts) {
                     if (opts === void 0) { opts = null; }
                     if (window.jQuery) {
-                        util.api_jquery(url, data, callback, opts);
+                        util.api_jquery(baseurl, url, data, callback, opts);
                     } else {
-                        util.api_webix(url, data, callback);
+                        util.api_webix(baseurl, url, data, callback);
                     }
                 },
-                api_jquery: function (url, data, callback, opts) {
+                api_jquery: function (baseurl, url, data, callback, opts) {
                     if (opts == null) {
                         opts = { };
                     }
-                    opts.url = url;
+                    if (baseurl == null)
+                        opts.url = url;
+                    else
+                        opts.url = baseurl + url;
                     opts.data = Newtonsoft.Json.JsonConvert.SerializeObject(data);
                     opts.contentType = "application/json";
                     opts.type = "post";
@@ -50394,11 +50397,16 @@ Bridge.assembly("site.js", function ($asm, globals) {
                     };
                     $.ajax(opts);
                 },
-                api_webix: function (url, data, callback) {
+                api_webix: function (baseurl, url, data, callback) {
+                    var _url;
+                    if (baseurl == null)
+                        _url = url;
+                    else
+                        _url = baseurl + url;
                     //webix.DollarDollar()
                     try {
                         var data_json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                        var p = webix.ajax().headers({ "Content-Type": "application/json", AuthKey: "xxxxxxxxxxxxxxx" }).post(url, data);
+                        var p = webix.ajax().headers({ "Content-Type": "application/json", AuthKey: "xxxxxxxxxxxxxxx" }).post(_url, data);
 
                         p.then(function (n) {
                             try {

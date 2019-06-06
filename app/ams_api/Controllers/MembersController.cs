@@ -17,7 +17,7 @@ namespace InnateGlory.Controllers
             _dataService = dataService;
         }
 
-        [HttpPost("add")]
+        [HttpPost(_urls.user_member_add)]
         public Entity.Member Create([FromBody] Models.MemberModel model)
         {
             ModelState
@@ -42,40 +42,14 @@ namespace InnateGlory.Controllers
             //return ApiResult.IsSuccess(s, result);
         }
 
-        [HttpPost("set")]
+        [HttpPost(_urls.user_member_set)]
         public Entity.Member Update([FromBody] Models.MemberModel model)
         {
             _dataService.Members.Update(model, out Entity.Member member);
             return member;
         }
 
-        [HttpPost("get/{userId}")]
-        public Entity.Member Get(UserId userId)
-        {
-            ModelState
-                .Valid(null, nameof(UserId), userId)
-                .IsValid();
-
-            if (_dataService.Members.Get(userId, out var member))
-                return member;
-            throw new ApiException(Status.MemberNotExist);
-        }
-
-        [HttpPost("get/{corpId}/{memberName}")]
-        public Entity.Member Get(CorpId corpId, UserName memberName)
-        {
-            ModelState
-                .Valid(null, nameof(CorpId), corpId)
-                .Valid(null, nameof(memberName), memberName)
-                .IsValid();
-
-            if (_dataService.Members.Get(corpId, memberName, out var member))
-                return member;
-            else
-                throw new ApiException(Status.MemberNotExist);
-        }
-
-        [HttpPost("get")]
+        [HttpPost(_urls.user_member_get)]
         public Entity.Member Get(Models.MemberModel model)
         {
             ModelState
@@ -92,7 +66,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(status);
         }
 
-        [HttpPost("list")]
+        [HttpPost(_urls.user_member_list)]
         public IEnumerable<Entity.Member> List([FromBody] Models.UserListModel<Entity.Member> model)
         {
             string sql = $"select * from {TableName<Entity.Member>.Value} where ParentId = {model.ParentId} {model.Paging.ToSql()}";

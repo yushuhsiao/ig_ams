@@ -4,12 +4,8 @@ using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.IO;
-using System.Reflection;
-using InnateGlory;
 
 namespace InnateGlory
 {
@@ -18,18 +14,35 @@ namespace InnateGlory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthenticationExtensions();
             services.AddAMS();
+            //services.AddCookieAuth();
+            services.AddApiAuth();
+            services.AddActionContextAccessor();
             services.AddMvc(options =>
             {
-            }).AddAMS(actionSelectorOptions: options =>
-            {
+
             })
-            .AddLang(defaultPlatformId: 0)
+            .AddApiServices()
+
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSignalR(opts =>
             {
             });
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                    //.WithOrigins("")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    ;
+                });
+            });
+
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
             services.AddResponseCompression();
 
@@ -61,6 +74,7 @@ namespace InnateGlory
             //app.UseHttpsRedirection();
 
             //app.UseMvcWithDefaultRoute();
+            app.UseCors("CorsPolicy"); // global enable cors
             app.UseMvc(routes =>
             {
                 ;
@@ -81,21 +95,6 @@ namespace InnateGlory
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ams api V1");
             });
             ;
-        }
-    }
-}
-namespace Swashbuckle.AspNetCore.Swagger
-{
-    public static class SwaggerExtensions
-    {
-        public static void IncludeXmlComments(this SwaggerGenOptions swaggerGenOptions, params Type[] types)
-        {
-            for (int i = 0; i < types.Length; i++)
-            {
-                var xmlFile = $"{types[i].Assembly.GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                swaggerGenOptions.IncludeXmlComments(xmlPath);
-            }
         }
     }
 }

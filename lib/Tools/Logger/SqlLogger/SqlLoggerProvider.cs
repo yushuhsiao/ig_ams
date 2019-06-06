@@ -30,7 +30,7 @@ namespace Microsoft.Extensions.Logging
 
         private AsyncQueue<_Message> messages = new AsyncQueue<_Message>();
 
-        internal Guid InstanceId => Global.InstanceId;
+        internal Guid InstanceId = Guid.NewGuid(); //=> Global.InstanceId;
         internal string InstanceName => _options.Value.ApplicationName.Trim(true) ?? System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
 
         public object IDbConnection { get; private set; }

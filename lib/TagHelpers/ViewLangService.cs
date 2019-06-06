@@ -17,13 +17,13 @@ namespace InnateGlory
         public PlatformId DefaultPlatformId;
     }
 
-    public class LangService : IDataService //: IPageApplicationModelConvention
+    public class ViewLangService : IDataService //: IPageApplicationModelConvention
     {
         private DataService _service;
         private DbCache<_Lang2> _cache;
         private IOptions<ViewLangOptions> _opts;
 
-        public LangService(IServiceProvider services)
+        public ViewLangService(IServiceProvider services)
         {
             this._service = services.GetService<DataService>();
             this._cache = services.GetDbCache<_Lang2>(this.ReadData, name: TableName<Entity.Lang>.Value);
@@ -237,11 +237,11 @@ where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LC
         //}
     }
 
-    public static class LangServiceExtensions
+    partial class TagHelperExtensions
     {
         /// <see cref="Microsoft.Extensions.DependencyInjection.LocalizationServiceCollectionExtensions.AddLocalizationServices(IServiceCollection)"/>
         /// <see cref="Microsoft.AspNetCore.Mvc.Localization.Internal.MvcLocalizationServices.AddMvcLocalizationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat, Action{LocalizationOptions})"/>
-        public static IMvcBuilder AddLang(this IMvcBuilder mvc, PlatformId defaultPlatformId)
+        public static IMvcBuilder AddViewLang(this IMvcBuilder mvc, PlatformId defaultPlatformId)
         {
             mvc.Services.AddLocalization();
             mvc.Services.TryAddTransient<IViewLang, ViewLang>();

@@ -4,7 +4,7 @@
 @model InnateGlory.Pages.Home.MainModel
 @using InnateGlory.Models
 @*@inject UserIdentity user;*@
-@inject RandomID rid
+@inject RandomId rid
 @inject IViewLang menu
 @{
     lang.ResPath = "Main";
@@ -105,9 +105,11 @@
 <script src="~/lib/@@aspnet/signalr/dist/browser/signalr.min.js"></script>
 <script src="~/js/site.js"></script>
 <script inline src-auto></script>
-<script>
+<script type="text/javascript">
 
-    a1.Logout_Url = '@Url.Action("Logout", "Auth")';
+    a1.ApiUrl = '@config.ApiUrl';
+    a1.Logout_Url = '@_urls.auth_logout';
+    delCookie('@IndexController.relogin_token_name');
 
     //const connection = new signalR.HubConnectionBuilder()
     //    .withUrl("/hub1")

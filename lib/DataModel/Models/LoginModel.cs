@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -39,5 +40,11 @@ namespace InnateGlory.Models
 
         [JsonProperty]
         public string AccessToken { get; set; }
+
+        //[JsonProperty]
+        //public string SetCookie_Name { get; set; }
+
+        //[JsonProperty]
+        //public string SetCookie_Value { get; set; }
     }
 }

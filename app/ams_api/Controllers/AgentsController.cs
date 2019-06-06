@@ -18,7 +18,7 @@ namespace InnateGlory.Controllers
             //this._cache = dataService.GetDbCache<Data.AclDefine>(ReadData);
         }
 
-        [HttpPost("add")]
+        [HttpPost(_urls.user_agent_add)]
         public Entity.Agent Create([FromBody] Models.AgentModel model)
         {
             ModelState
@@ -43,7 +43,7 @@ namespace InnateGlory.Controllers
             //return ApiResult.IsSuccess(s, result);
         }
 
-        [HttpPost("set")]
+        [HttpPost(_urls.user_agent_set)]
         public Entity.Agent Update([FromBody] Models.AgentModel model)
         {
             ModelState
@@ -63,16 +63,12 @@ namespace InnateGlory.Controllers
                 throw new ApiException(s);
         }
 
-        [HttpPost("get")]
+        [HttpPost(_urls.user_agent_get)]
         public Entity.Agent Get([FromBody] Models.AgentModel model)
         {
             ModelState
                 .ValidIdOrName(model, nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
                 .IsValid();
-
-            //var validator = new ApiModelValidator(model)
-            //    .ValidIdOrName(nameof(model.Id), nameof(model.CorpId), nameof(model.CorpName), nameof(model.Name))
-            //    .Validate();
 
             if (_dataService.Agents.Get(out var status, model.Id, model.CorpId, model.CorpName, model.Name, out var agent, chechActive: false))
                 return agent;
@@ -80,33 +76,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(status);
         }
 
-        [HttpPost("get/{userId}")]
-        public Entity.Agent Get(UserId userId)
-        {
-            ModelState
-                .Valid(null, nameof(UserId), userId)
-                .IsValid();
-
-            if (_dataService.Agents.Get(userId, out var agent))
-                return agent;
-            throw new ApiException(Status.AgentNotExist);
-        }
-
-        [HttpPost("get/{corpId}/{agentName}")]
-        public Entity.Agent Get(CorpId corpId, UserName agentName)
-        {
-            ModelState
-                .Valid(null, nameof(CorpId), corpId)
-                .Valid(null, nameof(agentName), agentName)
-                .IsValid();
-
-            if (_dataService.Agents.Get(corpId, agentName, out var agent))
-                return agent;
-            else
-                throw new ApiException(Status.AgentNotExist);
-        }
-
-        [HttpPost("list")]
+        [HttpPost(_urls.user_agent_list)]
         public IEnumerable<Entity.Agent> List([FromBody] Models.UserListModel<Entity.Agent> model)
         {
             string sql = $"select * from {TableName<Entity.Agent>.Value} where ParentId = {model.ParentId} {model.Paging.ToSql()}";
@@ -115,7 +85,7 @@ namespace InnateGlory.Controllers
         }
 
         // agent tree root (webix)
-        [HttpPost("tree_node/{include_root:bool}")]
+        [HttpPost(_urls.user_agent_tree_node + "/{include_root:bool}")]
         public IEnumerable<webix.tree_node> tree_node([FromServices] DataService _data, bool include_root = false)
         {
             UserId userId = HttpContext.User.GetUserId();
@@ -143,7 +113,7 @@ namespace InnateGlory.Controllers
         }
 
         // agent tree node (webix)
-        [HttpPost("tree_node/{agentId}")]
+        [HttpPost(_urls.user_agent_tree_node + "/{agentId}")]
         public webix.tree_childs tree_node([FromServices] DataService _data, UserId agentId)
         {
             ModelState

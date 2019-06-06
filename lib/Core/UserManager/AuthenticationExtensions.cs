@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
+using System.ComponentModel;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace InnateGlory
 {
     public static partial class AuthenticationExtensions
     {
-        public static IServiceCollection AddAuthenticationExtensions(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
+        public static IServiceCollection AddCookieAuth(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {
             /// <see cref="AuthenticationScheme"/>
             /// <see cref="IAuthenticationHandler"/>
@@ -43,6 +44,7 @@ namespace InnateGlory
                 //options.AddScheme<Test2>("Test2", "Test2");
             });
 
+
             //builder
             //    .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
             //    .AddCookie(_Consts.UserManager.AccessTokenScheme, options => { })
@@ -60,71 +62,109 @@ namespace InnateGlory
             //});
             //builder.AddCookie(scheme, options => { });
 
-
-
             services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<CookieAuthenticationOptions>, _ConfigureCookie>());
             builder.AddCookie(scheme);
-            builder.Services.AddApiAuth();
+
+            //builder.AddScheme<CookieAuthenticationOptions, CookieAuthenticationHandler>(scheme, null, opts =>
+            //{
+            //});
+
+            //builder.Services.AddApiAuth();
 
             //builder.AddScheme<_ApiAuthOptions, _ApiAuthHandler>(_Consts.UserManager.ApiAuthScheme, o => { });
 
             return services;
         }
 
+        public static IServiceCollection AddApiAuth(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
+        {
+            //services.Replace(ServiceDescriptor.Scoped<IAuthenticationService, _AuthenticationService>());
+            var builder = services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = scheme;
+                options.DefaultAuthenticateScheme = scheme;
+                options.DefaultChallengeScheme = scheme;
+            });
+            services.AddSingleton(s => new RedisTicketStore(s, scheme));
+            services.Configure<AuthenticationOptions>(o =>
+            {
+                o.AddScheme(scheme, _scheme =>
+                {
+                    _scheme.HandlerType = typeof(_ApiAuthHandler);
+                    _scheme.DisplayName = _scheme.Name;
+                });
+            });
+            services.Configure<_ApiAuthOptions>(scheme
+                , o =>
+            {
+            });
+            services.TryAddSingleton<_ApiAuthHandler>();
+            return services;
+        }
+
         private static string GetScheme(this HttpContext context, string scheme) => scheme ?? context.RequestServices.GetService<IOptions<AuthenticationOptions>>().Value.DefaultScheme;
 
-        public static async Task<string> SignInAsync(this HttpContext context, UserId userId, string scheme = null)
+        public static async Task SignInByTokenAsync(this HttpContext context, string token, string scheme = null)
         {
+            var _scheme = context.GetScheme(scheme);
+            var opts = context.RequestServices
+                .GetService<IOptionsMonitor<CookieAuthenticationOptions>>()
+                .Get(_scheme);
+            var ticket = await opts.SessionStore.RetrieveAsync(token);
+            if (ticket != null)
+            {
+                await context.SignInAsync(_scheme, ticket.Principal, ticket.Properties);
+                context.User = ticket.Principal;
+            }
+            await Task.CompletedTask;
+        }
+
+        public static async Task<string> SignInAsync(this HttpContext context, UserId userId, string scheme = _Consts.UserManager.ApplicationScheme)
+        {
+            //string sessionId = Guid.NewGuid().ToString("N");
             ClaimsPrincipal user = new ClaimsPrincipal();
             user.SetUserId(userId);
+            //user.SetSessionId(sessionId);
+            AuthenticationTicket ticket = new AuthenticationTicket(user, scheme);
+            ITicketStore ticketStore = context.RequestServices.GetService<RedisTicketStore>();
+            string sessionId = await ticketStore.StoreAsync(ticket);
+            return sessionId;
 
-            AuthenticationProperties properties = new AuthenticationProperties();
-
-            if (scheme == _Consts.UserManager.ApiAuthScheme)
-            {
-                await context.RequestServices.GetService<_ApiAuthSignInHandler>()
-                    .SignInAsync(user, properties);
-            }
-            else
-            {
-                await context
-                    .SignInAsync(context.GetScheme(scheme), user, properties);
-            }
-            user.GetSessionId(out string sessionId);
-            return await Task.FromResult(sessionId/* as string*/);
+            //_ApiAuthHandler handler = context.RequestServices.GetService<_ApiAuthHandler>();
+            //using (var redis = await context.RequestServices.GetRedisConnectionAsync(handler.RedisConfiguration))
+            //    await redis.SetObject($"{_Consts.UserManager.AccessToken}:{sessionId}", user, expiry: TimeSpan.FromMinutes(30));
+            //return await Task.FromResult(sessionId);
         }
 
         public static async Task SignOutAsync(this HttpContext context, UserId userId, string scheme = null)
         {
-            if (scheme == _Consts.UserManager.ApiAuthScheme)
-            {
-                await context.RequestServices.GetService<_ApiAuthSignOutHandler>()
-                    .SignOutAsync(null);
-            }
-            else
-            {
-                await context
-                    .SignOutAsync(context.GetScheme(scheme), null);
-            }
+            await context
+                .SignOutAsync(context.GetScheme(scheme), null);
+
+            await context.RequestServices.GetService<_ApiAuthHandler>()
+                .SignOutAsync(null);
         }
 
         private class _ConfigureCookie : IPostConfigureOptions<CookieAuthenticationOptions>
         {
-            private IServiceProvider _services;
+            private IServiceProvider _service;
             private IHttpContextAccessor _httpContextAccessor;
+            private IConfiguration _config;
 
-            #region bind from appsettings.json
+            [AppSetting(SectionName = _Consts.UserManager.ConfigSection)]
+            public string CookieName => _config.GetValue<string>();
 
-            public string CookieName { get; set; }
-            public TimeSpan? Expire { get; set; }
-            public bool? SlidingExpiration { get; set; }
+            [AppSetting(SectionName = _Consts.UserManager.ConfigSection), DefaultValue("00:30:00")]
+            public TimeSpan Expire => _config.GetValue<TimeSpan>();
 
-            #endregion
+            [AppSetting(SectionName = _Consts.UserManager.ConfigSection), DefaultValue(true)]
+            public bool SlidingExpiration => _config.GetValue<bool>();
 
             public _ConfigureCookie(IServiceProvider service)
             {
-                _services = service;
+                _service = service;
                 _httpContextAccessor = service.GetService<IHttpContextAccessor>();
+                _config = service.GetService<IConfiguration<_ConfigureCookie>>();
                 ClaimsPrincipal.ClaimsPrincipalSelector = ClaimsPrincipalSelector;
             }
 
@@ -132,10 +172,7 @@ namespace InnateGlory
 
             void IPostConfigureOptions<CookieAuthenticationOptions>.PostConfigure(string name, CookieAuthenticationOptions options)
             {
-                _services.GetRequiredService<IConfiguration>().Bind(_Consts.UserManager.ConfigSection, this);
-                var sessionStore = _services.CreateInstance<RedisTicketStore>();
-                sessionStore.SchemeName = name;
-                options.SessionStore = sessionStore;
+                options.SessionStore = new RedisTicketStore(_service, name);
                 //?? serviceProvider.GetService<UserManager<TUser>>().TicketStore;
 
                 //var authenticationOptions = serviceProvider.GetRequiredService<IOptions<AuthenticationOptions>>().Value;
@@ -144,9 +181,11 @@ namespace InnateGlory
                 //options.TicketDataFormat = new SecureDataFormat<AuthenticationTicket>(TicketSerializer2.Default, dataProtector);
 
                 if (this.CookieName != null)
+                {
                     options.Cookie.Name = this.CookieName;
-                options.ExpireTimeSpan = this.Expire ?? TimeSpan.FromMinutes(10);
-                options.SlidingExpiration = this.SlidingExpiration ?? true;
+                }
+                options.ExpireTimeSpan = this.Expire;
+                options.SlidingExpiration = this.SlidingExpiration;
             }
         }
 

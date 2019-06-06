@@ -1,4 +1,5 @@
 var a1 = {
+    ApiUrl: null,
     Logout_Url: null,
 
     dock_l: true,
@@ -108,8 +109,10 @@ var a1 = {
     },
 
     logout: function () {
-        util.api(this.Logout_Url, {}, function (result) {
+        util.api(this.ApiUrl, this.Logout_Url, {}, function (result) {
             if (result.IsSuccess) {
+                delCookie('.AspNetCore.InnateGlory.Application');
+                delCookie('Authorization');
                 window.location.reload(true);
             }
         });

@@ -1,4 +1,5 @@
 ﻿(function () {
+    "use strict";
 
     function ApiResult(src, xhr) {
         try {
@@ -58,20 +59,29 @@
         xl: 1200
     };
 
-    window.util.api = function (url, data, callback, opts) {
+    window.util.api = function (baseurl, url, data, callback, opts) {
         if (window.jQuery) {
-            api_jquery(url, data, callback, opts);
+            api_jquery(baseurl, url, data, callback, opts);
         } else {
-            api_webix(url, data, callback, opts);
+            api_webix(baseurl, url, data, callback, opts);
         }
     }
 
-    function api_jquery(url, data, callback, opts) {
+    function combine_url(baseurl, url) {
+        if (baseurl == null)
+            return url;
+        else
+            return baseurl + url;
+    }
+
+    function api_jquery(baseurl, url, data, callback, opts) {
+        var _url = combine_url(baseurl, url);
         if (opts == null)
             opts = {};
 
         var json = null;
         var result = null;
+        var auth = getCookie('Authorization');
 
         $.ajax($.extend({
             success: function (response_data, textStatus, jqXHR) {
@@ -101,9 +111,12 @@
                 }
             }
         }, opts, {
-                url: url,
+                url: _url,
                 data: JSON.stringify(data),
                 contentType: "application/json",
+                headers: {
+                    'Authorization': auth
+                },
                 type: "post",
                 dataType: "text",
                 cache: false,
@@ -112,10 +125,15 @@
         );
     }
     
-    function api_webix(url, data, callback, opts) {
+    function api_webix(baseurl, url, data, callback, opts) {
         try {
+            var auth = getCookie('Authorization');
+            var _url = combine_url(baseurl, url);
             var data_json = JSON.stringify(data);
-            var p = webix.ajax().headers({ "Content-Type": "application/json" }).post(url, data);
+            var p = webix.ajax().headers({
+                "Content-Type": "application/json",
+                "Authorization": auth
+            }).post(_url, data);
 
             p.then(function (n) {
 
@@ -176,4 +194,25 @@ function attachEvents(src, list, excludes) {
         if (excludes.indexOf(list[i]) === -1)
             new on_event(src, list[i]);
     }
+}
+
+function setCookie(name, value) //两个参数，一个是cookie的名子，一个是值
+{
+    var Days = 30; //此 cookie 将被保存 30 天
+    var exp = new Date();    //new Date("December 31, 9998");
+    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+}
+function getCookie(name) //取cookies函数        
+{
+    var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+    if (arr != null) return unescape(arr[2]); return null;
+
+}
+function delCookie(name) //删除cookie
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }

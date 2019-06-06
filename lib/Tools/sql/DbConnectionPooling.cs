@@ -15,7 +15,7 @@ namespace System.Data
             Action<object, IDisposable> registerForDispose)
             where TDbConnection : IDbConnection
         {
-            services.AddSingleton(new db<TDbConnection>.GetStateContainer()
+            services.TryAddSingleton(new db<TDbConnection>.GetStateContainer()
             {
                 CreateConnection = createConnection ?? _null.noop<DbConnectionString, TDbConnection>,
                 GetState = getState ?? _null.noop<IServiceProvider, object>,

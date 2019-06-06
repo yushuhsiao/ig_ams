@@ -87,7 +87,7 @@
         attachEvents($$('grid1'), webix.events.datatable);
 
         //console.log('loading...')
-        util.api('@Url.Action("List", "Corps")', {
+        util.api('@config.ApiUrl', '@Url.Content("~" + _urls.sys_corp_list)', {
             Paging: {
                 PageIndex: 0,
                 PageSize: 50

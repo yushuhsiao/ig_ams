@@ -17,159 +17,239 @@ namespace InnateGlory
 {
     partial class AuthenticationExtensions
     {
-        private static void AddApiAuth(this IServiceCollection services)
-        {
-            services.Configure<AuthenticationOptions>(o =>
-            {
-                o.AddScheme(_Consts.UserManager.ApiAuthScheme, _scheme =>
-                {
-                    _scheme.HandlerType = typeof(_ApiAuthHandler);
-                    _scheme.DisplayName = null;
-
-                });
-            });
-            services.Configure<_ApiAuthOptions>(_Consts.UserManager.ApiAuthScheme, o =>
-            {
-            });
-            services.AddSingleton<_ApiAuthHandler>();
-            services.AddSingleton<_ApiAuthSignInHandler>();
-            services.AddSingleton<_ApiAuthSignOutHandler>();
-        }
-
         private class _ApiAuthOptions : AuthenticationSchemeOptions
         {
-            private IConfiguration _config;
-
-            [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.ApiAuth)]
-            public string RedisConfiguration => _config.GetValue<string>();
-
-            public void Init(IServiceProvider service)
-            {
-                this._config = service.GetService<IConfiguration<_ApiAuthOptions>>();
-            }
         }
 
-        private class _ApiAuthHandler : IAuthenticationHandler
+        private class _ApiAuthHandler : IAuthenticationSignInHandler
         {
             private IServiceProvider _service;
-            private IOptionsMonitor<_ApiAuthOptions> _options;
+            //private IOptionsMonitor<_ApiAuthOptions> _options;
+            //private IConfiguration _config;
 
-            public _ApiAuthHandler(IServiceProvider service, IOptionsMonitor<_ApiAuthOptions> options)
+            //[AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.UserManager.ApiAuth)]
+            //public string RedisConfiguration => _config.GetValue<string>();
+
+            public _ApiAuthHandler(IServiceProvider service/*, IOptionsMonitor<_ApiAuthOptions> options*/)
             {
                 this._service = service;
-                this._options = options;
+                //this._options = options;
+                //this._options.CurrentValue.Init(service);
+                //this._config = service.GetService<IConfiguration<_ApiAuthHandler>>();
             }
 
-            async Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync()
+            public async Task<AuthenticateResult> AuthenticateAsync()
             {
                 var httpContext = _service.GetService<IHttpContextAccessor>().HttpContext;
                 if (httpContext != null &&
-                    httpContext.Request.Headers.TryGetValue(_Consts.UserManager.ApiAuthScheme, out var _token))
+                    httpContext.Request.Headers.TryGetValue(_Consts.UserManager.Authorization, out var _token))
                 {
                     var token = (_token.ToString() ?? "").Replace("Bearer ", "");
-                    using (var redis = await _service.GetRedisConnectionAsync(_options.CurrentValue.RedisConfiguration))
-                    {
-                        var user = await redis.GetObject<ClaimsPrincipal>($"ApiAuth:{token}");
-                        if (user != null &&
-                            user.GetUserId(out var userId) &&
-                            user.GetSessionId(out var sessionId))
-                        {
-                            var ticket = new AuthenticationTicket(user, _Consts.UserManager.ApiAuthScheme);
-                            return await Task.FromResult(AuthenticateResult.Success(ticket));
-                        }
-                    }
+                    ITicketStore ticketStore = _service.GetService<RedisTicketStore>();
+                    var ticket = await ticketStore.RetrieveAsync(token);
+                    if (ticket != null)
+                        return await Task.FromResult(AuthenticateResult.Success(ticket));
+                    //using (var redis = await _service.GetRedisConnectionAsync(RedisConfiguration))
+                    //{
+                    //    var user = await redis.GetObject<ClaimsPrincipal>($"{_Consts.UserManager.AccessToken}:{token}");
+                    //    if (user != null &&
+                    //        user.GetUserId(out var userId) &&
+                    //        user.GetSessionId(out var sessionId))
+                    //    {
+                    //        var ticket = new AuthenticationTicket(user, _Consts.UserManager.ApiAuthScheme);
+                    //        return await Task.FromResult(AuthenticateResult.Success(ticket));
+                    //    }
+                    //}
                 }
                 return await Task.FromResult(AuthenticateResult.NoResult());
             }
 
-            #region
-
-            Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context) => Task.CompletedTask;
-
-            #endregion
-        }
-        private class _ApiAuthSignInHandler : IAuthenticationSignInHandler
-        {
-            private IServiceProvider _service;
-            private IOptionsMonitor<_ApiAuthOptions> _options;
-
-            public _ApiAuthSignInHandler(IServiceProvider service, IOptionsMonitor<_ApiAuthOptions> options)
+            Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties)
             {
-                this._service = service;
-                this._options = options;
+                return Task.CompletedTask;
+            }
+
+            Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties)
+            {
+                return Task.CompletedTask;
+            }
+
+            Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context)
+            {
+                return Task.CompletedTask;
             }
 
             public async Task SignInAsync(ClaimsPrincipal user, AuthenticationProperties properties)
             {
-                if (user.GetUserId(out UserId userId))
-                {
-                    string key = Guid.NewGuid().ToString("N");
-                    user.SetSessionId(key);
-                    using (var redis = await _service.GetRedisConnectionAsync(_options.CurrentValue.RedisConfiguration))
-                    {
-                        await redis.SetObject($"ApiAuth:{key}", user, expiry: TimeSpan.FromMinutes(30));
-                    }
-                }
+                //if (user.GetUserId(out UserId userId))
+                //{
+                //    if (user.GetSessionId(out var sessionId))
+                //    {
+                //    }
+                //    else
+                //    {
+                //        sessionId = Guid.NewGuid().ToString("N");
+                //        user.SetSessionId(sessionId);
+                //    }
+                //    using (var redis = await _service.GetRedisConnectionAsync(RedisConfiguration))
+                //    {
+                //        await redis.SetObject($"ApiAuth:{sessionId}", user, expiry: TimeSpan.FromMinutes(30));
+                //    }
+                //}
                 await Task.CompletedTask;
-            }
-         
-            #region
-
-            Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync() => Task.FromResult(AuthenticateResult.NoResult());
-
-            Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context) => Task.CompletedTask;
-
-            Task IAuthenticationSignOutHandler.SignOutAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            #endregion
-        }
-        private class _ApiAuthSignOutHandler : IAuthenticationSignOutHandler
-        {
-            private IServiceProvider _service;
-            private IOptionsMonitor<_ApiAuthOptions> _options;
-
-            public _ApiAuthSignOutHandler(IServiceProvider service, IOptionsMonitor<_ApiAuthOptions> options)
-            {
-                this._service = service;
-                this._options = options;
             }
 
             public async Task SignOutAsync(AuthenticationProperties properties)
             {
-                var httpContext = _service.GetService<IHttpContextAccessor>().HttpContext;
-                ClaimsPrincipal user = httpContext.User;
-                if (user != null &&
-                    user.GetUserId(out var userId) &&
-                    user.GetSessionId(out var sessionId))
-                {
-                    using (var redis = await _service.GetRedisConnectionAsync(_options.CurrentValue.RedisConfiguration))
-                    {
-                        await redis.KeyDeleteAsync($"ApiAuth:{sessionId}");
-                    }
-                }
+                //var httpContext = _service.GetService<IHttpContextAccessor>().HttpContext;
+                //ClaimsPrincipal user = httpContext.User;
+                //if (user != null &&
+                //    user.GetUserId(out var userId) &&
+                //    user.GetSessionId(out var sessionId))
+                //{
+                //    using (var redis = await _service.GetRedisConnectionAsync(RedisConfiguration))
+                //    {
+                //        await redis.KeyDeleteAsync($"ApiAuth:{sessionId}");
+                //    }
+                //}
                 await Task.CompletedTask;
             }
 
-            #region
-
-            Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync() => Task.FromResult(AuthenticateResult.NoResult());
-
-            Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties) => Task.CompletedTask;
-
-            Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context) => Task.CompletedTask;
-
-            #endregion
-
         }
+
+
+        //private class _ApiAuthHandler : IAuthenticationHandler
+        //{
+        //    private IServiceProvider _service;
+        //    private IOptionsMonitor<_ApiAuthOptions> _options;
+
+        //    public _ApiAuthHandler(IServiceProvider service, IOptionsMonitor<_ApiAuthOptions> options)
+        //    {
+        //        this._service = service;
+        //        this._options = options;
+        //        this._options.CurrentValue.Init(service);
+        //    }
+
+        //    public async Task<AuthenticationTicket> GetTicket(string token)
+        //    {
+        //        using (var redis = await _service.GetRedisConnectionAsync(_options.CurrentValue.RedisConfiguration))
+        //        {
+        //            var user = await redis.GetObject<ClaimsPrincipal>($"ApiAuth:{token}");
+        //            if (user != null &&
+        //                user.GetUserId(out var userId) &&
+        //                user.GetSessionId(out var sessionId))
+        //            {
+        //                var ticket = new AuthenticationTicket(user, _Consts.UserManager.ApiAuthScheme);
+        //                return ticket;
+        //            }
+        //        }
+        //        return await Task.FromResult<AuthenticationTicket>(null);
+        //    }
+
+        //    async Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync()
+        //    {
+        //        var httpContext = _service.GetService<IHttpContextAccessor>().HttpContext;
+        //        if (httpContext != null &&
+        //            httpContext.Request.Headers.TryGetValue(_Consts.UserManager.ApiAuthScheme, out var _token))
+        //        {
+        //            var token = (_token.ToString() ?? "").Replace("Bearer ", "");
+        //            var ticket = await this.GetTicket(token);
+        //            if (ticket != null)
+        //                return await Task.FromResult(AuthenticateResult.Success(ticket));
+        //        }
+        //        return await Task.FromResult(AuthenticateResult.NoResult());
+        //    }
+
+        //    #region
+
+        //    Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context) => Task.CompletedTask;
+
+        //    #endregion
+        //}
+        //private class _ApiAuthSignInHandler : IAuthenticationSignInHandler
+        //{
+        //    private IServiceProvider _service;
+        //    private IOptionsMonitor<_ApiAuthOptions> _options;
+
+        //    public _ApiAuthSignInHandler(IServiceProvider service, IOptionsMonitor<_ApiAuthOptions> options)
+        //    {
+        //        this._service = service;
+        //        this._options = options;
+        //        this._options.CurrentValue.Init(service);
+        //    }
+
+        //    public async Task SignInAsync(ClaimsPrincipal user, AuthenticationProperties properties)
+        //    {
+        //        if (user.GetUserId(out UserId userId))
+        //        {
+        //            string key = Guid.NewGuid().ToString("N");
+        //            user.SetSessionId(key);
+        //            using (var redis = await _service.GetRedisConnectionAsync(_options.CurrentValue.RedisConfiguration))
+        //            {
+        //                await redis.SetObject($"ApiAuth:{key}", user, expiry: TimeSpan.FromMinutes(30));
+        //            }
+        //        }
+        //        await Task.CompletedTask;
+        //    }
+         
+        //    #region
+
+        //    Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync() => Task.FromResult(AuthenticateResult.NoResult());
+
+        //    Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context) => Task.CompletedTask;
+
+        //    Task IAuthenticationSignOutHandler.SignOutAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    #endregion
+        //}
+        //private class _ApiAuthSignOutHandler : IAuthenticationSignOutHandler
+        //{
+        //    private IServiceProvider _service;
+        //    private IOptionsMonitor<_ApiAuthOptions> _options;
+
+        //    public _ApiAuthSignOutHandler(IServiceProvider service, IOptionsMonitor<_ApiAuthOptions> options)
+        //    {
+        //        this._service = service;
+        //        this._options = options;
+        //        this._options.CurrentValue.Init(service);
+        //    }
+
+        //    public async Task SignOutAsync(AuthenticationProperties properties)
+        //    {
+        //        var httpContext = _service.GetService<IHttpContextAccessor>().HttpContext;
+        //        ClaimsPrincipal user = httpContext.User;
+        //        if (user != null &&
+        //            user.GetUserId(out var userId) &&
+        //            user.GetSessionId(out var sessionId))
+        //        {
+        //            using (var redis = await _service.GetRedisConnectionAsync(_options.CurrentValue.RedisConfiguration))
+        //            {
+        //                await redis.KeyDeleteAsync($"ApiAuth:{sessionId}");
+        //            }
+        //        }
+        //        await Task.CompletedTask;
+        //    }
+
+        //    #region
+
+        //    Task<AuthenticateResult> IAuthenticationHandler.AuthenticateAsync() => Task.FromResult(AuthenticateResult.NoResult());
+
+        //    Task IAuthenticationHandler.ChallengeAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    Task IAuthenticationHandler.ForbidAsync(AuthenticationProperties properties) => Task.CompletedTask;
+
+        //    Task IAuthenticationHandler.InitializeAsync(AuthenticationScheme scheme, HttpContext context) => Task.CompletedTask;
+
+        //    #endregion
+
+        //}
     }
 }

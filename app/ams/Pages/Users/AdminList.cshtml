@@ -33,8 +33,7 @@
                             if (obj.ajax_busy === 1)
                                 return;
                             obj.ajax_busy = 1;
-                            //util.api('@Url.Action(nameof(AgentsController.tree_node), "Agents")/' + id, { agentId: id }, function (result) {
-                            util.api('@Url.Content("~/user/agent/tree_node/")' + id, { }, function (result) {
+                            util.api('@config.ApiUrl', '@_urls.user_agent_tree_node' + id, {}, function (result) {
                                 if (result.IsSuccess) {
                                     $this.parse(result.Data);
                                 }
@@ -50,7 +49,7 @@
                             listUser_h = setTimeout(function () {
                                 listUser_h = null;
                                 //console.log('loading ' + id + '...');
-                                util.api('@Url.Action("List", "Admins")', {
+                                util.api('@config.ApiUrl', '@_urls.user_admin_list', {
                                     parentId: id,
                                     Paging: {
                                         PageIndex: 0,
@@ -132,8 +131,7 @@
             $$('layout').resize();
         });
 
-        //util.api('@Url.Action(nameof(AgentsController.tree_node), "Agents")', { include_root: true }, function (result) {
-        util.api('@Url.Content("~/user/agent/tree_node/")' + true, { }, function (result) {
+        util.api('@config.ApiUrl', '@_urls.user_agent_tree_node' + true, {}, function (result) {
             if (result.IsSuccess) {
                 $$('agent_tree').parse(result.Data);
             }

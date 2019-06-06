@@ -14,7 +14,7 @@ namespace InnateGlory.Controllers
     [Route("/dev")]
     public class DeveloperController : Controller
     {
-        [HttpPost("ping")]
+        [HttpPost(_urls.dev_ping)]
         public async Task<Models.PingResult> Ping([FromServices] DataService dataService)
         {
             await Task.Delay(0);

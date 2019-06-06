@@ -1,30 +1,30 @@
 [
-  {
-    "outputFileName": "wwwroot/js/bridge.js",
-    "inputFiles": [
-      "wwwroot/js/bridge/bridge.js",
-      "wwwroot/js/bridge/bridge.meta.js",
-      "wwwroot/js/bridge/newtonsoft.json.js",
-      "wwwroot/js/bridge/site.js",
-      //"wwwroot/js/_src/bridge.util.js"
-    ],
-    "minify": {
-      "enabled": false
-    }
-  },
-  {
-    "outputFileName": "wwwroot/js/bridge.min.js",
-    "inputFiles": [
-      "wwwroot/js/bridge/bridge.min.js",
-      "wwwroot/js/bridge/bridge.meta.min.js",
-      "wwwroot/js/bridge/newtonsoft.json.min.js",
-      "wwwroot/js/bridge/site.js",
-      //"wwwroot/js/_src/bridge.util.js"
-    ],
-    "minify": {
-      "enabled": false
-    }
-  }
+  //{
+  //  "outputFileName": "wwwroot/js/bridge.js",
+  //  "inputFiles": [
+  //    "wwwroot/js/bridge/bridge.js",
+  //    "wwwroot/js/bridge/bridge.meta.js",
+  //    "wwwroot/js/bridge/newtonsoft.json.js",
+  //    "wwwroot/js/bridge/site.js",
+  //    //"wwwroot/js/_src/bridge.util.js"
+  //  ],
+  //  "minify": {
+  //    "enabled": false
+  //  }
+  //},
+  //{
+  //  "outputFileName": "wwwroot/js/bridge.min.js",
+  //  "inputFiles": [
+  //    "wwwroot/js/bridge/bridge.min.js",
+  //    "wwwroot/js/bridge/bridge.meta.min.js",
+  //    "wwwroot/js/bridge/newtonsoft.json.min.js",
+  //    "wwwroot/js/bridge/site.js",
+  //    //"wwwroot/js/_src/bridge.util.js"
+  //  ],
+  //  "minify": {
+  //    "enabled": false
+  //  }
+  //}
   //{
   //  "outputFileName": "wwwroot/js/requirejs/config.js",
   //  "inputFiles": [

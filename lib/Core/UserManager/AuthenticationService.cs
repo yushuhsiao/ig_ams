@@ -14,8 +14,8 @@ namespace InnateGlory
 
         public override async Task<AuthenticateResult> AuthenticateAsync(HttpContext context, string scheme)
         {
-            if (context.Request.Headers.ContainsKey(_Consts.UserManager.ApiAuthScheme))
-                scheme = _Consts.UserManager.ApiAuthScheme;
+            if (context.Request.Headers.ContainsKey(_Consts.UserManager.Authorization))
+                scheme = _Consts.UserManager.Authorization;
             //if (context.Request.Headers.ContainsKey(_Consts.UserManager.AUTH_USER) ||
             //    context.Request.Headers.ContainsKey(_Consts.UserManager.AUTH_INTERNAL))
             //    scheme = _Consts.UserManager.ApiAuthScheme;

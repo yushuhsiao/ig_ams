@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 namespace InnateGlory.Controllers
 {
     [Api]
-    [Route("/sys/corp")]
+    [Route("controller")]
     public class CorpsController : Controller
     {
         private DataService _dataService;
@@ -19,7 +19,7 @@ namespace InnateGlory.Controllers
             _dataService = dataService;
         }
 
-        [HttpPost("add")]
+        [HttpPost(_urls.sys_corp_add)]
         public Entity.CorpInfo Create([FromBody] Models.CorpModel model)
         {
             //if (model == null)
@@ -47,7 +47,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(s);
         }
 
-        [HttpPost("set")]
+        [HttpPost(_urls.sys_corp_set)]
         public Entity.CorpInfo Update([FromBody] Models.CorpModel model)
         {
             //if (model == null)
@@ -71,7 +71,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(s);
         }
 
-        [HttpPost("get")]
+        [HttpPost(_urls.sys_corp_get)]
         public Entity.CorpInfo Get([FromBody] Models.CorpModel model)
         {
             ModelState
@@ -88,7 +88,7 @@ namespace InnateGlory.Controllers
                 throw new ApiException(status);
         }
 
-        [HttpPost("list")]
+        [HttpPost(_urls.sys_corp_list)]
         public IEnumerable<Entity.CorpInfo> List([FromBody] Models.ListModel<Entity.CorpInfo> model)
         {
             //paging += 0;
@@ -97,7 +97,7 @@ namespace InnateGlory.Controllers
                 return coredb.Query<Entity.CorpInfo>(sql);
         }
 
-        [HttpPost("balance/set")]
+        [HttpPost(_urls.sys_corp_balance_set)]
         public Entity.UserBalance SetBalance([FromBody] Models.CorpBalanceModel model, [FromServices] DataService ds)
         {
             ModelState
@@ -118,7 +118,7 @@ namespace InnateGlory.Controllers
             return null;
         }
 
-        [HttpPost("/tran/corp/add")]
+        [HttpPost(_urls.tran_corp_add)]
         public Entity.TranCorp1 CreateTran([FromBody] Models.CorpBalanceModel model, [FromServices] DataService ds)
         {
             ModelState
@@ -137,7 +137,7 @@ namespace InnateGlory.Controllers
             return ds.GetService<TranService>().Corp_Create(model);
         }
 
-        [HttpPost("/tran/corp/set")]
+        [HttpPost(_urls.tran_corp_set)]
         public Entity.TranCorp1 FinishTran([FromBody] Models.TranOperationModel op, [FromServices] DataService ds)
         {
             ModelState.IsValid();

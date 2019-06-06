@@ -18,6 +18,9 @@
     <EmbeddedResource Remove="_\**" />
     <None Remove="_\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Global.cs" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

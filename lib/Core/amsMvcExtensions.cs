@@ -17,7 +17,7 @@ namespace InnateGlory
             if (actionSelectorOptions != null)
                 mvc.Services.Configure(actionSelectorOptions);
 
-            mvc.Services.AddRandomID();
+            //mvc.Services.AddRandomId();
 
             //services.TryAddSingleton<IPageHandlerMethodSelector, DefaultPageHandlerMethodSelector>();
 
@@ -25,7 +25,7 @@ namespace InnateGlory
 
             //if (!services.HasService<MvcMarkerService>())
             //    return services;
-            mvc.Services.AddActionContextAccessor();
+            ////mvc.Services.AddActionContextAccessor();
             //CurrentControllerAccessor.AddService(services);
 
             //mvc.Services.AddLang();
