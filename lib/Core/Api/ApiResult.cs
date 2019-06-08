@@ -1,6 +1,5 @@
 ﻿using InnateGlory.Api;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,12 @@ namespace InnateGlory
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class ApiResult : IApiResult, IDisposable
     {
+        public ApiResult(object data)
+        {
+            this.Data = data;
+            this.StatusCode = Status.Unknown;
+        }
+
         [JsonProperty(_Consts.Api.Field_StatusCode)]
         public Status StatusCode { get; set; } = Status.Unknown;
 
@@ -26,60 +31,47 @@ namespace InnateGlory
         [JsonProperty(_Consts.Api.Field_Data)]
         public object Data { get; set; }
 
-        [JsonProperty(_Consts.Api.Field_Error)]
-        public IDictionary<string, ApiErrorEntry> Errors { get; set; }
-
-
-
-        public ApiResult(object data)
-        {
-            this.Data = data;
-            this.StatusCode = Status.Unknown;
-        }
+        //[JsonProperty(_Consts.Api.Field_Error)]
+        //public IDictionary<string, ApiErrorEntry> Errors { get; set; }
 
         public string ContentType { get; set; }
 
         public HttpStatusCode? HttpStatusCode { get; set; }
 
-        Task IActionResult.ExecuteResultAsync(ActionContext context)
-        {
-            if (context == null)
-                throw new ArgumentNullException(nameof(context));
-            return context.HttpContext.RequestServices.GetRequiredService<ApiResultExecutor>().ExecuteAsync(context, this);
-        }
+        async Task IActionResult.ExecuteResultAsync(ActionContext context) => await ApiResultExecutor.ExecuteResultAsync(context, this);
 
 
-        private static List<IApiResult> _staticResults = new List<IApiResult>();
-        //private static Dictionary<Status, IApiResult> _staticResults = new Dictionary<Status, IApiResult>();
-        private static IApiResult GetStaticResult(Status statusCode, HttpStatusCode? http = System.Net.HttpStatusCode.OK)
-        {
-            lock (_staticResults)
-            {
-                for (int i = 0, n = _staticResults.Count; i < n; i++)
-                {
-                    var nn = _staticResults[i];
-                    if (nn.StatusCode == statusCode &&
-                        nn.HttpStatusCode == http)
-                        return nn;
-                }
-                var ret = new ApiResult(null)
-                {
-                    StatusCode = statusCode,
-                    HttpStatusCode = http
-                };
-                _staticResults.Add(ret);
-                return ret;
-            }
-        }
+        //private static List<IApiResult> _staticResults = new List<IApiResult>();
+        //private static IApiResult GetStaticResult(Status statusCode, HttpStatusCode? http = System.Net.HttpStatusCode.OK)
+        //{
+        //    lock (_staticResults)
+        //    {
+        //        for (int i = 0, n = _staticResults.Count; i < n; i++)
+        //        {
+        //            var nn = _staticResults[i];
+        //            if (nn.StatusCode == statusCode &&
+        //                nn.HttpStatusCode == http)
+        //                return nn;
+        //        }
+        //        var ret = new ApiResult(null)
+        //        {
+        //            StatusCode = statusCode,
+        //            HttpStatusCode = http
+        //        };
+        //        _staticResults.Add(ret);
+        //        return ret;
+        //    }
+        //}
 
-        //public static IApiResult Unknown => GetStaticResult(Status.Unknown);
-        public static IApiResult OK => GetStaticResult(Status.Success);
-        public static IApiResult Forbidden => GetStaticResult(Status.Forbidden, System.Net.HttpStatusCode.Forbidden);
-        public static IApiResult Failed(Status statusCode = Status.Unknown) => GetStaticResult(statusCode);
+        //public static IApiResult OK => GetStaticResult(Status.Success);
+        //public static IApiResult Forbidden => GetStaticResult(Status.Forbidden, System.Net.HttpStatusCode.Forbidden);
+        //public static IApiResult Failed(Status statusCode = Status.Unknown) => GetStaticResult(statusCode);
 
+        private static ApiResult _empty = new ApiResult(null) { StatusCode = Status.Success };
         public static IApiResult Success(object value = null)
         {
-            if (value == null) return OK;
+            if (value == null)
+                return _empty;
             return new ApiResult(value)
             {
                 StatusCode = Status.Success,
@@ -87,37 +79,6 @@ namespace InnateGlory
             };
         }
 
-        public static IActionResult FromActionResult(IActionResult src)
-        {
-            if (src is IApiResult)
-                return src;
-            //ApiResult result = new ApiResult(src);
-            if (src is JsonResult)
-            {
-                JsonResult n = (JsonResult)src;
-                return new ApiResult(n.Value)
-                {
-                    StatusCode = Status.Success,
-                    ContentType = n.ContentType,
-                    HttpStatusCode = (HttpStatusCode?)n.StatusCode
-                };
-            }
-            else if (src is ObjectResult)
-            {
-                ObjectResult n = (ObjectResult)src;
-                return new ApiResult(n.Value)
-                {
-                    StatusCode = Status.Success,
-                    HttpStatusCode = (HttpStatusCode?)n.StatusCode
-                };
-                //result.HttpStatusCode = (HttpStatusCode?)n.StatusCode;
-            }
-            else if (src is EmptyResult)
-            {
-                return ApiResult.OK;
-            }
-            return new ApiResult(src);
-        }
 
 
 
@@ -143,10 +104,11 @@ namespace InnateGlory
                     JsonHelper.PopulateObject(this._data_json, tmp);
                     return true;
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                catch { }
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine(ex);
+                //}
             }
             return false;
         }
@@ -161,27 +123,28 @@ namespace InnateGlory
                     var tmp = JsonHelper.DeserializeObject<tmp<T>>(this._data_json);
                     _data = tmp.data;
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                catch { }
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine(ex);
+                //}
             }
             return _data.TryCast(out data);
         }
 
-        internal bool GetError(string name, out ApiErrorEntry result)
-        {
-            if (Errors != null && name != null)
-                return Errors.TryGetValue(name, out result);
-            result = default(ApiErrorEntry);
-            return false;
-        }
+        //internal bool GetError(string name, out ApiErrorEntry result)
+        //{
+        //    if (Errors != null && name != null)
+        //        return Errors.TryGetValue(name, out result);
+        //    result = default(ApiErrorEntry);
+        //    return false;
+        //}
 
         void IDisposable.Dispose()
         {
             this._data_json = null;
-            this.Errors?.Clear();
-            this.Errors = null;
+            //this.Errors?.Clear();
+            //this.Errors = null;
             this._data = null;
             this.Message = null;
         }

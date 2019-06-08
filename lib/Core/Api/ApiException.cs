@@ -1,10 +1,7 @@
 ﻿using InnateGlory.Api;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -32,39 +29,27 @@ namespace InnateGlory
         [JsonProperty(_Consts.Api.Field_StatusCode)]
         public Status StatusCode { get; set; }
 
-        private string statusText;
         [JsonProperty(_Consts.Api.Field_StatusText)]
-        public string StatusText
-        {
-            get => statusText ?? StatusCode.ToString();
-            set => statusText = value;
-        }
-
-        public string ResultMessage { get; set; }
+        public string StatusText => StatusCode.ToString();
 
         [JsonProperty(_Consts.Api.Field_Message)]
         string IApiResult.Message
         {
-            get => ResultMessage ?? StatusCode.ToString();
+            get => ResultMessage ?? base.Message;
             set => ResultMessage = value;
         }
-
-
-        static object _value = new object();
 
         [JsonProperty(_Consts.Api.Field_Data)]
         object IApiResult.Data
         {
-            get => this.ModelError ?? this.Data ?? _value;
+            get => this.Data;
             set { }
         }
 
-        public SerializableError ModelError { get; set; }
-
         [JsonProperty(_Consts.Api.Field_Error)]
-        public virtual IDictionary<string, ApiErrorEntry> Errors
+        public IDictionary<string, object> Errors
         {
-            get => _value as IDictionary<string, ApiErrorEntry>;
+            get => ModelError;//  as IDictionary<string, object>;
             set { }
         }
 
@@ -72,12 +57,10 @@ namespace InnateGlory
 
         public HttpStatusCode? HttpStatusCode { get; set; }
 
+        async Task IActionResult.ExecuteResultAsync(ActionContext context) => await ApiResultExecutor.ExecuteResultAsync(context, this);
 
-        Task IActionResult.ExecuteResultAsync(ActionContext context)
-        {
-            if (context == null)
-                throw new ArgumentNullException(nameof(context));
-            return context.HttpContext.RequestServices.GetRequiredService<ApiResultExecutor>().ExecuteAsync(context, this);
-        }
+        public string ResultMessage { get; set; }
+
+        public SerializableError ModelError { get; set; }
     }
 }

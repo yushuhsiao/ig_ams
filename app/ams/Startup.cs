@@ -134,20 +134,19 @@ namespace InnateGlory
             //    });
             //});
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ams api V1");
-            });
-            ;
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ams api V1");
+            //});
             //app.UseBlazor(new BlazorOptions() { ClientAssemblyPath = Blazor_Path });
 
 
-            var cn = ConfigurationBinder.GetValue<DbConnectionString>(app.ApplicationServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
-            ;
-            using (var conn = cn.OpenDbConnection(app.ApplicationServices, null))
-            {
-            }
+            //var cn = ConfigurationBinder.GetValue<DbConnectionString>(app.ApplicationServices.GetService<IConfiguration>(), "ConnectionStrings:CoreDB_R");
+            //;
+            //using (var conn = cn.OpenDbConnection(app.ApplicationServices, null))
+            //{
+            //}
         }
 
         //[AppSetting(SectionName = "Blazor", Key = "ClientPath")]

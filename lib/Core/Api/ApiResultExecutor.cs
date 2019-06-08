@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Buffers;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InnateGlory.Api
 {
@@ -55,8 +56,11 @@ namespace InnateGlory.Api
         protected IHttpResponseStreamWriterFactory WriterFactory { get; }
 
         static readonly object _null_value = new object();
-        public virtual Task ExecuteAsync(ActionContext context, IApiResult result)
+
+        public static async Task ExecuteResultAsync(ActionContext context, IApiResult result)
         {
+            ApiResultExecutor obj = context.HttpContext.RequestServices.GetService<ApiResultExecutor>();
+
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
@@ -88,8 +92,8 @@ namespace InnateGlory.Api
 
             //var serializerSettings = result.SerializerSettings ?? Options.SerializerSettings;
 
-            _jsonResultExecuting(Logger, Convert.ToString(result.Data), null);
-            using (var writer = WriterFactory.CreateWriter(response.Body, resolvedContentTypeEncoding))
+            _jsonResultExecuting(obj.Logger, Convert.ToString(result.Data), null);
+            using (var writer = obj.WriterFactory.CreateWriter(response.Body, resolvedContentTypeEncoding))
             using (var jsonWriter = JsonHelper.CreateWriter(writer))
             {
                 //jsonWriter.ArrayPool = _charPool;
@@ -98,7 +102,7 @@ namespace InnateGlory.Api
                 JsonHelper.SerializeObject(jsonWriter, result);
             }
 
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
     }
 }

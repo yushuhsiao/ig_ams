@@ -10,7 +10,7 @@ namespace InnateGlory
         string StatusText { get; }
         string Message { get; set; }
         object Data { get; set; }
-        IDictionary<string, ApiErrorEntry> Errors { get; set; }
+        //IDictionary<string, object> Errors { get; set; }
 
         HttpStatusCode? HttpStatusCode { get; set; }
         string ContentType { get; set; }
