@@ -170,9 +170,14 @@ end
         {
             if (this.Get(agentId, out var agent))
             {
-                string sql = $"select * from {TableName<Entity.UserData>.Value} where ParentId={agentId} and UserType={(int)UserType.Agent}";
+                string sql = $@"select * from {TableName<Entity.UserData>.Value}
+where ParentId=@ParentId and UserType=@UserType";
                 using (IDbConnection userdb = _dataService.DbConnections.UserDB_R(agent.CorpId))
-                    return userdb.Query<Entity.Agent>(sql);
+                    return userdb.Query<Entity.Agent>(sql, new
+                    {
+                        ParentId = agentId.Id,
+                        UserType = (int)UserType.Agent
+                    });
             }
             return null;
         }

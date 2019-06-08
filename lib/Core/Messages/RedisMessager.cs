@@ -38,10 +38,12 @@ namespace InnateGlory.Redis
         //[SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = _Consts.Redis.Message_Reconnect), DefaultValue(30 * 60 * 1000)]
         //public double Redis_Reconnect => _config2.GetValue<double>().Max(15000);
 
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Message), DefaultValue(_Consts.Redis.DefaultValue)]
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Message)]
+        [DefaultValue(_Consts.Redis.Message_DefaultValue)]
         public string Redis_Message() => _config.GetValue<string>();
 
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Message_Reconnect), DefaultValue(5 * 60 * 1000)]
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Message_Reconnect)]
+        [DefaultValue(5 * 60 * 1000)]
         public double Redis_Reconnect => _config.GetValue<double>().Max(15000);
 
         [Tick(MaxThread = 1)]

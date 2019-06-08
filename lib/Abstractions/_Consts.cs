@@ -48,12 +48,18 @@ namespace InnateGlory
         public static class Redis
         {
             public const string Key1 = "Redis";
-            public const string Main = "Main";
-            public const string DefaultValue = "redis01:6379";
-            public const string ServerInfo = "ServerInfo";
+
             public const string TableVer = "TableVer";
             public const string TableVer_DefaultValue = "redis01:6379,defaultDatabase=1";
+
+            public const string ServerInfo = "ServerInfo";
+            public const string ServerInfo_DefaultValue = "redis01:6379,defaultDatabase=2";
+
+            public const string UserSession = "UserSession";
+            public const string UserSession_DefaultValue = "redis01:6379,defaultDatabase=3";
+
             public const string Message = "Message";
+            public const string Message_DefaultValue = "redis01:6379,defaultDatabase=4";
             public const string Message_Reconnect = "Message.Reconnect";
 
             public static class Channels
@@ -66,21 +72,20 @@ namespace InnateGlory
         public static class UserManager
         {
             //public const string AccessToken = "AccessToken";
-            public const string UserSession = "UserSession";
             public const string ConfigSection = "Authentication";
             private const string CookiePrefix = "InnateGlory";
             public const string ApplicationScheme = CookiePrefix + ".Application";
-            public const string ExternalScheme = CookiePrefix + ".External";
-            public const string TwoFactorRememberMeScheme = CookiePrefix + ".TwoFactorRememberMe";
-            public const string TwoFactorUserIdScheme = CookiePrefix + ".TwoFactorUserId";
-            public const string ApiAuth = "ApiAuth";
+            //public const string ExternalScheme = CookiePrefix + ".External";
+            //public const string TwoFactorRememberMeScheme = CookiePrefix + ".TwoFactorRememberMe";
+            //public const string TwoFactorUserIdScheme = CookiePrefix + ".TwoFactorUserId";
+            //public const string ApiAuth = "ApiAuth";
             public const string Authorization = Microsoft.Net.Http.Headers.HeaderNames.Authorization;
             //public const string AccessTokenScheme = "AccessToken";
             //public const string Ticket_SessionId = "Ticket_SessionId";
-            public const string InternalApiServer = "InternalApiServer";
-            public const string AUTH_INTERNAL = "IG-INTERNAL";
-            public const string AUTH_USER = "IG-AUTH-USER";
-            public const string AUTH_TOKEN = "IG-ACCESSTOKEN";
+            //public const string InternalApiServer = "InternalApiServer";
+            //public const string AUTH_INTERNAL = "IG-INTERNAL";
+            //public const string AUTH_USER = "IG-AUTH-USER";
+            //public const string AUTH_TOKEN = "IG-ACCESSTOKEN";
             public const string AuthenticationType = ApplicationScheme;
         }
 

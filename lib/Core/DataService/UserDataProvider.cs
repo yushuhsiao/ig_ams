@@ -188,8 +188,8 @@ namespace InnateGlory
 
 
 
-        [AppSetting(SectionName = _Consts.UserManager.ConfigSection, Key = _Consts.UserManager.InternalApiServer), DefaultValue(false)]
-        public bool InternalApiServer => _config.GetValue<bool>();
+        //[AppSetting(SectionName = _Consts.UserManager.ConfigSection, Key = _Consts.UserManager.InternalApiServer), DefaultValue(false)]
+        //public bool InternalApiServer => _config.GetValue<bool>();
 
         [AppSetting(SectionName = _Consts.UserManager.ConfigSection), DefaultValue(true)]
         public bool AllowAgentLogin => _config.GetValue<bool>();

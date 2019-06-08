@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 // redis
 //  1.TableVer
 //  2.SysApi
@@ -49,27 +50,28 @@ namespace InnateGlory
             //this.Subscriber.Subscribe(_Consts.Redis.Channels.AppControl, RecvMessage);
             //this.Commands = new ServerCommands(this);
             //this.DataService = dataService;
-            Tick.OnTick += KeepAlive_Proc;
+            //Tick.OnTick += KeepAlive_Proc;
+            Task.Run(KeepAlive_Proc2);
         }
 
-        private IDatabase db
-        {
-            get
-            {
-                if (_db == null)
-                {
-                    string configuration = Redis_ServerInfo;
-                    _db = ConnectionMultiplexer.Connect(configuration).GetDatabase();
-                }
-                return _db;
-            }
-            set
-            {
-                if (object.ReferenceEquals(value, _db)) return;
-                using (_db?.Multiplexer)
-                    _db = value;
-            }
-        }
+        //private IDatabase db
+        //{
+        //    get
+        //    {
+        //        if (_db == null)
+        //        {
+        //            string configuration = Redis_ServerInfo;
+        //            _db = ConnectionMultiplexer.Connect(configuration).GetDatabase();
+        //        }
+        //        return _db;
+        //    }
+        //    set
+        //    {
+        //        if (object.ReferenceEquals(value, _db)) return;
+        //        using (_db?.Multiplexer)
+        //            _db = value;
+        //    }
+        //}
 
         public IEnumerable<ServerInfo> GetServerList()
         {
@@ -78,14 +80,13 @@ namespace InnateGlory
 
         #region Config for redis
 
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.Main), DefaultValue(_Consts.Redis.DefaultValue)]
-        public string Redis_Main() => _config.GetValue<string>();
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.ServerInfo)]
+        [DefaultValue(_Consts.Redis.ServerInfo_DefaultValue)]
+        public string Redis_ServerInfo() => _config.GetValue<string>();
 
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = _Consts.Redis.ServerInfo), DefaultValue(2)]
-        public string Redis_ServerInfo => _config.GetValue<string>(); 
-
-        [AppSetting(SectionName = _Consts.Redis.Key1, Key = "ServerInfo.KeepAlive"), DefaultValue(5000)]
-        public double Redis_KeepAlive => _config.GetValue<double>().Max(1000);
+        [AppSetting(SectionName = _Consts.Redis.Key1, Key = "ServerInfo.KeepAlive")]
+        [DefaultValue(5000)]
+        public int Redis_KeepAlive => _config.GetValue<int>().Max(1000);
 
         //[SqlConfig(Key1 = _Consts.Redis.Key1, Key2 = "ServerInfo.Reconnect"), DefaultValue(30 * 60 * 1000)]
         //public double Redis_Reconnect => _config.GetValue<double>().Max(15000);
@@ -100,26 +101,40 @@ namespace InnateGlory
         //        Subscriber.Connect();
         //}
 
-        [Tick(MaxThread = 1)]
-        private bool KeepAlive_Proc()
-        {
-            if (this._timer_KeepAlive.IsTimeout(Redis_KeepAlive, true))
-            {
-                try
-                {
-                    //IDatabase _db = Subscriber.GetDatabase(Redis_ServerInfo);
+        //[Tick(MaxThread = 1)]
+        //private bool KeepAlive_Proc()
+        //{
+        //    if (this._timer_KeepAlive.IsTimeout(Redis_KeepAlive, true))
+        //    {
+        //        try
+        //        {
+        //            //IDatabase _db = Subscriber.GetDatabase(Redis_ServerInfo);
 
-                    this.db.StringSet(this._key, this.Data.JsonString, expiry: TimeSpan.FromMilliseconds(Redis_KeepAlive + 2000));
-                }
-                catch (Exception ex)
-                {
-                    _logger.Log(LogLevel.Error, 0, "KeepAlive", ex); //this._logger.LogError(ex, "KeepAlive");
-                    //Subscriber.Multiplexer = null;
-                    this.db = null;
-                    Thread.Sleep(3000);
-                }
-            }
-            return true;
+        //            this.db.StringSet(this._key, this.Data.JsonString, expiry: TimeSpan.FromMilliseconds(Redis_KeepAlive + 2000));
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            _logger.Log(LogLevel.Error, 0, "KeepAlive", ex); //this._logger.LogError(ex, "KeepAlive");
+        //            //Subscriber.Multiplexer = null;
+        //            this.db = null;
+        //            Thread.Sleep(3000);
+        //        }
+        //    }
+        //    return true;
+        //}
+
+        private async Task KeepAlive_Proc2()
+        {
+        _start:
+            int keepAlive = Redis_KeepAlive;
+            long tick = (long)keepAlive;
+            tick += 2000;
+            tick *= TimeSpan.TicksPerMillisecond;
+            TimeSpan expiry = TimeSpan.FromTicks(tick);
+            using (var redis = await _services.GetRedisConnectionAsync(Redis_ServerInfo()))
+                await redis.StringSetAsync(this._key, this.Data.JsonString, expiry);
+            await Task.Delay(keepAlive);
+            goto _start;
         }
 
         //public void SendMessage(string name, object data, params Guid[] to)
