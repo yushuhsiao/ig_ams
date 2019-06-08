@@ -15,21 +15,10 @@ namespace InnateGlory
 {
     public static partial class amsExtensions
     {
-        //[DebuggerStepThrough]
-        //public static bool IsSuccess(this Status s) => s == Status.Success;
-        //[DebuggerStepThrough]
-        //public static bool IsNotSuccess(this Status s) => s != Status.Success;
-
-        //private class ServerOptionsSetup : IConfigureOptions<ServerOptions> { void IConfigureOptions<ServerOptions>.Configure(ServerOptions options) { } }
-
-
-        private static SqlConnection CreateSqlConnection(DbConnectionString cn) => new SqlConnection(cn);
+        private static SqlConnection CreateSqlConnection(DbConnectionString cn) 
+            => new SqlConnection(cn);
         private static void RegisterForDispose(object state, IDisposable item)
-        {
-            HttpContext context = state as HttpContext;
-            if (context != null)
-                context.Response.RegisterForDispose(item);
-        }
+                => (state as HttpContext)?.Response.RegisterForDispose(item);
 
         public static IServiceCollection AddAMS(this IServiceCollection services/*, Action<ServerOptions> options = null*/)
         {
@@ -66,138 +55,148 @@ namespace InnateGlory
             {
                 options.AddServerHeader = false;
             });
-            return services.AddStartup(app =>
-            {
-                //Global.ServiceProvider = app.ApplicationServices;
-                //app.ApplicationServices.GetService<ServerInfo>();
-                try
-                {
-                    //app.ApplicationServices.GetService<Redis.RedisMessager>();
-                }
-                catch { }
-                //LoggerHelper.LoggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
-                //app.ApplicationServices.GetServiceOrCreateInstance<ServerInfo>();
-                app.Use((context, next) =>
-                {
-                    //Global.ServiceProvider = context.RequestServices;
-                    return next();
-                });
-            });
+            return services;
         }
-
-        //private static async Task _ServiceProvider_Middleware(HttpContext context, Func<Task> next)
-        //{
-        //    Global.ServiceProvider = context.RequestServices;
-        //    //context.User.SetUserId(1001);
-        //    //var userId = context.RequestServices.GetCurrentUserId();
-        //    try { await next(); }
-        //    finally
-        //    {
-        //        //SqlCmdPooling.Release(context);
-        //        //context.RemoveItems<IHttpContextDispose>(x => x.Dispose(context));
-        //    }
-        //    Global.ServiceProvider = null;
-        //}
-
-        //private static void startup(IApplicationBuilder app)
-        //{
-        //    app.ApplicationServices.GetServiceOrCreateInstance<ServerInfo>();
-        //    app.Use(middleware);
-        //}
-
-        //private static async Task middleware(HttpContext context, Func<Task> next)
-        //{
-        //    try { await next(); }
-        //    finally { context.RemoveItems<IHttpContextDispose>(x => x.Dispose(context)); }
-        //}
-
-
-        //public static T DataService<T>(this IServiceProvider services) => services.DataService().GetServiceOrCreateInstance<T>();
-
-        //private class CurrentControllerAccessor : IActionFilter
-        //{
-        //    void IActionFilter.OnActionExecuting(ActionExecutingContext context)
-        //    {
-        //        context.HttpContext.Items[typeof(CurrentControllerAccessor)] = context.Controller;
-        //    }
-        //    void IActionFilter.OnActionExecuted(ActionExecutedContext context)
-        //    {
-        //        context.HttpContext.Items.Remove(typeof(CurrentControllerAccessor));
-        //    }
-
-        //    public static void AddService(IServiceCollection services)
-        //    {
-        //        return;
-        //        services.TryAddScoped(_CurrentController);
-        //        services.Configure<MvcOptions>(opts => opts.Filters.Add<CurrentControllerAccessor>());
-        //    }
-        //    private static Controller _CurrentController(IServiceProvider provider)
-        //    {
-        //        return provider.GetService<IHttpContextAccessor>()?.HttpContext?.Items[typeof(CurrentControllerAccessor)] as Controller;
-        //    }
-        //}
-
-        //class _ServiceInject<T>
-        //{
-        //    protected T _inner;
-
-        //    public _ServiceInject(IServiceProvider s)
-        //    {
-        //        _inner = s.CreateInstance<T>();
-        //    }
-
-        //    public static ServiceDescriptor inject(ServiceDescriptor d)
-        //    {
-        //        if (d.ImplementationType == typeof(T))
-        //            return new ServiceDescriptor(d.ServiceType, typeof(T), d.Lifetime);
-        //        return d;
-        //    }
-        //}
-
-        //class _ActionInvokerFactory : _ServiceInject<ActionInvokerFactory>, IActionInvokerFactory
-        //{
-        //    public _ActionInvokerFactory(IServiceProvider s) : base(s) { }
-
-        //    public IActionInvoker CreateInvoker(ActionContext actionContext)
-        //    {
-        //        return ((IActionInvokerFactory)_inner).CreateInvoker(actionContext);
-        //    }
-        //}
-
-
-
-
-        //public static IWebHostBuilder RegisterServer(this IWebHostBuilder builder, Action<ServerOptions> options = null)
-        //{
-        //    return builder.ConfigureServices(services => services.RegisterServer()).ReplaceHttpContextFactory();
-        //}
-
-        // memo
-        //static void xxx(IServiceProvider provider)
-        //{
-        //    provider.GetRequiredService<IHostingEnvironment>();
-        //    provider.GetRequiredService<WebHostBuilderContext>();
-        //    provider.GetRequiredService<DiagnosticListener>();
-        //    provider.GetRequiredService<DiagnosticSource>();
-        //    //provider.GetRequiredService<IApplicationBuilderFactory>();
-        //    provider.GetRequiredService<IHttpContextFactory>();
-        //    provider.GetRequiredService<IMiddlewareFactory>();
-        //    provider.GetRequiredService<ObjectPoolProvider>();
-        //}
     }
-    //public class _Scoped
-    //{
-    //    public _Scoped()
-    //    {
-    //    }
-    //}
-    //public class _Transient
-    //{
-    //    public _Transient()
-    //    {
-    //    }
-    //}
-    /*
+}
+//[DebuggerStepThrough]
+//public static bool IsSuccess(this Status s) => s == Status.Success;
+//[DebuggerStepThrough]
+//public static bool IsNotSuccess(this Status s) => s != Status.Success;
+
+//private class ServerOptionsSetup : IConfigureOptions<ServerOptions> { void IConfigureOptions<ServerOptions>.Configure(ServerOptions options) { } }
+
+
+//return services.AddStartup(app =>
+//{
+//    //Global.ServiceProvider = app.ApplicationServices;
+//    //app.ApplicationServices.GetService<ServerInfo>();
+//    try
+//    {
+//        //app.ApplicationServices.GetService<Redis.RedisMessager>();
+//    }
+//    catch { }
+//    //LoggerHelper.LoggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
+//    //app.ApplicationServices.GetServiceOrCreateInstance<ServerInfo>();
+//    app.Use((context, next) =>
+//    {
+//        //Global.ServiceProvider = context.RequestServices;
+//        return next();
+//    });
+//});
+
+//private static async Task _ServiceProvider_Middleware(HttpContext context, Func<Task> next)
+//{
+//    Global.ServiceProvider = context.RequestServices;
+//    //context.User.SetUserId(1001);
+//    //var userId = context.RequestServices.GetCurrentUserId();
+//    try { await next(); }
+//    finally
+//    {
+//        //SqlCmdPooling.Release(context);
+//        //context.RemoveItems<IHttpContextDispose>(x => x.Dispose(context));
+//    }
+//    Global.ServiceProvider = null;
+//}
+
+//private static void startup(IApplicationBuilder app)
+//{
+//    app.ApplicationServices.GetServiceOrCreateInstance<ServerInfo>();
+//    app.Use(middleware);
+//}
+
+//private static async Task middleware(HttpContext context, Func<Task> next)
+//{
+//    try { await next(); }
+//    finally { context.RemoveItems<IHttpContextDispose>(x => x.Dispose(context)); }
+//}
+
+
+//public static T DataService<T>(this IServiceProvider services) => services.DataService().GetServiceOrCreateInstance<T>();
+
+//private class CurrentControllerAccessor : IActionFilter
+//{
+//    void IActionFilter.OnActionExecuting(ActionExecutingContext context)
+//    {
+//        context.HttpContext.Items[typeof(CurrentControllerAccessor)] = context.Controller;
+//    }
+//    void IActionFilter.OnActionExecuted(ActionExecutedContext context)
+//    {
+//        context.HttpContext.Items.Remove(typeof(CurrentControllerAccessor));
+//    }
+
+//    public static void AddService(IServiceCollection services)
+//    {
+//        return;
+//        services.TryAddScoped(_CurrentController);
+//        services.Configure<MvcOptions>(opts => opts.Filters.Add<CurrentControllerAccessor>());
+//    }
+//    private static Controller _CurrentController(IServiceProvider provider)
+//    {
+//        return provider.GetService<IHttpContextAccessor>()?.HttpContext?.Items[typeof(CurrentControllerAccessor)] as Controller;
+//    }
+//}
+
+//class _ServiceInject<T>
+//{
+//    protected T _inner;
+
+//    public _ServiceInject(IServiceProvider s)
+//    {
+//        _inner = s.CreateInstance<T>();
+//    }
+
+//    public static ServiceDescriptor inject(ServiceDescriptor d)
+//    {
+//        if (d.ImplementationType == typeof(T))
+//            return new ServiceDescriptor(d.ServiceType, typeof(T), d.Lifetime);
+//        return d;
+//    }
+//}
+
+//class _ActionInvokerFactory : _ServiceInject<ActionInvokerFactory>, IActionInvokerFactory
+//{
+//    public _ActionInvokerFactory(IServiceProvider s) : base(s) { }
+
+//    public IActionInvoker CreateInvoker(ActionContext actionContext)
+//    {
+//        return ((IActionInvokerFactory)_inner).CreateInvoker(actionContext);
+//    }
+//}
+
+
+
+
+//public static IWebHostBuilder RegisterServer(this IWebHostBuilder builder, Action<ServerOptions> options = null)
+//{
+//    return builder.ConfigureServices(services => services.RegisterServer()).ReplaceHttpContextFactory();
+//}
+
+// memo
+//static void xxx(IServiceProvider provider)
+//{
+//    provider.GetRequiredService<IHostingEnvironment>();
+//    provider.GetRequiredService<WebHostBuilderContext>();
+//    provider.GetRequiredService<DiagnosticListener>();
+//    provider.GetRequiredService<DiagnosticSource>();
+//    //provider.GetRequiredService<IApplicationBuilderFactory>();
+//    provider.GetRequiredService<IHttpContextFactory>();
+//    provider.GetRequiredService<IMiddlewareFactory>();
+//    provider.GetRequiredService<ObjectPoolProvider>();
+//}
+//public class _Scoped
+//{
+//    public _Scoped()
+//    {
+//    }
+//}
+//public class _Transient
+//{
+//    public _Transient()
+//    {
+//    }
+//}
+/*
 IHostingEnvironment	
 WebHostBuilderContext	
 IConfiguration	
@@ -437,5 +436,4 @@ SqlConfig`1 <T>	SqlConfig`1 <T>
 MessageInvoker`1 <RedisActionAttribute>	MessageInvoker`1 <RedisActionAttribute>
 ServerInfo	ServerInfo
 
-    */
-}
+*/

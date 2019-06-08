@@ -97,7 +97,7 @@ namespace InnateGlory.Controllers
                 return coredb.Query<Entity.CorpInfo>(sql);
         }
 
-        [HttpPost(_urls.sys_corp_balance_set)]
+        [HttpPost(_urls.corp_balance_set)]
         public Entity.UserBalance SetBalance([FromBody] Models.CorpBalanceModel model, [FromServices] DataService ds)
         {
             ModelState

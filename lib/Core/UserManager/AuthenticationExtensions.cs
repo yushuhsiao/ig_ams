@@ -4,14 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using StackExchange.Redis;
 using System;
 using System.ComponentModel;
 using System.Security.Claims;
-using System.Text.Encodings.Web;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace InnateGlory
@@ -20,22 +16,6 @@ namespace InnateGlory
     {
         public static IServiceCollection AddCookieAuth(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
         {
-            /// <see cref="AuthenticationScheme"/>
-            /// <see cref="IAuthenticationHandler"/>
-            /// <see cref="IAuthenticationRequestHandler"/>
-            /// <see cref="IAuthenticationSignInHandler"/>
-            /// <see cref="IAuthenticationSignOutHandler"/>
-
-            services.Replace(ServiceDescriptor.Scoped<IAuthenticationService, _AuthenticationService>());
-            //services.Replace(ServiceDescriptor.Singleton<IClaimsTransformation, _ClaimsTransformation>()); // Can be replaced with scoped ones that use DbContext
-            //services.Replace(ServiceDescriptor.Scoped<IAuthenticationHandlerProvider, _AuthenticationHandlerProvider>());
-            //services.Replace(ServiceDescriptor.Singleton<IAuthenticationSchemeProvider, _AuthenticationSchemeProvider>());
-            /// <see cref="AuthenticationCoreServiceCollectionExtensions.AddAuthenticationCore(IServiceCollection)"/>
-            //services.TryAddScoped<IAuthenticationService, AuthenticationService>();
-            //services.TryAddSingleton<IClaimsTransformation, NoopClaimsTransformation>(); // Can be replaced with scoped ones that use DbContext
-            //services.TryAddScoped<IAuthenticationHandlerProvider, AuthenticationHandlerProvider>();
-            //services.TryAddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
-
             var builder = services.AddAuthentication(options =>
             {
                 options.DefaultScheme = scheme;
@@ -43,36 +23,8 @@ namespace InnateGlory
                 options.DefaultChallengeScheme = scheme;// CookieAuthenticationDefaults.AuthenticationScheme;
                 //options.AddScheme<Test2>("Test2", "Test2");
             });
-
-
-            //builder
-            //    .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
-            //    .AddCookie(_Consts.UserManager.AccessTokenScheme, options => { })
-            //;
-
-            //builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<Test1Options>, Test1PostConfig>());
-            //builder.AddScheme<Test1Options, Test1Handler>("Test1", "Test1", testConfigure);
-
-            //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, ConfigureCookie);
-            //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, Authentication.AccessTokenAuthenticationHandler.Configure);
-            //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.UserTokenScheme, (name, s, options) =>
-            //{
-            //    ConfigureCookie<TUser>(name, s, options);
-            //    UserTokenAuthenticationHandler.Configure(name, s, options);
-            //});
-            //builder.AddCookie(scheme, options => { });
-
             services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<CookieAuthenticationOptions>, _ConfigureCookie>());
             builder.AddCookie(scheme);
-
-            //builder.AddScheme<CookieAuthenticationOptions, CookieAuthenticationHandler>(scheme, null, opts =>
-            //{
-            //});
-
-            //builder.Services.AddApiAuth();
-
-            //builder.AddScheme<_ApiAuthOptions, _ApiAuthHandler>(_Consts.UserManager.ApiAuthScheme, o => { });
-
             return services;
         }
 
@@ -94,8 +46,7 @@ namespace InnateGlory
                     _scheme.DisplayName = _scheme.Name;
                 });
             });
-            services.Configure<_ApiAuthOptions>(scheme
-                , o =>
+            services.Configure<_ApiAuthOptions>(scheme, o =>
             {
             });
             services.TryAddSingleton<_ApiAuthHandler>();
@@ -141,8 +92,8 @@ namespace InnateGlory
             await context
                 .SignOutAsync(context.GetScheme(scheme), null);
 
-            await context.RequestServices.GetService<_ApiAuthHandler>()
-                .SignOutAsync(null);
+            //await context.RequestServices.GetService<_ApiAuthHandler>()
+            //    .SignOutAsync(null);
         }
 
         private class _ConfigureCookie : IPostConfigureOptions<CookieAuthenticationOptions>
@@ -272,3 +223,60 @@ namespace InnateGlory
         }
     }
 }
+//public static IServiceCollection AddCookieAuth(this IServiceCollection services, string scheme = _Consts.UserManager.ApplicationScheme)
+//{
+//    /// <see cref="AuthenticationScheme"/>
+//    /// <see cref="IAuthenticationHandler"/>
+//    /// <see cref="IAuthenticationRequestHandler"/>
+//    /// <see cref="IAuthenticationSignInHandler"/>
+//    /// <see cref="IAuthenticationSignOutHandler"/>
+
+//    //services.Replace(ServiceDescriptor.Scoped<IAuthenticationService, _AuthenticationService>());
+//    //services.Replace(ServiceDescriptor.Singleton<IClaimsTransformation, _ClaimsTransformation>()); // Can be replaced with scoped ones that use DbContext
+//    //services.Replace(ServiceDescriptor.Scoped<IAuthenticationHandlerProvider, _AuthenticationHandlerProvider>());
+//    //services.Replace(ServiceDescriptor.Singleton<IAuthenticationSchemeProvider, _AuthenticationSchemeProvider>());
+//    /// <see cref="AuthenticationCoreServiceCollectionExtensions.AddAuthenticationCore(IServiceCollection)"/>
+//    //services.TryAddScoped<IAuthenticationService, AuthenticationService>();
+//    //services.TryAddSingleton<IClaimsTransformation, NoopClaimsTransformation>(); // Can be replaced with scoped ones that use DbContext
+//    //services.TryAddScoped<IAuthenticationHandlerProvider, AuthenticationHandlerProvider>();
+//    //services.TryAddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
+
+//    var builder = services.AddAuthentication(options =>
+//    {
+//        options.DefaultScheme = scheme;
+//        options.DefaultAuthenticateScheme = scheme;// CookieAuthenticationDefaults.AuthenticationScheme;
+//        options.DefaultChallengeScheme = scheme;// CookieAuthenticationDefaults.AuthenticationScheme;
+//        //options.AddScheme<Test2>("Test2", "Test2");
+//    });
+
+
+//    //builder
+//    //    .AddScheme<ApiAuthenticationSchemeOptions, ApiAuthenticationHandler>(_Consts.UserManager.ApiAuthScheme, _Consts.UserManager.ApiAuthScheme, options => { })
+//    //    .AddCookie(_Consts.UserManager.AccessTokenScheme, options => { })
+//    //;
+
+//    //builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<Test1Options>, Test1PostConfig>());
+//    //builder.AddScheme<Test1Options, Test1Handler>("Test1", "Test1", testConfigure);
+
+//    //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, ConfigureCookie);
+//    //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.AccessTokenScheme, Authentication.AccessTokenAuthenticationHandler.Configure);
+//    //services.Configure<CookieAuthenticationOptions>(_Consts.UserManager.UserTokenScheme, (name, s, options) =>
+//    //{
+//    //    ConfigureCookie<TUser>(name, s, options);
+//    //    UserTokenAuthenticationHandler.Configure(name, s, options);
+//    //});
+//    //builder.AddCookie(scheme, options => { });
+
+//    services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<CookieAuthenticationOptions>, _ConfigureCookie>());
+//    builder.AddCookie(scheme);
+
+//    //builder.AddScheme<CookieAuthenticationOptions, CookieAuthenticationHandler>(scheme, null, opts =>
+//    //{
+//    //});
+
+//    //builder.Services.AddApiAuth();
+
+//    //builder.AddScheme<_ApiAuthOptions, _ApiAuthHandler>(_Consts.UserManager.ApiAuthScheme, o => { });
+
+//    return services;
+//}

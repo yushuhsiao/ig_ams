@@ -56,7 +56,7 @@
                             if (obj.ajax_busy === 1)
                                 return;
                             obj.ajax_busy = 1;
-                            util.api('@config.ApiUrl', '@Url.Content("~" + _urls.user_agent_tree_node)' + '/' + id, { }, function (result) {
+                            util.api(null, '@Url.Content("~" + _urls.user_agent_tree_node)' + '/' + id, { }, function (result) {
                                 if (result.IsSuccess) {
                                     $this.parse(result.Data);
                                 }
@@ -160,7 +160,7 @@
             $$('layout').resize();
         });
 
-        util.api('@config.ApiUrl', '@Url.Content("~/" + _urls.user_agent_tree_node)' + '/' + false, {}, function (result) {
+        util.api(null, '@Url.Content("~" + _urls.user_agent_tree_node)' + '/' + false, {}, function (result) {
             if (result.IsSuccess) {
                 //for (var i = 0; i < result.Data.length; i++) {
                 //    result.Data[i].webix_kids = true;

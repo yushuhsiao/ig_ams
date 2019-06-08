@@ -1,106 +1,107 @@
-var a1 = {
+var _page = {
     ApiUrl: null,
     Logout_Url: null,
+    relogin_token_name: null,
 
     dock_l: true,
     show_l: false,
     size_l: 300,
     left_1: function () {
-        if (a1.dock_l)
-            return a1.size_l;
+        if (_page.dock_l)
+            return _page.size_l;
         else
             return 0;
     },
     left_2: function () {
-        if (a1.dock_l || a1.show_l)
+        if (_page.dock_l || _page.show_l)
             return 0;
-        return -a1.size_l;
+        return -_page.size_l;
     },
 
     dock_r: false,
     show_r: false,
     size_r: 300,
     right_1: function () {
-        if (a1.dock_r)
-            return a1.size_r;
+        if (_page.dock_r)
+            return _page.size_r;
         else
             return 0;
     },
     right_2: function () {
-        if (a1.dock_r || a1.show_r)
+        if (_page.dock_r || _page.show_r)
             return 0;
-        return -a1.size_r;
+        return -_page.size_r;
     },
 
     tabIndex: 2,
 
     toggle_left: function (isSmall) {
         if (isSmall) {
-            a1.show_l = !a1.show_l;
-            a1.dock_l = false;
-            a1.dock_r = a1.show_r = false;
+            _page.show_l = !_page.show_l;
+            _page.dock_l = false;
+            _page.dock_r = _page.show_r = false;
         }
         else {
-            a1.show_l = false;
-            a1.dock_l = !a1.dock_l;
+            _page.show_l = false;
+            _page.dock_l = !_page.dock_l;
         }
 
-        a1.update();
+        _page.update();
     },
 
     toggle_right: function (index, isSmall) {
         if (index == null)
-            index = a1.tabIndex;
+            index = _page.tabIndex;
 
         if (isSmall) {
-            a1.show_r = !a1.show_r;
-            a1.dock_r = false;
-            a1.dock_l = a1.show_l = false;
+            _page.show_r = !_page.show_r;
+            _page.dock_r = false;
+            _page.dock_l = _page.show_l = false;
         }
         else {
-            if (a1.tabIndex == index) {
-                a1.show_r = !a1.show_r;
-                a1.dock_r = false;
+            if (_page.tabIndex == index) {
+                _page.show_r = !_page.show_r;
+                _page.dock_r = false;
             }
             else {
-                a1.show_r = true;
-                a1.dock_r = false;
+                _page.show_r = true;
+                _page.dock_r = false;
             }
-            a1.tabIndex = index;
+            _page.tabIndex = index;
         }
 
-        a1.update();
+        _page.update();
     },
 
     mask_click: function () {
-        a1.show_r = false;
-        a1.update();
+        _page.show_r = false;
+        _page.update();
     },
 
     update: function () {
         $('.p22').css({
-            'padding-left': a1.left_1(),
-            'padding-right': a1.right_1()
+            'padding-left': _page.left_1(),
+            'padding-right': _page.right_1()
         });
         $('.p21').css({
-            'left': a1.left_2(),
-            'width': a1.size_l
+            'left': _page.left_2(),
+            'width': _page.size_l
         });
         $('.p23').css({
-            'right': a1.right_2(),
-            'width': a1.size_r
+            'right': _page.right_2(),
+            'width': _page.size_r
         });
 
         $('.p23-1').hide();
         $('.p23-2').hide();
-        if (a1.tabIndex == 1) {
+        if (_page.tabIndex == 1) {
             $('.p23-1').show();
         }
-        else if (a1.tabIndex == 2) {
+        else if (_page.tabIndex == 2) {
             $('.p23-2').show();
         }
 
-        if (a1.show_r) {
+        if (_page.show_r) {
             $('.p22-mask').show();
         }
         else {
@@ -109,17 +110,17 @@ var a1 = {
     },
 
     logout: function () {
+        var _n = this.relogin_token_name;
         util.api(this.ApiUrl, this.Logout_Url, {}, function (result) {
             if (result.IsSuccess) {
-                delCookie('.AspNetCore.InnateGlory.Application');
-                delCookie('Authorization');
+                setCookie(_n, '0')
                 window.location.reload(true);
             }
         });
     }
 };
 
-a1.update();
+_page.update();
 
 //$('[data-url]').click(function () {
 //    var url = $(this).data('url');
@@ -138,13 +139,13 @@ a1.update();
 
 //$(window).resize(function () {
 //    if (document.documentElement.clientWidth < util.sizes.md) {
-//        a1.dock_l = a1.show_l = a1.dock_r = a1.show_r = false;
+//        _page.dock_l = _page.show_l = _page.dock_r = _page.show_r = false;
 //    }
 //    else {
-//        a1.dock_l = true;
-//        a1.show_l = a1.dock_r = a1.show_r = false;
+//        _page.dock_l = true;
+//        _page.show_l = _page.dock_r = _page.show_r = false;
 //    }
-//    a1.update();
+//    _page.update();
 //    //console.log('resize');
 //    //console.log(document.documentElement.clientWidth);
 //});
@@ -217,13 +218,13 @@ webix.ready(function () {
 
     webix.event(window, "resize", function () {
         if (document.documentElement.clientWidth < util.sizes.md) {
-            a1.dock_l = a1.show_l = a1.dock_r = a1.show_r = false;
+            _page.dock_l = _page.show_l = _page.dock_r = _page.show_r = false;
         }
         else {
-            a1.dock_l = true;
-            a1.show_l = a1.dock_r = a1.show_r = false;
+            _page.dock_l = true;
+            _page.show_l = _page.dock_r = _page.show_r = false;
         }
-        a1.update();
+        _page.update();
 
         $$('frame-content').adjust();
     });
@@ -250,7 +251,7 @@ webix.ready(function () {
     //    }
     //});
 
-    //var ww = a1.size_l;
+    //var ww = _page.size_l;
     //setInterval(function () {
     //    var _ww = left_sidebar.clientWidth;
     //    if (ww != _ww) {

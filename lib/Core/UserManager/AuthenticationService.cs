@@ -20,8 +20,12 @@ namespace InnateGlory
             //    context.Request.Headers.ContainsKey(_Consts.UserManager.AUTH_INTERNAL))
             //    scheme = _Consts.UserManager.ApiAuthScheme;
 
-                //else if (context.Request.Headers.ContainsKey(_Consts.UserManager.AUTH_TOKEN))
-                //    scheme = _Consts.UserManager.AccessTokenScheme;
+            //else if (context.Request.Headers.ContainsKey(_Consts.UserManager.AUTH_TOKEN))
+            //    scheme = _Consts.UserManager.AccessTokenScheme;
+
+            var s = await base.Schemes.GetSchemeAsync(scheme);
+            if (s == null)
+                scheme = null;
 
             return await base.AuthenticateAsync(context, scheme);
         }

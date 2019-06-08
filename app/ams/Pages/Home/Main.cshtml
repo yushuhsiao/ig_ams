@@ -24,15 +24,15 @@
 <div class="p00">
     <div class="p10 text-light bg-dark">
         <div id="toolbar1"></div>
-        <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_left(false)"><i class="fa fa-bars"></i></div>
-        <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_left(true) "><i class="fa fa-bars"></i></div>
+        <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_left(false)"><i class="fa fa-bars"></i></div>
+        <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_left(true) "><i class="fa fa-bars"></i></div>
         <div class="w-100"></div>
-        <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(2, false)"><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
-        <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_right(2, true) "><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
-        <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(1, false)"><i class="fa fa-cogs"></i></div>
-        <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_right(1, true) "><i class="fa fa-cogs"></i></div>
-        <div class="btn btn-dark d-none d-lg-block" onclick="a1.toggle_right(null, false)"><i class="fa fa-bars"></i></div>
-        <div class="btn btn-dark d-block d-lg-none" onclick="a1.toggle_right(null, true) "><i class="fa fa-bars"></i></div>
+        <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_right(2, false)"><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
+        <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_right(2, true) "><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
+        <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_right(1, false)"><i class="fa fa-cogs"></i></div>
+        <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_right(1, true) "><i class="fa fa-cogs"></i></div>
+        <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_right(null, false)"><i class="fa fa-bars"></i></div>
+        <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_right(null, true) "><i class="fa fa-bars"></i></div>
     </div>
     <div class="p20">
         <div class="p22 text-dark bg-white">
@@ -42,7 +42,7 @@
             <div class="p22-loading bg-dark text-white">
                 <i class="fa fa-spin fa-3x fa-circle-notch"></i>
             </div>
-            <div class="p22-mask" onclick="a1.mask_click()"></div>
+            <div class="p22-mask" onclick="_page.mask_click()"></div>
         </div>
         <div class="p21 text-light bg-dark">
             <div class="btn btn-block btn-outline-light mt-0 text-left" data-toggle="collapse" data-target="#@rid[1]"><i class="fa fa-fw fa-users"></i> @lang["Users"]</div>
@@ -88,7 +88,7 @@
             <div class="p23-2">
                 <div class="btn btn-block btn-outline-light">@lang["Account Info"]</div>
                 <div class="btn btn-block btn-outline-light">@lang["Change Passowrd"]</div>
-                <div class="btn btn-block btn-outline-light" onclick="a1.logout()">@lang["Logout"]</div>
+                <div class="btn btn-block btn-outline-light" onclick="_page.logout()">@lang["Logout"]</div>
                 <div class="btn btn-block btn-outline-light" onclick="test1()">@lang["msg"]</div>
             </div>
         </div>
@@ -107,9 +107,9 @@
 <script inline src-auto></script>
 <script type="text/javascript">
 
-    a1.ApiUrl = '@config.ApiUrl';
-    a1.Logout_Url = '@_urls.auth_logout';
-    delCookie('@IndexController.relogin_token_name');
+    _page.ApiUrl = '@config.ApiUrl';
+    _page.Logout_Url = '@_urls.auth_logout';
+    _page.relogin_token_name = '@IndexController.relogin_token_name';
 
     //const connection = new signalR.HubConnectionBuilder()
     //    .withUrl("/hub1")
