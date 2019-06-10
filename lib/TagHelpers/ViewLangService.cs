@@ -84,7 +84,7 @@ namespace InnateGlory
 
         internal IHtmlContent GetText(PlatformId? platformId, ViewLang src, string type, string key, LCID? lcid, string text)
         {
-            string path = src.ResPath ?? src.ViewContext.ExecutingFilePath;
+            string path = src.Path ?? src.ViewContext.ExecutingFilePath;
             foreach (PlatformId _platformId in GetPlatformIds(platformId))
             {
                 var _path0 = _cache[_platformId.Id].GetFirstValue();
@@ -165,7 +165,7 @@ where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LC
             //yield break;
         }
 
-        public IEnumerable<Entity.Lang> InitRes(PlatformId? platformId, string respath)
+        public IEnumerable<Entity.Lang> InitRes(PlatformId? platformId, string path)
         {
             DataService service = _service.GetService<DataService>();
             //var items = new List<LangItem>();
@@ -173,9 +173,9 @@ where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LC
             //{
             //    if (platformId == null || platformId == n1.PlatformId)
             //    {
-            //        if (respath == null)
+            //        if (path == null)
             //            items.AddRange(n1.All);
-            //        else if (n1.GetChild(respath, out var n2))
+            //        else if (n1.GetChild(path, out var n2))
             //            items.Add(n2);
             //    }
             //}
@@ -187,7 +187,7 @@ where PlatformId=@PlatformId and Path=@Path and Type=@Type and [Key]=@Key and LC
             {
                 var path2 = path1.Parent;
                 if (path2 == null) continue;
-                if (respath == null || path2.FullPath.IsNotEquals(respath))
+                if (path == null || path2.FullPath.IsNotEquals(path))
                 {
                     foreach (var path3 in path1.Value)
                     {

@@ -13,8 +13,8 @@ namespace InnateGlory.Controllers
         public async Task<IEnumerable<Entity.Lang>> LangInit([FromBody] Models.LangInitModel model, [FromServices] DataService service)
         {
             ModelState.IsValid();
-            service.GetService(out ViewLangService langService);
-            var result = langService.InitRes(model.PlatformId, model.ResPath);
+            var result = service.GetService<ViewLangService>()
+                .InitRes(model.PlatformId, model.Path);
             return await Task.FromResult(result);
         }
 
@@ -22,8 +22,8 @@ namespace InnateGlory.Controllers
         public async Task<Entity.Lang> LangSet([FromBody] Models.LangModel model, [FromServices] DataService service)
         {
             ModelState.IsValid();
-            service.GetService(out ViewLangService langService);
-            var result = langService.Set(model);
+            var result = service.GetService<ViewLangService>()
+                .Set(model);
             return await Task.FromResult(result);
         }
     }

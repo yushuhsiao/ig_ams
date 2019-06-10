@@ -7,8 +7,8 @@
 @inject RandomId rid
 @inject IViewLang menu
 @{
-    lang.ResPath = "Main";
-    menu.ResPath = "Menu";
+    lang.Path = "Main";
+    menu.Path = "Menu";
     UserId userId = this.User.GetUserId();
     var userdata = _DataService.Users.GetUser(userId);
 }
@@ -24,8 +24,8 @@
 <div class="p00">
     <div class="p10 text-light bg-dark">
         <div id="toolbar1"></div>
-        <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_left(false)"><i class="fa fa-bars"></i></div>
-        <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_left(true) "><i class="fa fa-bars"></i></div>
+        <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_left(false)"><i class="fa fa-bars"></i>1</div>
+        <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_left(true) "><i class="fa fa-bars"></i>2</div>
         <div class="w-100"></div>
         <div class="btn btn-dark d-none d-lg-block" onclick="_page.toggle_right(2, false)"><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>
         <div class="btn btn-dark d-block d-lg-none" onclick="_page.toggle_right(2, true) "><i class="fa fa-user-alt"></i> @userdata.DisplayName</div>

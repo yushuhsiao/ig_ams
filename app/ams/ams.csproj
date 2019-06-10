@@ -72,8 +72,6 @@
 
   <ItemGroup>
     <Compile Include="Controllers\IndexController.cs" />
-    <Compile Include="Controllers\webix.cs" />
-    <Compile Include="Controllers\webixController.cs" />
   </ItemGroup>
 
   <ItemGroup>

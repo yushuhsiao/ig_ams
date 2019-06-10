@@ -14,7 +14,7 @@ namespace InnateGlory
 {
     public interface IViewLang
     {
-        string ResPath { get; set; }
+        string Path { get; set; }
         IHtmlContent this[string key, LCID? lcid = null, PlatformId? platformId = null] { get; }
         IHtmlContent this[object key, LCID? lcid = null, PlatformId? platformId = null] { get; }
         IHtmlContent this[string key, string text, LCID? lcid = null, PlatformId? platformId = null] { get; }
@@ -25,12 +25,12 @@ namespace InnateGlory
     {
         private ViewLangService _langService;
         public ViewContext ViewContext { get; private set; }
-        public string ResPath { get; set; }
+        public string Path { get; set; }
 
         void IViewContextAware.Contextualize(ViewContext viewContext)
         {
             DataService service = viewContext.HttpContext.RequestServices.GetService<DataService>();
-            service.GetService(out _langService);
+            this._langService= service.GetService<ViewLangService>();
             this.ViewContext = viewContext;
         }
 

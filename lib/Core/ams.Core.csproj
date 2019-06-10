@@ -37,6 +37,7 @@
     <Compile Remove="Api\ApiValueProviderFactory.cs" />
     <Compile Remove="Api\JsonObjectModelBinderProvider.cs" />
     <Compile Remove="DataService\_Localization.cs" />
+    <Compile Remove="ExtraActionSelector.cs" />
     <Compile Remove="PasswordEncryptor.cs" />
     <Compile Remove="ServerOptions.cs" />
     <Compile Remove="UserManager\AccessTokenAuthenticationHandler.cs" />

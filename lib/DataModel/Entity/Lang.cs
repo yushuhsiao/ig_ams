@@ -31,7 +31,7 @@ namespace InnateGlory.Models
         public PlatformId? PlatformId { get; set; }
 
         [Required]
-        public string ResPath { get; set; }
+        public string Path { get; set; }
     }
 
     public class LangModel
