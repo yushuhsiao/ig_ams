@@ -13,6 +13,19 @@
 <script src="~/js/site.js"></script>
 
 <script type="text/javascript">
+    function reloadGrid() {
+        util.api('@config.ApiUrl', '@Url.Content("~" + _urls.sys_corp_list)', {
+            Paging: {
+                PageIndex: 0,
+                PageSize: 50
+            }
+        }, function (result) {
+            if (result.IsSuccess) {
+                $$('grid1').parse(result.Data);
+            }
+        });
+    }
+
     webix.ready(function () {
         var detail_h;
 
@@ -20,11 +33,14 @@
             id: 'grid1',
             view: "datatable",
             leftSplit: 3,
+            resizeColumn: true,
+            headerRowHeight	: 35,
             //rightSplit: 1,
             header: true,
             footer: false,
+            select: 'row',
             columns: [
-                { id: "index", header: "", sort: "int" },
+                { id: "index", header: "", sort: "int", width: 50 },
                 { id: 'Id', hidden: true },
                 { id: 'Name', header: '@lang["Name"]' },
                 { id: 'Active', header: '@lang["Active"]' },
@@ -39,7 +55,6 @@
             scheme: {
                 $init: function (obj) { obj.index = this.count(); }
             },
-            select: 'row',
             //width: 700,
             //autowidth: true,
             //autoheight: true,
@@ -58,7 +73,7 @@
                 //    console.log('onItemDblClick2', arguments);
                 //},
                 onSelectChange: function () {
-                    var ids = this.getSelectedId(true);
+                    @*var ids = this.getSelectedId(true);
                     if (ids.length >= 1) {
                         //console.log(ids, item);
                         var item = this.getItem(ids[0].id)
@@ -71,7 +86,7 @@
                             detail_h = null;
                             $$('detail').define('src', '@Url.Page("/Users/CorpDetail")?id=' + item.Id);
                         }, 1000);
-                    }
+                    }*@
                 }
             }
         };
@@ -83,8 +98,15 @@
             padding	: 0,
             height: 30,
             cols: [
-                { view: "button", id: "LoadBut", value: "Load", width: 100, align: "left" },
-                { view: "button", value: "Save", width: 100, align: "center" },
+                {
+                    view: "button", /*id: "btnReload", */value: "@lang["Reload"]", width: 100, align: "left", on: {
+                        onItemClick: function (id, e) {
+                            $$('grid1').clearAll();
+                            reloadGrid();
+                        }
+                    }
+                },
+                { view: "button", /*id: "btnCreate", */value: "@lang["Create Corp"]", width: 100, align: "left" },
                 //{ view: "button", value: "Info", width: 100, align: "right" },
                 //{ view: "button", value: "Info", width: 100, align: "right" },
                 //{ view: "button", value: "Info", width: 100, align: "right" },
@@ -118,16 +140,8 @@
         attachEvents($$('grid1'), webix.events.datatable);
 
         //console.log('loading...')
-        util.api('@config.ApiUrl', '@Url.Content("~" + _urls.sys_corp_list)', {
-            Paging: {
-                PageIndex: 0,
-                PageSize: 50
-            }
-        }, function (result) {
-            if (result.IsSuccess) {
-                $$('grid1').parse(result.Data);
-            }
-        });
+
+        reloadGrid();
 
         webix.event(window, 'resize', function () {
             console.log('window.resize');

@@ -95,5 +95,9 @@
     <Build Include="dbo\Tables\TranPayment1.sql" />
     <Build Include="dbo\Tables\TranCert.sql" />
     <Build Include="dbo\Tables\PaymentAccount.sql" />
+    <Build Include="dbo\Tables\Users_Member.sql" />
+    <Build Include="dbo\Tables\Users_Agent.sql" />
+    <Build Include="dbo\Tables\Users_Admin.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
   </ItemGroup>
 </Project>
