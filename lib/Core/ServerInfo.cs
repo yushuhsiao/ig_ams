@@ -31,7 +31,7 @@ namespace InnateGlory
         private readonly TimeCounter _timer_KeepAlive = new TimeCounter(false);
         //private ISqlConfig _config;
         private IConfiguration<ServerInfo> _config;
-        private IDatabase _db;
+        //private IDatabase _db;
 
         //public DbCache DbCache { get; }
         //public SqlConfig SqlConfig { get; }
@@ -51,7 +51,7 @@ namespace InnateGlory
             //this.Commands = new ServerCommands(this);
             //this.DataService = dataService;
             //Tick.OnTick += KeepAlive_Proc;
-            Task.Run(KeepAlive_Proc2);
+            Task.Run(KeepAlive_Proc);
         }
 
         //private IDatabase db
@@ -123,7 +123,7 @@ namespace InnateGlory
         //    return true;
         //}
 
-        private async Task KeepAlive_Proc2()
+        private async Task KeepAlive_Proc()
         {
         _start:
             int keepAlive = Redis_KeepAlive;
