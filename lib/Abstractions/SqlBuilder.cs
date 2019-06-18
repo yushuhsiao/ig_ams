@@ -148,11 +148,11 @@ namespace InnateGlory
             if (name == null)
                 return _null.noop(false, out value);
             else if (name == "ModifyTime" && _modifyUser.HasValue)
-                value = SqlBuilder.raw_getdate;
+                value = SqlBuilder.raw_getutcdate;
             else if (name == "ModifyUser" && _modifyUser.HasValue)
                 value = _modifyUser.Value;
             else if (name == "CreateTime" && _createUser.HasValue)
-                value = SqlBuilder.raw_getdate;
+                value = SqlBuilder.raw_getutcdate;
             else if (name == "CreateUser" && _createUser.HasValue)
                 value = _createUser.Value;
             else if (IndexOf(name, out int index))
@@ -413,7 +413,7 @@ values ({values})";
             public static explicit operator Raw(string value) => new Raw() { value = value };
         }
 
-        public static readonly Raw raw_getdate = (Raw)"getdate()";
+        public static readonly Raw raw_getutcdate = (Raw)"getutcdate()";
         public static readonly Raw raw_null = (Raw)"null";
         public static readonly Raw raw_newid = (Raw)"newid()";
     }

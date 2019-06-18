@@ -20,7 +20,7 @@ namespace InnateGlory.Api
 
         //private readonly IArrayPool<char> _charPool;
 
-        public ApiResultExecutor(IHttpResponseStreamWriterFactory writerFactory, ILogger<JsonResultExecutor> logger, IOptions<MvcJsonOptions> options, ArrayPool<char> charPool)
+        public ApiResultExecutor(IHttpResponseStreamWriterFactory writerFactory, ILogger<JsonResultExecutor> logger/*, IOptions<MvcJsonOptions> options, ArrayPool<char> charPool*/)
         {
             //MediaTypeHeaderValue
             if (writerFactory == null)
@@ -33,25 +33,25 @@ namespace InnateGlory.Api
                 throw new ArgumentNullException(nameof(logger));
             }
 
-            if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
+            //if (options == null)
+            //{
+            //    throw new ArgumentNullException(nameof(options));
+            //}
 
-            if (charPool == null)
-            {
-                throw new ArgumentNullException(nameof(charPool));
-            }
+            //if (charPool == null)
+            //{
+            //    throw new ArgumentNullException(nameof(charPool));
+            //}
 
             WriterFactory = writerFactory;
             Logger = logger;
-            Options = options.Value;
+            //Options = options.Value;
             //_charPool = new JsonArrayPool<char>(charPool);
         }
 
         protected ILogger Logger { get; }
 
-        protected MvcJsonOptions Options { get; }
+        //protected MvcJsonOptions Options { get; }
 
         protected IHttpResponseStreamWriterFactory WriterFactory { get; }
 

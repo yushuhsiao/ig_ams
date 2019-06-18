@@ -468,7 +468,7 @@ namespace Microsoft.AspNetCore.Mvc
     //    //        {
     //    //            using (SqlCmd sqlcmd = new SqlCmd(c))
     //    //            {
-    //    //                DateTime? ct = sqlcmd.ExecuteScalar("select getdate()") as DateTime?;
+    //    //                DateTime? ct = sqlcmd.ExecuteScalar("select getutcdate()") as DateTime?;
     //    //                if (ct.HasValue)
     //    //                    return true;
     //    //                AddError(key, Status.InvalidParameter);

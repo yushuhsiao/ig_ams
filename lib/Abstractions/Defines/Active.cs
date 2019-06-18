@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace InnateGlory
 {
+    [JsonHelper.StringEnum(AsString = false)]
     public enum ActiveState : sbyte
     {
         Disabled = 0,

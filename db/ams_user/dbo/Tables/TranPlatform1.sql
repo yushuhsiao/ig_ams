@@ -16,7 +16,7 @@
     [CurrencyB]       SMALLINT         NOT NULL,
     [CurrencyX]       DECIMAL (19, 6)  NOT NULL,
     [RequestIP]       VARCHAR (20)     NOT NULL,
-    [RequestTime]     DATETIME         CONSTRAINT [DF_TranPlatform1_RequestTime] DEFAULT (getdate()) NOT NULL,
+    [RequestTime]     DATETIME         CONSTRAINT [DF_TranPlatform1_RequestTime] DEFAULT (getutcdate()) NOT NULL,
     [RequestUser]     BIGINT           NOT NULL,
     [Busy]            DATETIME         NULL,
     [AcceptTime]      DATETIME         NULL,
@@ -27,4 +27,6 @@
     [ExpireTime]      DATETIME         NULL,
     CONSTRAINT [PK_TranPlatform1] PRIMARY KEY CLUSTERED ([TranId] ASC)
 );
+
+
 

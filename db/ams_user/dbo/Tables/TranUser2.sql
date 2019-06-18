@@ -16,7 +16,7 @@
     [CurrencyB]    SMALLINT         NOT NULL,
     [CurrencyX]    DECIMAL (19, 6)  NOT NULL,
     [RequestIP]    VARCHAR (20)     NOT NULL,
-    [RequestTime]  DATETIME         CONSTRAINT [DF_TranUser2_RequestTime] DEFAULT (getdate()) NOT NULL,
+    [RequestTime]  DATETIME         CONSTRAINT [DF_TranUser2_RequestTime] DEFAULT (getutcdate()) NOT NULL,
     [RequestUser]  BIGINT           NOT NULL,
     [AcceptTime]   DATETIME         NOT NULL,
     [AcceptUser]   BIGINT           NOT NULL,
@@ -26,4 +26,6 @@
     [ExpireTime]   DATETIME         NULL,
     CONSTRAINT [PK_TranUser2] PRIMARY KEY CLUSTERED ([TranId] ASC)
 );
+
+
 

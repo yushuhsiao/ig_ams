@@ -74,7 +74,7 @@ delete from [{TableName<Entity.Password>.Value}]
 where UserId = @UserId
 
 insert into [{TableName<Entity.Password>.Value}] ([UserId], [Encrypt], [a], [b], [c], [Expiry], [CreateTime], [CreateUser])
-values (@UserId, @Encrypt, @a, @b, @c, @Expiry, getdate(), @CreateUser)
+values (@UserId, @Encrypt, @a, @b, @c, @Expiry, getutcdate(), @CreateUser)
 
 select * from [{TableName<Entity.Password>.Value}]
 where UserId = @UserId

@@ -37,7 +37,7 @@ namespace System.Data.SqlClient
                 try
                 {
                     sqlcmd = new SqlCmd(cn, null);
-                    DateTime? ct = sqlcmd.ExecuteScalar("select getdate()") as DateTime?;
+                    DateTime? ct = sqlcmd.ExecuteScalar("select getutcdate()") as DateTime?;
                     return ct.HasValue;
                 }
                 catch { }

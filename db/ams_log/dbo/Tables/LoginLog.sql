@@ -9,8 +9,10 @@
     [IP]            VARCHAR (50) NULL,
     [Result]        VARCHAR (30) NOT NULL,
     [ResultMessage] VARCHAR (50) NULL,
-    [LoginTime]     DATETIME     CONSTRAINT [DF_LoginLog_LoginTime] DEFAULT (getdate()) NOT NULL,
-    [CreateTime]    DATETIME     CONSTRAINT [DF_LoginLog_CreateTime] DEFAULT (getdate()) NOT NULL,
+    [LoginTime]     DATETIME     CONSTRAINT [DF_LoginLog_LoginTime] DEFAULT (getutcdate()) NOT NULL,
+    [CreateTime]    DATETIME     CONSTRAINT [DF_LoginLog_CreateTime] DEFAULT (getutcdate()) NOT NULL,
     CONSTRAINT [PK_LoginLog] PRIMARY KEY CLUSTERED ([sn] ASC)
 );
+
+
 

@@ -17,7 +17,9 @@
     [CurrencyA]    SMALLINT        NOT NULL,
     [CurrencyB]    SMALLINT        NOT NULL,
     [CurrencyX]    DECIMAL (19, 6) NOT NULL,
-    [CreateTime]   DATETIME        CONSTRAINT [DF_GameLog_CreateTime] DEFAULT (getdate()) NOT NULL,
+    [CreateTime]   DATETIME        CONSTRAINT [DF_GameLog_CreateTime] DEFAULT (getutcdate()) NOT NULL,
     CONSTRAINT [PK_GameLog] PRIMARY KEY CLUSTERED ([sn] ASC)
 );
+
+
 

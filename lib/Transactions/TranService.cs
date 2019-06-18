@@ -82,7 +82,7 @@ set @sn1=@prefix+right('0000000000000000' + convert(varchar, @sn2), {len} - len(
                 { " ", nameof(Entity.TranCorp1.CurrencyB)       , corp.Currency },
                 { " ", nameof(Entity.TranCorp1.CurrencyX)       , 1 },
                 { " ", nameof(Entity.TranCorp1.RequestIP)       , "0.0.0.0" },
-                { " ", nameof(Entity.TranCorp1.RequestTime)     , SqlBuilder.raw_getdate },
+                { " ", nameof(Entity.TranCorp1.RequestTime)     , SqlBuilder.raw_getutcdate },
                 { " ", nameof(Entity.TranCorp1.RequestUser)     , op_user },
             };
 
@@ -121,7 +121,7 @@ declare @TranId uniqueidentifier set @TranId = newid()
             {
                 bool f = op.Finish.Value;
                 string sql_update = $@"declare @f bit set @f = {(f ? 1 : 0)}
-update {{:TableName}} set Finished = @f, FinishTime = getdate(), FinishUser = {op_user}
+update {{:TableName}} set Finished = @f, FinishTime = getutcdate(), FinishUser = {op_user}
 where TranId = {{TranId}} and Finished is null and (Amount1 + {{Amount1}} + Amount2 + {{Amount2}} + Amount3 + {{Amount3}}) >= 0
 if @@rowcount = 1 and @f = 1
 exec UpdateBalance @UserId = {{CorpId}}, @Amount1 = {{Amount1}}, @Amount2 = {{Amount2}}, @Amount3 = {{Amount3}}"

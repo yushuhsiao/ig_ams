@@ -10,11 +10,13 @@
     [MaxAgents]   INT           NULL,
     [MaxAdmins]   INT           NULL,
     [MaxMembers]  INT           NULL,
-    [CreateTime]  DATETIME      CONSTRAINT [DF_Agents_CreateTime] DEFAULT (getdate()) NULL,
+    [CreateTime]  DATETIME      CONSTRAINT [DF_Agents_CreateTime] DEFAULT (getutcdate()) NULL,
     [CreateUser]  BIGINT        CONSTRAINT [DF_Agents_CreateUser] DEFAULT ((0)) NULL,
-    [ModifyTime]  DATETIME      CONSTRAINT [DF_Agents_ModifyTime] DEFAULT (getdate()) NULL,
+    [ModifyTime]  DATETIME      CONSTRAINT [DF_Agents_ModifyTime] DEFAULT (getutcdate()) NULL,
     [ModifyUser]  BIGINT        CONSTRAINT [DF_Agents_ModifyUser] DEFAULT ((0)) NULL,
     CONSTRAINT [PK_Agents] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [IX_Agents] UNIQUE NONCLUSTERED ([CorpId] ASC, [Name] ASC)
 );
+
+
 

@@ -26,7 +26,9 @@
     [CurrencyX]      DECIMAL (19, 6)  NOT NULL,
     [RequestIP]      VARCHAR (20)     NOT NULL,
     [RequestTime]    DATETIME         NOT NULL,
-    [CreateTime]     DATETIME         CONSTRAINT [DF_TranLog_CreateTime] DEFAULT (getdate()) NOT NULL,
+    [CreateTime]     DATETIME         CONSTRAINT [DF_TranLog_CreateTime] DEFAULT (getutcdate()) NOT NULL,
     CONSTRAINT [PK_TranLog] PRIMARY KEY CLUSTERED ([sn] ASC)
 );
+
+
 
