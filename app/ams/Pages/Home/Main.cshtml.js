@@ -122,101 +122,9 @@ var _page = {
 
 _page.update();
 
-//$('[data-url]').click(function () {
-//    var url = $(this).data('url');
-//    console.log(this, arguments);
-//    console.log(url);
-//    $('.p22-iframe').attr('src', url);
-//});
+$(document).ready(function () {
 
-
-//$('.p22-iframe').on('unload', function () {
-//    console.log('iframe unload', arguments);
-//});
-//$('.p22-iframe').on('load', function () {
-//    console.log('iframe load', arguments);
-//});
-
-//$(window).resize(function () {
-//    if (document.documentElement.clientWidth < util.sizes.md) {
-//        _page.dock_l = _page.show_l = _page.dock_r = _page.show_r = false;
-//    }
-//    else {
-//        _page.dock_l = true;
-//        _page.show_l = _page.dock_r = _page.show_r = false;
-//    }
-//    _page.update();
-//    //console.log('resize');
-//    //console.log(document.documentElement.clientWidth);
-//});
-
-//var menu_data = [
-//    {
-//        id: "dashboard", icon: "mdi mdi-view-dashboard", value: "Dashboards", data: [
-//            { id: "dashboard1", value: "Dashboard 1" },
-//            { id: "dashboard2", value: "Dashboard 2" }
-//        ]
-//    },
-//    {
-//        id: "layouts", icon: "mdi mdi-view-column", value: "Layouts", data: [
-//            { id: "accordions", value: "Accordions" },
-//            { id: "portlets", value: "Portlets" }
-//        ]
-//    },
-//    {
-//        id: "tables", icon: "mdi mdi-table", value: "Data Tables", data: [
-//            { id: "tables1", value: "Datatable" },
-//            { id: "tables2", value: "TreeTable" },
-//            { id: "tables3", value: "Pivot" }
-//        ]
-//    },
-//    {
-//        id: "uis", icon: "mdi mdi-puzzle", value: "UI Components", data: [
-//            { id: "dataview", value: "DataView" },
-//            { id: "list", value: "List" },
-//            { id: "menu", value: "Menu" },
-//            { id: "tree", value: "Tree" }
-//        ]
-//    },
-//    {
-//        id: "tools", icon: "mdi mdi-calendar", value: "Tools", data: [
-//            { id: "kanban", value: "Kanban Board" },
-//            { id: "pivot", value: "Pivot Chart" },
-//            { id: "scheduler", value: "Calendar" }
-//        ]
-//    },
-//    {
-//        id: "forms", icon: "mdi mdi-pencil", value: "Forms", data: [
-//            { id: "buttons", value: "Buttons" },
-//            { id: "selects", value: "Select boxes" },
-//            { id: "inputs", value: "Inputs" }
-//        ]
-//    },
-//    { id: "demo", icon: "mdi mdi-book", value: "Documentation" }
-//];
-
-webix.ready(function () {
-    //$('.p22-loading').show();
-    var iframe = webix.ui({
-        view: 'iframe',
-        container: $('.p22-iframe-container')[0],
-        id: 'frame-content',
-        borderless: true,
-        css: 'p22-iframe',
-        width: -1,
-        height: -1,
-        on: {
-            onBeforeLoad: function () {
-                $('.p22-loading').show();
-            },
-            onAfterLoad: function () {
-                $('.p22-loading').hide();
-            }
-        }
-    });
-    //attachEvents($$('frame-content'), webix.events.iframe)
-
-    webix.event(window, "resize", function () {
+    $(window).resize(function () {
         if (document.documentElement.clientWidth < util.sizes.md) {
             _page.dock_l = _page.show_l = _page.dock_r = _page.show_r = false;
         }
@@ -226,42 +134,22 @@ webix.ready(function () {
         }
         _page.update();
 
-        $$('frame-content').adjust();
+        //$$('frame-content').adjust();
     });
-    
+
+
+    $('.p22-loading').hide();
+    $('.p22-iframe').load(function () {
+        $('.p22-loading').hide();
+    });
     $('a[target="content"]').click(function () {
         event.preventDefault();
         var url = $(this).attr('href');
-        if (url != null)
-            $$('frame-content').define("src", url);
+        if (url != null) {
+            $('.p22-loading').show();
+            $('.p22-iframe').attr('src', url);
+            $('.p22-loading').show();
+        }
     });
-
-    //webix.ui({
-    //    container: 'left_sidebar',
-    //    view: "sidebar",
-    //    id: 'sidebar1',
-    //    //css: "webix_dark",
-    //    data: menu_data,
-    //    width: left_sidebar.clientWidth,
-    //    height: -1,
-    //    on: {
-    //        onAfterSelect: function (id) {
-    //            webix.message("Selected: " + this.getItem(id).value);
-    //        }
-    //    }
-    //});
-
-    //var ww = _page.size_l;
-    //setInterval(function () {
-    //    var _ww = left_sidebar.clientWidth;
-    //    if (ww != _ww) {
-    //        ww = _ww;
-    //        var n = $$('sidebar1');
-    //        n.define('width', ww); //_this.$el.clientWidth;
-    //        n.resize();
-    //    }
-    //}, 10);
-
-
     $('#loading').remove();
 });
