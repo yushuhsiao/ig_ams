@@ -1,100 +1,56 @@
-﻿using Microsoft.AspNetCore.Builder;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Connections;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.Hosting;
 
-namespace InnateGlory
+namespace ams_api
 {
-    internal class Startup
+    public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAMS();
-            //services.AddCookieAuth();
-            services.AddApiAuth();
-            services.AddActionContextAccessor();
-            services.AddMvc(options =>
-            {
-
-            })
-            .AddApiServices()
-
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSignalR(opts =>
-            {
-            });
-            //services.AddCors();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy
-                    //.WithOrigins("")
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials()
-                    ;
-                });
-            });
-
-            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
-            services.AddResponseCompression();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "ams api", Version = "v1" });
-                c.IncludeXmlComments(typeof(Startup), typeof(JsonHelper), typeof(amsExtensions), typeof(Models.LoginModel));
-            });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UseSqlAppSettings();
-
-            app.UseResponseCompression();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseAuthentication();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
-            //app.UseMvcWithDefaultRoute();
-            app.UseCors("CorsPolicy"); // global enable cors
-            app.UseMvc(routes =>
-            {
-                ;
-            });
+            app.UseRouting();
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<Hub1>("/hub1", (HttpConnectionDispatcherOptions opts) =>
-                {
-                    //opts.Transports = HttpTransportType.LongPolling;
-                    //opts.LongPolling.PollTimeout = TimeSpan.FromSeconds(20);
-                });
-            });
+            app.UseAuthorization();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            app.UseEndpoints(endpoints =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ams api V1");
+                endpoints.MapRazorPages();
             });
-            ;
         }
     }
 }

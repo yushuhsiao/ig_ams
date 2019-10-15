@@ -1,0 +1,157 @@
+﻿@import "../../wwwroot/css/site.scss";
+@import "../../wwwroot/lib/bootstrap/scss/functions";
+@import "../../wwwroot/lib/bootstrap/scss/variables";
+@import "../../wwwroot/lib/bootstrap/scss/mixins";
+
+$top-size: 40px;
+$left-size: 300px;
+$right-size: 300px;
+$easing-time: .4s;
+
+@mixin easing {
+    -webkit-transition: all $easing-time ease;
+    -moz-transition: all $easing-time ease;
+    -o-transition: all $easing-time ease;
+    transition: all $easing-time ease;
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.p00 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    /** {
+        white-space: nowrap;
+    }*/
+}
+
+.p10 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    * {
+        white-space: nowrap;
+    }
+
+    .fa {
+        font-size: 1.2em;
+    }
+
+    @media (max-width : map-get($grid-breakpoints, "md")) {
+        .fa {
+            font-size: 1.8em;
+        }
+    }
+}
+
+.p20 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+    background-color: yellow;
+
+    & > * {
+        @include easing;
+    }
+    /*& > .webix-view,
+    & > .webix_view > .webix_view {
+    }
+
+    & .p21, &.p22, & .p23 {
+        @include easing;
+    }*/
+}
+
+.p30 {
+    width: 100%;
+    height: 1px;
+    min-height: 1px;
+}
+
+.p21 {
+    height: 100%;
+    position: absolute;
+    opacity: .9;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: map-get($spacers, 3);
+}
+
+#left_sidebar {
+    width: 100%;
+    height: 100%;
+}
+
+.p23 {
+    height: 100%;
+    position: absolute;
+    opacity: .9;
+    /*padding: 20px;*/
+    padding: map-get($spacers, 3);
+    
+    .p23-1, .p23-2 {
+        width: 100%;
+        height: 100%;
+    }
+
+    .p23-1 {
+    }
+
+    .p23-2 {
+    }
+}
+
+.p22 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .p22-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .1;
+        cursor: pointer;
+    }
+
+    .p22-loading {
+        position: absolute;
+        top: 0;
+        //left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .p22-iframe {
+        width: 100%;
+        height: 100%;
+        border-width: 0;
+    }
+
+    .p22-iframe-container {
+        width: 100%;
+        height: 100%;
+        border-width: 0;
+    }
+}

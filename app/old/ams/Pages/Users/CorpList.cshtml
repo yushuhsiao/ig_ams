@@ -1,0 +1,418 @@
+﻿@page "/sys/corp/list"
+@model InnateGlory.Pages.Users.CorpListModel
+
+@section head {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/webix/skins/flat.min.css" />
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*<style type="text/css">
+            .root {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #grid_container {
+                width: 100%;
+                height: 100%;
+                /*display: flex;*/
+                /*justify-content: space-between;*/
+                /*margin: 0;*/
+                /*border: 1px solid red;*/
+            }
+
+            .toolbar {
+                /*width: 100%;*/
+                /*height: 40px;*/
+                /*display: flex;*/
+                /*justify-content: space-between;*/
+                /*border: 1px solid green;*/
+            }
+        </style>*@
+}
+
+<script src="~/lib/webix/webix.js"></script>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/js/site.js"></script>
+
+@*<div class="root">
+        <div id="grid_container"></div>
+    </div>*@
+<div id="_toolbar">
+    <button class="btn btn-sm btn-secondary" onclick="loadGrid()">Reload</button>
+    <button class="btn btn-sm btn-secondary" onclick="createCorp()">Create Corp</button>
+</div>
+<div id="_actions" class="d-none">
+    <button class="btn btn-sm btn-secondary">Edit</button>
+</div>
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@lang["Create Corp"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang["Close"]</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function createCorp() {
+        $('.modal').modal('show');
+    }
+
+    function loadGrid() {
+        $$('grid1').clearAll();
+        util.api('@config.ApiUrl', '@Url.Content("~" + _urls.sys_corp_list)', {
+            Paging: {
+                PageIndex: 0,
+                PageSize: 50
+            }
+        }, function (result) {
+            if (result.IsSuccess) {
+                $$('grid1').parse(result.Data);
+            }
+        });
+    }
+
+	function create(name, attrs, html) {
+	  attrs = attrs || {};
+	  var node = document.createElement(name);
+
+	  for (var attr_name in attrs) {
+	    node.setAttribute(attr_name, attrs[attr_name]);
+	  }
+
+	  if (attrs.style) node.style.cssText = attrs.style;
+	  if (attrs["class"]) node.className = attrs["class"];
+	  if (html) node.innerHTML = html;
+	  return node;
+	} //return node value, different logic for different html elements
+
+	function getLabel(config) {
+	  var text = config.header && config.header[0] ? config.header[0].text : config.editValue || config.label;
+	  return (text || "").toString().replace(/<[^>]*>/g, "");
+    }
+
+    webix.editors['actions'] = {
+        focus: function () {
+            this.getInputNode(this.node).focus();
+            this.getInputNode(this.node).select();
+        },
+        getValue: function () {
+            return this.getInputNode(this.node).value;
+        },
+        setValue: function (value) {
+            var input = this.getInputNode(this.node);
+            input.value = value;
+            //init_suggest(this, input);
+        },
+        getInputNode: function () {
+            return this.node.firstChild;
+        },
+        render: function () {
+            return create("div", {
+                "class": "webix_dt_editor"
+            }, "<input type='text' aria-label='" + getLabel(this.config) + "'>");
+        }
+    }
+
+    webix.ready(function () {
+
+        var grid1 = {
+            id: 'grid1',
+            view: "datatable",
+            leftSplit: 3,
+            resizeColumn: true,
+            headerRowHeight: 35,
+            rightSplit: 1,
+            header: true,
+            footer: false,
+            editable: true,
+            select: 'row',
+            columns: [
+                { id: "index", header: "", sort: "int", width: 50 },
+                { id: 'Id', hidden: true },
+                { id: 'Name', header: '@lang["Name"]' },
+                { id: 'Active', width: 60, header: '@lang["Active"]' },
+                { id: 'Currency', header: '@lang["Currency"]' },
+                { id: 'DisplayName', header: '@lang["DisplayName"]' },
+                { id: 'CreateTime', header: '@lang["CreateTime"]', adjust: 'data', format: webix.Date.dateToStr('%Y-%m-%d %H:%i:%s') },
+                { id: 'CreateUser', header: '@lang["CreateUser"]', adjust: 'data' },
+                { id: 'ModifyTime', header: '@lang["ModifyTime"]', adjust: 'data', format: webix.Date.dateToStr('%Y-%m-%d %H:%i:%s') },
+                { id: 'ModifyUser', header: '@lang["ModifyUser"]', adjust: 'data' },
+                {
+                    id: 'oper',
+                    header: '',
+                    //label: '111',
+                    width: 40,
+                    editor: 'actions',
+                    select: false
+                    //adjust: 'data'
+                },
+                //{
+                //    header: '', width: 0, template: function (obj, common, value, config) {
+                //        //console.log(arguments);
+                //        return common.editIcon();
+                //        return '<button class="">click</button>';
+                //    }
+                //}
+            ],
+            scheme: {
+                $init: function (obj) {
+                    obj.index = this.count();
+                    obj.CreateTime = new Date(obj.CreateTime);
+                    obj.ModifyTime = new Date(obj.ModifyTime);
+                    //obj.oper = "123";
+                }
+            },
+            //width: 700,
+            //autowidth: true,
+            //autoheight: true,
+            //data: small_film_set
+            on: {
+                //onItemDblClick: function (id, e, node) {
+                //    var row = this.getItem(id);
+                //    top_row = row;
+                //    nav2.text(row.Name).show();
+                //    switch_tab('.nav2');
+                //    //var n = $$('top_nav');
+                //    //var index = n.optionIndex('nav1');
+                //    //n.data.options[index].value = row.Name;
+                //    //n.showOption('nav1');
+                //    //n.refresh();
+                //    console.log('onItemDblClick2', arguments);
+                //},
+                onAfterRender: function () {
+                    console.log('onAfterRender', arguments);
+                },
+                onSelectChange: function () {
+                    @*var ids = this.getSelectedId(true);
+                    if (ids.length >= 1) {
+                        //console.log(ids, item);
+                        var item = this.getItem(ids[0].id)
+
+                        var id = item.Id;
+                        if (detail_h != null) {
+                            clearTimeout(detail_h);
+                        }
+                        detail_h = setTimeout(function () {
+                            detail_h = null;
+                            $$('detail').define('src', '@Url.Page("/Users/CorpDetail")?id=' + item.Id);
+                        }, 1000);
+                    }*@
+                }
+            },
+            ready: function () {
+                this.editColumn("oper");
+                //this.editColumn("xxxx");
+                this.attachEvent("onBeforeEditStop", function () { return false; });
+                //this.attachEvent("onEditorChange", function (id, value) {
+                    //this.getItem(id.row)[id.column] = value;
+                    //this.refresh(id.row);
+                //});
+            }
+        };
+
+        webix.ui({
+            id: 'layout',
+            rows: [
+                grid1,
+                {
+                    height: 40,
+                    content: '_toolbar'
+                }
+            ]
+        });
+
+        //attachEvents($$('grid1'), webix.events.datatable);
+
+        webix.event(window, 'resize', function () {
+            //console.log('window.resize');
+            //var grid = $$('layout');
+            //grid.config.width = document.body.clientWidth;
+            //grid.config.height = document.body.clientHeight;
+            $$('layout').adjust();
+        });
+
+        $$('layout').callEvent('resize');
+
+        loadGrid();
+
+        //createCorp();
+
+        return;
+        var detail_h;
+
+        var toolbar = {
+            view: "toolbar",
+            id: "toolbar",
+            //borderless: true,
+            margin: 0,
+            padding: 0,
+            height: 30,
+            elements: [
+                {
+                    view: "button", /*id: "btnReload", */value: "@lang["Reload"]", width: 100, align: "left", on: {
+                        onItemClick: function (id, e) {
+                            $$('grid1').clearAll();
+                            loadGrid();
+                        }
+                    }
+                },
+                {
+                    view: "button", /*id: "btnCreate", */value: "@lang["Create Corp"]", width: 100, align: "left", on: {
+                        onItemClick: function (id, e) {
+                            $$('create_corp').show();
+                        }
+                    }
+                },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" },
+                //{ view: "button", value: "Info", width: 100, align: "right" }
+            ]
+        }
+
+        var form = {
+            view: "form",
+            borderless: true,
+            elements: [
+                { view: "text", label: 'Login', name: "a" },
+                { view: "text", label: 'Login', name: "b" },
+                { view: "text", label: 'Login', name: "c" },
+                { view: "text", label: 'Login', name: "d" },
+                { view: "text", label: 'Login', name: "e" },
+                { view: "text", label: 'Login', name: "f" },
+                { view: "text", label: 'Login', name: "g" },
+                { view: "text", label: 'Email', name: "email" },
+                {
+                    view: "button", value: "Submit", click: function () {
+                        if (this.getParentView().validate()) { //validate form
+                            webix.message("All is correct");
+                            this.getTopParentView().hide(); //hide window
+                        }
+                        else
+                            webix.message({ type: "error", text: "Form data is invalid" });
+                    }
+                }
+            ],
+            rules: {
+                "email": webix.rules.isEmail,
+                "login": webix.rules.isNotEmpty
+            },
+            elementsConfig: {
+                labelPosition: "top",
+            }
+        };
+
+        webix.ui({
+            id: 'create_corp',
+            borderless: true,
+            view: 'popup',
+            modal: true,
+            //position: 'left',
+            padding: 0,
+            height: window.innerHeight,
+            width: window.innerWidth * 2 / 3,
+            //body: {
+            //    view: 'iframe',
+            //},
+            body: {
+                view: 'layout',
+                rows: [
+                    {
+                        view: 'scrollview',
+                        borderless: true,
+                        body: form
+                    },
+                    {
+                        view: "toolbar",
+                        margin: 0,
+                        padding: 0,
+                        height: 30,
+                        elements: [
+                            { view: "button", label: "Close", on: { onItemClick: function () { $$('create_corp').hide(); } } },
+                            { view: "button", label: "Create" },
+                            { view: "button", label: "Long text" },
+                            { view: "button", label: "Very long text" },
+                            {}
+                        ]
+                    }
+                ]
+            },
+            on: {
+            }
+        });
+
+        webix.ui({
+            id: 'layout',
+            //container: 'layout_div',
+            //width: document.body.clientWidth,
+            //height: document.body.clientHeight,
+            rows: [
+                {
+                    cols: [
+                        grid
+                    ]
+                },
+                toolbar
+                //{ view: "resizer", height: 3 },
+                //{ id: 'detail', view: 'iframe', borderless: true, }
+            ]
+        });
+        //attachEvents($$('grid1'), webix.events.datatable);
+
+        //console.log('loading...')
+
+        loadGrid();
+
+        webix.event(window, 'resize', function () {
+            console.log('window.resize');
+            //var grid = $$('layout');
+            //grid.config.width = document.body.clientWidth;
+            //grid.config.height = document.body.clientHeight;
+            $$('layout').resize();
+        });
+        $$('layout').callEvent('resize');
+    });
+
+    $(document).ready(function () {
+        console.log('load complete');
+    });
+</script>

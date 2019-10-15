@@ -1,100 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <Import Project="..\..\common.props" />
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>6bd7d59a-85c4-4170-9429-b8e9620ad76c</UserSecretsId>
-    <!--<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>-->
-    <!--<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>-->
-    <!--<RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.10-x64</RuntimeIdentifiers>-->
-    <!--<TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>-->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>7.3</LangVersion>
+    <RazorLangVersion>3.0</RazorLangVersion>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-    <None Include="bundleconfig.json" />
-    <Content Remove="compilerconfig.json" />
-    <None Include="compilerconfig.json" />
-    <Content Remove="bower.json" />
-  </ItemGroup>
 
   <ItemGroup>
-    <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\%40aspnet\signalr\dist\browser\**" />
-    <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\fabric\**" />
-    <Content CopyToPublishDirectory="PreserveNewest" Include="node_modules\semantic-ui\**" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview9.19465.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview9.19465.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.0.0-preview9.19465.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview9.19465.2" PrivateAssets="all" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None CopyToPublishDirectory="PreserveNewest" Include="Pages\*.cshtml.css" />
-    <None CopyToPublishDirectory="PreserveNewest" Include="Pages\*.cshtml.js" />
-    <None CopyToPublishDirectory="PreserveNewest" Include="Pages\*.cshtml.min.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\**" />
-    <Compile Remove="Log\**" />
-    <Compile Remove="pub\**" />
-    <Compile Remove="wwwroot\css\_\**" />
-    <Compile Remove="wwwroot\images\_\**" />
-    <Compile Remove="wwwroot\js\_\**" />
-    <Compile Remove="wwwroot\lib\_\**" />
-    <Compile Remove="_\**" />
-    <Content Remove="Controllers\**" />
-    <Content Remove="Log\**" />
-    <Content Remove="pub\**" />
-    <Content Remove="wwwroot\css\_\**" />
-    <Content Remove="wwwroot\images\_\**" />
-    <Content Remove="wwwroot\js\_\**" />
-    <Content Remove="wwwroot\lib\_\**" />
-    <Content Remove="_\**" />
-    <EmbeddedResource Remove="Controllers\**" />
-    <EmbeddedResource Remove="Log\**" />
-    <EmbeddedResource Remove="pub\**" />
-    <EmbeddedResource Remove="wwwroot\css\_\**" />
-    <EmbeddedResource Remove="wwwroot\images\_\**" />
-    <EmbeddedResource Remove="wwwroot\js\_\**" />
-    <EmbeddedResource Remove="wwwroot\lib\_\**" />
-    <EmbeddedResource Remove="_\**" />
-    <None Remove="Controllers\**" />
-    <None Remove="Log\**" />
-    <None Remove="pub\**" />
-    <None Remove="wwwroot\css\_\**" />
-    <None Remove="wwwroot\images\_\**" />
-    <None Remove="wwwroot\js\_\**" />
-    <None Remove="wwwroot\lib\_\**" />
-    <None Remove="_\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove=".bowerrc" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Controllers\IndexController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!--<PackageReference Include="Microsoft.AspNetCore.App" />-->
-    <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Blazor.Server" Version="0.4.0" />-->
-    <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Blazor\src\Microsoft.AspNetCore.Blazor.Server\Microsoft.AspNetCore.Blazor.Server.csproj" />-->
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <ProjectReference Include="..\..\lib\Platforms\ams.Platforms.csproj" />
-    <ProjectReference Include="..\..\lib\TagHelpers\ams.TagHelpers.csproj" />
-    <ProjectReference Include="..\..\lib\Transactions\ams.Transactions.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="exec.cmd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None CopyToOutputDirectory="PreserveNewest" Update="testCert.pfx" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-  
-  <ProjectExtensions><VisualStudio><UserProperties compilerconfig_1json_1defaults__JSONSchema="http://json.schemastore.org/compilerconfig" /></VisualStudio></ProjectExtensions>
 
 </Project>

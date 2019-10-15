@@ -35,7 +35,7 @@ namespace InnateGlory
                 HttpContextExtensions.HttpContext,
                 RegisterForDispose);
 
-            services.AddLogging(logging => logging.InjectConsole().AddSql().AddTextFile());
+            services.AddLogging(logging => logging./*InjectConsole().*/AddSql()/*.AddTextFile()*/);
             //services.AddSingleton<ILoggerProvider, Tools.Logging.SqlLoggerProvider>();
             //services.AddSingleton<ILoggerProvider, Tools.Logging.TextFileLoggerProvider>();
 

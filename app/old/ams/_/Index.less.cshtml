@@ -1,0 +1,56 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+
+
+    @*<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+    <script src="~/lib/angular/angular.js"></script>
+    @*<script src="~/js/bundle.js" asp-append-version="true"></script>*@
+    @*<script src="~/lib/fabric.js/dist/fabric.js"></script>*@
+    <script src="~/js/bridge-all.js"></script>
+    <script src="~/js/ams.js" asp-append-version="true"></script>
+    <style type="text/less" data-href="123">
+        @@bg-color : 'green';
+    </style>
+    <link rel="stylesheet/less" type="text/css" href="~/css/index.less" />
+    <script type="text/javascript">
+        less = {
+            modifyVars: {
+                '@@bg-color': 'green'
+            }
+        };
+
+        var less_ex = {
+            loadStyleSheet: function (sheet, instanceOptions) {
+                //var lessText = fileCache[href];
+                //callback(null, { contents: lessText, filename: href, webInfo: { lastModified: new Date() } });
+                //console.log();
+                if (sheet.tagName == 'STYLE') {
+                    instanceOptions.lessText = sheet.innerHTML;
+                    instanceOptions.href = window.location.href + '?' + Math.random();
+                }
+                return instanceOptions;
+            }
+        };
+    </script>
+    <script src="~/js/less.js" asp-append-version="true"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body ng-controller="main">
+    <script type="text/javascript">
+        util.ng_init('app').controller('main', function ($scope, $ams) {
+        });
+    </script>
+</body>
+</html>

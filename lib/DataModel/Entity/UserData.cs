@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Diagnostics;
 
 namespace InnateGlory.Entity
@@ -31,5 +32,39 @@ namespace InnateGlory.Entity
         public int Depth { get; set; }
 
         #endregion
+    }
+
+    public class Users
+    {
+        public UserId Id;
+        public UserType UserType;
+        public CorpId CorpId;
+        public string Name;
+        public ActiveState Active;
+        public UserId ParentId;
+        public string DisplayName;
+        public int Depth;
+        public DateTime CreateTime;
+        public UserId CreateUser;
+        public DateTime ModifyTime;
+        public UserId ModifyUser;
+    }
+
+    public class User_Agent
+    {
+        public UserId Id;
+        public int MaxDepth;
+        public int MaxAgents;
+        public int MaxAdmins;
+        public int MaxMembers;
+    }
+
+    public class User_Admin
+    {
+        public UserId Id;
+    }
+
+    public class Users_Member
+    {
     }
 }
