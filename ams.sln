@@ -44,8 +44,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_api", "app\ams_api\ams_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams", "app\ams\ams.csproj", "{48C73836-5A47-4DF8-935A-F9CAD4D655C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp2", "test\WindowsFormsApp2\WindowsFormsApp2.csproj", "{9B81F983-1C94-46F9-91A5-AA6E2AFB85CD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,10 +106,6 @@ Global
 		{48C73836-5A47-4DF8-935A-F9CAD4D655C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48C73836-5A47-4DF8-935A-F9CAD4D655C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48C73836-5A47-4DF8-935A-F9CAD4D655C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B81F983-1C94-46F9-91A5-AA6E2AFB85CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B81F983-1C94-46F9-91A5-AA6E2AFB85CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B81F983-1C94-46F9-91A5-AA6E2AFB85CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B81F983-1C94-46F9-91A5-AA6E2AFB85CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,7 +126,6 @@ Global
 		{AEF174BC-1A98-478D-BD35-D4F89511BCA7} = {A209FC35-3218-4C18-886F-1817CFADDE30}
 		{3ED217F0-025B-4AC0-9B35-8E4FD6E7940B} = {D31F8A7E-2CA5-4F53-8914-BEE2EF0F6EC1}
 		{48C73836-5A47-4DF8-935A-F9CAD4D655C5} = {D31F8A7E-2CA5-4F53-8914-BEE2EF0F6EC1}
-		{9B81F983-1C94-46F9-91A5-AA6E2AFB85CD} = {F988683C-F7D7-455C-B40C-2D8EAF274263}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {11B48416-3194-4CA4-83E5-3DB750E471C0}
