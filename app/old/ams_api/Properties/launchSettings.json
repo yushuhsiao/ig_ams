@@ -11,6 +11,7 @@
   "profiles": {
     "ams_api": {
       "commandName": "Project",
+      "launchBrowser": true,
       "launchUrl": "swagger/Index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
