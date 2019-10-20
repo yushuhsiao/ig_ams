@@ -3,14 +3,12 @@
   <PropertyGroup>
     <!--<TargetFramework>netstandard2.0</TargetFramework>-->
     <!--<TargetFrameworks>net40;net452;net461;netstandard2.0</TargetFrameworks>-->
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyName>Tools</AssemblyName>
     <PackageId>Tools</PackageId>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>$(ToolsVersion)</Version>
     <RootNamespace>Tools</RootNamespace>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <!--<EnableDefaultCompileItems>false</EnableDefaultCompileItems>-->
   </PropertyGroup>
   <ItemGroup>
@@ -20,37 +18,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Global.cs" />
+    <Compile Remove="Logger\Microsoft.Extensions.Logging.Console.cs" />
+    <Compile Remove="Logger\TextFileLogger.cs" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
-    <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.4" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
-    <PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\AspNetCore\src\Hosting\Abstractions\src\Microsoft.AspNetCore.Hosting.Abstractions.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net40'">
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
-    <Reference Include="System.Windows.Forms" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'net461'">
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
+    <PackageReference Include="Dapper" Version="1.60.6" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <PackageReference Include="Dapper" Version="1.60.6" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
   </ItemGroup>
-  
-  <Import Project="Legacy.props" />
+  <ItemGroup>
+  </ItemGroup>
 </Project>

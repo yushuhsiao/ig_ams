@@ -1,0 +1,258 @@
+﻿@import "../wwwroot/lib/bootstrap/scss/functions";
+@import "../wwwroot/lib/bootstrap/scss/variables";
+@import "../wwwroot/lib/bootstrap/scss/mixins/_hover.scss";
+
+$left-size : 300px;
+$right-size: 300px;
+
+@mixin easing {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all .5s ease;
+}
+
+@mixin _setwidth($width) {
+    width: $width;
+    min-width: $width;
+}
+
+@mixin _setheight($height) {
+    height: $height;
+    min-height: $height;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.login-group {
+    padding-top: 0;
+    padding-bottom: .5em;
+    border-radius: $border-radius;
+    background-color: $gray-100;
+    margin-bottom: 0.4em;
+}
+.login-input {
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-color: $gray-600;
+    width: 100%;
+    background-color: transparent;
+}
+[data-Status="0"] .login-alert {
+    border-left: 0;
+    background-color: unset;
+    font-size: smaller;
+}
+.login-alert {
+    color: $pink;
+    background-color: transparentize($pink, .8);
+    border-left: 3px solid $pink;
+    padding-left: .2em;
+    font-size: smaller;
+    white-space: nowrap;
+    cursor: pointer;
+    //padding: map-get($spacers, 1) map-get($spacers, 3);
+    //margin: 0;
+    //@extend .alert;
+}
+#frm_login {
+    .modal-content {
+        position: relative;
+    }
+
+    .login-busy {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.p00 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    * {
+        white-space: nowrap;
+    }
+}
+
+.p10 {
+    //@include _setheight(40px);
+    //line-height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .fa {
+        font-size: 1.2em;
+    }
+
+    @media (max-width : map-get($grid-breakpoints, "md")) {
+        .fa {
+            font-size: 1.8em;
+        }
+    }
+}
+
+.p20 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    &>* {
+        @include easing;
+    }
+}
+
+.p30 {
+    @include _setheight(5px);
+    width: 100%;
+}
+
+.pusher-left, .sidebar-left {
+    @include _setwidth(0);
+    height: 100%;
+}
+
+//.content-container {
+//    width: 100%;
+//    height: 100%;
+//    position: relative;
+//}
+
+.content-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    //opacity: .3;
+}
+
+.content-mask,
+.dock-left .content-mask,
+.dock-right .content-mask
+.dock-right.dock-left .content-mask,
+.dock-left.dock-right .content-mask
+{
+    display: none;
+}
+
+.show-right .content-mask,
+.show-left  .content-mask {
+    display: block;
+}
+
+.pusher-right, .sidebar-right {
+    @include _setwidth(0);
+    height: 100%;
+}
+
+.sidebar-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.sidebar-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.dock-left {
+    .pusher-left, .sidebar-left {
+        @include _setwidth($left-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(0);
+        }
+    }
+}
+
+.dock-right {
+    .pusher-right, .sidebar-right {
+        @include _setwidth($right-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(0);
+        }
+    }
+}
+
+.show-left {
+    .sidebar-left {
+        @include _setwidth($left-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(50%);
+        }
+
+        @media (max-width : map-get($grid-breakpoints, "sm")) {
+            @include _setwidth(90%);
+        }
+    }
+}
+
+.show-right {
+    .sidebar-right {
+        @include _setwidth($right-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(50%);
+        }
+
+        @media (max-width : map-get($grid-breakpoints, "sm")) {
+            @include _setwidth(90%);
+        }
+    }
+}
+
+//.toggle-left-lg {
+//    font-size: 1.2em;
+//    display: block;
+//}
+//
+//.toggle-left-md {
+//    font-size: 1.8em;
+//    display: none;
+//}
+//
+//.toggle-right-lg {
+//    font-size: 1.2em;
+//    display: block;
+//}
+//
+//.toggle-right-md {
+//    font-size: 1.8em;
+//    display: none;
+//}
+//
+//@media (max-width : map-get($grid-breakpoints, "md")) {
+//    .toggle-left-lg {
+//        display: none;
+//    }
+//
+//    .toggle-left-md {
+//        display: block;
+//    }
+//
+//    .toggle-right-lg {
+//        display: none;
+//    }
+//
+//    .toggle-right-md {
+//        display: block;
+//    }
+//}

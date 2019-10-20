@@ -1,5 +1,3 @@
-.svn/
-.vs/
 bin/
 obj/
 Log/
@@ -18,3 +16,4 @@ Thumbs.db
 /app/ams/wwwroot/lib/webix
 /app/ams/wwwroot/lib/@aspnet
 
+.idea

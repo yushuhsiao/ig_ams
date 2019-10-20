@@ -1,0 +1,111 @@
+﻿@*@page "/"*@
+@model InnateGlory.Pages.Home.LoginModel
+@{
+    lang.Path = "Login";
+    const string page_id = "form_login";
+    const string err_msg = "err_msg";
+}
+
+@section head {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/webix/skins/flat.min.css" />
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.min.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link inline rel="stylesheet" href-auto />
+}
+
+<div id="login_container" class="login_form">
+</div>
+@*<script inline src-auto></script>*@
+<script src="~/lib/webix/webix.min.js"></script>
+@*<script src="~/js/bridge.js"></script>*@
+@*<script src="~/js/bridge/bridge.js"></script>*@
+<script src="~/js/site.js"></script>
+@*<script src="~/lib/jquery/jquery.js"></script>*@
+<script>
+    webix.ready(function () {
+        webix.ui({
+            container: 'login_container',
+            view: 'form',
+            id: '@page_id',
+            scroll: false,
+            maxWidth: 300,
+            rules: {
+                UserName: webix.rules.isNotEmpty,
+                Password: webix.rules.isNotEmpty
+            }, elements: [
+                { view: 'text', name: 'CorpName', label: '@lang["CorpName"]', value: 'root' },
+                { view: 'text', name: 'UserName', label: '@lang["UserName"]', value: 'root' },
+                { view: 'text', name: 'Password', label: '@lang["Password"]', value: 'root', type: 'password' },
+                {
+                    view: 'segmented', label: '@lang["LoginType"]', name: 'LoginType', multiview: true, value: '@UserType.Agent',
+                    options: [
+                        { id: 'Agent', value: '@lang[UserType.Agent]' },
+                        { id: 'Admin', value: '@lang[UserType.Admin]' },
+                        { id: 'Member', value: '@lang[UserType.Member]' }
+                    ]
+                },
+                {
+                    cols: [
+                        {},
+                        {
+                            view: 'button', label: '@lang["Login"]',
+                            css:'webix_primary',
+                            click: function () {
+                                var form = $$('@page_id');
+                                form.callEvent('onSubmit', null);
+                            }
+                        },
+                        {
+                            view: 'button', label: '@lang["Clear"]',
+                            css:'webix_primary',
+                            click: function (args) {
+                                if (args === void 0) { args = []; }
+                                var form = $$('@page_id');
+                                form.clear();
+                                form.markInvalid('UserName', false);
+                                form.markInvalid('Password', false);
+                                form.markInvalid('LoginType', false);
+                                $$('@err_msg').setValue('');
+                            }
+                        }
+                    ]
+                },
+                { view: 'label', id: '@err_msg', label: '', align: 'right' }],
+            on: {
+                onSubmit: function () {
+                    var form = $$('@page_id');
+                    var msg = $$('@err_msg');
+
+                    if (form.validate()) {
+                        msg.setValue('');
+                        var data = form.getValues();
+
+                        form.disable();
+                        util.api('@config.ApiUrl', '@_urls.auth_login', data, function (result) {
+                            if (result.IsSuccess) {
+                                //document.cookie = result.Data.SetCookie;
+                                //setCookie(result.Data.SetCookie_Name, result.Data.SetCookie_Value);
+                                //document.cookie = result.Data.SetCookie_Name + '=' + escape(result.Data.SetCookie_Value);
+                                setCookie('@IndexController.relogin_token_name', result.Data.AccessToken);
+                                setCookie('Authorization', result.Data.AccessToken);
+                                setTimeout(function () {
+                                    window.location.reload(true);
+                                }, 1000);
+                            } else {
+                                form.enable();
+                                msg.setValue(result.Message);
+                                result.EnumErrors(function (key, value) {
+                                    form.markInvalid(key, value.Message);
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        webix.event(window, 'resize', function () {
+            $$('@page_id').adjust();
+        });
+    });
+</script>

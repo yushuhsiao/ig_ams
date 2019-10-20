@@ -1,0 +1,39 @@
+﻿@page
+@model ApiListModel
+@inject Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider apis
+@using Microsoft.AspNetCore.Html;
+@using Microsoft.AspNetCore.Mvc.Controllers;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Api List</title>
+</head>
+<body>
+    <pre>
+    @foreach (var n in apis.ActionDescriptors.Items)
+    {
+        @if (n is ControllerActionDescriptor)
+        {
+            var c = (ControllerActionDescriptor)n;
+            <text>Action: /@c.AttributeRouteInfo.Template</text>
+        }
+        else if (n is PageActionDescriptor)
+        {
+            var p = (PageActionDescriptor)n;
+            <text>Page:   /@p.AttributeRouteInfo.Template</text>
+        }
+        else
+        {
+            <text>        /@n.AttributeRouteInfo.Template</text>
+        }
+        <text>
+</text>
+    }
+</pre>
+</body>
+</html>

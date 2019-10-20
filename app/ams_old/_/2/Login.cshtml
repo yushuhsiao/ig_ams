@@ -1,0 +1,105 @@
+﻿@page "/"
+@{
+    lang.ResPath = "Login";
+    const string page_id = "form_login";
+    const string err_msg = "err_msg";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>ams</title>
+    <link href="~/lib/webix/codebase/skins/flat.min.css" rel="stylesheet" />
+    <link inline rel="stylesheet" href-auto />
+    <script src="~/lib/webix/codebase/webix.min.js"></script>
+    <script src="~/js/bridge.min.js"></script>
+    @*<script src="~/js/site.js"></script>*@
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+</head>
+<body>
+    <div id="login_container" class="login_form">
+    </div>
+    @*<script inline src-auto></script>*@
+    <script>
+        webix.ready(function () {
+            webix.ui({
+                container: 'login_container',
+                view: 'form',
+                id: '@page_id',
+                scroll: false,
+                maxWidth: 300,
+                rules: {
+                    UserName: webix.rules.isNotEmpty,
+                    Password: webix.rules.isNotEmpty
+                }, elements: [
+                    { view: 'text', name: 'CorpName', label: '@lang["CorpName"]', value: 'root' },
+                    { view: 'text', name: 'UserName', label: '@lang["UserName"]', value: 'root' },
+                    { view: 'text', name: 'Password', label: '@lang["Password"]', value: 'root', type: 'password' },
+                    {
+                        view: 'segmented', label: '@lang["LoginType"]', name: 'LoginType', multiview: true, value: '@UserType.Agent',
+                        options: [
+                            { id: 'Agent', value: '@lang[UserType.Agent, "Agent"]' },
+                            { id: 'Admin', value: '@lang[UserType.Admin, "Admin"]' },
+                            { id: 'Member', value: '@lang[UserType.Member, "Member"]' }
+                        ]
+                    },
+                    {
+                        cols: [
+                            {},
+                            {
+                                view: 'button', label: '@lang["Login"]',
+                                click: function () {
+                                    var form = $$('@page_id');
+                                    form.callEvent('onSubmit', null);
+                                }
+                            },
+                            {
+                                view: 'button', label: '@lang["Clear"]',
+                                click: function (args) {
+                                    if (args === void 0) { args = []; }
+                                    var form = $$('@page_id');
+                                    form.clear();
+                                    form.markInvalid('UserName', false);
+                                    form.markInvalid('Password', false);
+                                    form.markInvalid('LoginType', false);
+                                    $$('@err_msg').setValue('');
+                                }
+                            }
+                        ]
+                    },
+                    { view: 'label', id: '@err_msg', label: '', align: 'right' }],
+                on: {
+                    onSubmit: function () {
+                        var form = $$('@page_id');
+                        var msg = $$('@err_msg');
+
+                        if (form.validate()) {
+                            msg.setValue('');
+                            var data = form.getValues();
+
+                            form.disable();
+                            util.api('@Url.Action("Login", "Auth")', data, function (result) {
+                                if (result.IsSuccess) {
+                                    window.location.reload(true);
+                                } else {
+                                    form.enable();
+                                    msg.setValue(result.Message);
+                                    result.EnumErrors(function (key, value) {
+                                        form.markInvalid(key, value.Message);
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+            webix.event(window, 'resize', function () {
+                $$('@page_id').adjust();
+            });
+        });
+    </script>
+</body>
+</html>
