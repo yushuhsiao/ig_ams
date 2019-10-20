@@ -1,0 +1,127 @@
+﻿.btn-group-justified {
+  display: flex;
+  width: 100%; }
+  .btn-group-justified .btn,
+  .btn-group-justified .btn-group {
+    flex: 1; }
+    .btn-group-justified .btn .btn,
+    .btn-group-justified .btn-group .btn {
+      width: 100%; }
+    .btn-group-justified .btn .dropdown-menu,
+    .btn-group-justified .btn-group .dropdown-menu {
+      left: auto; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden; }
+
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; }
+
+.p00 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /** {
+        white-space: nowrap;
+    }*/ }
+
+.p10 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; }
+  .p10 * {
+    white-space: nowrap; }
+  .p10 .fa {
+    font-size: 1.2em; }
+  @media (max-width: 768px) {
+    .p10 .fa {
+      font-size: 1.8em; } }
+
+.p20 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  position: relative;
+  background-color: yellow;
+  /*& > .webix-view,
+    & > .webix_view > .webix_view {
+    }
+
+    & .p21, &.p22, & .p23 {
+        @include easing;
+    }*/ }
+  .p20 > * {
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease; }
+
+.p30 {
+  width: 100%;
+  height: 1px;
+  min-height: 1px; }
+
+.p21 {
+  height: 100%;
+  position: absolute;
+  opacity: .9;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem; }
+
+#left_sidebar {
+  width: 100%;
+  height: 100%; }
+
+.p23 {
+  height: 100%;
+  position: absolute;
+  opacity: .9;
+  /*padding: 20px;*/
+  padding: 1rem; }
+  .p23 .p23-1, .p23 .p23-2 {
+    width: 100%;
+    height: 100%; }
+
+.p22 {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+  .p22 .p22-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .1;
+    cursor: pointer; }
+  .p22 .p22-loading {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%; }
+  .p22 .p22-iframe {
+    width: 100%;
+    height: 100%;
+    border-width: 0; }
+  .p22 .p22-iframe-container {
+    width: 100%;
+    height: 100%;
+    border-width: 0; }

@@ -3,13 +3,12 @@
   <PropertyGroup>
     <!--<TargetFramework>netstandard2.0</TargetFramework>-->
     <!--<TargetFrameworks>net40;net452;net461;netstandard2.0</TargetFrameworks>-->
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyName>Tools</AssemblyName>
     <PackageId>Tools</PackageId>
     <Version>$(ToolsVersion)</Version>
     <RootNamespace>Tools</RootNamespace>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <!--<EnableDefaultCompileItems>false</EnableDefaultCompileItems>-->
   </PropertyGroup>
   <ItemGroup>

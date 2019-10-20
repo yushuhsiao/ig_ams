@@ -1,0 +1,379 @@
+﻿@import "../wwwroot/css/site";
+@import "../wwwroot/lib/bootstrap/scss/functions";
+@import "../wwwroot/lib/bootstrap/scss/variables";
+@import "../wwwroot/lib/bootstrap/scss/mixins";
+
+$top-size: 40px;
+$left-size: 300px;
+$right-size: 300px;
+$easing-time: .4s;
+
+@mixin easing {
+    -webkit-transition: all $easing-time ease;
+    -moz-transition: all $easing-time ease;
+    -o-transition: all $easing-time ease;
+    transition: all $easing-time ease;
+}
+
+/*@mixin _setwidth($width) {
+    width: $width;
+    min-width: $width;
+}
+
+@mixin _setheight($height) {
+    height: $height;
+    min-height: $height;
+}*/
+
+html, body {
+    @include size(100%, 100%);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.p00 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    //color: $white;
+    //background-color: $dark;
+}
+
+#p10 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid $white;
+    height: $top-size;
+    white-space: nowrap;
+    color: $white;
+    background-color: $dark;
+
+    .p11 {
+    }
+
+    .p12 {
+        width: 100%;
+    }
+
+    .p13 {
+    }
+
+
+    .webix_layout_toolbar.webix_toolbar {
+        background-color: transparent;
+    }
+    /*.webix_el_box {
+        padding: 0;
+    }*/
+    /*.webix_icon_btn {
+        font-size: 23px; 
+    }
+
+    .webix_el_button button {
+        border-radius: 0;
+        font-size: 21px;
+    }*/
+    /*.webix_template {
+        padding: 0;
+        margin: 0;
+    }*/
+    /*[view_id="btn01"] {
+        & > .webix_el_box {
+            background-color: red;
+            font-size: 1.5em;
+            padding: 0;
+            margin: 0;
+        }
+    }*/
+}
+
+.p20 {
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-around;
+    //color: $white;
+    //background-color: #ECEFF1;
+    //$dark;
+    /*.show-left, .dock-left, show-right, dock-right {
+    }*/
+    & > * {
+        @include easing;
+    }
+}
+
+.p30 {
+    height: 1px;
+    border-top: 1px solid $white;
+}
+
+#p21,
+.p23 {
+    position: absolute;
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    overflow: auto;
+    //background-color: $dark;
+    z-index: 100;
+    //position: relative;
+    //@media (max-width : map-get($grid-breakpoints, "md")) {
+    //    display: none;
+    //}
+}
+@media (max-width : map-get($grid-breakpoints, "md")) {
+    #p21,
+    .p23 {
+        position: absolute;
+    }
+}
+
+#p21 {
+    left: 0;
+}
+
+.p23 {
+    right: 0;
+}
+
+.dock-left #p21 {
+    position: relative;
+}
+
+.show-left #p21 {
+    width: $left-size;
+    min-width: $left-size;
+}
+
+.dock-right .p23 {
+    position: relative;
+}
+
+.show-right .p23 {
+    width: $right-size;
+    min-width: $right-size;
+}
+
+@media (max-width : map-get($grid-breakpoints, "md")) {
+    &.show-right #p21 {
+        width: 0;
+        min-width: 0;
+    }
+}
+
+.p22 {
+    //color: $body-color;
+    //background-color: $body-bg;
+    overflow: auto;
+    width: 100%;
+    position: relative;
+}
+
+.p22x {
+    background-color: $dark;
+    opacity: .1;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.show-right .p22x {
+    display: block;
+}
+
+/*
+.sidebar-left, .sidebar-right {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        @include easing;
+    }
+    .p00 {
+    @include size(100%, 100%);
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    * {
+        white-space: nowrap;
+    }
+}
+
+.p10, .p30, .sidebar-left, .sidebar-right {
+    color: $white;
+    background-color: $dark;
+}
+
+.p10 {
+    //@include _setheight(40px);
+    //line-height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    @include _setheight(37px);
+
+    @media (max-width : map-get($grid-breakpoints, "md")) {
+        @include _setheight(41px);
+    }
+
+    .fa {
+        font-size: 1.2em;
+    }
+
+    @media (max-width : map-get($grid-breakpoints, "md")) {
+        .fa {
+            font-size: 1.8em;
+        }
+    }
+}
+
+.p20 {
+    @include size(100%, 100%);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    & > * {
+        @include easing;
+    }
+}
+
+.p30 {
+    @include _setheight(5px);
+    width: 100%;
+}
+
+.pusher-left, .sidebar-left {
+    @include _setwidth(0);
+    height: 100%;
+}
+
+
+.content-mask,
+.dock-left .content-mask,
+.dock-right .content-mask
+.dock-right.dock-left .content-mask,
+.dock-left.dock-right .content-mask {
+    display: none;
+}
+
+.show-right .content-mask,
+.show-left .content-mask {
+    display: block;
+}
+
+.pusher-right, .sidebar-right {
+    @include _setwidth(0);
+    height: 100%;
+}
+
+.sidebar-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+
+.sidebar-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.sidebar-right-content {
+    @include _setwidth($right-size);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-right-tabs {
+    padding: .3em 1em 1.2em 1em;
+
+    & > .btn {
+        padding-top: 0;
+        padding-bottom: 2px;
+    }
+}
+
+.sidebar-right-item {
+    padding: .3em;
+    @include size(100%, 100%);
+    overflow: auto;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.dock-left {
+    .pusher-left, .sidebar-left {
+        @include _setwidth($left-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(0);
+        }
+    }
+}
+
+.dock-right {
+    .pusher-right, .sidebar-right {
+        @include _setwidth($right-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(0);
+        }
+    }
+}
+
+.show-left {
+    .sidebar-left {
+        @include _setwidth($left-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(50%);
+        }
+
+        @media (max-width : map-get($grid-breakpoints, "sm")) {
+            @include _setwidth(90%);
+        }
+    }
+}
+
+.show-right {
+    .sidebar-right {
+        @include _setwidth($right-size);
+
+        @media (max-width : map-get($grid-breakpoints, "md")) {
+            @include _setwidth(50%);
+        }
+
+        @media (max-width : map-get($grid-breakpoints, "sm")) {
+            @include _setwidth(90%);
+        }
+    }
+}
+
+.sidebar-left {
+    .nav-link {
+        cursor: pointer;
+
+        &:hover {
+            background-color: $dropdown-link-hover-color;
+        }
+
+        &.disabled, &.disabled:hover {
+            cursor: unset;
+            background-color: unset;
+        }
+    }
+}*/

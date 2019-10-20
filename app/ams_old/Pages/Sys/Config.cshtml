@@ -1,0 +1,59 @@
+﻿@page "/sys/config"
+@using Microsoft.AspNetCore.Mvc.ApplicationParts
+@using Microsoft.Extensions.Configuration
+@inject ApplicationPartManager parts
+@model InnateGlory.Pages.Sys.ConfigModel
+
+<table border="1">
+    <tr>
+        <th></th>
+        <th>ClassName</th>
+        <th>Member</th>
+        <th>SectionName</th>
+        <th>Key</th>
+    </tr>
+    @{
+        foreach (var _p in parts.ApplicationParts)
+        {
+            var p = _p as AssemblyPart;
+            if (p != null)
+            {
+                ;
+                foreach (var t in p.Types)
+                {
+                    foreach (var m in t.GetMembers(_Consts.BindingAttrs))
+                    {
+                        foreach (var _a in m.GetCustomAttributes(typeof(AppSettingAttribute), true))
+                        {
+                            var a = (AppSettingAttribute)_a;
+                            <tr>
+                                <td>@p.Name</td>
+                                <td>@m.DeclaringType.Name</td>
+                                <td>@m.Name</td>
+                                <td>@a.SectionName</td>
+                                <td>@a.Key</td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        }
+    }
+</table>
+
+@*<pre>
+    Logging:Sql                             ConnectionString
+    Logging:Sql                             LogAll
+    Logging:TextFile                        LogDir
+    Logging:TextFile                        DirectoryFormat
+    Logging:TextFile                        FileNameFormat
+    Logging:TextFile                        Ext
+    Logging:TextFile                        RetryCount
+    @_Consts.UserManager.ConfigSection      InternalApiServer
+    @_Consts.UserManager.ConfigSection      AllowAgentLogin
+    @_Consts.UserManager.ConfigSection      AllowAdminLogin
+    @_Consts.UserManager.ConfigSection      AllowMemberLogin
+    Config                                  ExpireTime
+    @_Consts.Redis.Key1                     @_Consts.Redis.Message
+    @_Consts.Redis.Key1                     @_Consts.Redis.Message_Reconnect
+    </pre>*@
