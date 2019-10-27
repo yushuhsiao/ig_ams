@@ -78,6 +78,10 @@
     <!--<PackageReference Include="Microsoft.AspNetCore.App" />-->
     <!--<PackageReference Condition=" '$(SolutionName)' != 'ams.asp' " Include="Microsoft.AspNetCore.Blazor.Server" Version="0.4.0" />-->
     <!--<ProjectReference Condition=" '$(SolutionName)' == 'ams.asp' " Include="..\..\lib.ext\Blazor\src\Microsoft.AspNetCore.Blazor.Server\Microsoft.AspNetCore.Blazor.Server.csproj" />-->
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.6.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <ProjectReference Include="..\..\lib\Platforms\ams.Platforms.csproj" />
     <ProjectReference Include="..\..\lib\TagHelpers\ams.TagHelpers.csproj" />

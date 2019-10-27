@@ -40,8 +40,8 @@ namespace InnateGlory
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
 
             app.UseRouting();
 
