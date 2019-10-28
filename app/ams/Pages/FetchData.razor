@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @using InnateGlory.Shared
+@using System.Text.Json
 @inject HttpClient Http
 
 <h1>Weather forecast</h1>
@@ -40,7 +41,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetJsonAsync<WeatherForecast[]>("WeatherForecast");
+        var str = await Http.GetStringAsync("WeatherForecast");
+        forecasts = JsonSerializer.Deserialize<WeatherForecast[]>(str, JsonSerializerOptionsProvider.Options);
     }
 
 }

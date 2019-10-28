@@ -35,15 +35,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.Misc", "lib\Misc\ams.Mi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{A209FC35-3218-4C18-886F-1817CFADDE30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.Client", "app\ams.Client\ams.Client.csproj", "{903EA862-AC07-47AE-9BB2-12666A54E0D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams", "app\ams\ams.csproj", "{903EA862-AC07-47AE-9BB2-12666A54E0D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.Server", "app\ams.Server\ams.Server.csproj", "{E0FFB424-709C-4999-8058-C5FF59450A43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_host", "app\ams_host\ams_host.csproj", "{E0FFB424-709C-4999-8058-C5FF59450A43}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_api_old", "app\ams_api_old\ams_api_old.csproj", "{D2920819-AB00-4E95-95C5-4017B29784E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams_old", "app\ams_old\ams_old.csproj", "{0AB3C0DA-E52F-4FE2-B559-D817FBEAB8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ams.api", "app\ams.api\ams.api.csproj", "{01E3FF07-A9DC-463B-BD02-0F577E65448F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ams.api", "app\ams.api\ams.api.csproj", "{01E3FF07-A9DC-463B-BD02-0F577E65448F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".aspnet", ".aspnet", "{91E253F0-0F41-4DC6-820A-CB49B164FFEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

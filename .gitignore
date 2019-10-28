@@ -19,3 +19,4 @@ Thumbs.db
 /app/ams/wwwroot/lib/@aspnet
 
 .idea
+app/ams/wwwroot/lib
