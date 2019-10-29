@@ -8,13 +8,18 @@
     }
   },
   "profiles": {
-    "ams.Server": {
+    "ams_host": {
       "commandName": "Project",
-      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://0.0.0.0:7001/"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {},
+      "httpPort": 50537
     }
   }
 }

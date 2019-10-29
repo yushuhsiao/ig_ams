@@ -3,13 +3,14 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "provider": "unpkg",
+      "provider": "jsdelivr",
       "library": "webix@7.0.0",
       "destination": "wwwroot/lib/webix/"
     },
     {
-      "library": "twitter-bootstrap@4.3.1",
-      "destination": "wwwroot/lib/twitter-bootstrap/"
+      "provider": "jsdelivr",
+      "library": "bootstrap@4.3.1",
+      "destination": "wwwroot/lib/bootstrap/"
     }
   ]
 }

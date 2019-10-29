@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 
-namespace InnateGlory.Client
+namespace ams
 {
     public class Program
     {
