@@ -3,19 +3,19 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:63615/",
+      "applicationUrl": "http://localhost:54125",
       "sslPort": 0
     }
   },
   "profiles": {
-    "ams.Server": {
+    "ams_web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:7001",
+      "launchUrl": "http://localhost:7000",
+      "applicationUrl": "http://0.0.0.0:7000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://0.0.0.0:7001/"
+      }
     }
   }
 }

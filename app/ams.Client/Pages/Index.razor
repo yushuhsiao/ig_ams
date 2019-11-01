@@ -1,7 +1,20 @@
 ﻿@page "/"
+@inject IJSRuntime js
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
+<button class="btn-primary" @onclick="click1">test</button>
+<div>@aaa</div>
+
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@code { 
+    int aaa = 0;
+  
+    async Task click1()
+    {
+        aaa = await js.InvokeAsync<int>("test1", "1", "2", "3");
+    }
+}
