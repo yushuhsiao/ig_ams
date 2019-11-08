@@ -1,20 +1,39 @@
 ﻿@page "/"
 @inject IJSRuntime js
+@using System.Net.Http
+@inject HttpClient Http
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-<button class="btn-primary" @onclick="click1">test</button>
+<button class="btn-primary" @onclick="click1">test1</button>
 <div>@aaa</div>
+<button class="btn-primary" @onclick="click2">test2</button>
+<div>@bbb</div>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-@code { 
+@code {
     int aaa = 0;
-  
+    string bbb = "";
+
     async Task click1()
     {
         aaa = await js.InvokeAsync<int>("test1", "1", "2", "3");
+    }
+
+    async Task click2()
+    {
+        using (HttpContent content = new System.Net.Http.StringContent("application/json"))
+        {
+            using (var msg = await Http.PostAsync("http://192.168.55.4:7002/test", content))
+            {
+                using (var content_r = msg.Content)
+                {
+                    bbb = await content_r.ReadAsStringAsync();
+                }
+            }
+        }
     }
 }
