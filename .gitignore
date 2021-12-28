@@ -4,3 +4,4 @@ obj/
 app/ams.Client/wwwroot/lib
 lib.ext
 test
+.idea
